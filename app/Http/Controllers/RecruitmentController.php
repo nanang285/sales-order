@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 class RecruitmentController extends Controller
 {
     public function index() : View
-   {
+    {
 
-     $recruitments = Recruitment::all();
-     return view('recruitment.index', compact('recruitments'));
-   }
+      $recruitments = Recruitment::all();
+      return view('admin.recruitment.index', compact('recruitments'));
+    }
 
    public function create ($recruitments)
    {

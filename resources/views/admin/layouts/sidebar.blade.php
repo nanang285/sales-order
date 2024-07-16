@@ -14,8 +14,8 @@
 
                     </li>
                     <li class="">
-                        <a href="#"
-                            class="flex items-center px-4 py-2.5 font-semibold text-base text-gray-500 rounded hover:bg-[#bdd4f69d] group transition duration-300">
+                        <a href="{{ Route('recruitment') }}"
+                            class="{{ Request::is('admin/recruitment') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base text-gray-500 rounded hover:bg-[#bdd4f69d] group transition duration-300">
                             <i class="fa-solid fa-id-card"></i>
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Recruitment</span>
                             <span
@@ -34,57 +34,57 @@
                         <ul id="dropdown-layouts" class="hidden pl-5 space-y-1">
                             <li class="mt-2">
                                 <a href=" {{ Route('promo') }} "
-                                    class="{{ Request::is('homepages/promo') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    class="{{ Request::is('admin/promo') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Promo</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('hero') }}"
                                     class="{{ Request::is('admin/hero') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Beranda</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('service') }}"
                                     class="{{ Request::is('admin/service') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Layanan</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('about') }}"
                                     class="{{ Request::is('admin/about') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Profil</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('project') }}"
                                     class="{{ Request::is('admin/project') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Portofolio</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('galery') }}"
                                     class="{{ Request::is('admin/galery') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Galeri</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('client') }}"
                                     class="{{ Request::is('admin/client') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Klien</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('footer') }}"
                                     class="{{ Request::is('admin/footer') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-[8px]"></i>
+                                    <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Footer
 
                                     </span>

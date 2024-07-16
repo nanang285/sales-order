@@ -244,15 +244,17 @@
             </p>
         </div>
         <div class="relative mt-2 swiper-container swiper-klien-kami rounded-md">
-            <div class="swiper-wrapper mb-12  items-center">
+            <div class="swiper-wrapper mb-12">
                 @foreach ($clientSection as $client)
-                    <div class="swiper-slide overflow-hidden mb-4 flex-grow flex justify-center h-64">
+                    <div class="swiper-slide overflow-hidden mb-4 flex-grow flex justify-center mx-auto h-auto">
                         <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
-                            alt="Client 1" class="w-52 max-h-full object-contain">
+                            alt="Client 1" class="object-contain h-52 max-w-full">
                     </div>
                 @endforeach
             </div>
+            
             <div class="text-primary mt-10 absolute swiper-pagination"></div>
+            
         </div>
     </div>
 </section>

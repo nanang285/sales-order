@@ -72,6 +72,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('admin.user');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
@@ -79,7 +80,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/user/edit', [UserController::class, 'edit'])->name('admin.user.edit');
     Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
 
-    Route::get('/admin/recruitment', [RecruitmentController::class, 'index'])->name('admin.recruitment.index');
+    Route::get('/admin/recruitment', [RecruitmentController::class, 'index'])->name('recruitment');
 
     // Homepages
     Route::get('/admin/promo', [PromoController::class, 'index'])->name('promo');
