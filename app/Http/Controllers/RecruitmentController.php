@@ -1,49 +1,88 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Recruitment;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RecruitmentController extends Controller
 {
-    public function index() : View
+    public function index()
     {
+        $recruitment = Recruitment::all();
+        $studies = Recruitment::distinct('study')->pluck('study');
+        $count = $studies->count();
 
-      $recruitments = Recruitment::all();
-      return view('admin.recruitment.index', compact('recruitments'));
+        return view('admin.recruitment.index', [
+            'recruitments' => $recruitment,
+            'count' => $count,
+        ]);
     }
 
-   public function create ($recruitments)
-   {
-    return view('recruitment.create', compact('recruitments'));
-   }
+    public function show($uuid)
+    {
 
-   public function store(Request $request) {
-     $request->validate([
-       'name' =>'required|string|max:255',
-       'position' =>'required|string|max:255',
-       'description' =>'required|string|max:255',
-       'attachment' => 'nullable|file|mimes:pdf,jpg,png'
-     ]);
+        $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
+        return view('admin.recruitment.show', compact('recruitment'));
+    }
 
-     $recruitment = new Recruitment();
-     $recruitment->name = $request->name;
-     $recruitment->position = $request->position;
-     $recruitment->description = $request->description;
+    public function create()
+    {
+        return view('recruitment.create');
+    }
 
-     if ($request->hasFile('attachment')) {
-       $attachment = $request->file('attachment');
-       $attachmentName = time(). '.'. $attachment->getClientOriginalExtension();
-       $attachment->storeAs('attachments', $attachmentName);
-       $recruitment->attachment = $attachmentName;
-     }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:recruitments,email',
+            'name' => 'required|string|max:50',
+            'nik' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'study' => 'required|string',
+            'position' => 'required|string',
+            'salary' => 'required|string|max:50',
+            'file_path' => 'required|mimes:jpeg,png,jpg,docx,doc,pdf|max:20480',
+        ]);
 
-     $recruitment->save();
+        try {
+            $file = $request->file('file_path');
+            $fileName = $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/recruitment', $fileName, 'public');
 
-     return redirect()->route('recruitment.index')->with('success', 'Recruitment created successfully');
-     
-   }
+            Recruitment::create([
+                'uuid' => Str::uuid(),
+                'email' => $request->email,
+                'name' => $request->name,
+                'nik' => $request->nik,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'study' => $request->study,
+                'position' => $request->position,
+                'salary' => $request->salary,
+                'file_path' => $fileName,
+            ]);
+
+            return redirect()->route('recruitment')->with('success', true)->with('toast', 'add');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to store data')->withInput();
+        }
+    }
+
+    public function searchByEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $email = $request->input('email');
+        $recruitment = Recruitment::where('email', $email)->get();
+
+        return view('checkrecruitment', compact('recruitment'));
+    }
+
 }

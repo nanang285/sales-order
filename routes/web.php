@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\RecruitmentControllerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\HeroSectionController;
@@ -22,6 +21,17 @@ Route::get('', function () {
 Route::get('/recruitment', function () {
     return view('recruitment');
 });
+
+Route::get('/admin/recruitment/create', [RecruitmentController::class, 'create'])->name('recruitment.create');
+Route::post('/admin/recruitment', [RecruitmentController::class, 'store'])->name('recruitment.store');
+Route::view('/checkrecruitment', 'checkrecruitment')->name('checkrecruitment');
+Route::post('/checkrecruitment/search', [RecruitmentController::class, 'searchByEmail'])->name('checkrecruitment.search');
+
+
+
+Route::get('showgallery', function () {
+    return view('showgallery');
+})->name('showgallery');
 
 Route::prefix('auth')->group(function () {
     Route::get('/login', function () {
@@ -81,6 +91,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
 
     Route::get('/admin/recruitment', [RecruitmentController::class, 'index'])->name('recruitment');
+    Route::get('/admin/recruitment/{id}', [RecruitmentController::class, 'show'])->name('recruitment.show');
 
     // Homepages
     Route::get('/admin/promo', [PromoController::class, 'index'])->name('promo');

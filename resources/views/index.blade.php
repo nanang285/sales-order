@@ -196,7 +196,7 @@
                         </h3>
                         <h3 class="lg:text-3xl font-semibold mt-5">
                             <div class="">
-                                <a href=""
+                                <a href="{{ Route('showgallery') }}"
                                     class="hover:animate-wiggle focus:animate-none font-semibold inline-block border border-primary text-primary py-2 px-5 rounded-md hover:bg-primary hover:text-white text-sm transition duration-500">
                                     Lihat Lebih Banyak
                                 </a>

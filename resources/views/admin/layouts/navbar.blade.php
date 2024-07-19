@@ -1,5 +1,5 @@
 <header class="py-1 fixed bg-white z-40 w-full shadow shadow-gray-200 ">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="px-3 py-2 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-between lg:justify-start w-full">
                 <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
@@ -8,7 +8,7 @@
                 </button>
                 <div class="flex-grow flex justify-center lg:justify-start lg:flex-grow-0">
                     <a href="{{ Route('dashboard') }}" class="flex items-center justify-center lg:justify-start mx-3 text-base">
-                        <img src="{{ asset('images/zenmultimedia.png') }}" class="h-12 lg:h-14"
+                        <img src="{{ asset('images/zenmultimedia.png') }}" class="h-12 lg:h-12"
                             alt="ZenMultimediaIndonesia" />
                     </a>
                 </div>

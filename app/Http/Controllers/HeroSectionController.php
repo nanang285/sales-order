@@ -52,14 +52,14 @@ class HeroSectionController extends Controller
                 'title' => $request->title,
                 'subtitle' => $request->subtitle,
             ]);
+
         } else {
             $heroSection->update([
                 'title' => $request->title,
                 'subtitle' => $request->subtitle,
             ]);
         }
-
-        
+ 
         return redirect()->route('hero')->with('success', true)->with('toast', 'edit');
     }
 }

@@ -1,7 +1,7 @@
 <aside id="sidebar"
-    class="fixed top-0 my-6 left-0 z-20 w-72 h-full font-normal duration-75 transition-width overflow-y-auto"
+    class="fixed top-0 my-6 left-0 z-20 w-64 h-full font-normal duration-75 transition-width overflow-y-auto"
     aria-label="Sidebar">
-    <div class="mt-11 relative flex flex-col pt-0 border-r h-full border-gray-200">
+    <div class="mt-8 relative flex flex-col pt-0 border-r h-full border-gray-200">
         <div class="flex flex-col flex-1 h-full">
             <div class="flex-1 px-6 space-y-1 py-6 bg-white divide-y divide-gray-200">
                 <ul class="space-y-1">
@@ -15,11 +15,11 @@
                     </li>
                     <li class="">
                         <a href="{{ Route('recruitment') }}"
-                            class="{{ Request::is('admin/recruitment') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base text-gray-500 rounded hover:bg-[#bdd4f69d] group transition duration-300">
+                            class="{{ Request::is('admin/recruitment') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded hover:bg-[#bdd4f69d] group transition duration-300">
                             <i class="fa-solid fa-id-card"></i>
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Recruitment</span>
                             <span
-                                class="ms-9 bg-blue-200 text-blue-800 text-xs font-semibold right-0 px-2.5 py-0.5 rounded-full">8</span>
+                                class="ms-2 bg-blue-200 text-blue-800 text-xs font-semibold right-0 px-2.5 py-0.5 rounded-full">8</span>
                         </a>
                     </li>
 
