@@ -1,9 +1,9 @@
 @include('partials.start')
-@include('partials.navbar')
+{{-- @include('partials.navbar') --}}
 
 @include('admin.partials.toast')
 
-<section class="w-full min-h-screen md:my-14 flex flex-col md:flex-row">
+{{-- <section class="w-full min-h-screen md:my-14 flex flex-col md:flex-row">
     <aside class="hidden md:block fixed w-full md:w-[36%] bg-[#1F2A7C] min-h-screen">
         <div class="h-full px-6 flex flex-col ml-8 justify-between">
             <div class="w-full mx-auto lg:px-6 my-5">
@@ -123,7 +123,7 @@
         </div>
     </main>
 
-    {{-- <aside class="md:block w-full lg:w-1/3 bg-[#1F2A7C] min-h-screen">
+    <aside class="md:block w-full lg:w-1/3 bg-[#1F2A7C] min-h-screen">
         <div class="h-full px-6 flex flex-col ml-8 justify-between">
             <div class="w-full max-w-full mx-auto lg:px-6 mt-20">
                 <div class="max-w-56 mt-20 mb-6">
@@ -150,8 +150,12 @@
             </div>
 
         </div>
-    </aside> --}}
+    </aside>
 
-</section>
+</section> --}}
+
+
+
+
 
 @include('partials.end')

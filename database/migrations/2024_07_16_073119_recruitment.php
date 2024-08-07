@@ -14,24 +14,21 @@ return new class extends Migration
         Schema::create('recruitments', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
             $table->string('email')->unique();
-            $table->string('name', 50); 
-            $table->string('nik',20);
+            $table->string('name', 50);
+            $table->string('nik', 16);
             $table->string('address');
-            $table->string('phone_number',20);
+            $table->string('phone_number', 15);
             $table->string('study');
             $table->string('position');
             $table->string('salary', 20);
             $table->string('file_path');
-            
-            //hanya diakses pada storeAdmin
             $table->boolean('stage1')->default(false);
             $table->boolean('stage2')->default(false);
             $table->boolean('stage3')->default(false);
             $table->boolean('stage4')->default(false);
-            
+
             $table->timestamps();
         });
-        
     }
 
     /**

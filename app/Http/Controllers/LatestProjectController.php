@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\LatestProject;
 
+use App\Models\FooterSection;
+
 use Illuminate\View\View;
 
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +23,14 @@ class LatestProjectController extends Controller
         return view('admin.project.index', compact('latestProject'));
     }
 
+    public function PortofolioIndex(): View
+    {
+        $latestProject = LatestProject::All();
+        $footerSection = footerSection::first();
+
+        return view('portofolio', compact('latestProject', 'footerSection'));
+    }
+
     public function create()
     {
         return view('admin.project.create');
@@ -28,11 +38,10 @@ class LatestProjectController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
+        $request->validate(['title' => 'required|string|max:50',
             'subtitle' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         $image = $request->file('image_path');
@@ -63,11 +72,10 @@ class LatestProjectController extends Controller
 
     public function update(Request $request, string $id): RedirectResponse
     {
-        $request->validate([
-            'title' => 'string|max:255',
+        $request->validate(['title' => 'string|max:50',
             'subtitle' => 'string|max:255',
             'button_link' => 'string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         $latestProject = LatestProject::findOrFail($id);
@@ -99,7 +107,6 @@ class LatestProjectController extends Controller
     public function destroy($id)
     {
         $project = LatestProject::findOrFail($id);
-
         if ($project->image_path) {
             Storage::disk('public')->delete('uploads/latest-project/' . $project->image_path);
         }

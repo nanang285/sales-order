@@ -18,9 +18,10 @@ html {
 
 body {
     font-size: 15pt;
-    font-family: "Urbanist";
+    font-family: "Urbanist", Arial, sans-serif;
     letter-spacing: 1px;
 }
+
 
 /* -webkit-user-select: none; 
 -moz-user-select: none; 

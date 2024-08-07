@@ -1,26 +1,22 @@
 
 <!-- Breadcrumb -->
-<div class="mt-2 flex px-5 py-3 text-gray-700 border max-w-full border-gray-200 rounded bg-white shadow-sm" aria-label="Breadcrumb">
+<div class=" flex px-5 py-3 text-gray-700 border max-w-full border-gray-200 rounded bg-white shadow-sm" aria-label="Breadcrumb">
   <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
     <li class="inline-flex items-center">
-     <span class="font-medium text-sm"> <i class="class fa fa-home mr-3"></i></span>
+     <span class="font-medium text-sm"><i class="class fa fa-home mr-3"></i></span>
       <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 ">
         Admin
       </a>
     </li>
     <li>
       <div class="flex items-center">
-        <svg class="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
+        <span class="font-medium text-sm"><i class="fa-solid fa-chevron-right"></i></span>
         <a href="#" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 ">Homepages</a>
       </div>
     </li>
     <li aria-current="page">
       <div class="flex items-center">
-        <svg class="rtl:rotate-180  w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
+        <span class="font-medium text-sm"><i class="fa-solid fa-chevron-right"></i></span>
         <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2"></span>
       </div>
     </li>

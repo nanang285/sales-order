@@ -5,7 +5,7 @@
             <div class="space-y-6">
                 <div>
                     <h2 class="text-lg font-semibold mb-4">Alamat</h2>
-                    <p class="max-w-xs text-sm hover:text-white transition duration-400">{{ $footerSection->alamat }}</p>
+                    <p class="max-w-xs text-base hover:text-white transition duration-400">{{ $footerSection->alamat }}</p>
                 </div>
                 <div>
                     <h2 class="text-lg font-semibold mb-4">Social Media</h2>
@@ -22,21 +22,27 @@
                             href="{{ $footerSection->sosmed_3 }}">
                             <i class="fa-brands fa-youtube"></i>
                         </a>
+                        <a class="text-xl hover:text-white transition duration-400" target="_blank"
+                            href="https://api.whatsapp.com/send?phone={{ $footerSection->no_telp }}&text=Hallo%20Zen%20Multimedia%20Indonesia%2C%20">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div>
                 <h2 class="text-lg font-semibold mb-4">Hubungi</h2>
-                <p class="text-sm mb-4">Tertarik bekerja sama dengan kami?</p>
+                <p class="text-base mb-4">Tertarik bekerja sama dengan kami?</p>
                 <ul class="space-y-2">
                     <li class="flex items-center space-x-2 hover:text-white">
                         <i class="fa-brands fa-whatsapp"></i>
-                        <p class="text-sm transition duration-400" target="_blank">{{ $footerSection->no_telp }}</p>
+                        <a href="https://api.whatsapp.com/send?phone={{ $footerSection->no_telp }}&text=Hallo%20Zen%20Multimedia%20Indonesia%2C%20" class="text-sm transition duration-400" target="_blank">{{ $footerSection->no_telp }}</a>
                     </li>
                     <li class="flex items-center space-x-2 hover:text-white">
                         <i class="fa-regular fa-envelope"></i>
-                        <p class="text-sm transition duration-400 break-all">{{ $footerSection->email }}</p>
-                    </li>
+                        <a href="mailto:{{ $footerSection->email }}" class="text-sm transition duration-400 break-all">
+                            {{ $footerSection->email }}
+                        </a>
+                    </li>                    
                 </ul>
             </div>
             <div>
@@ -49,8 +55,8 @@
         </div>
     </div>
     <div class=" py-6 text-center">
-        <span class="text-base font-semibold text-gray-400">&copy; {{ date('Y') }} zenmultimediacorp.com. All rights
-            reserved.
+        <span class="text-base font-semibold text-gray-400">&copy; {{ date('Y') }}
+            zenmultimediacorp.com. All rights reserved.
         </span>
     </div>
 </footer>

@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\FooterSection;
-
 use Illuminate\View\View;
-
 use Illuminate\Http\RedirectResponse;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
-
 
 class FooterSectionController extends Controller
 {
@@ -34,7 +29,7 @@ class FooterSectionController extends Controller
     }
 
     public function update(Request $request, string $id): RedirectResponse
-{
+    {
     $request->validate([
         'alamat' => 'nullable|string',
         'no_telp' => 'nullable|string',
@@ -46,19 +41,13 @@ class FooterSectionController extends Controller
 
     $footerSection = FooterSection::findOrFail($id);
 
-    // Hanya update field yang ada dalam request
     $data = $request->only(['alamat', 'no_telp', 'email', 'sosmed_1', 'sosmed_2', 'sosmed_3']);
     $data = array_filter($data, function($value) {
         return $value !== null;
     });
 
-    if ($request->hasFile('image_path')) {
-        // Handle image upload if needed
-        // $data['image_path'] = $request->file('image_path')->store('footer_images', 'public');
-    }
-
     $footerSection->update($data);
-
+    
     return redirect()->route('footer')->with('success', true)->with('toast', 'edit');
 
 }

@@ -25,7 +25,7 @@
                                 <input type="number" name="no_telp" id="no_telp"
                                     class="bottom-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 
                                     block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
-                                    placeholder="Masukan no_telp" required value="{{ $footerSection->no_telp }}" />
+                                    placeholder="628**********" required value="{{ $footerSection->no_telp }}" />
                             </div>
 
                             <div class="my-3">

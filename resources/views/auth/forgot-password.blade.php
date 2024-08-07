@@ -26,9 +26,6 @@
 
 
 @include('partials.start')
-
-@include('partials.navbar')
-
 <section class="w-full min-h-screen flex flex-col md:flex-row">
     <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 p-4 md:p-8 md:flex justify-center items-center">
         <div class="mx-auto lg:mt-16 mt-20 md:py-20">

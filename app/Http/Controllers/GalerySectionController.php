@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\GalerySection;
-
 use Illuminate\View\View;
-
 use Illuminate\Http\RedirectResponse;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
-
 
 class GalerySectionController extends Controller
 {
@@ -20,6 +15,12 @@ class GalerySectionController extends Controller
         $galerySection = GalerySection::All();
         
         return view('admin.galery.index', compact('galerySection'));
+    }
+
+    public function DocumentationIndex()
+    {
+        $galerySection = GalerySection::first();
+        return view('documentation', compact('galerySection'));
     }
 
     public function create()
@@ -32,7 +33,7 @@ class GalerySectionController extends Controller
         $request->validate([
             'title' => 'required|string|max:50',
             'subtitle' => 'required|string|max:255',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,webp|max:6144',
         ]);
 
         $image = $request->file('image_path');
@@ -63,9 +64,9 @@ class GalerySectionController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'title' => 'string|max:255',
+            'title' => 'string|max:50',
             'subtitle' => 'string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:100000',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
         ]);
 
         $galerySection = Galerysection::findOrFail($id);

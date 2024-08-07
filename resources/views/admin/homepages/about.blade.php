@@ -11,11 +11,8 @@
             <form method="POST" action="{{ route('about.update', $aboutSection->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-
                 <div class="grid grid-cols-10 gap-3 lg:gap-4">
-
                     <div class="bg-white shadow-lg p-5 mt-1 lg:my-6 border-lg  rounded col-span-10 lg:col-span-4 flex flex-col items-center">
-
                         <div class="relative mb-3">
                             <video class="w-full max-w-md mx-auto rounded" controls
                             controlsList="nodownload">
@@ -35,7 +32,7 @@
                                         <span class="font-semibold">Click to upload</span>
                                     </p>
                                 </div>
-                                <input id="video" type="file" name="video_path" class="hidden" accept="viceo/*" />
+                                <input id="video" type="file" name="video_path" class="hidden" accept="video/*" />
                             </label>
                         </div>
                     </div>
@@ -60,23 +57,5 @@
             </form>
         </div>
     </div>
-
-    {{-- <script>
-        document.getElementById('images').addEventListener('change', function(event) {
-            const previewContainer = document.getElementById('preview');
-            previewContainer.innerHTML = '';
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = e.target.result;
-                    imgElement.className = 'w-full h-auto rounded';
-                    previewContainer.appendChild(imgElement);
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    </script> --}}
     
 @endsection

@@ -1,500 +1,272 @@
 @extends('admin.layouts.main')
-@include('datatables.style')
 
 @section('container')
     <div class="relative mt-3">
         <div class="px-4 pt-6">
             @include('admin.partials.breadcrumb')
-            <div class="mt-5">
+            @include('admin.partials.toast')
 
-                <div class="bg-white rounded-md mx-auto px-4 py-6">
-                    <table id="example" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011-04-25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011-07-25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>2009-01-12</td>
-                                <td>$86,000</td>
-                            </tr>
-                            <tr>
-                                <td>Cedric Kelly</td>
-                                <td>Senior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td>2012-03-29</td>
-                                <td>$433,060</td>
-                            </tr>
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>2008-11-28</td>
-                                <td>$162,700</td>
-                            </tr>
-                            <tr>
-                                <td>Brielle Williamson</td>
-                                <td>Integration Specialist</td>
-                                <td>New York</td>
-                                <td>61</td>
-                                <td>2012-12-02</td>
-                                <td>$372,000</td>
-                            </tr>
-                            <tr>
-                                <td>Herrod Chandler</td>
-                                <td>Sales Assistant</td>
-                                <td>San Francisco</td>
-                                <td>59</td>
-                                <td>2012-08-06</td>
-                                <td>$137,500</td>
-                            </tr>
-                            <tr>
-                                <td>Rhona Davidson</td>
-                                <td>Integration Specialist</td>
-                                <td>Tokyo</td>
-                                <td>55</td>
-                                <td>2010-10-14</td>
-                                <td>$327,900</td>
-                            </tr>
-                            <tr>
-                                <td>Colleen Hurst</td>
-                                <td>Javascript Developer</td>
-                                <td>San Francisco</td>
-                                <td>39</td>
-                                <td>2009-09-15</td>
-                                <td>$205,500</td>
-                            </tr>
-                            <tr>
-                                <td>Sonya Frost</td>
-                                <td>Software Engineer</td>
-                                <td>Edinburgh</td>
-                                <td>23</td>
-                                <td>2008-12-13</td>
-                                <td>$103,600</td>
-                            </tr>
-                            <tr>
-                                <td>Jena Gaines</td>
-                                <td>Office Manager</td>
-                                <td>London</td>
-                                <td>30</td>
-                                <td>2008-12-19</td>
-                                <td>$90,560</td>
-                            </tr>
-                            <tr>
-                                <td>Quinn Flynn</td>
-                                <td>Support Lead</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td>2013-03-03</td>
-                                <td>$342,000</td>
-                            </tr>
-                            <tr>
-                                <td>Charde Marshall</td>
-                                <td>Regional Director</td>
-                                <td>San Francisco</td>
-                                <td>36</td>
-                                <td>2008-10-16</td>
-                                <td>$470,600</td>
-                            </tr>
-                            <tr>
-                                <td>Haley Kennedy</td>
-                                <td>Senior Marketing Designer</td>
-                                <td>London</td>
-                                <td>43</td>
-                                <td>2012-12-18</td>
-                                <td>$313,500</td>
-                            </tr>
-                            <tr>
-                                <td>Tatyana Fitzpatrick</td>
-                                <td>Regional Director</td>
-                                <td>London</td>
-                                <td>19</td>
-                                <td>2010-03-17</td>
-                                <td>$385,750</td>
-                            </tr>
-                            <tr>
-                                <td>Michael Silva</td>
-                                <td>Marketing Designer</td>
-                                <td>London</td>
-                                <td>66</td>
-                                <td>2012-11-27</td>
-                                <td>$198,500</td>
-                            </tr>
-                            <tr>
-                                <td>Paul Byrd</td>
-                                <td>Chief Financial Officer (CFO)</td>
-                                <td>New York</td>
-                                <td>64</td>
-                                <td>2010-06-09</td>
-                                <td>$725,000</td>
-                            </tr>
-                            <tr>
-                                <td>Gloria Little</td>
-                                <td>Systems Administrator</td>
-                                <td>New York</td>
-                                <td>59</td>
-                                <td>2009-04-10</td>
-                                <td>$237,500</td>
-                            </tr>
-                            <tr>
-                                <td>Bradley Greer</td>
-                                <td>Software Engineer</td>
-                                <td>London</td>
-                                <td>41</td>
-                                <td>2012-10-13</td>
-                                <td>$132,000</td>
-                            </tr>
-                            <tr>
-                                <td>Dai Rios</td>
-                                <td>Personnel Lead</td>
-                                <td>Edinburgh</td>
-                                <td>35</td>
-                                <td>2012-09-26</td>
-                                <td>$217,500</td>
-                            </tr>
-                            <tr>
-                                <td>Jenette Caldwell</td>
-                                <td>Development Lead</td>
-                                <td>New York</td>
-                                <td>30</td>
-                                <td>2011-09-03</td>
-                                <td>$345,000</td>
-                            </tr>
-                            <tr>
-                                <td>Yuri Berry</td>
-                                <td>Chief Marketing Officer (CMO)</td>
-                                <td>New York</td>
-                                <td>40</td>
-                                <td>2009-06-25</td>
-                                <td>$675,000</td>
-                            </tr>
-                            <tr>
-                                <td>Caesar Vance</td>
-                                <td>Pre-Sales Support</td>
-                                <td>New York</td>
-                                <td>21</td>
-                                <td>2011-12-12</td>
-                                <td>$106,450</td>
-                            </tr>
-                            <tr>
-                                <td>Doris Wilder</td>
-                                <td>Sales Assistant</td>
-                                <td>Sydney</td>
-                                <td>23</td>
-                                <td>2010-09-20</td>
-                                <td>$85,600</td>
-                            </tr>
-                            <tr>
-                                <td>Angelica Ramos</td>
-                                <td>Chief Executive Officer (CEO)</td>
-                                <td>London</td>
-                                <td>47</td>
-                                <td>2009-10-09</td>
-                                <td>$1,200,000</td>
-                            </tr>
-                            <tr>
-                                <td>Gavin Joyce</td>
-                                <td>Developer</td>
-                                <td>Edinburgh</td>
-                                <td>42</td>
-                                <td>2010-12-22</td>
-                                <td>$92,575</td>
-                            </tr>
-                            <tr>
-                                <td>Jennifer Chang</td>
-                                <td>Regional Director</td>
-                                <td>Singapore</td>
-                                <td>28</td>
-                                <td>2010-11-14</td>
-                                <td>$357,650</td>
-                            </tr>
-                            <tr>
-                                <td>Brenden Wagner</td>
-                                <td>Software Engineer</td>
-                                <td>San Francisco</td>
-                                <td>28</td>
-                                <td>2011-06-07</td>
-                                <td>$206,850</td>
-                            </tr>
-                            <tr>
-                                <td>Fiona Green</td>
-                                <td>Chief Operating Officer (COO)</td>
-                                <td>San Francisco</td>
-                                <td>48</td>
-                                <td>2010-03-11</td>
-                                <td>$850,000</td>
-                            </tr>
-                            <tr>
-                                <td>Shou Itou</td>
-                                <td>Regional Marketing</td>
-                                <td>Tokyo</td>
-                                <td>20</td>
-                                <td>2011-08-14</td>
-                                <td>$163,000</td>
-                            </tr>
-                            <tr>
-                                <td>Michelle House</td>
-                                <td>Integration Specialist</td>
-                                <td>Sydney</td>
-                                <td>37</td>
-                                <td>2011-06-02</td>
-                                <td>$95,400</td>
-                            </tr>
-                            <tr>
-                                <td>Suki Burks</td>
-                                <td>Developer</td>
-                                <td>London</td>
-                                <td>53</td>
-                                <td>2009-10-22</td>
-                                <td>$114,500</td>
-                            </tr>
-                            <tr>
-                                <td>Prescott Bartlett</td>
-                                <td>Technical Author</td>
-                                <td>London</td>
-                                <td>27</td>
-                                <td>2011-05-07</td>
-                                <td>$145,000</td>
-                            </tr>
-                            <tr>
-                                <td>Gavin Cortez</td>
-                                <td>Team Leader</td>
-                                <td>San Francisco</td>
-                                <td>22</td>
-                                <td>2008-10-26</td>
-                                <td>$235,500</td>
-                            </tr>
-                            <tr>
-                                <td>Martena Mccray</td>
-                                <td>Post-Sales support</td>
-                                <td>Edinburgh</td>
-                                <td>46</td>
-                                <td>2011-03-09</td>
-                                <td>$324,050</td>
-                            </tr>
-                            <tr>
-                                <td>Unity Butler</td>
-                                <td>Marketing Designer</td>
-                                <td>San Francisco</td>
-                                <td>47</td>
-                                <td>2009-12-09</td>
-                                <td>$85,675</td>
-                            </tr>
-                            <tr>
-                                <td>Howard Hatfield</td>
-                                <td>Office Manager</td>
-                                <td>San Francisco</td>
-                                <td>51</td>
-                                <td>2008-12-16</td>
-                                <td>$164,500</td>
-                            </tr>
-                            <tr>
-                                <td>Hope Fuentes</td>
-                                <td>Secretary</td>
-                                <td>San Francisco</td>
-                                <td>41</td>
-                                <td>2010-02-12</td>
-                                <td>$109,850</td>
-                            </tr>
-                            <tr>
-                                <td>Vivian Harrell</td>
-                                <td>Financial Controller</td>
-                                <td>San Francisco</td>
-                                <td>62</td>
-                                <td>2009-02-14</td>
-                                <td>$452,500</td>
-                            </tr>
-                            <tr>
-                                <td>Timothy Mooney</td>
-                                <td>Office Manager</td>
-                                <td>London</td>
-                                <td>37</td>
-                                <td>2008-12-11</td>
-                                <td>$136,200</td>
-                            </tr>
-                            <tr>
-                                <td>Jackson Bradshaw</td>
-                                <td>Director</td>
-                                <td>New York</td>
-                                <td>65</td>
-                                <td>2008-09-26</td>
-                                <td>$645,750</td>
-                            </tr>
-                            <tr>
-                                <td>Olivia Liang</td>
-                                <td>Support Engineer</td>
-                                <td>Singapore</td>
-                                <td>64</td>
-                                <td>2011-02-03</td>
-                                <td>$234,500</td>
-                            </tr>
-                            <tr>
-                                <td>Bruno Nash</td>
-                                <td>Software Engineer</td>
-                                <td>London</td>
-                                <td>38</td>
-                                <td>2011-05-03</td>
-                                <td>$163,500</td>
-                            </tr>
-                            <tr>
-                                <td>Sakura Yamamoto</td>
-                                <td>Support Engineer</td>
-                                <td>Tokyo</td>
-                                <td>37</td>
-                                <td>2009-08-19</td>
-                                <td>$139,575</td>
-                            </tr>
-                            <tr>
-                                <td>Thor Walton</td>
-                                <td>Developer</td>
-                                <td>New York</td>
-                                <td>61</td>
-                                <td>2013-08-11</td>
-                                <td>$98,540</td>
-                            </tr>
-                            <tr>
-                                <td>Finn Camacho</td>
-                                <td>Support Engineer</td>
-                                <td>San Francisco</td>
-                                <td>47</td>
-                                <td>2009-07-07</td>
-                                <td>$87,500</td>
-                            </tr>
-                            <tr>
-                                <td>Serge Baldwin</td>
-                                <td>Data Coordinator</td>
-                                <td>Singapore</td>
-                                <td>64</td>
-                                <td>2012-04-09</td>
-                                <td>$138,575</td>
-                            </tr>
-                            <tr>
-                                <td>Zenaida Frank</td>
-                                <td>Software Engineer</td>
-                                <td>New York</td>
-                                <td>63</td>
-                                <td>2010-01-04</td>
-                                <td>$125,250</td>
-                            </tr>
-                            <tr>
-                                <td>Zorita Serrano</td>
-                                <td>Software Engineer</td>
-                                <td>San Francisco</td>
-                                <td>56</td>
-                                <td>2012-06-01</td>
-                                <td>$115,000</td>
-                            </tr>
-                            <tr>
-                                <td>Jennifer Acosta</td>
-                                <td>Junior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                <td>43</td>
-                                <td>2013-02-01</td>
-                                <td>$75,650</td>
-                            </tr>
-                            <tr>
-                                <td>Cara Stevens</td>
-                                <td>Sales Assistant</td>
-                                <td>New York</td>
-                                <td>46</td>
-                                <td>2011-12-06</td>
-                                <td>$145,600</td>
-                            </tr>
-                            <tr>
-                                <td>Hermione Butler</td>
-                                <td>Regional Director</td>
-                                <td>London</td>
-                                <td>47</td>
-                                <td>2011-03-21</td>
-                                <td>$356,250</td>
-                            </tr>
-                            <tr>
-                                <td>Lael Greer</td>
-                                <td>Systems Administrator</td>
-                                <td>London</td>
-                                <td>21</td>
-                                <td>2009-02-27</td>
-                                <td>$103,500</td>
-                            </tr>
-                            <tr>
-                                <td>Jonas Alexander</td>
-                                <td>Developer</td>
-                                <td>San Francisco</td>
-                                <td>30</td>
-                                <td>2010-07-14</td>
-                                <td>$86,500</td>
-                            </tr>
-                            <tr>
-                                <td>Shad Decker</td>
-                                <td>Regional Director</td>
-                                <td>Edinburgh</td>
-                                <td>51</td>
-                                <td>2008-11-13</td>
-                                <td>$183,000</td>
-                            </tr>
-                            <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                <td>29</td>
-                                <td>2011-06-27</td>
-                                <td>$183,000</td>
-                            </tr>
-                            <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                <td>27</td>
-                                <td>2011-01-25</td>
-                                <td>$112,000</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+            <div class="bg-white shadow-lg px-3 my-6 border rounded">
+                <div
+                    class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 px-4 py-6">
+                    <div class="w-full max-w-52">
+                        <div class="flex items-center">
+                            <h1 class="text-gray-800 font-bold text-xl">
+                                Rekrutmen
+                            </h1>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        <div class="flex items-center space-x-3 w-full md:w-auto">
+                            <a href="{{ Route('recruitment.add') }}"
+                                class="transition duration-300 block text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded text-sm px-2.5 py-1 text-center"
+                                type="button">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
+                            <button data-modal-target="add_modal" data-modal-toggle="add_modal"
+                                class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded text-sm px-2.5 py-1 text-center"
+                                type="button">
+                                <i class="fa-solid fa-file-export"></i><span class="">Export</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
-               
+                <hr>
+                <div
+                    class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 my-4 md:space-x-4 px-4">
+                    <div class="w-full max-w-52 mb-4">
+                        <form action="{{ route('admin.recruitment') }}" method="GET" class="flex items-center max-w-md mx-auto">
+                            @csrf
+                            <label for="simple-search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <input type="text" name="search" id="simple-search"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Cari" required />
+                            </div>
+                            <button type="submit"
+                                class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded border border-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
+                                <span class="sr-only">Search</span>
+                            </button>
+                        </form>
+
+                    </div>
+
+                    <div
+                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+
+                        <div class="flex items-center space-x-3 w-full md:w-auto">
+                            <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
+                                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-700 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700"
+                                type="button">
+                                <i class="fa-solid fa-filter"></i>
+                                <span class="mx-2">Filter</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div id="filterDropdown"
+                                class="border-gray-400 border z-10 hidden w-40 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+                                <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Filter Data</h6>
+                                <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
+                                    <li class="flex items-center">
+                                        <input id="newest" name="filter" type="radio" value="newest"
+                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="newest"
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            Terbaru
+                                        </label>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <input id="oldest" name="filter" type="radio" value="oldest"
+                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="oldest"
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            Terlama
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex mx-4 flex-col">
+                    <div class="overflow-x-auto">
+                        <div class="p-1.5 min-w-full inline-block align-middle">
+                            <div class=" overflow-hidden">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"
+                                                class="px-1 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                No
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                Data Masuk
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                Nama Lengkap
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                Email
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                No.Telp
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                Posisi dilamar
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                Harapan Gaji
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                Gagal
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                Aksi
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @php
+                                            $startNumber =
+                                                ($recruitments->currentPage() - 1) * $recruitments->perPage() + 1;
+                                        @endphp
+                                        @foreach ($recruitments as $index => $recruitment)
+                                            <tr>
+                                                <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    @if ($filter == 'oldest')
+                                                        {{ $recruitments->total() - $recruitments->firstItem() - $index + 1 }}
+                                                    @else
+                                                        {{ $recruitments->firstItem() + $index }}
+                                                    @endif
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ \Carbon\Carbon::parse($recruitment->created_at)->translatedFormat('d F Y') }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $recruitment->name }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                    {{ $recruitment->email }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                    {{ $recruitment->phone_number }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                    {{ $recruitment->position }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                    Rp {{ number_format($recruitment->salary, 0, ',', '.') }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-red-600">
+                                                    {{ $recruitment->failed_stage }}
+                                                </td>
+                                                <td class="whitespace-nowrap text-end text-sm font-medium">
+                                                    <a href="{{ route('recruitment.edit', $recruitment->uuid) }}"
+                                                        class="text-yellow-300 border-2 border-yellow-300 hover:text-white hover:bg-yellow-300 font-medium rounded text-sm inline-flex items-center justify-center w-8 h-8 m-1"
+                                                        type="button">
+                                                        <i class="fa-solid fa-user-pen"></i>
+                                                    </a>
+                                                    <button data-modal-target="delete_modal_{{ $recruitment->uuid }}"
+                                                        data-modal-toggle="delete_modal_{{ $recruitment->uuid }}"
+                                                        class="text-red-700 border border-red-700 hover:bg-red-800 hover:text-white font-medium rounded text-sm 
+                                                        px-2.5 py-1.5 m-1 text-center"
+                                                        type="button">
+                                                        <i class="fa-solid fa-trash "></i>
+                                                    </button>
+                                                    <button data-modal-target="pdfModal"
+                                                        data-file-path="{{ asset('storage/uploads/recruitment/' . $recruitment->file_path) }}"
+                                                        class="text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded text-sm inline-flex items-center justify-center w-8 h-8 m-1"
+                                                        type="button">
+                                                        <i class="fa-solid fa-file-pdf"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <div id="pdfModal" tabindex="-1" aria-hidden="true"
+                                            class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full max-h-full">
+                                            <div class="relative p-4 w-full max-w-4xl max-h-full">
+                                                <div class="relative bg-white rounded-lg shadow">
+                                                    <div class="absolute flex items-center justify-between p-4 -right-6 -top-6">
+                                                        <button type="button"
+                                                            class="text-gray-400 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-7 h-7 inline-flex justify-center items-center"
+                                                            data-modal-hide="pdfModal">
+                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                            </svg>
+                                                            <span class="sr-only">Close modal</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <iframe id="pdfFrame" src="" width="100%" height="500px"></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col overflow-x-auto md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                    aria-label="Table navigation">
+                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                        Menampilkan
+                        <span
+                            class="font-semibold text-gray-900 dark:text-white">{{ $recruitments->firstItem() }}-{{ $recruitments->lastItem() }}</span>
+                        Dari
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ $recruitments->total() }}</span>
+                    </span>
+                    {{ $recruitments->links('vendor.pagination') }}
+                </div>
+
             </div>
         </div>
     </div>
+    @include('admin.recruitment.modal')
+
+
+
+    <script>
+        document.querySelectorAll('input[name="filter"]').forEach((filter) => {
+            filter.addEventListener('change', function() {
+                const selectedFilter = this.value;
+                const url = new URL(window.location.href);
+                url.searchParams.set('filter', selectedFilter);
+                window.location.href = url.toString();
+            });
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('[data-modal-target]').forEach(button => {
+            button.addEventListener('click', function() {
+                const filePath = this.getAttribute('data-file-path');
+                const modal = document.getElementById(this.getAttribute('data-modal-target'));
+                const iframe = modal.querySelector('#pdfFrame');
+
+                iframe.src = filePath;
+                modal.classList.remove('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-modal-hide]').forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = document.getElementById(this.getAttribute('data-modal-hide'));
+                modal.classList.add('hidden');
+            });
+        });
+    </script>
 @endsection
-
-@include('datatables.script')
-

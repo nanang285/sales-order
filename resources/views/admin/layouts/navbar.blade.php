@@ -1,18 +1,21 @@
-<header class="py-1 fixed bg-white z-40 w-full shadow shadow-gray-200 ">
-    <div class="px-3 py-2 lg:px-5 lg:pl-3">
+<header class="py-1 fixed z-40 w-full bg-white lg:bg-gray-100">
+    <div class="px-3 py-2 lg:py-4 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-between lg:justify-start w-full">
                 <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
                     class="p-3 text-gray-600 rounded cursor-pointer lg:hidden">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <div class="flex-grow flex justify-center lg:justify-start lg:flex-grow-0">
-                    <a href="{{ Route('dashboard') }}" class="flex items-center justify-center lg:justify-start mx-3 text-base">
+
+                <div class="flex-grow flex justify-center lg:justify-start lg:hidden">
+                    <a href="{{ Route('dashboard') }}"
+                        class="flex items-center justify-center lg:justify-start text-base">
                         <img src="{{ asset('images/zenmultimedia.png') }}" class="h-12 lg:h-12"
                             alt="ZenMultimediaIndonesia" />
                     </a>
                 </div>
-                <p class="lg:flex lg:ml-24">
+                
+                <p class="lg:flex lg:ml-64">
                     <span id="welcome-message"
                         class="hidden lg:inline text-gray-500 font-semibold text-sm lg:text-base ml-2"></span>
                 </p>
@@ -104,7 +107,8 @@
                                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
                                         class="font-semibold text-gray-900 dark:text-white">Joseph Mcfall</span> and
                                     <span class="font-medium text-gray-900 dark:text-white">141 others</span> love your
-                                    story. See it and view more stories.</div>
+                                    story. See it and view more stories.
+                                </div>
                                 <div class="text-xs font-medium text-primary-700 dark:text-primary-400">44 minutes ago
                                 </div>
                             </div>
@@ -174,13 +178,6 @@
                     </a>
                 </div>
 
-                <button data-modal-target="logout_modal" data-modal-toggle="logout_modal"
-                    class="flex items-center transition duration-300 text-red-500 border-2 border-red-500 hover:text-white hover:bg-red-500 font-medium rounded text-sm px-1.5 py-1.5 text-center"
-                    type="button">
-                    <i class="fa-solid fa-right-from-bracket lg:mr-1"></i>
-                    <span class="hidden lg:flex">Keluar</span>
-                </button>
-
                 {{-- <div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -192,35 +189,43 @@
                         </form>
                     </div> --}}
 
-                {{-- <div>
-                        <button type="button"
-                            class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                            id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
-                            <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Bonnie avatar">
+                <div>
+                    <button type="button"
+                        class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
+                        <span class="sr-only">Open user menu</span>
+                        <img class="w-8 h-8 rounded-full"
+                            src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Bonnie avatar">
+                    </button>
+                </div>
+                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                    id="dropdown-2">
+                    <div class="px-4 py-3" role="none">
+                        <p class="text-sm text-gray-9000 dark:text-white" role="none">
+                            {{ Auth::user()->name }}
+                        </p>
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                            {{ Auth::user()->email }}
+                        </p>
+                        <p class="text-sm font-medium mb-2 text-gray-900 truncate dark:text-gray-300" role="none">
+                            Role: {{ Auth::user()->role }}
+                        </p>
+                        <button data-modal-target="logout_modal" data-modal-toggle="logout_modal"
+                            class="flex items-center transition duration-300 text-red-500 border border-red-500 hover:text-white hover:bg-red-500 font-medium rounded text-sm px-1 py-0.5 text-center"
+                            type="button">
+                            <i class="fa-solid fa-right-from-bracket lg:mr-1"></i>
+                            <span class="hidden lg:flex">Logout</span>
                         </button>
-                    </div> --}}
-                {{-- <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                        id="dropdown-2">
-                        <div class="px-4 py-3" role="none">
-                            <p class="text-sm text-gray-9000 dark:text-white" role="none">
-                               {{ Auth::user()->name }}
-                            </p>
-                            <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                {{ Auth::user()->email }}
-                            </p>
-                            <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                Role: {{ Auth::user()->role }}
-                            </p>
-                        </div>
-                        <ul class="py-1" role="none">
+                    </div>
+
+                    {{-- <ul class="py-1" role="none">
                             <li>
                                 <a href="{{ Route('profile.edit') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                     role="menuitem">Profile</a>
                             </li>
-                        </ul>
-                    </div> --}}
+                        </ul> --}}
+                </div>
 
             </div>
         </div>
@@ -266,7 +271,7 @@
     </div>
 </div>
 
-<div id="preloader" class="fixed inset-0 bg-gray-800 bg-opacity-80 flex items-center justify-center z-50">
+<div id="preloader" class="fixed inset-0 bg-gray-800 bg-opacity-80 flex items-center justify-center z-[99]">
     <div class="absolute animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-blue-500"></div>
     <img src="{{ asset('favicon.ico') }}" class="rounded-full h-20 w-20">
 </div>

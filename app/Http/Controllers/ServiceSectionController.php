@@ -64,7 +64,7 @@ class ServiceSectionController extends Controller
         $request->validate([
             'title' => 'string|max:255',
             'subtitle' => 'string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
 
         $serviceSection = ServiceSection::findOrFail($id);

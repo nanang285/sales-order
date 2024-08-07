@@ -1,9 +1,16 @@
 <aside id="sidebar"
-    class="fixed top-0 my-6 left-0 z-20 w-64 h-full font-normal duration-75 transition-width overflow-y-auto"
+    class="fixed top-0 left-0 z-30 md:z-[45] w-64 h-full font-normal duration-75 transition-width overflow-y-auto"
     aria-label="Sidebar">
-    <div class="mt-8 relative flex flex-col pt-0 border-r h-full border-gray-200">
+    <div class="relative flex flex-col pt-0 border-r h-full border-gray-200">
         <div class="flex flex-col flex-1 h-full">
-            <div class="flex-1 px-6 space-y-1 py-6 bg-white divide-y divide-gray-200">
+            <div class="flex-1 px-6 space-y-1 py-5 bg-white">
+                <div class="flex-grow flex justify-center lg:justify-start lg:flex-grow-0">
+                    <a href="{{ Route('dashboard') }}"
+                        class="flex items-center justify-center lg:justify-start text-base">
+                        <img src="{{ asset('images/zenmultimedia.png') }}" class="h-12 lg:h-12"
+                            alt="ZenMultimediaIndonesia" />
+                    </a>
+                </div>
                 <ul class="space-y-1">
                     <li class="">
                         <a href="{{ route('dashboard') }}"
@@ -11,15 +18,12 @@
                             <i class="fa-solid fa-gauge"></i>
                             <span class="ml-3" sidebar-toggle-item>Dashboard</span>
                         </a>
-
                     </li>
                     <li class="">
-                        <a href="{{ Route('recruitment') }}"
+                        <a href="{{ Route('admin.recruitment') }}"
                             class="{{ Request::is('admin/recruitment') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded hover:bg-[#bdd4f69d] group transition duration-300">
                             <i class="fa-solid fa-id-card"></i>
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Recruitment</span>
-                            <span
-                                class="ms-2 bg-blue-200 text-blue-800 text-xs font-semibold right-0 px-2.5 py-0.5 rounded-full">8</span>
                         </a>
                     </li>
 
@@ -36,14 +40,7 @@
                                 <a href=" {{ Route('promo') }} "
                                     class="{{ Request::is('admin/promo') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
-                                    <span class="ml-3">Promo</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ Route('hero') }}"
-                                    class="{{ Request::is('admin/hero') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                    <i class="fa-solid fa-circle text-xs"></i>
-                                    <span class="ml-3">Beranda</span>
+                                    <span class="ml-3">PopUp</span>
                                 </a>
                             </li>
                             <li>
@@ -94,35 +91,37 @@
                     </li>
 
                 </ul>
-                <ul class="pt-2 space-y-2">
+                {{-- <ul class="pt-2 space-y-2">
                     <a href="#" target=""
                         class="{{ Request::is('admin/user') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded hover:bg-[#bdd4f69d] group transition duration-300">
                         <i class="fa-solid fa-user"></i>
                         <span class="ml-3" sidebar-toggle-item>Pengguna</span>
                     </a>
-                </ul>
+                </ul> --}}
 
             </div>
         </div>
     </div>
 </aside>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         var $dropdownButton = $('#dropdownButton');
         var $dropdown = $('#dropdown-layouts');
 
-        // Retrieve the state from localStorage
-        var isDropdownVisible = localStorage.getItem('dropdownVisible') === 'true';
+        function toggleDropdownVisibility() {
+            var isDropdownVisible = localStorage.getItem('dropdownVisible') === 'true';
 
-        // Set the initial state based on localStorage
-        if (isDropdownVisible) {
-            $dropdown.removeClass('hidden').addClass('block');
-        } else {
-            $dropdown.removeClass('block').addClass('hidden');
+            if (isDropdownVisible) {
+                $dropdown.removeClass('hidden').addClass('block');
+            } else {
+                $dropdown.removeClass('block').addClass('hidden');
+            }
         }
 
-        // Toggle the dropdown on button click
+        // Atur visibilitas dropdown berdasarkan localStorage saat pertama kali halaman dimuat
+        toggleDropdownVisibility();
+
         $dropdownButton.on('click', function() {
             var isVisible = $dropdown.hasClass('block');
             if (isVisible) {
@@ -133,5 +132,11 @@
                 localStorage.setItem('dropdownVisible', 'true');
             }
         });
+
+        // Atur ulang visibilitas dropdown saat halaman di-resize
+        $(window).resize(function() {
+            toggleDropdownVisibility();
+        });
     });
-</script>
+</script> --}}
+

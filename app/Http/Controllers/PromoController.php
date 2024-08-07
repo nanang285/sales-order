@@ -3,22 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Promo;
-
 use Illuminate\View\View;
-
 use Illuminate\Http\RedirectResponse;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
-
 
 class PromoController extends Controller
 {
     public function index() : View
     {
-       $promoSection = Promo::first();
-       
+        $promoSection = Promo::first();
         return view('admin.promo.index', compact('promoSection'));
     }
 
@@ -62,24 +56,20 @@ class PromoController extends Controller
         $request->validate([
             'image_path' => '',
         ]);
-
-        
-        
-
+  
        $promoSection = Promo::findOrFail($id);
 
         if ($request->hasFile('image_path')) {
 
             $image = $request->file('image_path');
-            $image->storeAs('public/uploads/promo', $image->hashName());
+            $image->storeAs('public/uploads/promo', $image->getClientOriginalName());
 
             $oldImagePath = 'public/uploads/promo/' .$promoSection->image_path;
             if (Storage::exists($oldImagePath)) {
                 Storage::delete($oldImagePath);
             }
 
-           $promoSection->update([
-                'image_path' => $image->hashName(),
+           $promoSection->update(['image_path' => $image->getClientOriginalName(),
             ]);
         } else {
            $promoSection->update([

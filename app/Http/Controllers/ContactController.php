@@ -11,9 +11,9 @@ class ContactController extends Controller
 {
     public function index(): View
     {
-        $footerSection = FooterSection::first(); 
+        $footerSection = FooterSection::first();
         // $contact = Contact::first();
-        return view('contact.index', compact('footerSection'));
+        return view('contact', compact('footerSection'));
     }
 
     public function create () {

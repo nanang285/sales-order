@@ -1,6 +1,6 @@
 @include('partials.start')
 
-@include('partials.navbar')
+{{-- @include('partials.navbar') --}}
 
 {{-- <section class="min-h-screen flex flex-col-reverse lg:flex-row">
     <main class="h-full w-full lg:w-2/3 p-8 flex justify-center items-center bg-fixed">
@@ -27,8 +27,8 @@
                                 <img src="{{ asset('images/icons/Symbol1.png') }}" alt="Icon" class="h-4 w-5 object-contain">
                             </span>
                             <input type="email" id="email" name="email"
-                                class="w-full pl-10 pr-3 py-2 text-sm text-primary bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
-                                placeholder="Masukan Email Pengguna" required autofocus autocomplete="username"
+                                class="w-full pl-10 pr-3 py-2 text-sm text-primary bg-white rounded focus:outline-none focus:ring-2 focus:ring-blue-800"
+        1.5                     placeholder="Masukan Email Pengguna" required autofocus autocomplete="username"
                                 value="{{ old('email') }}" />
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="mt-1" />
@@ -41,8 +41,8 @@
                                 <img src="{{ asset('images/icons/Symbol2.png') }}" alt="Icon" class="h-4 w-5 object-contain">
                             </span>
                             <input type="password" id="password" name="password"
-                                class="w-full pl-10 pr-10 py-2 text-sm text-primary bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
-                                placeholder="Masukan Kata sandi" required autocomplete="current-password" />
+                                class="w-full pl-10 pr-10 py-2 text-sm text-primary bg-white rounded focus:outline-none focus:ring-2 focus:ring-blue-800"
+        1.5                     placeholder="Masukan Kata sandi" required autocomplete="current-password" />
                             <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-base cursor-pointer"
                                 onclick="togglePasswordVisibility()">
                                 <i class='fas fa-eye text-primary hover:text-danger'></i>
@@ -72,18 +72,20 @@
     </aside>
 </section> --}}
 
+@include('admin.partials.toast')
+
 <section class="w-full min-h-screen flex flex-col md:flex-row">
-    <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 p-4 md:p-8 lg:flex justify-center items-center">
-        <div class="mx-auto lg:mt-16 mt-20 md:py-20 fixed">
-            <img src="{{ asset('images/zmi-auth-image.png') }}" alt="ZMI-Images-Auth" class="w-full max-w-lg mx-auto" />
-            <p class="text-center text-blue-900 text-lg font-semibold mt-4 mb-1">Partner Digital Untuk layanan Bisnis dan
-                pemerintahan</p>
+    <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 lg:flex justify-center items-center">
+        <div class="mx-auto fixed">
+            <img src="{{ asset('images/computer-login-concept-illustration.png') }}" alt="ZMI-Images-Auth" class="w-full max-w-md mx-auto" />
+            <p class="text-center text-blue-900 text-xl font-semibold mt-4 mb-1">
+                Partner Digital Untuk Layanan Bisnis dan Pemerintahan</p>
             <p class="text-center text-skyblue font-semibold text-sm">PT ZEN MULTIMEDIA INDONESIA</p>
         </div>
     </main>
 
-    <aside class="w-full lg:w-1/3 bg-[#1F2A7C] min-h-screen">
-        <div class="h-full px-6 flex flex-col justify-between">
+    <aside class="w-full lg:w-2/5 bg-[#1b3479f1] min-h-screen">
+        <div class="h-full px-8 flex flex-col justify-between">
             <div class="w-full max-w-md xl:max-w-xl mx-auto lg:px-6 mt-28">
                 <div class="text-center mb-10">
                     <h3 class="text-xl md:text-1xl text-white">Selamat Datang Kembali</h3>
@@ -103,7 +105,7 @@
                                 </span>
                             </div>
                             <input type="email" name="email" id="email"
-                                class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2"
+                                class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2"
                                 placeholder="Masukan email Anda">
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="my-1" />
@@ -120,9 +122,9 @@
                                 </span>
                             </div>
                             <input type="password" name="password" id="password"
-                                class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2"
+                                class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2"
                                 placeholder="Masukan Kata Sandi">
-                            <button type="button" id="togglePassword" class="absolute inset-y-0 end-0 flex items-center pe-3 text-gray-700">
+                            <button type="button" id="togglePassword" class="absolute inset-y-0 end-0 flex items-center pe-3 text-blue-800">
                                 <span class="text-base"><i class="fa-solid fa-eye"></i></span>
                             </button>
                         </div>
@@ -139,12 +141,12 @@
 
                     <div class="flex space-x-3">
                         <button type="submit"
-                            class="w-1/2 text-lg text-white bg-transparent border border-white rounded-lg font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
+                            class="w-1/2 text-lg text-white bg-transparent border border-white rounded-md font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
                             Masuk
                         </button>
 
                         <a href="{{ route('register') }}"
-                            class="w-1/2 text-lg text-center text-white bg-transparent border border-white rounded-lg font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
+                            class="w-1/2 text-lg text-center text-white bg-transparent border border-white rounded-md font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
                             Daftar
                         </a>
                     </div>

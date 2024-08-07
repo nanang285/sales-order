@@ -46,8 +46,11 @@
                                         {{ $loop->iteration }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        <img src="{{ asset('storage/uploads/service-section/' . ($service->image_path ?? '')) }}"
-                                            alt="{{ $service->image_path }}" class="w-12">
+                                        <a href="{{ asset('storage/uploads/service-section/' . $service->image_path) }}"
+                                            data-lightbox="project" data-title="{{ $service->title }}">
+                                            <img src="{{ asset('storage/uploads/service-section/' . ($service->image_path ?? '')) }}"
+                                                alt="{{ $service->image_path }}" class="w-12 rounded">
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 font-semibold">
                                         {{ $service->title }}
