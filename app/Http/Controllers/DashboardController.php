@@ -9,7 +9,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $recruitment = Recruitment::All();
-        return view('dashboard.index');
+        $recruitments = Recruitment::All();
+        $breadcrumbTitle = 'Dashboard';
+        return view('admin.dashboard.index', compact('recruitments', 'breadcrumbTitle'));
+
     }
 }

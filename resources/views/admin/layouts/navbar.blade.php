@@ -1,4 +1,4 @@
-<header class="py-1 fixed z-40 w-full bg-white lg:bg-gray-100">
+<header class="py-1 fixed z-[30] w-full bg-white lg:bg-gray-100">
     <div class="px-3 py-2 lg:py-4 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-between lg:justify-start w-full">
@@ -21,14 +21,7 @@
                 </p>
             </div>
             <div class="flex flex-row space-x-4">
-
-                {{-- <button type="button" data-dropdown-toggle="notification-dropdown"
-                    class="text-gray-600 rounded-lg text-[18px] hover:text-gray-900">
-                    <span class="sr-only">notification</span>
-                    <i class="fa-solid fa-bell"></i>
-                </button> --}}
-
-                <div class="z-20 z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:divide-gray-600 dark:bg-gray-700"
+                <div class=z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:divide-gray-600 dark:bg-gray-700"
                     id="notification-dropdown">
                     <div
                         class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -56,7 +49,7 @@
                             </div>
                             <div class="w-full pl-3">
                                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">New message
-                                    from <span class="font-semibold text-gray-900 dark:text-white">Bonnie Green</span>:
+                                    from <span class="font-semibold text-gray-900">Bonnie Green</span>:
                                     "Hey, what's up? All set for the presentation?"</div>
                                 <div class="text-xs font-medium text-primary-700 dark:text-primary-400">a few moments
                                     ago</div>
@@ -80,8 +73,8 @@
                             </div>
                             <div class="w-full pl-3">
                                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
-                                        class="font-semibold text-gray-900 dark:text-white">Jese leos</span> and <span
-                                        class="font-medium text-gray-900 dark:text-white">5 others</span> started
+                                        class="font-semibold text-gray-900">Jese leos</span> and <span
+                                        class="font-medium text-gray-900">5 others</span> started
                                     following you.</div>
                                 <div class="text-xs font-medium text-primary-700 dark:text-primary-400">10 minutes ago
                                 </div>
@@ -105,8 +98,8 @@
                             </div>
                             <div class="w-full pl-3">
                                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
-                                        class="font-semibold text-gray-900 dark:text-white">Joseph Mcfall</span> and
-                                    <span class="font-medium text-gray-900 dark:text-white">141 others</span> love your
+                                        class="font-semibold text-gray-900">Joseph Mcfall</span> and
+                                    <span class="font-medium text-gray-900">141 others</span> love your
                                     story. See it and view more stories.
                                 </div>
                                 <div class="text-xs font-medium text-primary-700 dark:text-primary-400">44 minutes ago
@@ -131,7 +124,7 @@
                             </div>
                             <div class="w-full pl-3">
                                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
-                                        class="font-semibold text-gray-900 dark:text-white">Leslie Livingston</span>
+                                        class="font-semibold text-gray-900">Leslie Livingston</span>
                                     mentioned you in a comment: <span
                                         class="font-medium text-primary-700 dark:text-primary-500">@bonnie.green</span>
                                     what do you say?</div>
@@ -156,7 +149,7 @@
                             </div>
                             <div class="w-full pl-3">
                                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
-                                        class="font-semibold text-gray-900 dark:text-white">Robert Brown</span> posted
+                                        class="font-semibold text-gray-900">Robert Brown</span> posted
                                     a new video: Glassmorphism - learn how to implement the new design trend.</div>
                                 <div class="text-xs font-medium text-primary-700 dark:text-primary-400">3 hours ago
                                 </div>
@@ -164,7 +157,7 @@
                         </a>
                     </div>
                     <a href="#"
-                        class="block py-2 text-base font-normal text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:underline">
+                        class="block py-2 text-base font-normal text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:underline">
                         <div class="inline-flex items-center ">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -177,18 +170,6 @@
                         </div>
                     </a>
                 </div>
-
-                {{-- <div>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit"
-                                class="py-2 px-4 rounded-lg block w-full text-left text-base text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                role="menuitem">
-                                {{ __('YA') }}
-                            </button>
-                        </form>
-                    </div> --}}
-
                 <div>
                     <button type="button"
                         class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -201,14 +182,14 @@
                 <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                     id="dropdown-2">
                     <div class="px-4 py-3" role="none">
-                        <p class="text-sm text-gray-9000 dark:text-white" role="none">
+                        <p class="text-sm text-gray-9000" role="none">
                             {{ Auth::user()->name }}
                         </p>
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                        <p class="text-sm font-medium text-gray-900 truncate" role="none">
                             {{ Auth::user()->email }}
                         </p>
-                        <p class="text-sm font-medium mb-2 text-gray-900 truncate dark:text-gray-300" role="none">
-                            Role: {{ Auth::user()->role }}
+                        <p class="text-sm font-medium mb-2 text-gray-900 truncate" role="none">
+                            Role: <span class="text-blue-600">{{ Auth::user()->role }}</span>
                         </p>
                         <button data-modal-target="logout_modal" data-modal-toggle="logout_modal"
                             class="flex items-center transition duration-300 text-red-500 border border-red-500 hover:text-white hover:bg-red-500 font-medium rounded text-sm px-1 py-0.5 text-center"
@@ -217,16 +198,7 @@
                             <span class="hidden lg:flex">Logout</span>
                         </button>
                     </div>
-
-                    {{-- <ul class="py-1" role="none">
-                            <li>
-                                <a href="{{ Route('profile.edit') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    role="menuitem">Profile</a>
-                            </li>
-                        </ul> --}}
                 </div>
-
             </div>
         </div>
     </div>
@@ -235,9 +207,7 @@
 <div data-aos="zoom-in-down" id="logout_modal" tabindex="2" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-20 right-0 left-0 z-50 w-full max-w-full max-h-full">
     <div class="relative p-4 w-full max-w-lg max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow p-5">
-            <!-- Modal header -->
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-semibold text-gray-900">
                     Keluar
@@ -253,7 +223,6 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
             <div class="">
                 <div class="my-4">
                     <h1 class="text-base font-semibold text-red-500">Apakah Anda Yakin Keluar dari Halaman Ini ?</h1>
@@ -275,7 +244,3 @@
     <div class="absolute animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-blue-500"></div>
     <img src="{{ asset('favicon.ico') }}" class="rounded-full h-20 w-20">
 </div>
-
-{{-- <div class="relative flex justify-center items-center">
-
-</div> --}}

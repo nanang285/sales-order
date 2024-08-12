@@ -4,7 +4,7 @@
     <div class="relative mt-3">
         <div class="px-4 pt-6">
 
-            @include('admin.partials.breadcrumb')
+            @include('admin.partials.home-bread')
 
             @include('admin.partials.toast')
 
@@ -74,7 +74,6 @@
                                             <i class="fa-solid fa-trash "></i>
                                         </button>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>
@@ -83,5 +82,5 @@
             </div>
         </div>
     </div>
-    @include('admin.galery.modal')
+    @include('admin.components.galery-modal')
 @endsection

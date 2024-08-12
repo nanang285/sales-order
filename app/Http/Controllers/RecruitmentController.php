@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -19,6 +18,8 @@ class RecruitmentController extends Controller
         $search = $request->input('search');
         $filter = $request->query('filter', 'newest');
 
+        $breadcrumbTitle = 'Recruitment';
+
         $recruitments = Recruitment::query()
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', "%{$search}%")
@@ -32,12 +33,14 @@ class RecruitmentController extends Controller
                 }
             })
             ->paginate(10);
-    
+
         return view('admin.recruitment.index', [
+            'breadcrumbTitle' => $breadcrumbTitle,
             'recruitments' => $recruitments,
             'filter' => $filter,
             'search' => $search,
         ]);
+            
     }
 
     public function searchByName(Request $request)
@@ -84,6 +87,39 @@ class RecruitmentController extends Controller
         return view('admin.recruitment.edit', compact('recruitment'));
     }
 
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:recruitments,email',
+            'name' => 'required|string|max:50',
+            'nik' => 'nullable|numeric|digits_between:1,16',
+            'address' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'study' => 'required|string',
+            'position' => 'required|string',
+            'salary' => 'required|string|max:50',
+            'file_path' => 'required|mimes:pdf|max:5000',
+        ]);
+
+        $recruitment = Recruitment::findOrFail($id);
+
+        $updateData = [
+            'email' => 'required|email|unique:recruitments,email',
+            'name' => 'required|string|max:50',
+            'nik' => 'nullable|numeric|digits_between:1,16',
+            'address' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'study' => 'required|string',
+            'position' => 'required|string',
+            'salary' => 'required|string|max:50',
+            'file_path' => 'required|mimes:pdf|max:5000',
+        ];
+
+        $recruitment->update($updateData);
+
+        return redirect()->route('galery')->with('success', true)->with('toast', 'edit');
+    }
+
     public function updateStage(Request $request, $uuid, $stage)
     {
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
@@ -125,7 +161,7 @@ class RecruitmentController extends Controller
             'study' => 'required|string',
             'position' => 'required|string',
             'salary' => 'required|string|max:50',
-            'file_path' => 'required|mimes:pdf|max:2048',
+            'file_path' => 'required|mimes:pdf|max:5000',
         ]);
 
         try {
@@ -147,40 +183,40 @@ class RecruitmentController extends Controller
             ]);
 
             // Email untuk terima notifikasi
-            // $adminEmail = 'nngs.me@gmail.com';
+            $adminEmail = 'nngs.me@gmail.com';
 
-            // $userEmail = $request->email;
-            // $userName = $request->name;
+            $userEmail = $request->email;
+            $userName = $request->name;
 
-            // Mail::raw(
-            //     "Data Rekrutment telah diterima dari $userEmail",
+            Mail::raw(
+                "Data Rekrutment telah diterima dari $userEmail",
 
-            //     function ($message) use ($adminEmail) {
-            //         $message->to($adminEmail)->subject('Notifikasi Data Rekrutmen Baru');
-            //     }
-            // );
+                function ($message) use ($adminEmail) {
+                    $message->to($adminEmail)->subject('Notifikasi Data Rekrutmen Baru');
+                }
+            );
 
-            // $userNIK = $request->nik;
-            // $userAdress = $request->address;
-            // $userPhone = $request->phone_number;
-            // $userStudy = $request->study;
-            // $userPosition = $request->position;
-            // $userSalary = $request->salary;
+            $userNIK = $request->nik;
+            $userAdress = $request->address;
+            $userPhone = $request->phone_number;
+            $userStudy = $request->study;
+            $userPosition = $request->position;
+            $userSalary = $request->salary;
 
-            // Mail::raw(
-            //     "Data Rekrutment telah diterima dari email $userEmail dengan data sebagai berikut,
-            //  <li>Nama : $userName</li>
-            //  <li>NIK : $userNIK</li>
-            //  <li>Alamat : $userAdress</li>
-            //  <li>No. Telpon : $userPhone</li>
-            //  <li>Pendidikan : $userStudy</li>
-            //  <li>Posisi : $userPosition</li>
-            //  <li>Harapan Gaji : $userSalary</li>",
-            //     function ($message) use ($adminEmail) {
-            //         $message->to($adminEmail)
-            //             ->subject('Notifikasi Data Rekrutmen Baru');
-            //     }
-            // );
+            Mail::raw(
+                "Data Rekrutment telah diterima dari email $userEmail dengan data sebagai berikut,
+             <li>Nama : $userName</li>
+             <li>NIK : $userNIK</li>
+             <li>Alamat : $userAdress</li>
+             <li>No. Telpon : $userPhone</li>
+             <li>Pendidikan : $userStudy</li>
+             <li>Posisi : $userPosition</li>
+             <li>Harapan Gaji : $userSalary</li>",
+                function ($message) use ($adminEmail) {
+                    $message->to($adminEmail)
+                        ->subject('Notifikasi Data Rekrutmen Baru');
+                }
+            );
 
             return redirect()->route('success')->with('success', true)->with('toast', 'recruitment.terkirim');
         } catch (\Exception $e) {
@@ -231,14 +267,11 @@ class RecruitmentController extends Controller
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
         $recruitment = Recruitment::findOrFail($uuid);
 
-
         if ($recruitment->file_path) {
             Storage::disk('public')->delete('uploads/recruitment/' . $recruitment->file_path);
         }
 
         $recruitment->delete();
-
         return redirect()->route('admin.recruitment')->with('success', true)->with('toast', 'delete');
     }
-    
 }

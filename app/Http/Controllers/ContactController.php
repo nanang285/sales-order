@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\FooterSection;
 use App\Models\Contact;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -12,7 +11,6 @@ class ContactController extends Controller
     public function index(): View
     {
         $footerSection = FooterSection::first();
-        // $contact = Contact::first();
         return view('contact', compact('footerSection'));
     }
 

@@ -2,6 +2,7 @@ import "./bootstrap";
 import "../css/app.css";
 import "flowbite";
 
+
 $(document).ready(function () {
     var animationDuration = 400;
 

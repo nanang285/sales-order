@@ -8,12 +8,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ClientSectionController extends Controller
+class ClientController extends Controller
 {
     public function index(): View
     {
         $clientSection = ClientSection::All();
-        return view('admin.homepages.client', compact('clientSection'));
+        $breadcrumbTitle = 'Client';
+        return view('admin.homepages.client', compact('clientSection', 'breadcrumbTitle'));
     }
 
     public function store(Request $request)
@@ -52,7 +53,7 @@ class ClientSectionController extends Controller
         if ($request->hasFile('image_path')) {
 
             $image = $request->file('image_path');
-            $image->storeAs('public/uploads/client-section', $image->hashName());
+            $image->storeAs('public/uploads/client-section', $image->getClientOriginalName());
 
             $oldImagePath = 'public/uploads/client-section/' . $clientSection->image_path;
             if (Storage::exists($oldImagePath)) {
@@ -60,7 +61,7 @@ class ClientSectionController extends Controller
             }
 
             $clientSection->update([
-                'image_path' => $image->hashName(),
+                'image_path' => $image->getClientOriginalName(),
             ]);
         } else {
             $clientSection->update([]);

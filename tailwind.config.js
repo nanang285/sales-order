@@ -1,6 +1,4 @@
-/** @type {import('tailwindcss').Config} */
-
-
+// /** @type {import('tailwindcss').Config} */
 
 export default {
     content: [
@@ -53,5 +51,10 @@ export default {
             },
         },
     },
-    plugins: [require("flowbite/plugin")],
+    plugins: [
+        require("flowbite/plugin")({
+            datatables: true,
+        }),
+        // ... other plugins
+    ],
 };

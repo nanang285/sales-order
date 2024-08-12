@@ -1,8 +1,8 @@
 @include('partials.start')
+@include('admin.partials.toast')
 <div id="about" class="h-full min-h-screen bg-fixed bg-black bg-cover bg-no-repeat p-4 md:py-16"
 style="background-image: url('{{ asset('images/bg-about.webp') }}');">
 <section class="mx-auto max-w-[800px] lg:px-6">
-        @include('admin.partials.toast')
         <div class="container mx-auto px-0 md:px-10">
             <div class="py-5 px-6 lg:p-8 md:max-w-none lg:flex flex-col rounded ring-1 bg-white ring-gray-200 shadow-lg">
                 <div class="flex mb-5 flex-wrap justify-center sm:justify-start">
@@ -15,7 +15,6 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                     </div>
                 </div>
                 <hr>
-              
                 <div class=" w-full">
                     <h2 class="text-gray-700 font-semibold text-base text-center mt-5">
                         Data Berhasil Terkirim, Mohon untuk menunggu hasil selanjutnya.
@@ -34,8 +33,6 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                     </p>
                 </div>
             </div>
-
-
         </div>
     </section>
 </div>

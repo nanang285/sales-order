@@ -3,24 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\GalerySection;
+use App\Models\FooterSection;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class GalerySectionController extends Controller
+class GaleryController extends Controller
 {
-    public function index() : View
+    public function index(): View
     {
         $galerySection = GalerySection::All();
-        
-        return view('admin.galery.index', compact('galerySection'));
+        $breadcrumbTitle = 'Gallery';
+        return view('admin.homepages.galery', compact('galerySection', 'breadcrumbTitle'));
     }
 
-    public function DocumentationIndex()
+    public function DocIndex()
     {
-        $galerySection = GalerySection::first();
-        return view('documentation', compact('galerySection'));
+        $galerySection = GalerySection::All();
+        $footerSection = FooterSection::first();
+        return view('documentation', compact('galerySection', 'footerSection'));
     }
 
     public function create()
@@ -37,7 +39,7 @@ class GalerySectionController extends Controller
         ]);
 
         $image = $request->file('image_path');
-        $imageName = $image->hashName();
+        $imageName = $image->getClientOriginalName();
         $imagePath = $image->storeAs('uploads/galery-section', $imageName, 'public');
 
         GalerySection::create([
@@ -47,7 +49,6 @@ class GalerySectionController extends Controller
         ]);
 
         return redirect()->route('galery')->with('success', true)->with('toast', 'add');
-
     }
 
     public function edit(): View
@@ -78,7 +79,7 @@ class GalerySectionController extends Controller
 
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
-            $imageName = $image->hashName();
+            $imageName = $image->getClientOriginalName();
             $image->storeAs('public/uploads/galery-section', $imageName);
 
             $oldImagePath = 'public/uploads/galery-section/' . $galerySection->image_path;
@@ -105,6 +106,5 @@ class GalerySectionController extends Controller
         $project->delete();
 
         return redirect()->route('galery')->with('success', true)->with('toast', 'delete');
-
     }
 }

@@ -13,24 +13,22 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->input('search');
-        $users = User::query()
-            ->when($search, function ($query, $search) {
-                return $query->where('name', 'like', "%{$search}%")
-                             ->orWhere('email', 'like', "%{$search}%");
-            })
-            ->paginate(10);
 
+        $users = User::All();
         return view('admin.users.index', compact('users'));
     }
 
-    public function show(string $id)
+    public function AdminEdit($request)
     {
-        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $request->id,
+            'role' => 'required|string|in:admin,user',
+        ]);
     }
-
+    
     public function edit(User $user)
     {
         return view('users.edit', compact('user'));

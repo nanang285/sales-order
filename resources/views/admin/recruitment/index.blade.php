@@ -1,5 +1,4 @@
 @extends('admin.layouts.main')
-
 @section('container')
     <div class="relative mt-3">
         <div class="px-4 pt-6">
@@ -53,7 +52,6 @@
                                 <span class="sr-only">Search</span>
                             </button>
                         </form>
-
                     </div>
 
                     <div
@@ -112,7 +110,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex mx-4 flex-col">
                     <div class="overflow-x-auto">
                         <div class="p-1.5 min-w-full inline-block align-middle">
@@ -190,23 +187,23 @@
                                                     {{ $recruitment->failed_stage }}
                                                 </td>
                                                 <td class="whitespace-nowrap text-end text-sm font-medium">
-                                                    <a href="{{ route('recruitment.edit', $recruitment->uuid) }}"
+                                                    <button data-modal-target="pdfModal"
+                                                        data-file-path="{{ asset('storage/uploads/recruitment/' . $recruitment->file_path) }}"
                                                         class="text-yellow-300 border-2 border-yellow-300 hover:text-white hover:bg-yellow-300 font-medium rounded text-sm inline-flex items-center justify-center w-8 h-8 m-1"
+                                                        type="button">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                    </button>
+                                                    <a href="{{ route('recruitment.edit', $recruitment->uuid) }}"
+                                                        class="text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded text-sm inline-flex items-center justify-center w-8 h-8 m-1"
                                                         type="button">
                                                         <i class="fa-solid fa-user-pen"></i>
                                                     </a>
                                                     <button data-modal-target="delete_modal_{{ $recruitment->uuid }}"
                                                         data-modal-toggle="delete_modal_{{ $recruitment->uuid }}"
-                                                        class="text-red-700 border border-red-700 hover:bg-red-800 hover:text-white font-medium rounded text-sm 
-                                                        px-2.5 py-1.5 m-1 text-center"
+                                                        class="text-red-700 border-2 border-red-700 hover:bg-red-800 hover:text-white font-medium rounded text-sm 
+                                                        px-2 py-1 m-1 text-center"
                                                         type="button">
                                                         <i class="fa-solid fa-trash "></i>
-                                                    </button>
-                                                    <button data-modal-target="pdfModal"
-                                                        data-file-path="{{ asset('storage/uploads/recruitment/' . $recruitment->file_path) }}"
-                                                        class="text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded text-sm inline-flex items-center justify-center w-8 h-8 m-1"
-                                                        type="button">
-                                                        <i class="fa-solid fa-file-pdf"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -238,7 +235,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex flex-col overflow-x-auto md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">

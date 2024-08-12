@@ -13,31 +13,9 @@ class PromoController extends Controller
     public function index() : View
     {
         $promoSection = Promo::first();
-        return view('admin.promo.index', compact('promoSection'));
+        $breadcrumbTitle = 'PopUp';
+        return view('admin.homepages.popup', compact('promoSection', 'breadcrumbTitle'));
     }
-
-    // public function create()
-    // {
-    //     return view('admin.promo.create');
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-
-    //     $image = $request->file('image_path');
-    //     $imageName = $image->hashName();
-    //     $imagePath = $image->storeAs('uploads/promo', $imageName, 'public');
-
-    //     Promo::create([
-    //         'image_path' => $imageName,
-    //     ]);
-
-    //     return redirect()->route('promo')->with('success', true)->with('toast', 'add');
-
-    // }
 
     public function edit(): View
     {

@@ -3,23 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceSection;
-
 use Illuminate\View\View;
-
 use Illuminate\Http\RedirectResponse;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
 
-
-class ServiceSectionController extends Controller
+class ServiceController extends Controller
 {
-    public function index() : View
+    public function index(): View
     {
         $serviceSection = ServiceSection::All();
-        
-        return view('admin.service.index', compact('serviceSection'));
+        $breadcrumbTitle = 'Services';
+        return view('admin.homepages.service', compact('serviceSection', 'breadcrumbTitle'));
     }
 
     public function create()
@@ -36,7 +31,7 @@ class ServiceSectionController extends Controller
         ]);
 
         $image = $request->file('image_path');
-        $imageName = $image->hashName();
+        $imageName = $image->getClientOriginalName();
         $imagePath = $image->storeAs('uploads/service-section', $imageName, 'public');
 
         ServiceSection::create([
@@ -62,7 +57,7 @@ class ServiceSectionController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'title' => 'string|max:255',
+            'title' => 'string|max:50',
             'subtitle' => 'string|max:255',
             'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
@@ -76,7 +71,7 @@ class ServiceSectionController extends Controller
 
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
-            $imageName = $image->hashName();
+            $imageName = $image->getClientOriginalName();
             $image->storeAs('public/uploads/service-section', $imageName);
 
             $oldImagePath = 'public/uploads/service-section/' . $serviceSection->image_path;
@@ -90,8 +85,6 @@ class ServiceSectionController extends Controller
         $serviceSection->update($updateData);
 
         return redirect()->route('service')->with('success', true)->with('toast', 'edit');
-        
-        
     }
 
     public function destroy($id)
@@ -105,6 +98,5 @@ class ServiceSectionController extends Controller
         $project->delete();
 
         return redirect()->route('service')->with('success', true)->with('toast', 'delete');
-        
     }
 }

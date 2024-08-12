@@ -71,5 +71,5 @@
             </div>
         </div>
     </div>
-    @include('admin.components.clientmodal')
+    @include('admin.components.client-modal')
 @endsection

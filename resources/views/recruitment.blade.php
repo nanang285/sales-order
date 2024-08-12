@@ -34,7 +34,7 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                                 </div>
                                 <input type="email" name="email" id="email"
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukan Alamat Email Anda">
+                                    placeholder="Masukan Alamat Email Anda" required>
                             </div>
                             <x-input-error :messages="$errors->get('email')" class="my-1" />
                         </div>
@@ -50,14 +50,14 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                                 </div>
                                 <input type="text" name="name" id="name"
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukkan Nama Lengkap Anda">
+                                    placeholder="Masukkan Nama Lengkap Anda" required>
                             </div>
                             <x-input-error :messages="$errors->get('name')" class="my-1" />
                         </div>
 
                         <div class="mb-3">
-                            <label for="nik" class="block text-sm font-medium text-gray-600 mb-2">Nomor Induk
-                                Kependudukan / NIK</label>
+                            <label for="nik" class="block text-sm font-medium text-gray-600 mb-2">
+                                Nomor Induk Kependudukan / NIK</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <span class="text-base text-blue-800">
@@ -77,7 +77,7 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                             <div class="relative">
                                 <textarea name="address" id="address"
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full py-2 max-h-20 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukan Alamat Lengkap Anda"></textarea>
+                                    placeholder="Masukan Alamat Lengkap Anda" required></textarea>
 
                             </div>
                             <x-input-error :messages="$errors->get('address')" class="my-1" />
@@ -95,7 +95,7 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                                 </div>
                                 <input type="number" name="phone_number" id="phone_number"
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="628**********">
+                                    placeholder="Masukan No.Telp/HP/WA" required>
                             </div>
                             <x-input-error :messages="$errors->get('phone_number')" class="my-1" />
                         </div>
@@ -103,12 +103,11 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                         <div>
                             <label for="study" class="block text-sm font-medium text-gray-700">
                                 Pendidikan<span class="text-red-600 text-base">*</span></label>
-                            <select id="study" name="study"
+                            <select id="study" name="study" required
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm"
                                 onchange="toggleOtherEducation(this)">
                                 <option value="" disabled selected>Pilih Pendidikan</option>
-                                <option value="Sekolah Lanjutan Tingkat Atas (SLTA)">Sekolah Lanjutan Tingkat Atas
-                                    (SLTA)</option>
+                                <option value="Sekolah Lanjutan Tingkat Atas (SLTA)">Sekolah Lanjutan Tingkat Atas (SLTA)</option>
                                 <option value="Sekolah Menengah Kejuruan (SMK)">Sekolah Menengah Kejuruan (SMK)</option>
                                 <option value="Diploma 3 (D3)">Diploma 3 (D3)</option>
                                 <option value="Strata 1 (S1)">Strata 1 (S1)</option>
@@ -119,7 +118,7 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                         <div>
                             <label for="position" class="block text-sm font-medium text-gray-700">
                                 Posisi Yang Dilamar<span class="text-red-600 text-base">*</span></label>
-                            <select id="position" name="position"
+                            <select id="position" name="position" required
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
                                 <option value="" disabled selected>Pilih Posisi Yang Dilamar</option>
                                 <option value="Project Manager">Project Manager</option>
@@ -133,9 +132,7 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                                 <option value="Quality Control">Quality Control</option>
                                 <option value="Accounting Staff / Tax Staff">Accounting Staff / Tax Staff</option>
                             </select>
-
                             <x-input-error :messages="$errors->get('position')" class="my-1" />
-
                         </div>
 
                         <div class="mb-3">
@@ -149,10 +146,28 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                                 </div>
                                 <input type="text" name="salary" id="salary"
                                 class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-8 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Gaji Yang Anda Harapkan">
+                                placeholder="Gaji Yang Anda Harapkan" required>
                             </div>
                             <x-input-error :messages="$errors->get('salary')" class="my-1" />
                         </div>
+
+                        {{-- <div class="mb-1">
+                            <div class="relative">
+                                <label for="file_input" class="block text-sm font-medium text-gray-600 mb-2">
+                                    Upload Portofolio</label>
+                            </div>
+                            <div class="relative bg-white">
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="file_input_help" name="file_path" id="file_input"
+                                    type="file" accept="application/pdf">
+                                <x-input-error :messages="$errors->get('file_path')" class="my-1" />
+                                <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600"
+                                    id="file_input_help">
+                                    Jika ada. pdf (MAX. 5MB).
+                                </p>
+                            </div>
+                        </div> --}}
 
                         <div class="mb-3">
                             <div class="relative">
@@ -163,7 +178,7 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                                 <input
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     aria-describedby="file_input_help" name="file_path" id="file_input"
-                                    type="file" accept="application/pdf">
+                                    type="file" accept="application/pdf" required>
                                 <x-input-error :messages="$errors->get('file_path')" class="my-1" />
                                 <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600"
                                     id="file_input_help">

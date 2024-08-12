@@ -1,16 +1,16 @@
 <?php
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PromoController;
-use App\Http\Controllers\ServiceSectionController;
-use App\Http\Controllers\AboutSectionController;
-use App\Http\Controllers\LatestProjectController;
-use App\Http\Controllers\GalerySectionController;
-use App\Http\Controllers\ClientSectionController;
-use App\Http\Controllers\FooterSectionController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\GaleryController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DocumentationController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RecruitmentController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +22,12 @@ Route::get('/recruitment', function () {
     return view('recruitment');
 });
 
-Route::get('/success', function () {
-    return view('success');
+Route::get('/datatables', function () {
+    return view('datatables');
+})->name('datatables');
+
+Route::get('/recruitment-success', function () {
+    return view('recruitment-success');
 })->name('success');
 
 
@@ -31,25 +35,20 @@ Route::get('/recruitment', function () {
     return view('recruitment');
 })->name('recruitment');
 
-Route::get('documentation', [DocumentationController::class, 'index'])->name('documentation');
+Route::get('documentation', [GaleryController::class, 'DocIndex'])->name('documentation');
 
 Route::view('/checkrecruitment', 'checkrecruitment')->name('checkrecruitment');
 Route::post('/admin/recruitment', [RecruitmentController::class, 'store'])->name('recruitment.store');
 Route::post('/checkrecruitment', [RecruitmentController::class, 'searchByEmail'])->name('checkrecruitment.search');
 
-Route::get('/portofolio', [LatestProjectController::class, 'PortofolioIndex'])->name('portofolio');
-Route::get('/tentang-kami', [AboutSectionController::class, 'AboutIndex'])->name('tentang-kami');
+Route::get('/portofolio', [ProjectController::class, 'PortofolioIndex'])->name('portofolio');
+Route::get('/tentang-kami', [AboutController::class, 'AboutIndex'])->name('tentang-kami');
 
 
 Route::prefix('auth')->group(function () {
     Route::get('/admin/login', function () {
         return view('admin.login');
     });
-
-    // Route::get('/register', function () {
-    //     return view('register');
-    // });
-
     Route::get('/forgot-password', function () {
         return view('forgot-password');
     });
@@ -68,11 +67,9 @@ Route::middleware('auth')->group(function () {
         }
     })->name('dashboard');
 
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard.index');
-    })
-        ->name('admin.dashboard')
-        ->middleware('admin');
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    
     
     Route::get('/member/dashboard', function () {
         return view('member.dashboard.index');
@@ -102,7 +99,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/recruitment/{uuid}', [RecruitmentController::class, 'edit'])->name('recruitment.edit');
     Route::post('/admin/recruitment/update/', [RecruitmentController::class, 'update'])->name('recruitment.update');
     Route::delete('/admin/recruitment/{uuid}', [RecruitmentController::class, 'destroy'])->name('recruitment.destroy');
-    Route::post('/recruitment/{uuid}/{stage}', [RecruitmentController::class, 'updateStage'])->name('recruitment.updateStage');
+    Route::post('/admin/recruitment/{uuid}/{stage}', [RecruitmentController::class, 'updateStage'])->name('recruitment.updateStage');
     Route::get('/admin/recruitment/search', [RecruitmentController::class, 'searchByName'])->name('recruitment.search');
 
     // Homepages
@@ -111,31 +108,31 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/homepages/popup/{id}', [PromoController::class, 'update'])->name('promo.update');
     Route::post('/admin/homepages/popup', [PromoController::class, 'store'])->name('promo.store');
 
-    Route::get('/admin/homepages/service', [ServiceSectionController::class, 'index'])->name('service');
-    Route::post('/admin/homepages/service', [ServiceSectionController::class, 'store'])->name('service.store');
-    Route::put('/admin/homepages/service/{id}', [ServiceSectionController::class, 'update'])->name('service.update');
-    Route::delete('/admin/homepages/service/{id}', [ServiceSectionController::class, 'destroy'])->name('service.destroy');
+    Route::get('/admin/homepages/service', [ServiceController::class, 'index'])->name('service');
+    Route::post('/admin/homepages/service', [ServiceController::class, 'store'])->name('service.store');
+    Route::put('/admin/homepages/service/{id}', [ServiceController::class, 'update'])->name('service.update');
+    Route::delete('/admin/homepages/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
-    Route::get('/admin/homepages/about', [AboutSectionController::class, 'index'])->name('about');
-    Route::put('/admin/homepages/about/{id}', [AboutSectionController::class, 'update'])->name('about.update');
+    Route::get('/admin/homepages/about', [AboutController::class, 'index'])->name('about');
+    Route::put('/admin/homepages/about/{id}', [AboutController::class, 'update'])->name('about.update');
 
-    Route::get('/admin/homepages/project', [LatestProjectController::class, 'index'])->name('project');
-    Route::post('/admin/homepages/project', [LatestProjectController::class, 'store'])->name('project.store');
-    Route::put('/admin/homepages/project/{id}', [LatestProjectController::class, 'update'])->name('project.update');
-    Route::delete('/admin/homepages/project/{id}', [LatestProjectController::class, 'destroy'])->name('project.destroy');
+    Route::get('/admin/homepages/project', [ProjectController::class, 'index'])->name('project');
+    Route::post('/admin/homepages/project', [ProjectController::class, 'store'])->name('project.store');
+    Route::put('/admin/homepages/project/{id}', [ProjectController::class, 'update'])->name('project.update');
+    Route::delete('/admin/homepages/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
 
-    Route::get('/admin/homepages/galery', [GalerySectionController::class, 'index'])->name('galery');
-    Route::post('/admin/homepages/galery', [GalerySectionController::class, 'store'])->name('galery.store');
-    Route::put('/admin/homepages/galery/{id}', [GalerySectionController::class, 'update'])->name('galery.update');
-    Route::delete('/admin/homepages/galery/{id}', [GalerySectionController::class, 'destroy'])->name('galery.destroy');
+    Route::get('/admin/homepages/galery', [GaleryController::class, 'index'])->name('galery');
+    Route::post('/admin/homepages/galery', [GaleryController::class, 'store'])->name('galery.store');
+    Route::put('/admin/homepages/galery/{id}', [GaleryController::class, 'update'])->name('galery.update');
+    Route::delete('/admin/homepages/galery/{id}', [GaleryController::class, 'destroy'])->name('galery.destroy');
 
-    Route::get('/admin/homepages/client', [ClientSectionController::class, 'index'])->name('client');
-    Route::post('/admin/homepages/client', [ClientSectionController::class, 'store'])->name('client.store');
-    Route::put('/admin/homepages/client/{id}', [ClientSectionController::class, 'update'])->name('client.update');
-    Route::delete('/admin/homepages/client/{id}', [ClientSectionController::class, 'destroy'])->name('client.destroy');
+    Route::get('/admin/homepages/client', [ClientController::class, 'index'])->name('client');
+    Route::post('/admin/homepages/client', [ClientController::class, 'store'])->name('client.store');
+    Route::put('/admin/homepages/client/{id}', [ClientController::class, 'update'])->name('client.update');
+    Route::delete('/admin/homepages/client/{id}', [ClientController::class, 'destroy'])->name('client.destroy');
 
-    Route::get('/admin/homepages/footer', [FooterSectionController::class, 'index'])->name('footer');
-    Route::put('/admin/homepages/footer/{id}', [FooterSectionController::class, 'update'])->name('footer.update');
+    Route::get('/admin/homepages/footer', [FooterController::class, 'index'])->name('footer');
+    Route::put('/admin/homepages/footer/{id}', [FooterController::class, 'update'])->name('footer.update');
 
 });
 

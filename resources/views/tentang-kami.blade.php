@@ -1,10 +1,7 @@
 @include('partials.start')
 @include('partials.navbar')
 
-<div id="preloader" class="fixed inset-0 bg-gray-800 bg-opacity-80 flex items-center justify-center z-50">
-    <div class="absolute animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-blue-500"></div>
-    <img src="{{ asset('favicon.ico') }}" class="rounded-full h-20 w-20">
-</div>
+@include('components.preloader')
 
 <div class="relative">
     <div class="bg-fixed bg-cover bg-no-repeat"
@@ -53,49 +50,35 @@
                         <li>Website E-Commerce</li>
                     </ul>
                 </div>
-
                 <div data-aos="fade-up" data-aos-anchor-placement="top-center" class="mt-8 md:w-1/2">
                     <div id="default-carousel" class="relative w-full" data-carousel="slide">
                         <div class="relative h-56 overflow-hidden rounded-md lg:rounded-lg md:h-96">
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                 <img src="{{ asset('images/istockphoto-1163219301-1024x1024.jpg') }}"
                                     class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                    alt="...">
+                                    alt="zmi-slider-1">
                             </div>
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                 <img src="{{ asset('images/marvin-meyer-SYTO3xs06fU-unsplash.jpg') }}"
                                     class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                    alt="...">
+                                    alt="zmi-slider-2">
                             </div>
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                 <img src="{{ asset('images/istockphoto-1163219301-1024x1024.jpg') }}"
                                     class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                    alt="...">
+                                    alt="zmi-slider-3">
                             </div>
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                 <img src="{{ asset('images/istockphoto-1163219301-1024x1024.jpg') }}"
                                     class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                    alt="...">
+                                    alt="zmi-slider-4">
                             </div>
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                 <img src="{{ asset('images/istockphoto-1163219301-1024x1024.jpg') }}"
                                     class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                    alt="...">
+                                    alt="zmi-slider-5">
                             </div>
                         </div>
-                        {{-- <div
-                            class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                            <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-                                data-carousel-slide-to="0"></button>
-                            <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                                aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                            <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                                aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                            <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                                aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                            <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                                aria-label="Slide 5" data-carousel-slide-to="4"></button>
-                        </div> --}}
                         <button type="button" class="absolute top-0 -right-10 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
                             <span class="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-blue-600 group-hover:bg-blue-600 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                                 <span class="text-white"><i class="fas fa-arrow-right"></i></span>
