@@ -1,6 +1,5 @@
 @include('partials.start')
 @include('partials.navbar')
-
 @include('components.preloader')
 
 <div class="relative">

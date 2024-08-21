@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="">
-                <form class="space-y-4" action="{{ route('service.store') }}" method="POST"
+                <form class="space-y-4" action="{{ route('admin.homepages.service.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div>
@@ -72,7 +72,7 @@
                     </button>
                 </div>
                 <div class="">
-                    <form class="space-y-4" action="{{ route('service.update', $service->id) }}" method="POST"
+                    <form class="space-y-4" action="{{ route('admin.homepages.service.update', $service->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -138,7 +138,7 @@
                 </div>
                 <div class="">
                     <p class="text-sm text-red-500 ">Apakah Anda yakin ingin menghapus data ini?</p>
-                    <form class="mt-4" action="{{ route('service.destroy', $service->id) }}" method="POST">
+                    <form class="mt-4" action="{{ route('admin.homepages.service.destroy', $service->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <div class="mb-3">

@@ -6,3 +6,53 @@ header {
     @apply z-[9900];
 }
 
+::selection {
+    background: #1B2579;
+    color: #f8f8f8;
+    border-radius: 10px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.text-urbanist {
+    font-family: "Urbanist", sans-serif;
+}
+
+body {
+    font-size: 15pt;
+    font-family: "Urbanist", Arial, sans-serif;
+    letter-spacing: 1px;
+}
+
+.btn-masuk {
+    font-size: 19px;
+}
+
+.btn-masuk span {
+    font-weight: 700;
+}
+
+.hero-section {
+    background-color: #1b2579 !important;
+    background-image: url("/images/background-generic.png");
+    height: 650px;
+    background-size: cover;
+}
+
+.hero-images img {
+    width: 430px !important;
+    height: auto;
+}
+
+/* carousel */
+.swiper-container {
+    width: 100%; 
+    overflow: hidden; 
+}
+
+.button-next {
+ color: #ffffff !important;
+ text-decoration: none;
+}

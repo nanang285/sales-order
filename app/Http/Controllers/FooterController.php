@@ -3,31 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\FooterSection;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class FooterController extends Controller
 {
-    public function index(): View
+    public function index()
     {
-        $footerSection = FooterSection::first();
+        $footerSection = FooterSection::firstOrFail();
         $breadcrumbTitle = 'Footer';
-        return view('admin.homepages.footer', compact('footerSection', 'breadcrumbTitle'));
+        return view('admin.homepages.footer', [
+            'footerSection' => $footerSection,
+            'breadcrumbTitle' => $breadcrumbTitle
+        ]);
     }
 
-    public function edit(): View
-    {
-        $footerSection = FooterSection::first();
-
-        if (!$footerSection) {
-            $footerSection = new FooterSection();
-        }
-
-        return view('admin.footer.edit', compact('footerSection'));
-    }
-
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'alamat' => 'nullable|string',
@@ -47,6 +37,6 @@ class FooterController extends Controller
 
         $footerSection->update($data);
 
-        return redirect()->route('footer')->with('success', true)->with('toast', 'edit');
+        return redirect()->route('admin.homepages.footer.index')->with('success', true)->with('toast', 'edit');
     }
 }

@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('container')
-    <div class="relative mt-3">
-        <div class="px-4 pt-6">
+    <div class="relative">
+        <div class="px-4">
             @include('admin.partials.home-bread')
             @include('admin.partials.toast')
             <div class="shadow-lg p-3 my-6 bg-white border rounded">

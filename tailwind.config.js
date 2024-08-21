@@ -55,6 +55,5 @@ export default {
         require("flowbite/plugin")({
             datatables: true,
         }),
-        // ... other plugins
     ],
 };

@@ -1,10 +1,10 @@
 @include('admin.partials.toast')
 @extends('admin.layouts.main')
 @section('container')
-    <div class="relative mt-3">
-        <div class="px-4 pt-6">
+    <div class="relative">
+        <div class="px-4">
             @include('admin.partials.home-bread')
-            <form method="POST" action="{{ route('about.update', $aboutSection->id) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.homepages.about.update', $aboutSection->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-10 gap-3 lg:gap-4">

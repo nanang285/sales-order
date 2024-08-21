@@ -2,7 +2,7 @@
 
 @include('admin.layouts.navbar')
 
-<div class="flex pt-12 overflow-hidden">
+<div class="flex pt-11 overflow-hidden">
     @include('admin.layouts.sidebar')
 
     <div class="fixed inset-0 z-10 hidden" id="sidebarBackdrop"></div>

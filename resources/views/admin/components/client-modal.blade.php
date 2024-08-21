@@ -22,7 +22,7 @@
             </div>
             <!-- Modal body -->
             <div class="">
-                <form class="space-y-4" action="{{ route('client.store') }}" method="POST"
+                <form class="space-y-4" action="{{ route('admin.homepages.client.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div>
@@ -76,7 +76,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="">
-                    <form class="space-y-4" action="{{ route('client.update', $client->id) }}" method="POST"
+                    <form class="space-y-4" action="{{ route('admin.homepages.client.update', $client->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -131,7 +131,7 @@
                 <!-- Modal body -->
                 <div class="">
                     <p class="text-sm text-red-500 ">Apakah Anda yakin ingin menghapus data ini?</p>
-                    <form class="mt-4" action="{{ route('client.destroy', $client->id) }}" method="POST">
+                    <form class="mt-4" action="{{ route('admin.homepages.client.destroy', $client->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <div class="mb-3">

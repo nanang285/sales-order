@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\GalerySection;
 use App\Models\FooterSection;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class GaleryController extends Controller
@@ -48,7 +48,7 @@ class GaleryController extends Controller
             'image_path' => $imageName,
         ]);
 
-        return redirect()->route('galery')->with('success', true)->with('toast', 'add');
+        return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'add');
     }
 
     public function edit(): View
@@ -62,12 +62,12 @@ class GaleryController extends Controller
         return view('admin.galery.edit', compact('galerySection'));
     }
 
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'title' => 'string|max:50',
             'subtitle' => 'string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5180',
         ]);
 
         $galerySection = Galerysection::findOrFail($id);
@@ -92,7 +92,7 @@ class GaleryController extends Controller
 
         $galerySection->update($updateData);
 
-        return redirect()->route('galery')->with('success', true)->with('toast', 'edit');
+        return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'edit');
     }
 
     public function destroy($id)
@@ -105,6 +105,6 @@ class GaleryController extends Controller
 
         $project->delete();
 
-        return redirect()->route('galery')->with('success', true)->with('toast', 'delete');
+        return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'delete');
     }
 }

@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('container')
-    <div class="relative mt-3">
-        <div class="px-4 pt-6">
+    <div class="relative">
+        <div class="px-4">
             @include('admin.partials.home-bread')
             @include('admin.partials.toast')
             <div class="bg-white shadow-lg p-3 my-6 border rounded">
@@ -13,8 +13,6 @@
                         type="button">
                         <i class="fa-solid fa-plus"></i>
                     </button>
-
-
                 </div>
                 <hr>
                 <div class="relative overflow-x-auto">

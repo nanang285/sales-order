@@ -2,9 +2,7 @@
     <div id="delete_modal_{{ $recruitment->uuid }}" tabindex="2" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-lg max-h-full">
-            <!-- Modal content -->
             <div class="relative bg-white p-4 rounded shadow">
-                <!-- Modal header -->
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-xl font-semibold text-gray-900">
                         Hapus Data
@@ -20,10 +18,9 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <!-- Modal body -->
                 <div class="">
                     <p class="text-sm text-red-500 ">Apakah Anda yakin ingin menghapus data ini?</p>
-                    <form class="mt-4" action="{{ route('recruitment.destroy', $recruitment->uuid) }}" method="POST">
+                    <form class="mt-4" action="{{ route('admin.recruitment.destroy', $recruitment->uuid) }}" method="POST">
                         @csrf
                         @method('DELETE')
                     

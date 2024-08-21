@@ -1,10 +1,41 @@
 @extends('admin.layouts.main')
 @section('container')
-    <div class="relative mt-3">
-        <div class="px-4 pt-6">
+    <div class="relative">
+        <div class="px-4">
             @include('admin.partials.home-bread')
             @include('admin.partials.toast')
-            <form method="POST" action="{{ route('promo.update', $promoSection->id) }}" enctype="multipart/form-data">
+            <div class="bg-white shadow-lg my-6 border rounded-lg p-8">
+                <div class="flex flex-col md:flex-row mb-6 items-center justify-between space-y-3 md:space-y-0 md:space-x-4">
+                    <div class="w-full max-w-full">
+                        <div class="flex items-center mb-6">
+                            <h3 class="text-blue-700 text-lg font-semibold">
+                                <i class="fa-solid fa-caret-right"></i>
+                                &nbsp;PopUp
+                            </h3>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="grid grid-cols-10 gap-3 lg:gap-4">
+                    <div class="rounded col-span-10 lg:col-span-4 flex flex-col">
+                        <div class="relative">
+                            <a href="{{ asset('storage/uploads/promo/' . $promoSection->image_path) }}" data-lightbox="promo" data-title="{{ $promoSection->title }}">
+                                <img src="{{ asset('storage/uploads/promo/' . $promoSection->image_path) }}"
+                                    alt="{{ $promoSection->image_path }}"
+                                    class="w-full rounded max-w-xl max-h-auto object-cover">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg border rounded col-span-10 lg:col-span-6">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+{{-- <form method="POST" action="{{ route('promo.update', $promoSection->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-10 gap-3 lg:gap-4">
@@ -32,7 +63,4 @@
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-@endsection
+            </form> --}}

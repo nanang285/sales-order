@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientSection;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         $clientSection = ClientSection::All();
         $breadcrumbTitle = 'Client';
@@ -20,7 +18,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
         $image = $request->file('image_path');
@@ -30,19 +28,10 @@ class ClientController extends Controller
         ClientSection::create([
             'image_path' => $imageName,
         ]);
-        return redirect()->route('client')->with('success', true)->with('toast', 'add');
+        return redirect()->route('admin.homepages.client.index')->with('success', true)->with('toast', 'add');
     }
 
-    public function edit(): View
-    {
-        $clientSection = ClientSection::All();
-        if (!$clientSection) {
-            $clientSection = new ClientSection();
-        }
-        return view('admin.client.edit', compact('clientSection'));
-    }
-
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'image_path' => '',
@@ -67,7 +56,7 @@ class ClientController extends Controller
             $clientSection->update([]);
         }
 
-        return redirect()->route('client')->with('success', true)->with('toast', 'edit');
+        return redirect()->route('admin.homepages.client.index')->with('success', true)->with('toast', 'edit');
     }
 
     public function destroy($id)
@@ -80,6 +69,6 @@ class ClientController extends Controller
 
         $clientSection->delete();
 
-        return redirect()->route('client')->with('success', true)->with('toast', 'delete');
+        return redirect()->route('admin.homepages.client.index')->with('success', true)->with('toast', 'delete');
     }
 }

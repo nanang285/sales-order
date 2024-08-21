@@ -1,6 +1,11 @@
 @include('partials.start')
-
 @include('admin.partials.toast')
+
+@if (session('session_expired'))
+    <div class="mb-4 text-sm text-red-600">
+        {{ session('session_expired') }}
+    </div>
+@endif
 
 <section class="w-full min-h-screen flex flex-col md:flex-row">
     <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 lg:flex justify-center items-center">
@@ -32,11 +37,10 @@
                             </div>
                             <input type="email" name="email" id="email"
                                 class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2"
-                                placeholder="Masukan email Anda">
+                                placeholder="Masukan email Anda" required>
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="my-1" />
                     </div>
-
                     <div class="mb-3">
                         <div class="relative">
                             <label for="password" class="block text-sm font-medium text-white mb-2">Kata Sandi</label>
@@ -49,32 +53,42 @@
                             </div>
                             <input type="password" name="password" id="password"
                                 class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2"
-                                placeholder="Masukan Kata Sandi">
+                                placeholder="Masukan Kata Sandi" required>
                             <button type="button" id="togglePassword" class="absolute inset-y-0 end-0 flex items-center pe-3 text-blue-800">
                                 <span class="text-base"><i class="fa-solid fa-eye"></i></span>
                             </button>
                         </div>
                         <x-input-error :messages="$errors->get('password')" class="my-1" />
                     </div>
-                    <div class="mb-3">
+                
+                    <div class="mb-3 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" name="remember_token" id="remember"
+                                class="text-primary focus:ring-blue-500 focus:border-blue-500 rounded">
+                            <label for="remember" class="ml-2 block text-sm font-medium text-white">
+                                Ingat Saya
+                            </label>
+                        </div>
                         <div class="relative">
-                            <label class="block text-right text-sm font-medium text-white mb-2 hover:underline">
+                            <label class="block text-right text-sm font-medium text-white hover:underline">
                                 <a href="{{ url('forgot-password') }}">Lupa kata Sandi ?</a>
                             </label>
                         </div>
                     </div>
+                
                     <div class="flex space-x-3">
                         <button type="submit"
                             class="w-1/2 text-lg text-white bg-transparent border border-white rounded-md font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
                             Masuk
                         </button>
-
+                
                         <a href="{{ route('register') }}"
                             class="w-1/2 text-lg text-center text-white bg-transparent border border-white rounded-md font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
                             Daftar
                         </a>
                     </div>
                 </form>
+                
             </div>
             <div class="text-center my-8 bottom-0">
                 <span class="text-base text-gray-400">Copyright By: zenmultimediacorp.com</span>

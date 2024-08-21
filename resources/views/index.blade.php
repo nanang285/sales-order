@@ -17,7 +17,7 @@
                             Kami melayani jasa pembuatan website, aplikasi, dan multimedia.
                         </p>
                         <a href="#services"
-                            class="rounded-m px-3.5 py-2 text-base font-semibold border border-gray-200 rounded hover:bg-gray-200 hover:text-gray-800 text-white shadow-sm transition duration-300">
+                            class="rounded-lg px-3.5 py-2 text-base font-semibold border border-gray-200 hover:bg-gray-200 hover:text-gray-800 text-white shadow-sm transition duration-300">
                             Lihat Selengkapnya
                         </a>
                     </div>
@@ -49,7 +49,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-2">
                 @foreach ($serviceSection as $service)
                     <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                        class="bg-white border shadow-sm hover:shadow-[#91aaff9f] rounded-md lg:h-full p-6 lg:p-8 z-20 flex flex-col lg:flex-row">
+                        class="bg-white border shadow-sm hover:shadow-[#91aaff9f] rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col lg:flex-row">
                         <div class="order-2 lg:order-1">
                             <h3 class="lg:text-2xl font-bold lg:font-semibold">
                                 <span class="text-primary">{{ $service->title }}</span>
@@ -77,9 +77,9 @@
     <section class="mx-auto max-w-screen-full lg:px-6">
         <div class="container mx-auto px-6 lg:px-10">
             <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                class="lg:py-8 lg:my-5 lg:px-2 lg:max-w-none lg:flex rounded-md ring-1 bg-white ring-gray-200 shadow-sm shadow-black">
+                class="lg:py-8 lg:my-5 lg:px-2 lg:max-w-none lg:flex rounded-xl ring-1 bg-white ring-gray-200 shadow-sm shadow-gray-700">
                 <div class="w-full lg:w-1/2 flex flex-wrap p-5">
-                    <video class="w-full lg:m-2 lg:max-w-lg mx-auto lg:mx-10 shadow-sm border rounded-md" controls
+                    <video class="w-full lg:max-w-lg mx-auto lg:mx-10 shadow-sm border rounded-lg" controls
                         controlsList="nodownload">
                         <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}"
                             type="video/webm">
@@ -120,15 +120,15 @@
     </section>
 </div>
 
-<section id="portofolio" class="w-full relative py-6 lg:py-12">
+<section  class="w-full relative py-6 lg:py-12">
     <div class="container mx-auto px-6 lg:px-9">
         <div>
-            <p class="text-2xl font-bold tracking-tight text-gray-900 md:text-4xl">
-                <span class="text-primary">Portofolio Kami</span>
+            <p class="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+                <span class="text-primary">Portofolio<a href="{{ route('portofolio') }}"><span class="text-2xl ml-2"><i class="fa-solid fa-up-right-from-square"></span></i></a></span>
             </p>
         </div>
         <div class="relative">
-            <div class=" lg:mt-12 mt-6 swiper-container swiper-latest-project rounded-md">
+            <div class=" lg:mt-12 mt-6 swiper-container swiper-latest-project rounded-xl">
                 <div class="swiper-wrapper">
                     @foreach ($latestProject->take(5) as $project)
                         <div class="swiper-slide relative">
@@ -199,7 +199,7 @@
                         <a href="{{ asset('storage/uploads/galery-section/' . $galery->image_path) }}"
                             data-lightbox="gallery" data-title="{{ $galery->title }}">
                             <img src="{{ asset('storage/uploads/galery-section/' . $galery->image_path) }}"
-                                alt="{{ $galery->title }}" class="w-full rounded-md h-64 lg:h-80 object-cover">
+                                alt="{{ $galery->title }}" class="w-full rounded-xl h-64 lg:h-80 object-cover">
                             <div
                                 class="bg-gray-800 rounded-lg absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-80 transition-opacity duration-300">
                                 <div class="flex flex-col p-6 text-center">

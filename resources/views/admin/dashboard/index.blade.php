@@ -1,16 +1,15 @@
 @extends('admin.layouts.main')
 @section('container')
-    <div class="relative mt-3">
-        <div class="px-4 pt-6">
+    <div class="relative">
+        <div class="px-4">
             @include('admin.partials.breadcrumb')
             @include('admin.partials.toast')
-            <div class="max-w-full w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 my-6 md:p-6">
-                <div class="flex justify-between mb-5">
+            <div class="max-w-full w-full bg-white rounded-lg shadow dark:bg-gray-800 p-6 my-6">
+                <div class="flex justify-between mb-6">
                     <div>
-                        <h5 class="leading-none text-xl font-bold text-gray-900 dark:text-white pb-2">Data Rekrutment</h5>
-                        {{-- <p class="text-base font-normal text-gray-500 dark:text-gray-400">Seluruh data rekrutmen</p> --}}
+                        <h3 class="text-blue-700 text-lg font-semibold"><i class="fa-solid fa-caret-right"></i>&nbsp;Data Rekrutmen Masuk</h3>
                     </div>
-                    <div
+                    {{-- <div
                         class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
                         23%
                         <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -18,9 +17,10 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 13V1m0 0L1 5m4-4 4 4" />
                         </svg>
-                    </div>
+                    </div> --}}
                 </div>
-                <div id="data-labels-chart"></div>
+                <hr>
+                <div class="mt-6" id="data-labels-chart"></div>
                 <div
                     class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5">
                     <div class="flex justify-between items-center pt-5">

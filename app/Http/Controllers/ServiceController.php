@@ -40,7 +40,7 @@ class ServiceController extends Controller
             'image_path' => $imageName,
         ]);
 
-        return redirect()->route('service')->with('success', true)->with('toast', 'add');
+        return redirect()->route('admin.homepages.service.index')->with('success', true)->with('toast', 'add');
     }
 
     public function edit(): View
@@ -84,7 +84,7 @@ class ServiceController extends Controller
 
         $serviceSection->update($updateData);
 
-        return redirect()->route('service')->with('success', true)->with('toast', 'edit');
+        return redirect()->route('admin.homepages.service.index')->with('success', true)->with('toast', 'edit');
     }
 
     public function destroy($id)
@@ -97,6 +97,6 @@ class ServiceController extends Controller
 
         $project->delete();
 
-        return redirect()->route('service')->with('success', true)->with('toast', 'delete');
+        return redirect()->route('admin.homepages.service.index')->with('success', true)->with('toast', 'delete');
     }
 }

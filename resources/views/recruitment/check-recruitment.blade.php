@@ -24,7 +24,7 @@
                     </label>
                 </div>
                 <div class="mt-5 w-full">
-                    <form action="{{ route('checkrecruitment.search') }}" method="POST"
+                    <form action="{{ route('recruitment.checkrecruitment') }}" method="POST"
                         class="flex items-center max-w-lg mx-auto">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -51,9 +51,9 @@
                                 <div class="p-4">
                                     <div class="flex flex-col mx-3 items-center">
                                         <p class="font-normal text-base text-center">
-                                            Hai Selamat Datang,  
+                                            Hai Selamat Datang   
                                             <span class="font-bold text-base text-blue-600">{{ $recruitment->name }}</span>,
-                                            Kami telah menerima email Anda <span class="font-bold text-base text-blue-600">{{ $recruitment->email }}</span>.
+                                            Kami telah menerima data lamaran anda dengan Email <span class="font-bold text-base text-blue-600">{{ $recruitment->email }}</span>.
                                             Kami harap Anda bersabar menunggu proses seleksi ini.
                                         </p>
                                     </div>
@@ -61,7 +61,6 @@
                                     <div class="mt-4">
                                         <p class="ms-6 text-gray-600 font-semibold text-lg mb-4">Proses Seleksi:</p>
                                         <ol class="flex flex-wrap justify-between items-center w-full relative mb-5">
-                                            <!-- Stage 1 -->
                                             <li class="flex flex-col items-center sm:w-1/2 lg:w-1/4 relative {{ $recruitment->stage1 ? 'text-green-600' : ($recruitment->failed_stage === 'Check CV' ? 'text-red-600' : 'text-gray-400 animate-pulse') }}">
                                                 <span class="relative flex items-center justify-center w-10 h-10 {{ $recruitment->stage1 ? 'bg-blue-100' : ($recruitment->failed_stage === 'Check CV' ? 'bg-red-100' : 'bg-gray-100') }} rounded-full lg:h-12 lg:w-12 shrink-0">
                                                     <span class="absolute left-0 flex items-center justify-center w-2 h-2 text-sm {{ $recruitment->stage1 ? 'opacity-100 text-green-600' : ($recruitment->failed_stage === 'Check CV' ? 'opacity-100 text-red-600' : 'opacity-0') }} transition-opacity duration-300">
@@ -71,7 +70,6 @@
                                                 </span>
                                                 <p class="text-base font-semibold mt-2 text-center">Check CV</p>
                                             </li>
-                                            <!-- Stage 2 -->
                                             <li class="flex flex-col items-center sm:w-1/2 lg:w-1/4 relative {{ $recruitment->stage2 ? 'text-green-600' : ($recruitment->failed_stage === 'Test Project' ? 'text-red-600' : 'text-gray-400 animate-pulse') }}">
                                                 <span class="relative flex items-center justify-center w-10 h-10 {{ $recruitment->stage2 ? 'bg-blue-100' : ($recruitment->failed_stage === 'Test Project' ? 'bg-red-100' : 'bg-gray-100') }} rounded-full lg:h-12 lg:w-12 shrink-0">
                                                     <span class="absolute left-0 flex items-center justify-center w-2 h-2 text-sm {{ $recruitment->stage2 ? 'opacity-100 text-green-600' : ($recruitment->failed_stage === 'Test Project' ? 'opacity-100 text-red-600' : 'opacity-0') }} transition-opacity duration-300">
@@ -81,7 +79,6 @@
                                                 </span>
                                                 <p class="text-base font-semibold mt-2 text-center">Test Project</p>
                                             </li>
-                                            <!-- Stage 3 -->
                                             <li class="flex flex-col items-center sm:w-1/2 lg:w-1/4 relative {{ $recruitment->stage3 ? 'text-green-600' : ($recruitment->failed_stage === 'Interview' ? 'text-red-600' : 'text-gray-400 animate-pulse') }}">
                                                 <span class="relative flex items-center justify-center w-10 h-10 {{ $recruitment->stage3 ? 'bg-blue-100' : ($recruitment->failed_stage === 'Interview' ? 'bg-red-100' : 'bg-gray-100') }} rounded-full lg:h-12 lg:w-12 shrink-0">
                                                     <span class="absolute left-0 flex items-center justify-center w-2 h-2 text-sm {{ $recruitment->stage3 ? 'opacity-100 text-green-600' : ($recruitment->failed_stage === 'Interview' ? 'opacity-100 text-red-600' : 'opacity-0') }} transition-opacity duration-300">
@@ -91,7 +88,6 @@
                                                 </span>
                                                 <p class="text-base font-semibold mt-2 text-center">Interview</p>
                                             </li>
-                                            <!-- Stage 4 -->
                                             <li class="flex flex-col items-center sm:w-1/2 lg:w-1/4 relative {{ $recruitment->stage4 ? 'text-green-600' : ($recruitment->failed_stage === 'Offering' ? 'text-red-600' : 'text-gray-400 animate-pulse') }}">
                                                 <span class="relative flex items-center justify-center w-10 h-10 {{ $recruitment->stage4 ? 'bg-blue-100' : ($recruitment->failed_stage === 'Offering' ? 'bg-red-100' : 'bg-gray-100') }} rounded-full lg:h-12 lg:w-12 shrink-0">
                                                     <span class="absolute left-0 flex items-center justify-center w-2 h-2 text-sm {{ $recruitment->stage4 ? 'opacity-100 text-green-600' : ($recruitment->failed_stage === 'Offering' ? 'opacity-100 text-red-600' : 'opacity-0') }} transition-opacity duration-300">

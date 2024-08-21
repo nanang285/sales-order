@@ -1,13 +1,10 @@
 @extends('admin.layouts.main')
 
 @section('container')
-    <div class="relative mt-3">
-        <div class="px-4 pt-6">
-
+    <div class="relative">
+        <div class="px-4">
             @include('admin.partials.home-bread')
-
             @include('admin.partials.toast')
-
             <div class="bg-white shadow-lg p-3 my-6 border rounded">
                 <div class="flex justify-between items-center mt-2 pb-4 mx-6">
                     <h1 class="text-xl font-bold">Galeri</h1>

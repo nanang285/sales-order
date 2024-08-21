@@ -23,14 +23,14 @@
 
                 <li class="my-1">
                     <a href="{{ Route('portofolio') }}" id="services-link"
-                        class="{{ Request::is('portofolio') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold">
+                        class="{{ Request::is('portfolio') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold">
                         Portofolio
                     </a>
                 </li>
 
                 <li class="my-1">
-                    <a href="{{ Route('tentang-kami') }}" id="services-link"
-                        class="{{ Request::is('tentang-kami') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold">
+                    <a href="{{ Route('aboutme') }}" id="services-link"
+                        class="{{ Request::is('about-me') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold">
                         Tentang Kami
                     </a>
                 </li>

@@ -5,27 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\AboutSection;
 use App\Models\FooterSection;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         $aboutSection = AboutSection::first();
         $breadcrumbTitle = 'Profil';
-        return view('admin.homepages.about', compact('aboutSection', 'breadcrumbTitle'));
+
+        return view('admin.homepages.about', [
+            'aboutSection' => $aboutSection,
+            'breadcrumbTitle' => $breadcrumbTitle,
+        ]);
     }
 
-    public function AboutIndex(): View
+
+    public function AboutIndex()
     {
         $aboutSection = AboutSection::first();
         $footerSection = footerSection::first();
-        return view('tentang-kami', compact('aboutSection', 'footerSection'));
+        return view('about-me', compact('aboutSection', 'footerSection'));
     }
 
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'subtitle' => '',
@@ -48,6 +51,6 @@ class AboutController extends Controller
 
         $aboutSection->update($data);
 
-        return redirect()->route('about')->with('success', true)->with('toast', 'edit');
+        return redirect()->route('admin.homepages.about.index')->with('success', true)->with('toast', 'edit');
     }
 }

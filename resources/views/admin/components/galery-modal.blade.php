@@ -2,9 +2,7 @@
 <div id="add_modal" tabindex="2" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[99] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-lg max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow p-5">
-            <!-- Modal header -->
             <div class="flex items-center justify-between">
                 <h3 class="text-xl font-semibold text-gray-900">
                     Tambah Data
@@ -20,9 +18,8 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
             <div class="">
-                <form class="space-y-4" action="{{ route('galery.store') }}" method="POST"
+                <form class="space-y-4" action="{{ route('admin.homepages.galery.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div>
@@ -90,7 +87,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="">
-                    <form class="space-y-4" action="{{ route('galery.update', $galery->id) }}" method="POST"
+                    <form class="space-y-4" action="{{ route('admin.homepages.galery.update', $galery->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -160,7 +157,7 @@
                 <!-- Modal body -->
                 <div class="">
                     <p class="text-sm text-red-500 ">Apakah Anda yakin ingin menghapus data ini?</p>
-                    <form class="mt-4" action="{{ route('galery.destroy', $galery->id) }}" method="POST">
+                    <form class="mt-4" action="{{ route('admin.homepages.galery.destroy', $galery->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                     

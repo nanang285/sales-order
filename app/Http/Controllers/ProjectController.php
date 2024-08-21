@@ -52,7 +52,7 @@ class ProjectController extends Controller
             'image_path' => $imageName,
         ]);
 
-        return redirect()->route('project')->with('success', true)->with('toast', 'add');
+        return redirect()->route('admin.homepages.project.index')->with('success', true)->with('toast', 'add');
     }
 
     public function edit(): View
@@ -98,7 +98,7 @@ class ProjectController extends Controller
 
         $latestProject->update($updateData);
 
-        return redirect()->route('project')->with('success', true)->with('toast', 'edit');
+        return redirect()->route('admin.homepages.project.index')->with('success', true)->with('toast', 'edit');
     }
 
     public function destroy($id)
@@ -110,6 +110,6 @@ class ProjectController extends Controller
 
         $project->delete();
 
-        return redirect()->route('project')->with('success', true)->with('toast', 'delete');
+        return redirect()->route('admin.homepages.project.index')->with('success', true)->with('toast', 'delete');
     }
 }

@@ -2,24 +2,24 @@
 
 @section('container')
     <div class="relative">
-        <div class="px-4 pt-4">
+        <div class="px-4">
             @include('admin.partials.toast')
-            <form method="POST" action="{{ route('admin.recruitment.store') }}" enctype="multipart/form-data">
+            @include('admin.partials.recrut-bread')
+            <form method="POST" action="{{ route('admin.recruitment.AdminStore') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="grid grid-cols-10 gap-4">
-                    <div class="bg-white shadow-lg p-5 my-6 border rounded col-span-10">
-                        <div class="mb-5">
-                            <h3 class="text-gray-700 font-semibold">Tambah Data Rekrutmen</h3>
+                    <div class="bg-white shadow-lg p-6 border rounded-lg col-span-10 my-6">
+                        <div class="mb-7">
+                            <h3 class="text-blue-700 text-lg font-semibold"><i class="fa-solid fa-caret-right"></i>&nbsp;Tambah Data Rekrutmen</h3>
                         </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-
+                        <hr>
+                        <div class="grid grid-cols-2 gap-4 mt-3">
                             <div class="my-3">
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email<span
                                         class="text-red-600 text-base">*</span></label>
                                 <input type="email" name="email" id="email"
                                     class="bottom-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                    block w-full max-w-xl p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                     placeholder="Masukan alamat email" required value="" />
                             </div>
 
@@ -28,7 +28,7 @@
                                         class="text-red-600 text-base">*</span></label>
                                 <input type="number" name="phone_number" id="no_telp"
                                     class="bottom-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                    block w-full max-w-xl p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                     placeholder="Masukan No.Telp" required value="" />
                             </div>
 
@@ -37,7 +37,7 @@
                                         class="text-red-600 text-base">*</span></label>
                                 <input type="text" name="name" id="name"
                                     class="bottom-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                    block w-full max-w-xl p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                     placeholder="Masukan Nama Lengkap" required value="" />
                             </div>
 
@@ -46,7 +46,7 @@
                                     Penduduk</label>
                                 <input type="number" name="nik" id="nik"
                                     class="bottom-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                    block w-full max-w-xl p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                     placeholder="Masukan NIK/Nomor Induk Kependudukan" value="" />
                             </div>
 
@@ -55,7 +55,7 @@
                                         class="text-red-600 text-base">*</span></label>
                                 <textarea name="address" id="address" rows="4"
                                     class="bottom-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm h-10 max-h-20 rounded-md focus:ring-blue-500 focus:border-blue-500 
-                                       block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                       block w-full max-w-xl p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                     placeholder="Masukan Alamat" required></textarea>
                             </div>
 
@@ -65,7 +65,7 @@
                                 </label>
                                 <input type="number" name="salary" id="salary"
                                     class="bottom-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                    block w-full max-w-xl p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                     placeholder="Masukan Harapan Gaji" required value="" />
                             </div>
 
@@ -73,7 +73,7 @@
                                 <label for="study" class="block text-sm font-medium text-gray-700">
                                     Pendidikan<span class="text-red-600 text-base">*</span></label>
                                 <select id="study" name="study"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm"
+                                    class="mt-1 block w-full max-w-xl px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm"
                                     onchange="toggleOtherEducation(this)">
                                     <option value="" disabled selected>Pilih Pendidikan</option>
                                     <option value="Sekolah Lanjutan Tingkat Atas (SLTA)">Sekolah Lanjutan Tingkat Atas
@@ -89,7 +89,7 @@
                                 <label for="position" class="block text-sm font-medium text-gray-700">
                                     Posisi Yang Dilamar<span class="text-red-600 text-base">*</span></label>
                                 <select id="position" name="position"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                                    class="mt-1 block w-full max-w-xl px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
                                     <option value="" disabled selected>Pilih Posisi Yang Dilamar</option>
                                     <option value="Project Manager">Project Manager</option>
                                     <option value="Frontend Developer">Frontend Developer</option>
@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="grid grid-cols-4">
-                            <div class="flex items-center justify-center w-full">
+                            <div class="flex items-center justify-center w-full max-w-xl">
                                 <label for="dropzone-file"
                                     class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                     @if (isset($uploadedFile))

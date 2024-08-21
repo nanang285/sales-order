@@ -13,9 +13,5 @@
       </span>
       </a>
     </li>
-    <li class="inline-flex items-center">
-      <span class="font-medium text-sm"><i class="fa-solid fa-chevron-right mx-2"></i></span>
-      </a>
-    </li>
   </ol>
 </div>

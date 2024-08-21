@@ -14,4 +14,14 @@ class DashboardController extends Controller
         return view('admin.dashboard.index', compact('recruitments', 'breadcrumbTitle'));
 
     }
+
+    public function redirect()
+    {
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->route('member.dashboard');
+        }
+    }
+
 }

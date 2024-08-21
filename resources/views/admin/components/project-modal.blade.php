@@ -2,9 +2,7 @@
 <div id="add_modal" tabindex="2" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-lg max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow p-5">
-            <!-- Modal header -->
             <div class="flex items-center justify-between">
                 <h3 class="text-xl font-semibold text-gray-900">
                     Tambah Data
@@ -20,9 +18,8 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
             <div class="">
-                <form class="space-y-4" action="{{ route('project.store') }}" method="POST"
+                <form class="space-y-4" action="{{ route('admin.homepages.project.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div>
@@ -77,9 +74,7 @@
     <div id="edit_modal_{{ $project->id }}" tabindex="2" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-lg max-h-full">
-            <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow p-4">
-                <!-- Modal header -->
                 <div class="flex items-center justify-between">
                     <h3 class="text-xl font-semibold text-gray-900">
                         Edit Data
@@ -95,12 +90,11 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <!-- Modal body -->
                 <div class="">
-                    <form class="space-y-4" action="{{ route('project.update', $project->id) }}" method="POST"
+                    <form class="space-y-4" action="{{ route('admin.homepages.project.update', $project->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+                        @method('patch')
                         <div>
                             <label for="title_{{ $project->id }}"
                                 class="block mb-2 text-sm font-medium text-gray-900">Title</label>
@@ -154,9 +148,7 @@
     <div id="delete_modal_{{ $project->id }}" tabindex="2" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-lg max-h-full">
-            <!-- Modal content -->
             <div class="relative bg-white p-4 rounded-lg shadow">
-                <!-- Modal header -->
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-xl font-semibold text-gray-900">
                         Hapus Data
@@ -172,10 +164,10 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <!-- Modal body -->
+
                 <div class="">
                     <p class="text-sm text-red-500 ">Apakah Anda yakin ingin menghapus data ini?</p>
-                    <form class="mt-4" action="{{ route('project.destroy', $project->id) }}" method="POST">
+                    <form class="mt-4" action="{{ route('admin.homepages.project.destroy', $project->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                     

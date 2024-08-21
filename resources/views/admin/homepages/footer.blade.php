@@ -1,17 +1,13 @@
 @extends('admin.layouts.main')
 
 @section('container')
-    <div class="relative mt-3">
-        <div class="px-4 pt-6">
-
+    <div class="relative">
+        <div class="px-4">
             @include('admin.partials.breadcrumb')
-
             @include('admin.partials.toast')
-
-            <form method="POST" action="{{ route('footer.update', $footerSection->id) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.homepages.footer.update', $footerSection->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-
                 <div class="grid grid-cols-10 gap-4">
                     <div class="bg-white shadow-lg p-5 my-6 border rounded col-span-10">
                         <div class="mb-5">

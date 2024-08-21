@@ -40,7 +40,6 @@ class RecruitmentController extends Controller
             'filter' => $filter,
             'search' => $search,
         ]);
-            
     }
 
     public function searchByName(Request $request)
@@ -74,17 +73,18 @@ class RecruitmentController extends Controller
             } elseif ($recruitment->stage1) {
                 $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Test Project';
             } else {
-                $recruitment->last_stage = 'Belum Dimulai';
+                $recruitment->last_stage = 'Proses Seleksi Belum Dimulai';
             }
         }
 
-        return view('checkrecruitment', compact('recruitments'));
+        return view('recruitment/check-recruitment', compact('recruitments'));
     }
 
     public function edit($uuid)
     {
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
-        return view('admin.recruitment.edit', compact('recruitment'));
+        $breadcrumbTitle = 'Edit';
+        return view('admin.recruitment.edit', compact('recruitment', 'breadcrumbTitle'));
     }
 
     public function update(Request $request, string $id)
@@ -125,7 +125,7 @@ class RecruitmentController extends Controller
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
 
         if ($recruitment->failed_stage) {
-            return redirect()->route('recruitment.edit', $uuid)->with('error', 'Proses sudah dihentikan sebelumnya');
+            return redirect()->route('admin.recruitment.edit', $uuid)->with('error', 'Proses sudah dihentikan sebelumnya');
         }
 
         if ($request->input('action') === 'yes') {
@@ -139,15 +139,16 @@ class RecruitmentController extends Controller
             ];
 
             $recruitment->update(['failed_stage' => $stageDescriptions[$stage]]);
-            return redirect()->route('recruitment.edit', $uuid)->with('error', 'Proses dihentikan');
+            return redirect()->route('admin.recruitment.edit', $uuid)->with('error', 'Proses dihentikan');
         }
 
-        return redirect()->route('recruitment.edit', $uuid);
+        return redirect()->route('admin.recruitment.edit', $uuid);
     }
 
     public function add()
     {
-        return view('admin.recruitment.add');
+        $breadcrumbTitle = 'Add';
+        return view('admin.recruitment.add', compact('breadcrumbTitle'));
     }
 
     public function store(Request $request)
@@ -161,7 +162,7 @@ class RecruitmentController extends Controller
             'study' => 'required|string',
             'position' => 'required|string',
             'salary' => 'required|string|max:50',
-            'file_path' => 'required|mimes:pdf|max:5000',
+            'file_path' => 'required|mimes:pdf|max:2048',
         ]);
 
         try {
@@ -187,14 +188,6 @@ class RecruitmentController extends Controller
 
             $userEmail = $request->email;
             $userName = $request->name;
-
-            Mail::raw(
-                "Data Rekrutment telah diterima dari $userEmail",
-
-                function ($message) use ($adminEmail) {
-                    $message->to($adminEmail)->subject('Notifikasi Data Rekrutmen Baru');
-                }
-            );
 
             $userNIK = $request->nik;
             $userAdress = $request->address;
@@ -256,7 +249,7 @@ class RecruitmentController extends Controller
                 'file_path' => $fileName,
             ]);
 
-            return redirect()->route('admin.recruitment')->with('success', true)->with('toast', 'add');
+            return redirect()->route('admin.recruitment.index')->with('success', true)->with('toast', 'add');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to store data')->withInput();
         }
@@ -272,6 +265,6 @@ class RecruitmentController extends Controller
         }
 
         $recruitment->delete();
-        return redirect()->route('admin.recruitment')->with('success', true)->with('toast', 'delete');
+        return redirect()->route('admin.recruitment.index')->with('success', true)->with('toast', 'delete');
     }
 }

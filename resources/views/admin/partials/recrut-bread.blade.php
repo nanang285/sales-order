@@ -9,7 +9,7 @@
       <li class="inline-flex items-center">
         <span class="font-medium text-sm"><i class="fa-solid fa-chevron-right mx-2"></i></span>
         <a href="" class="text-sm font-medium text-gray-700 hover:text-blue-600">
-          Homepages
+          Recruitment
         </span>
         </a>
       </li>
