@@ -9,15 +9,6 @@
                     <div>
                         <h3 class="text-blue-700 text-lg font-semibold"><i class="fa-solid fa-caret-right"></i>&nbsp;Data Rekrutmen Masuk</h3>
                     </div>
-                    {{-- <div
-                        class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                        23%
-                        <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 10 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 13V1m0 0L1 5m4-4 4 4" />
-                        </svg>
-                    </div> --}}
                 </div>
                 <hr>
                 <div class="mt-6" id="data-labels-chart"></div>
@@ -76,7 +67,6 @@
                     </div>
                 </div>
             </div>
-
             <script>
                 const options = {
                     dataLabels: {

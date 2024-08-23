@@ -12,7 +12,7 @@
                     </a>
                 </div>
                 <ul class="space-y-2">
-                    <li class="">
+                    <li class="mt-4">
                         <a href="{{ route('admin.dashboard') }}"
                             class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                             <i class="fa-solid fa-gauge text-base"></i>
@@ -20,25 +20,21 @@
                         </a>
 
                     </li>
-                    @php
-    use Illuminate\Support\Str;
-@endphp
+                    <li>
+                        <a href="{{ route('admin.recruitment.index') }}"
+                            class="{{ Route::currentRouteName() === 'admin.recruitment.index' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
+                            <img src="{{ asset('images/management-consulting.gif') }}" class="w-8">
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Recruitment</span>
+                        </a>
+                    </li>
 
-<li>
-    <a href="{{ route('admin.recruitment.index') }}"
-        class="{{ Str::startsWith(Route::currentRouteName(), 'recruitment.') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
-        <i class="fa-solid fa-id-card"></i>
-        <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Recruitment</span>
-    </a>
-</li>
-
-                    <li class="">
+                    {{-- <li class="">
                         <a href=""
                             class="{{ Route::currentRouteName() === 'admin.absensi.index' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
                             <i class="fa-solid fa-fingerprint"></i>
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Absensi</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li>
                         <button type="button" id="dropdownButton"

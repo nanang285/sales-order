@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\GaleryController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PromoController;
-use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\Admin\Homepages\AboutController;
+use App\Http\Controllers\Admin\Homepages\ProjectController;
+use App\Http\Controllers\Admin\Homepages\GaleryController;
+use App\Http\Controllers\Admin\Homepages\PromoController;
+use App\Http\Controllers\Admin\Homepages\ServiceController;
+use App\Http\Controllers\Admin\Homepages\ClientController;
+use App\Http\Controllers\Admin\Homepages\FooterController;
 use App\Http\Controllers\RecruitmentController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\FooterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {

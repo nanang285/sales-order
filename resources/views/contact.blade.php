@@ -1,10 +1,7 @@
 @include('partials.start')
 @include('partials.navbar')
+@include('components.preloader')
 
-<div id="preloader" class="fixed inset-0 bg-gray-800 bg-opacity-80 flex items-center justify-center z-50">
-    <div class="absolute animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-blue-500"></div>
-    <img src="{{ asset('favicon.ico') }}" class="rounded-full h-20 w-20">
-</div>
 
 <div class="relative">
     <div id="about" class="bg-fixed bg-cover bg-no-repeat"
@@ -156,7 +153,6 @@
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 
                                             block w-full h-16 max-h-20 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                             placeholder="Masukan Pesan Anda" required></textarea>
-                              
                                     </div>
                                     <x-input-error :messages="$errors->get('email')" class="my-1" />
                                 </div>

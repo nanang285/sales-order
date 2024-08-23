@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 class RecruitmentController extends Controller
 {
 
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $search = $request->input('search');
         $filter = $request->query('filter', 'newest');
@@ -56,6 +55,7 @@ class RecruitmentController extends Controller
 
     public function searchByEmail(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -153,6 +153,7 @@ class RecruitmentController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -160,8 +161,11 @@ class RecruitmentController extends Controller
             'address' => 'required|string|max:255',
             'phone_number' => 'required|string|max:20',
             'study' => 'required|string',
-            'position' => 'required|string',
+            'onsite' => 'required|string',
+            'test' => 'required|string',
+            'agree' => 'required|date',
             'salary' => 'required|string|max:50',
+            // 'portfolio' => 'nullable',
             'file_path' => 'required|mimes:pdf|max:2048',
         ]);
 
@@ -179,37 +183,41 @@ class RecruitmentController extends Controller
                 'phone_number' => $request->phone_number,
                 'study' => $request->study,
                 'position' => $request->position,
+                'onsite' => $request->string,
+                'test' => $request->string,
+                'agree' => $request->date,
                 'salary' => $request->salary,
+                // 'portfolio' => $fileName,
                 'file_path' => $fileName,
             ]);
 
             // Email untuk terima notifikasi
-            $adminEmail = 'nngs.me@gmail.com';
+            // $adminEmail = 'nngs.me@gmail.com';
 
-            $userEmail = $request->email;
-            $userName = $request->name;
+            // $userEmail = $request->email;
+            // $userName = $request->name;
 
-            $userNIK = $request->nik;
-            $userAdress = $request->address;
-            $userPhone = $request->phone_number;
-            $userStudy = $request->study;
-            $userPosition = $request->position;
-            $userSalary = $request->salary;
+            // $userNIK = $request->nik;
+            // $userAdress = $request->address;
+            // $userPhone = $request->phone_number;
+            // $userStudy = $request->study;
+            // $userPosition = $request->position;
+            // $userSalary = $request->salary;
 
-            Mail::raw(
-                "Data Rekrutment telah diterima dari email $userEmail dengan data sebagai berikut,
-             <li>Nama : $userName</li>
-             <li>NIK : $userNIK</li>
-             <li>Alamat : $userAdress</li>
-             <li>No. Telpon : $userPhone</li>
-             <li>Pendidikan : $userStudy</li>
-             <li>Posisi : $userPosition</li>
-             <li>Harapan Gaji : $userSalary</li>",
-                function ($message) use ($adminEmail) {
-                    $message->to($adminEmail)
-                        ->subject('Notifikasi Data Rekrutmen Baru');
-                }
-            );
+            // Mail::raw(
+            //     "Data Rekrutment telah diterima dari email $userEmail dengan data sebagai berikut,
+            //  <li>Nama : $userName</li>
+            //  <li>NIK : $userNIK</li>
+            //  <li>Alamat : $userAdress</li>
+            //  <li>No. Telpon : $userPhone</li>
+            //  <li>Pendidikan : $userStudy</li>
+            //  <li>Posisi : $userPosition</li>
+            //  <li>Harapan Gaji : $userSalary</li>",
+            //     function ($message) use ($adminEmail) {
+            //         $message->to($adminEmail)
+            //             ->subject('Notifikasi Data Rekrutmen Baru');
+            //     }
+            // );
 
             return redirect()->route('success')->with('success', true)->with('toast', 'recruitment.terkirim');
         } catch (\Exception $e) {

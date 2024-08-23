@@ -59,10 +59,12 @@
                     </div>
                 </div>
                 <div class="p-5 rounded col-span-10 lg:col-span-6 flex flex-col">
+                    @if(!$recruitment->failed_stage)
                     <div class="mb-2 flex justify-between items-center">
                         <h3 class="text-gray-700 text-base font-semibold">Proses Seleksi :</h3>
                         <button id="editButton" class="bg-yellow-500 text-white text-sm px-2.5 py-0.5 rounded">Edit</button>
                     </div>
+                    @endif
                     <ol
                         class="relative text-gray-500 border-s-2 left-5 border-gray-200 dark:border-gray-700 dark:text-gray-400">
                         <li

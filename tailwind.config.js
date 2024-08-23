@@ -1,12 +1,19 @@
-// /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
 
-export default {
+module.exports = {
     content: [
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
         "./node_modules/flowbite/**/*.js",
     ],
+
+    plugins: [
+        require("flowbite/plugin")({
+            datatables: true,
+        }),
+    ],
+
     theme: {
         extend: {
             keyframes: {
@@ -51,9 +58,4 @@ export default {
             },
         },
     },
-    plugins: [
-        require("flowbite/plugin")({
-            datatables: true,
-        }),
-    ],
 };

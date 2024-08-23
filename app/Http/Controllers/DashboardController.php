@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -11,8 +10,8 @@ class DashboardController extends Controller
     {
         $recruitments = Recruitment::All();
         $breadcrumbTitle = 'Dashboard';
-        return view('admin.dashboard.index', compact('recruitments', 'breadcrumbTitle'));
 
+        return view('admin.dashboard.index', compact('recruitments', 'breadcrumbTitle'));
     }
 
     public function redirect()

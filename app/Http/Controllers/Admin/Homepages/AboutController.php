@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Homepages;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\AboutSection;
 use App\Models\FooterSection;
@@ -19,7 +21,6 @@ class AboutController extends Controller
             'breadcrumbTitle' => $breadcrumbTitle,
         ]);
     }
-
 
     public function AboutIndex()
     {

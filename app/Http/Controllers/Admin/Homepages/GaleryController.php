@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Homepages;
 
+use App\Http\Controllers\Controller;
 use App\Models\GalerySection;
 use App\Models\FooterSection;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class GaleryController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         $galerySection = GalerySection::All();
+
         $breadcrumbTitle = 'Gallery';
         return view('admin.homepages.galery', compact('galerySection', 'breadcrumbTitle'));
     }
@@ -40,7 +40,7 @@ class GaleryController extends Controller
 
         $image = $request->file('image_path');
         $imageName = $image->getClientOriginalName();
-        $imagePath = $image->storeAs('uploads/galery-section', $imageName, 'public');
+        $imageName = $image->storeAs('uploads/galery-section', $imageName, 'public');
 
         GalerySection::create([
             'title' => $request->title,
@@ -51,7 +51,7 @@ class GaleryController extends Controller
         return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'add');
     }
 
-    public function edit(): View
+    public function edit()
     {
         $galerySection = GalerySection::All();
 

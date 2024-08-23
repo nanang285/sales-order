@@ -14,7 +14,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return redirect('/dashboard')->with('warning', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
-
+        return redirect('/login')->with('warning', true)->with('toast', 'warning');
     }
 }

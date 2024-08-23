@@ -2,28 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-header {
-    @apply z-[9900];
-}
-
 ::selection {
-    background: #1B2579;
+    background: #6c76d2;
     color: #f8f8f8;
     border-radius: 10px;
 }
 
-html {
-    scroll-behavior: smooth;
+.no-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Standard */
+    pointer-events: none; /* Nonaktifkan pointer events untuk mencegah interaksi */
 }
 
 .text-urbanist {
     font-family: "Urbanist", sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-size: 15pt;
-    font-family: "Urbanist", Arial, sans-serif;
+    font-family: "Urbanist", sans-serif, Arial;
     letter-spacing: 1px;
+    background-color: #f3f4f6;
+}
+
+header {
+    @apply z-[9900];
 }
 
 .btn-masuk {
@@ -34,25 +42,46 @@ body {
     font-weight: 700;
 }
 
-.hero-section {
-    background-color: #1b2579 !important;
-    background-image: url("/images/background-generic.png");
-    height: 650px;
-    background-size: cover;
-}
-
-.hero-images img {
-    width: 430px !important;
-    height: auto;
-}
-
-/* carousel */
 .swiper-container {
-    width: 100%; 
-    overflow: hidden; 
+    width: 100%;
+    overflow: hidden;
 }
 
 .button-next {
- color: #ffffff !important;
- text-decoration: none;
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 10s linear infinite;
+}
+
+.swiper-klien-kami {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.marquee-container {
+    display: flex;
+    width: 200%;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }

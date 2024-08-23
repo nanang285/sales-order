@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\FooterSection;
 use App\Models\Contact;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         $footerSection = FooterSection::first();
         return view('contact', compact('footerSection'));

@@ -7,10 +7,10 @@
     </div>
 @endif
 
-<section class="w-full min-h-screen flex flex-col md:flex-row">
+<section class="bg-white w-full min-h-screen flex flex-col md:flex-row">
     <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 lg:flex justify-center items-center">
-        <div class="mx-auto fixed">
-            <img src="{{ asset('images/computer-login-concept-illustration.png') }}" alt="ZMI-Images-Auth" class="w-full max-w-md mx-auto" />
+        <div class="mx-auto fixed no-select">
+            <img src="{{ asset('images/auth.gif') }}" alt="zen-multimedia-indonesia" class="w-full max-w-md mx-auto" />
             <p class="text-center text-blue-900 text-xl font-semibold mt-4 mb-1">
                 Partner Digital Untuk Layanan Bisnis dan Pemerintahan</p>
             <p class="text-center text-skyblue font-semibold text-sm">PT ZEN MULTIMEDIA INDONESIA</p>
@@ -37,7 +37,7 @@
                             </div>
                             <input type="email" name="email" id="email"
                                 class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2"
-                                placeholder="Masukan email Anda" required>
+                                placeholder="Masukan Email" required>
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="my-1" />
                     </div>

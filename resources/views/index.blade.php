@@ -1,6 +1,6 @@
-@include('partials.start')
+@extends('layouts.main')
+@section('container')
 @include('partials.pop-up')
-@include('partials.navbar')
 
 <div class="relative">
     <div class="bg-fixed bg-cover bg-no-repeat" style="background-image: url('{{ asset('images/Rectangle 36.png') }}')">
@@ -36,11 +36,11 @@
 </div>
 
 <section class="w-full relative">
-    <div class="py-14 relative overflow-hidden">
+    <div class="py-12 relative overflow-hidden">
         <div class="container mx-auto px-6 lg:px-8 relative">
             <div id="services" class="absolute -top-32"></div>
-            <img src="{{ asset('images/absolute1.png') }}" class="absolute -top-24 -right-24 w-full max-w-2xl"
-                alt="Absolute 1">
+            <img src="{{ asset('images/absolute1.png') }}" class="no-select absolute -top-24 -right-24 w-full max-w-xl"
+                alt="zen-multimedia-indonesia">
             <div class=" mx-auto max-w-full lg:text-center mb-12">
                 <p class=" text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
                     <span class=" text-primary">Berbagai Layanan Dari Kami</span>
@@ -67,7 +67,7 @@
                 @endforeach
             </div>
             <img src="{{ asset('images/absolute3.png') }}" class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs"
-                alt="Absolute 3">
+                alt="zen-multimedia-indonesia">
         </div>
     </div>
 </section>
@@ -124,7 +124,7 @@
     <div class="container mx-auto px-6 lg:px-9">
         <div>
             <p class="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
-                <span class="text-primary">Portofolio<a href="{{ route('portofolio') }}"><span class="text-2xl ml-2"><i class="fa-solid fa-up-right-from-square"></span></i></a></span>
+                <span class="text-primary"><a href="{{ Route("portofolio") }}">Portofolio</a></span>
             </p>
         </div>
         <div class="relative">
@@ -173,7 +173,7 @@
     <div class="">
         <div class=" container mx-auto px-6 lg:px-8">
             <div class="mx-auto max-w-full lg:text-center mb-6">
-                <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
+                <p class="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
                     <span class="text-primary">Galeri</span>
                 </p>
             </div>
@@ -195,7 +195,7 @@
                 </div>
                 @foreach ($galerySection->take(3) as $galery)
                     <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                        class="bg-white rounded-lg lg:m-3 shadow-lg">
+                        class="bg-white rounded-xl lg:m-3 shadow-lg">
                         <a href="{{ asset('storage/uploads/galery-section/' . $galery->image_path) }}"
                             data-lightbox="gallery" data-title="{{ $galery->title }}">
                             <img src="{{ asset('storage/uploads/galery-section/' . $galery->image_path) }}"
@@ -249,7 +249,4 @@
         </div>
     </section>
 </div>
-@include('partials.chatbubble')
-@include('partials.banner')
-@include('partials.footer')
-@include('partials.end')
+@endsection

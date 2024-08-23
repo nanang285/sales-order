@@ -1,11 +1,5 @@
 @include('partials.start')
 @include('partials.navbar')
-
-<div id="preloader" class="fixed inset-0 bg-gray-800 bg-opacity-80 flex items-center justify-center z-50">
-    <div class="absolute animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-blue-500"></div>
-    <img src="{{ asset('favicon.ico') }}" class="rounded-full h-20 w-20">
-</div>
-
 <div class="relative">
     <div id="about" class="bg-fixed bg-cover bg-no-repeat"
         style="background-image: url('{{ asset('images/How-To-Build-A-Great-Small-Business-Team.jpg') }}')">
@@ -23,9 +17,6 @@
                         </p>
                     </div>
                 </div>
-                <div class="text-center">
-                   
-                </div>
             </div>
         </div>
     </div>
@@ -41,10 +32,9 @@
                     <span class=" text-primary">Portofolio Kami</span>
                 </p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-3">
                 @foreach ($latestProject as $project)
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-center" class="relative max-w-full rounded-md bg-white overflow-hidden shadow-lg z-40 group">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-center" class="relative max-w-full rounded-xl bg-white overflow-hidden shadow-lg z-40 group">
                         <img class="w-full transform transition-transform duration-300 ease-in-out group-hover:scale-105 lg:group-hover:scale-110"
                             src="{{ asset('storage/uploads/latest-project/' . ($project->image_path ?? '')) }}"
                             alt="Sunset in the mountains">
@@ -65,11 +55,11 @@
                 @endforeach
             </div>
             <img src="{{ asset('images/absolute3.png') }}" class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs"
-                alt="Absolute 3">
+                alt="Zen Multimedia Indonesia">
         </div>
     </div>
 </section>
-@include('partials.chatbubble')
+@include('components.chatbubble')
 @include('partials.banner')
 @include('partials.footer')
 @include('partials.end')

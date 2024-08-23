@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Homepages;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\ClientSection;
 use Illuminate\Http\Request;

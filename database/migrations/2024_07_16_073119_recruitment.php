@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('study');
             $table->string('position');
             $table->string('salary', 20);
+            $table->string('portfolio');
             $table->string('file_path');
             $table->boolean('stage1')->default(false);
             $table->boolean('stage2')->default(false);

@@ -135,6 +135,47 @@
                             <x-input-error :messages="$errors->get('position')" class="my-1" />
                         </div>
 
+                        <div>
+                            <label for="onsite" class="block text-sm font-medium text-gray-700">
+                                Bersedia Onsite?<span class="text-red-600 text-base">*</span></label>
+                            <select id="onsite" name="onsite" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                                <option value="" disabled selected>Pilih Opsi</option>
+                                <option value="Iya">Iya</option>
+                                <option value="Tidak">Tidak</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('onsite')" class="my-1" />
+                        </div>
+
+                        <div>
+                            <label for="test" class="block text-sm font-medium text-gray-700">
+                                Bersedia Di Test?<span class="text-red-600 text-base">*</span></label>
+                            <select id="test" name="test" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                                <option value="" disabled selected>Pilih Opsi</option>
+                                <option value="Iya">Iya</option>
+                                <option value="Tidak">Tidak</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('test')" class="my-1" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="agree" class="block text-sm font-medium text-gray-600 mb-2">
+                                Kapan Bersedia Bergabung<span class="text-red-600 text-base">*</span>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <span class="text-base text-blue-800">
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                    </span>
+                                </div>
+                                <input type="date" name="agree" id="agree"
+                                    class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    required>
+                            </div>
+                            <x-input-error :messages="$errors->get('agree')" class="my-1" />
+                        </div>                        
+
                         <div class="mb-3">
                             <label for="salary" class="block text-sm font-medium text-gray-600 mb-2">
                                 Gaji Yang Diharapkan
@@ -150,49 +191,6 @@
                             </div>
                             <x-input-error :messages="$errors->get('salary')" class="my-1" />
                         </div>
-
-                        {{-- <div>
-                            <label for="position" class="block text-sm font-medium text-gray-700">
-                                Bersedia Onsite?<span class="text-red-600 text-base">*</span></label>
-                            <select id="position" name="position" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
-                                <option value="" disabled selected>Pilih Opsi</option>
-                                <option value="Iya">Iya</option>
-                                <option value="Tidak">Tidak</option>
-                            </select>
-                            <x-input-error :messages="$errors->get('position')" class="my-1" />
-                        </div> --}}
-
-                        {{-- <div>
-                            <label for="position" class="block text-sm font-medium text-gray-700">
-                                Bersedia Di Test?<span class="text-red-600 text-base">*</span></label>
-                            <select id="position" name="position" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
-                                <option value="" disabled selected>Pilih Opsi</option>
-                                <option value="Iya">Iya</option>
-                                <option value="Tidak">Tidak</option>
-                            </select>
-                            <x-input-error :messages="$errors->get('position')" class="my-1" />
-                        </div> --}}
-
-                        {{-- <div class="mb-3">
-                            <label for="join_date" class="block text-sm font-medium text-gray-600 mb-2">
-                                Kapan Bersedia Bergabung<span class="text-red-600 text-base">*</span>
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <span class="text-base text-blue-800">
-                                        <i class="fa-solid fa-calendar-days"></i>
-                                    </span>
-                                </div>
-                                <input type="date" name="join_date" id="join_date"
-                                    class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    required>
-                            </div>
-                            <x-input-error :messages="$errors->get('join_date')" class="my-1" />
-                        </div> --}}
-                        
-
                         {{-- <div class="mb-3">
                             <div class="relative">
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Upload Portofolio
@@ -200,12 +198,12 @@
 
                             <div class="mb-3 text-xs">
                                 <label class="inline-flex items-center">
-                                    <input type="radio" name="upload_option" value="file" checked
+                                    <input type="radio" name="portfolio" value="file" checked
                                         class="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out" />
                                     <span class="ml-2 text-gray-700">File</span>
                                 </label>
                                 <label class="inline-flex items-center ml-6">
-                                    <input type="radio" name="upload_option" value="link"
+                                    <input type="radio" name="portfolio" value="link"
                                         class="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out" />
                                     <span class="ml-2 text-gray-700">Link</span>
                                 </label>
@@ -215,7 +213,7 @@
                                 <input
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     aria-describedby="file_input_help" name="file_path" id="file_input"
-                                    type="file" accept="application/pdf" required>
+                                    type="file" accept="application/pdf">
                                 <x-input-error :messages="$errors->get('file_path')" class="my-1" />
                                 <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600"
                                     id="file_input_help">
