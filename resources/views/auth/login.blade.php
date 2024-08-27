@@ -10,7 +10,7 @@
 <section class="bg-white w-full min-h-screen flex flex-col md:flex-row">
     <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 lg:flex justify-center items-center">
         <div class="mx-auto fixed no-select">
-            <img src="{{ asset('images/auth.gif') }}" alt="zen-multimedia-indonesia" class="w-full max-w-md mx-auto" />
+            <img src="{{ asset('images/zmi-auth-image.png') }}" alt="zen-multimedia-indonesia" class="w-full max-w-md mx-auto" />
             <p class="text-center text-blue-900 text-xl font-semibold mt-4 mb-1">
                 Partner Digital Untuk Layanan Bisnis dan Pemerintahan</p>
             <p class="text-center text-skyblue font-semibold text-sm">PT ZEN MULTIMEDIA INDONESIA</p>
@@ -88,7 +88,6 @@
                         </a>
                     </div>
                 </form>
-                
             </div>
             <div class="text-center my-8 bottom-0">
                 <span class="text-base text-gray-400">Copyright By: zenmultimediacorp.com</span>

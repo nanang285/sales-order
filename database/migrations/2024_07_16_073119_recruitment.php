@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('study');
             $table->string('position');
             $table->string('salary', 20);
+            $table->string('onsite');
+            $table->string('test');
+            $table->string('join');
+            $table->string('portfolio')->nullable();
             $table->string('portfolio');
             $table->string('file_path');
             $table->boolean('stage1')->default(false);
@@ -30,7 +34,6 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

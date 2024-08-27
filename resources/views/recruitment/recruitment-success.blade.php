@@ -20,13 +20,13 @@ style="background-image: url('{{ asset('images/bg-about.webp') }}');">
                         Data Berhasil Terkirim, Mohon untuk menunggu hasil selanjutnya.
                     </h2>
                     <p class="mt-5 mx-1 text-sm text-center font-semibold text-gray-600">
-                        <a href="{{ route('checkrecruitment') }}"
+                        <a href="{{ route('recruitment.checkrecruitment') }}"
                             class="text-blue-600">
                             Cek Status Lamaran disini.
                         </a>
                     </p>
                     <p class="mt-5 mx-1 text-base text-center font-semibold text-gray-600">
-                        <a href="{{ route('recruitment') }}"
+                        <a href="{{ route('recruitment.index') }}"
                             class="text-red-600">
                             Kembali ke halaman sebelumnya
                         </a>

@@ -1,3 +1,4 @@
+{{-- Add Data --}}
 <div id="add_modal" tabindex="2" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-lg max-h-full">
@@ -55,6 +56,7 @@
     </div>
 </div>
 
+{{-- Edit Data --}}
 @foreach ($serviceSection as $service)
     <div id="edit_modal_{{ $service->id ?? '' }}" tabindex="2" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -75,7 +77,7 @@
                     <form class="space-y-4" action="{{ route('admin.homepages.service.update', $service->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
                         <div>
                             <label for="title_{{ $service->id }}"
                                 class="block mb-2 text-sm font-medium text-gray-900">Judul</label>
@@ -120,6 +122,7 @@
     </div>
 @endforeach
 
+{{-- Delete Data --}}
 @foreach ($serviceSection as $service)
     <div id="delete_modal_{{ $service->id }}" tabindex="2" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">

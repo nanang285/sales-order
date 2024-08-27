@@ -153,7 +153,6 @@ class RecruitmentController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -163,9 +162,9 @@ class RecruitmentController extends Controller
             'study' => 'required|string',
             'onsite' => 'required|string',
             'test' => 'required|string',
-            'agree' => 'required|date',
+            'agree' => 'required|string',
             'salary' => 'required|string|max:50',
-            // 'portfolio' => 'nullable',
+            'portfolio' => 'nullable',
             'file_path' => 'required|mimes:pdf|max:2048',
         ]);
 
@@ -183,41 +182,13 @@ class RecruitmentController extends Controller
                 'phone_number' => $request->phone_number,
                 'study' => $request->study,
                 'position' => $request->position,
-                'onsite' => $request->string,
-                'test' => $request->string,
-                'agree' => $request->date,
+                'onsite' => $request->onsite,
+                'test' => $request->test,
+                'agree' => $request->agree,
                 'salary' => $request->salary,
-                // 'portfolio' => $fileName,
+                'portfolio' => $fileName,
                 'file_path' => $fileName,
             ]);
-
-            // Email untuk terima notifikasi
-            // $adminEmail = 'nngs.me@gmail.com';
-
-            // $userEmail = $request->email;
-            // $userName = $request->name;
-
-            // $userNIK = $request->nik;
-            // $userAdress = $request->address;
-            // $userPhone = $request->phone_number;
-            // $userStudy = $request->study;
-            // $userPosition = $request->position;
-            // $userSalary = $request->salary;
-
-            // Mail::raw(
-            //     "Data Rekrutment telah diterima dari email $userEmail dengan data sebagai berikut,
-            //  <li>Nama : $userName</li>
-            //  <li>NIK : $userNIK</li>
-            //  <li>Alamat : $userAdress</li>
-            //  <li>No. Telpon : $userPhone</li>
-            //  <li>Pendidikan : $userStudy</li>
-            //  <li>Posisi : $userPosition</li>
-            //  <li>Harapan Gaji : $userSalary</li>",
-            //     function ($message) use ($adminEmail) {
-            //         $message->to($adminEmail)
-            //             ->subject('Notifikasi Data Rekrutmen Baru');
-            //     }
-            // );
 
             return redirect()->route('success')->with('success', true)->with('toast', 'recruitment.terkirim');
         } catch (\Exception $e) {

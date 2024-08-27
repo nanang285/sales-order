@@ -7,7 +7,7 @@
                 <div class="flex-grow flex justify-center lg:justify-start lg:flex-grow-0">
                     <a href="{{ Route('dashboard') }}"
                         class="flex items-center justify-center lg:justify-start text-base">
-                        <img src="{{ asset('images/zenmultimedia.png') }}" class="h-12 lg:h-12"
+                        <img src="{{ asset('images/zenmultimedia.png') }}" class="h-12 lg:h-11 lg:items-center"
                             alt="zen-multimedia-logo" />
                     </a>
                 </div>
@@ -23,7 +23,8 @@
                     <li>
                         <a href="{{ route('admin.recruitment.index') }}"
                             class="{{ Route::currentRouteName() === 'admin.recruitment.index' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
-                            <img src="{{ asset('images/management-consulting.gif') }}" class="w-8">
+                            <i class="fa-solid fa-id-card text-base"></i>
+                           
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Recruitment</span>
                         </a>
                     </li>
@@ -35,6 +36,14 @@
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Absensi</span>
                         </a>
                     </li> --}}
+
+                    <li class="">
+                        <a href=""
+                            class="{{ Route::currentRouteName() === 'admin.absensi.index' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-500' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
+                            <i class="fa-solid fa-users-viewfinder"></i>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Job Vacancies``</span>
+                        </a>
+                    </li>
 
                     <li>
                         <button type="button" id="dropdownButton"

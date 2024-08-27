@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('recruitments', function (Blueprint $table) {
             $table->string('onsite');
             $table->string('test');
-            $table->date('join')->nullable(); // Tambahkan nullable() pada kolom date
+            $table->string('join')->nullable(); // Tambahkan nullable() pada kolom date
             $table->string('portfolio')->nullable(); // Tambahkan kolom dengan nullable
         });
     }

@@ -19,12 +19,12 @@
                             <a href="{{ Route('admin.recruitment.add') }}"
                                 class="transition duration-300 block text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded-md text-sm px-2 py-1 text-center"
                                 type="button">
-                                <i class="fa-solid fa-plus"></i>
+                                <i class="fa-solid fa-user-plus"></i>
                             </a>
-                            <button data-modal-target="add_modal" data-modal-toggle="add_modal"
-                                class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center"
-                                type="button">
-                                <i class="fa-solid fa-file-export"></i><span class="">Export</span>
+                            <button onclick="exportTableToExcel('dataTable', 'RekrutmenData')"
+                            class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center"
+                            type="button">
+                            <i class="fa-solid fa-file-export"></i><span class="">Export</span>
                             </button>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                     <div class="overflow-x-auto">
                         <div class="p-1.5 min-w-full inline-block align-middle">
                             <div class=" overflow-hidden">
-                                <table class="min-w-full divide-y divide-gray-200">
+                                <table id="dataTable" class="min-w-full divide-y divide-gray-200">
                                     <thead>
                                         <tr>
                                             <th scope="col"
@@ -240,6 +240,24 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <script>
+                                    function exportTableToExcel(tableID, filename = ''){
+                                        var dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+                                        var tableSelect = document.getElementById(tableID);
+                                        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+                            
+                                        var downloadLink;
+                                        filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
+                            
+                                        downloadLink = document.createElement("a");
+                            
+                                        var worksheet = XLSX.utils.table_to_sheet(tableSelect);
+                                        var workbook = XLSX.utils.book_new();
+                                        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+                            
+                                        XLSX.writeFile(workbook, filename);
+                                    }
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -291,5 +309,7 @@
                 modal.classList.add('hidden');
             });
         });
+
+        
     </script>
 @endsection

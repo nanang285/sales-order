@@ -21,7 +21,7 @@
                 </p>
             </div>
             <div class="flex flex-row space-x-4">
-                <div class=z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:divide-gray-600 dark:bg-gray-700"
+                <div class="z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:divide-gray-600 dark:bg-gray-700"
                     id="notification-dropdown">
                     <div
                         class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -172,11 +172,11 @@
                 </div>
                 <div>
                     <button type="button"
-                        class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                         id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full"
-                            src="{{ Auth::user()->image_path }}" alt="Bonnie avatar">
+                        <img class="w-6 h-6 rounded-full"
+                            src="{{ asset('images/zen-logo.png') }}" alt="Bonnie avatar">
                     </button>
                 </div>
                 <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"

@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\ServiceSection;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
@@ -45,18 +45,7 @@ class ServiceController extends Controller
         return redirect()->route('admin.homepages.service.index')->with('success', true)->with('toast', 'add');
     }
 
-    public function edit(): View
-    {
-        $serviceSection = ServiceSection::All();
-
-        if (!$serviceSection) {
-            $serviceSection = new Servicesection();
-        }
-
-        return view('admin.project.edit', compact('latestProject'));
-    }
-
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'title' => 'string|max:50',

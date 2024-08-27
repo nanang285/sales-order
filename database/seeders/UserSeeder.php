@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin ZMI',
             'email' => 'zenweb.verifikasi@gmail.com',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('adminzmi@2024'),
             'role' => 'admin',
         ]);
     }

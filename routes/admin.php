@@ -19,7 +19,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/{uuid}', 'edit')->name('edit');
         Route::get('/search', 'searchByName')->name('search');
         Route::post('/AdminStore', 'AdminStore')->name('AdminStore');
-        Route::post('/store', 'store')->name('store');
         Route::post('/{uuid}/{stage}', 'updateStage')->name('updateStage');
         Route::put('/update', 'update')->name('update');
         Route::delete('/{uuid}', 'destroy')->name('destroy');
@@ -35,13 +34,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::prefix('service')->name('service.')->controller(ServiceController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
-            Route::put('/{id}', 'update')->name('update');
+            Route::patch('/{id}', 'update')->name('update');
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
         Route::prefix('about')->name('about.')->controller(AboutController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::put('/{id}', 'update')->name('update');
+            Route::patch('/{id}', 'update')->name('update');
         });
 
         Route::prefix('project')->name('project.')->controller(ProjectController::class)->group(function () {
@@ -54,7 +53,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::prefix('galery')->name('galery.')->controller(GaleryController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
-            Route::put('/{id}', 'update')->name('update');
+            Route::patch('/{id}', 'update')->name('update');
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
 

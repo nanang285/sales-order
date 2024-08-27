@@ -24,7 +24,7 @@
                     <div class="w-full max-w-lg  xl:w-xl">
                         <div class="flex items-center justify-center flex-col lg:flex-row">
                             <div class="flex-none">
-                                <img src="{{ asset('images/homepages/hero-images.png') }}" alt="zenmultimediaindonesia"
+                                <img src="{{ asset('images/homepages/hero-images.webp') }}" alt="zenmultimediaindonesia"
                                     class="w-full max-w-xl h-auto object-cover">
                             </div>
                         </div>
@@ -218,7 +218,7 @@
 
 <div id="about" class="bg-fixed bg-cover bg-no-repeat"
     style="background-image: url('{{ asset('images/Rectangle 36.png') }}')">
-    <section id="client" class="bg-lightblue py-6 mt-10 w-full">
+    <section id="client" class="bg-gray-800 bg-opacity-50 py-6 mt-10 w-full">
         <div class="container mx-auto px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:text-center">
                 <p class="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl text-center">
@@ -249,4 +249,6 @@
         </div>
     </section>
 </div>
+
+@include('partials.footer')
 @endsection

@@ -45,36 +45,35 @@
                                     </div>
                                 </div>
 
-                                <form method="POST" action="{{ route('admin.homepages.promo.update', $promoSection->id) }}"
-                                    enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('admin.homepages.promo.update', $promoSection->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        for="file_input">Upload file</label>
+                                
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">
+                                        Upload file
+                                    </label>
                                     <input
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        aria-describedby="file_input_help" id="file_input" type="file" name="image_path"
-                                        disabled>
+                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        aria-describedby="file_input_help" id="file_input" type="file" name="image_path" disabled>
                                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
                                         PNG, JPG, WEBP, GIF (MAX. 800x400px).
                                     </p>
-
+                                
                                     <button type="submit" id="updateButton"
                                         class="mt-4 ring-2 font-semibold ring-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-sm py-1.5 px-2.5 rounded transition duration-300 hidden">
                                         Update
                                     </button>
                                 </form>
+                                
                             </div>
 
                             <script>
                                 $('#editButton').on('click', function() {
-                                    // Toggle the file input's disabled property
+                                    
                                     $('#file_input').prop('disabled', function(i, val) {
                                         return !val;
                                     });
-
-                                    // Toggle the visibility of the update button
+                                    
                                     $('#updateButton').toggleClass('hidden');
                                 });
                             </script>

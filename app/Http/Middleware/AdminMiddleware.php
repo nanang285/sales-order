@@ -14,6 +14,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return redirect('/login')->with('warning', true)->with('toast', 'warning');
+        return redirect('admin/login')->with('warning', true)->with('toast', 'warning');
     }
 }

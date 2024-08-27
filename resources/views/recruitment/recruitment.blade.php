@@ -191,48 +191,24 @@
                             </div>
                             <x-input-error :messages="$errors->get('salary')" class="my-1" />
                         </div>
-                        {{-- <div class="mb-3">
+                        
+                        <div class="mb-3">
                             <div class="relative">
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Upload Portofolio
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Upload Portofolio</label>
                             </div>
-
-                            <div class="mb-3 text-xs">
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="portfolio" value="file" checked
-                                        class="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out" />
-                                    <span class="ml-2 text-gray-700">File</span>
-                                </label>
-                                <label class="inline-flex items-center ml-6">
-                                    <input type="radio" name="portfolio" value="link"
-                                        class="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out" />
-                                    <span class="ml-2 text-gray-700">Link</span>
-                                </label>
-                            </div>
-
-                            <div id="file_input_section" class="relative bg-white">
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="file_input_help" name="file_path" id="file_input"
-                                    type="file" accept="application/pdf">
-                                <x-input-error :messages="$errors->get('file_path')" class="my-1" />
-                                <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600"
-                                    id="file_input_help">
-                                    Hanya file pdf. (MAX. 2MB).
-                                </p>
-                            </div>
-
-                            <div id="link_input_section" class="relative bg-white hidden">
+                        
+                            <div id="link_input_section" class="relative bg-white">
                                 <input
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2 bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="link_input_help" name="link" id="link_input" type="url"
+                                    aria-describedby="link_input_help" name="portfolio" id="link_input" type="text"
                                     placeholder="Masukkan URL portofolio" required>
                                 <x-input-error :messages="$errors->get('link')" class="my-1" />
-                                <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600"
-                                    id="link_input_help">
+                                <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600" id="link_input_help">
                                     Masukkan URL yang valid.
                                 </p>
                             </div>
-                        </div> --}}
+                        </div>
+                        
                         <div class="mb-3">
                             <div class="relative">
                                 <label for="file_input" class="block text-sm font-medium text-gray-600 mb-2">
@@ -310,19 +286,4 @@
         });
     });
 
-    $(document).ready(function() {
-        const $fileInputSection = $('#file_input_section');
-        const $linkInputSection = $('#link_input_section');
-        const $radioButtons = $('input[name="upload_option"]');
-
-        $radioButtons.on('change', function() {
-            if ($(this).val() === 'file') {
-                $fileInputSection.removeClass('hidden');
-                $linkInputSection.addClass('hidden');
-            } else {
-                $fileInputSection.addClass('hidden');
-                $linkInputSection.removeClass('hidden');
-            }
-        });
-    });
 </script>
