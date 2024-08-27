@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('test');
             $table->string('join');
             $table->string('portfolio')->nullable();
-            $table->string('portfolio');
             $table->string('file_path');
             $table->boolean('stage1')->default(false);
             $table->boolean('stage2')->default(false);
