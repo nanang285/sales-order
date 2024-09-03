@@ -32,7 +32,7 @@
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/nanang285/sales-order.git
+    git clone -b develop https://github.com/nanang285/sales-order.git
     cd sales-order
     ```
 
@@ -54,24 +54,6 @@
 
     -   Update the `.env` file with your database and mail configuration:
 
-    ```env
-    DB_CONNECTION=mysql
-    DB_HOST=your-hostname
-    DB_PORT=3306
-    DB_DATABASE=your-database-name
-    DB_USERNAME=your-username
-    DB_PASSWORD=your-password
-
-    MAIL_MAILER=smtp
-    MAIL_HOST=smtp.gmail.com
-    MAIL_PORT=587
-    MAIL_USERNAME=your-email@gmail.com
-    MAIL_PASSWORD=your-email-password
-    MAIL_ENCRYPTION=tls
-    MAIL_FROM_ADDRESS=your-email@gmail.com
-    MAIL_FROM_NAME="Zen Landing Pages"
-    ```
-
 4.  **Generate the application key:**
 
     ```bash
@@ -87,15 +69,13 @@
 6.  **Seed the database with initial data:**
 
     ```bash
-   php artisan db:seed --class=UserSeeder
-   
+    php artisan db:seed --class=UserSeeder
     ```
 
 7.  **Import the database in MYSQL:**
 
     ```bash
-    import database in MYSQL
-   
+    import database MYSL in PHPMYADMIN
     ```
 
 8.  **Start the development server:**
