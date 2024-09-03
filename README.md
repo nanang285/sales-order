@@ -57,28 +57,34 @@
 4.  **Generate the application key:**
 
     ```bash
+    php artisan storage:link
+
+    ```
+5.  **Generate the application key:**
+
+    ```bash
     php artisan key:generate
     ```
 
-5.  **Run the migrations:**
+6.  **Run the migrations:**
 
     ```bash
     php artisan migrate
     ```
 
-6.  **Seed the database with initial data:**
+7.  **Seed the database with initial data:**
 
     ```bash
     php artisan db:seed --class=UserSeeder
     ```
 
-7.  **Import the database in MYSQL:**
+8.  **Import the database in MYSQL:**
 
     ```bash
     import database MYSL in PHPMYADMIN
     ```
 
-8.  **Start the development server:**
+9.  **Start the development server:**
 
     ```bash
     php artisan serve
