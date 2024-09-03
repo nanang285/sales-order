@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('container')
-@include('layouts.navbar')
+    @include('layouts.navbar')
 
     @include('partials.pop-up')
 
@@ -38,7 +38,6 @@
         </div>
     </div>
 
-
     <section class="w-full relative">
         <div class="py-12 relative overflow-hidden">
             <div class="container mx-auto px-6 lg:px-8 relative">
@@ -51,24 +50,44 @@
                     </p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-2">
-                    @foreach ($serviceSection as $service)
+                    @if ($serviceSection->isEmpty())
                         <div data-aos="fade-up" data-aos-anchor-placement="top-center"
                             class="bg-white border shadow-sm hover:shadow-[#91aaff9f] rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col lg:flex-row">
                             <div class="order-2 lg:order-1">
                                 <h3 class="lg:text-2xl font-bold lg:font-semibold">
-                                    <span class="text-primary">{{ $service->title }}</span>
+                                    <span class="text-primary">IT Solution</span>
                                 </h3>
                                 <p class="mt-2 text-lg lg:max-w-80 font-semibold text-gray-600">
-                                    <span class="text-skyblue">{{ $service->subtitle }}</span>
+                                    <span class="text-skyblue">Kami menyediakan berbagai macam layanan IT, mulai dari
+                                        pembuatan Website, Pembuatan Aplikasi, Penyediaan Server, dan lainnya</span>
                                 </p>
                             </div>
                             <div class="order-1 lg:order-2 flex justify-center items-center">
-                                <img src="{{ asset('storage/uploads/service-section/' . ($service->image_path ?? '')) }}"
-                                    alt="{{ $service->title }}"
+                                <img src="{{ asset('dist/validate/service-section/zmi-services1.png') }}" alt="Dummy Image"
                                     class="relative w-full max-w-72 lg:w-full h-auto object-cover mb-4 lg:mb-0 no-select">
                             </div>
                         </div>
-                    @endforeach
+                    @else
+                        @foreach ($serviceSection as $service)
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-center"
+                                class="bg-white border shadow-sm hover:shadow-[#91aaff9f] rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col lg:flex-row">
+                                <div class="order-2 lg:order-1">
+                                    <h3 class="lg:text-2xl font-bold lg:font-semibold">
+                                        <span class="text-primary">{{ $service->title }}</span>
+                                    </h3>
+                                    <p class="mt-2 text-lg lg:max-w-80 font-semibold text-gray-600">
+                                        <span class="text-skyblue">{{ $service->subtitle }}</span>
+                                    </p>
+                                </div>
+                                <div class="order-1 lg:order-2 flex justify-center items-center">
+                                    <img src="{{ asset('storage/uploads/service-section/' . ($service->image_path ?? 'dist/validate/latest-project/service-section/zmi-services (1).png')) }}"
+                                        alt=""
+                                        class="relative w-full max-w-72 lg:w-full h-auto object-cover mb-4 lg:mb-0 no-select">
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+
                 </div>
                 <img src="{{ asset('images/absolute3.png') }}" class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs"
                     alt="zen-multimedia-indonesia">
@@ -83,11 +102,19 @@
                 <div data-aos="fade-up" data-aos-anchor-placement="top-center"
                     class="lg:py-8 lg:my-5 lg:px-2 lg:max-w-none lg:flex rounded-xl ring-1 bg-white ring-gray-200">
                     <div class="w-full lg:w-1/2 flex flex-wrap p-5">
-                        <video class="w-full lg:max-w-lg mx-auto lg:mx-10 border rounded-lg object-cover" controls
-                            controlsList="nodownload">
-                            <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}"
-                                type="video/webm">
-                        </video>
+                        @if (!empty($aboutSection->video_path))
+                            <video class="w-full lg:max-w-lg mx-auto lg:mx-10 border rounded-lg object-cover" controls
+                                controlsList="nodownload">
+                                <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}"
+                                    type="video/webm">
+                            </video>
+                        @else
+                            <video class="w-full lg:max-w-lg mx-auto lg:mx-10 border rounded-lg object-cover" controls
+                                controlsList="nodownload">
+                                <source src="{{ asset('dist/validate/about-section/zmi-profil-video.webm') }}"
+                                    type="video/webm">
+                            </video>
+                        @endif
                     </div>
                     <div class="w-full lg:w-1/2 flex flex-wrap p-5">
                         <div class="mb-3">
@@ -95,7 +122,7 @@
                                 Mengapa Harus ZMI?
                             </h1>
                             <p class="md:mx-5 max-w-full text-sm text-primary">
-                                {{ $aboutSection->subtitle }}
+                                {{ $aboutSection->subtitle ?? 'PT Zen Multimedia adalah perusahaan IT yang berfokus pada pembuatan website, aplikasi, dan multimedia. Berbasis di Purwakarta, kami terdiri dari tim berpengalaman yang memberikan layanan purna jual terbaik. Kami melayani pemerintahan, UMKM, swasta, dan perseorangan.' }}
                             </p>
                         </div>
                         <div class="flex-row">
@@ -116,7 +143,7 @@
                                 Inovasi dan Kreativitas
                             </p>
                         </div>
-                        <img src="{{ asset('dist/images/homepages/diskominfo.png') }}" alt="{{ $aboutSection->image_path }}"
+                        <img src="{{ asset('dist/images/homepages/diskominfo.png') }}"
                             class="md:mx-5 max-w-44 max-h-12 object-contain">
                     </div>
                 </div>
@@ -134,23 +161,22 @@
             <div class="relative">
                 <div class=" lg:mt-12 mt-6 swiper-container swiper-latest-project rounded-xl">
                     <div class="swiper-wrapper">
-                        @foreach ($latestProject->take(5) as $project)
+                        @if ($latestProject->isEmpty())
                             <div class="swiper-slide relative">
                                 <div class="relative group h-full ">
-                                    <img src="{{ asset('storage/uploads/latest-project/' . ($project->image_path ?? '')) }}"
-                                        class="rounded-md w-full h-64 lg:h-80 object-cover"
-                                        alt="{{ $project->button_link }}">
+                                    <img src="{{ asset('dist/validate/latest-project/project1.png') }}"
+                                        class="rounded-md w-full h-64 lg:h-80 object-cover" alt="zenmultimedia">
                                     <div
                                         class="bg-black md:mt-32 absolute inset-0 flex opacity-0 rounded group-hover:opacity-85 duration-300 group-hover:animation-slideUp">
                                         <div class="flex flex-col h-full mx-9 justify-center">
                                             <p class="text-white text-2xl font-bold lg:mt-0 mb-2">
-                                                {{ $project->title }}
+                                                ZEN Multimedia
                                             </p>
                                             <p class="text-white text-base md:text-lg mb-4 lg:max-w-full">
-                                                {{ Str::limit($project->subtitle, 120) }}
+                                                {{ Str::limit('Zen Multimedia adalah perusahaan IT yang berfokus pada pembuatan website, aplikasi, dan multimedia. Berbasis di Purwakarta', 120) }}
                                             </p>
                                             <div>
-                                                <a href="{{ $project->button_link }}" target="_blank"
+                                                <a href="https://zenmultimediacorp.com"
                                                     class="font-semibold inline-block border border-white text-white py-1.5 px-4 lg:py-2 lg:px-5 rounded-md hover:bg-white hover:text-gray-800 text-sm transition duration-500">
                                                     Lihat Selengkapnya
                                                 </a>
@@ -159,7 +185,35 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @else
+                            @foreach ($latestProject->take(5) as $project)
+                                <div class="swiper-slide relative">
+                                    <div class="relative group h-full ">
+                                        <img src="{{ asset('storage/uploads/latest-project/' . $project->image_path) }}"
+                                            class="rounded-md w-full h-64 lg:h-80 object-cover"
+                                            alt="{{ $project->button_link }}">
+                                        <div
+                                            class="bg-black md:mt-32 absolute inset-0 flex opacity-0 rounded group-hover:opacity-85 duration-300 group-hover:animation-slideUp">
+                                            <div class="flex flex-col h-full mx-9 justify-center">
+                                                <p class="text-white text-2xl font-bold lg:mt-0 mb-2">
+                                                    {{ $project->title }}
+                                                </p>
+                                                <p class="text-white text-base md:text-lg mb-4 lg:max-w-full">
+                                                    {{ Str::limit($project->subtitle, 120) }}
+                                                </p>
+                                                <div>
+                                                    <a href="{{ $project->button_link }}" target="_blank"
+                                                        class="font-semibold inline-block border border-white text-white py-1.5 px-4 lg:py-2 lg:px-5 rounded-md hover:bg-white hover:text-gray-800 text-sm transition duration-500">
+                                                        Lihat Selengkapnya
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+
                     </div>
                 </div>
                 <div class="z-40" style="position: absolute; right: 32px; top: 40%; transform: translateY(-50%);">

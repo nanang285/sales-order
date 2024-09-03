@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('container')
-@include('layouts.navbar')
+    @include('layouts.navbar')
 
     <div class="relative">
         <div class="bg-fixed bg-cover bg-no-repeat"
@@ -53,13 +53,13 @@
                     <div data-aos="fade-up" data-aos-anchor-placement="top-center" class="mt-8 md:w-1/2">
                         <div id="default-carousel" class="relative w-full" data-carousel="slide">
                             <div class="relative h-56 overflow-hidden rounded-md lg:rounded-lg md:h-96">
-                               @foreach ($galerySection as $galery )
-                               <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                <img src="{{ asset('storage/uploads/galery-section/' . $galery->image_path) }}"
-                                    class="absolute object-cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                    alt="zmi-slider-1">
-                            </div>
-                               @endforeach
+                                @foreach ($galerySection as $galery)
+                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        <img src="{{ asset('storage/uploads/galery-section/' . $galery->image_path) }}"
+                                            class="absolute object-cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                            alt="zmi-slider-1">
+                                    </div>
+                                @endforeach
                             </div>
                             <button type="button"
                                 class="absolute top-0 -right-12 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
@@ -103,7 +103,8 @@
                     </div>
                     <div class="md:w-1/2 flex items-center justify-center p-6">
                         <div class="w-full max-w-sm">
-                            <img src="{{ asset('dist/images/visi-misi.png') }}" alt="Deskripsi Gambar" class="w-full h-auto">
+                            <img src="{{ asset('dist/images/visi-misi.png') }}" alt="Deskripsi Gambar"
+                                class="w-full h-auto">
                         </div>
                     </div>
                 </div>
@@ -113,6 +114,4 @@
         </div>
     </section>
     @include('partials.footer')
-    @include('partials.footer')
-
 @endsection

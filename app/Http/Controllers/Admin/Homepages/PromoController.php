@@ -15,6 +15,7 @@ class PromoController extends Controller
     {
         $promoSection = Promo::first();
         $breadcrumbTitle = 'PopUp';
+
         return view('admin.homepages.popup', compact('promoSection', 'breadcrumbTitle'));
     }
 
@@ -29,19 +30,37 @@ class PromoController extends Controller
         return view('admin.promo.edit', compact('promoSection'));
     }
 
-    public function update(Request $request, string $id): RedirectResponse
+    public function store(Request $request)
     {
-
         $request->validate([
-            'image_path' => '',
+            'image_path' => 'required|image|mimes:png,jpg,webp,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('image_path')) {
+            $image = $request->file('image_path');
+            $imageName = time() . '-' . $image->getClientOriginalName();
+            $image->storeAs('public/uploads/promo', $imageName);
+
+            Promo::create([
+                'image_path' => $imageName,
+            ]);
+        }
+
+        return redirect()->route('admin.homepages.promo.index')->with('success', true)->with('toast', 'create');
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'image_path' => 'nullable|image|mimes:png,jpg,webp,gif|max:2048',
         ]);
 
         $promoSection = Promo::findOrFail($id);
 
         if ($request->hasFile('image_path')) {
-
             $image = $request->file('image_path');
-            $image->storeAs('public/uploads/promo', $image->getClientOriginalName());
+            $imageName = time() . '-' . $image->getClientOriginalName();
+            $image->storeAs('public/uploads/promo', $imageName);
 
             $oldImagePath = 'public/uploads/promo/' . $promoSection->image_path;
             if (Storage::exists($oldImagePath)) {
@@ -49,12 +68,9 @@ class PromoController extends Controller
             }
 
             $promoSection->update([
-                'image_path' => $image->getClientOriginalName(),
+                'image_path' => $imageName,
             ]);
-        } else {
-            $promoSection->update([]);
         }
-
 
         return redirect()->route('admin.homepages.promo.index')->with('success', true)->with('toast', 'edit');
     }

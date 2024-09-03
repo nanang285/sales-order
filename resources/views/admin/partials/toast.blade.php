@@ -120,7 +120,7 @@
             var $toast = $(this);
             setTimeout(function() {
                 $toast.fadeOut();
-            }, 30000);
+            }, 3000);
         });
     });
 </script>

@@ -41,7 +41,7 @@
     ```bash
     composer install
     npm install
-    npm run dev
+    npm run build
     ```
 
 3.  **Set up environment variables:**
@@ -87,10 +87,18 @@
 6.  **Seed the database with initial data:**
 
     ```bash
-    php artisan db:seed
+   php artisan db:seed --class=UserSeeder
+   
     ```
 
-7.  **Start the development server:**
+7.  **Import the database in MYSQL:**
+
+    ```bash
+    import database in MYSQL
+   
+    ```
+
+8.  **Start the development server:**
 
     ```bash
     php artisan serve

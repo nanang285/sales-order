@@ -37,11 +37,11 @@
                             placeholder="Masukan link" required />
                     </div>
                     <div>
-                        <label for="subtitle_{{ $project->id }}"
+                        <label for="subtitle"
                             class="block mb-2 text-sm font-medium text-gray-900">Subtitle</label>
-                        <textarea name="subtitle" id="subtitle_{{ $project->id }}"
+                        <textarea name="subtitle" id="subtitle"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-24 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
-                            placeholder="Masukan subtitle" required>{{ $project->subtitle }}</textarea>
+                            placeholder="Masukan subtitle" required></textarea>
                     </div>
                     <div>
                         <label for="images"
@@ -71,7 +71,7 @@
 
 {{-- Edit Data --}}
 @foreach ($latestProject as $project)
-    <div id="edit_modal_{{ $project->id }}" tabindex="2" aria-hidden="true"
+    <div id="edit_modal_{{ $project->id ?? '' }}" tabindex="2" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-lg max-h-full">
             <div class="relative bg-white rounded-lg shadow p-4">

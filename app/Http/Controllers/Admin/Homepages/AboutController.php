@@ -55,4 +55,27 @@ class AboutController extends Controller
 
         return redirect()->route('admin.homepages.about.index')->with('success', true)->with('toast', 'edit');
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'subtitle' => 'required|string|max:255',
+            'video_path' => 'nullable|mimes:mp4,mov,webm,flv,mkv|max:102400',
+        ]);
+
+        // Simpan data lainnya di database (misalnya subtitle)
+        $aboutSection = new AboutSection();
+        $aboutSection->subtitle = $request->input('subtitle');
+
+        if ($request->hasFile('video_path')) {
+            $video = $request->file('video_path');
+            $videoName = time() . '_' . $video->getClientOriginalName(); // Menggunakan timestamp untuk nama file unik
+            $video->storeAs('public/uploads/about-section', $videoName);
+            $aboutSection->video_path = $videoName;
+        }
+
+        $aboutSection->save(); // Simpan ke database
+
+        return redirect()->route('admin.homepages.about.index')->with('success', true)->with('toast', 'add');
+    }
 }

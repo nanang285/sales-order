@@ -32,8 +32,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::prefix('homepages')->name('homepages.')->group(function () {
 
         Route::prefix('promo')->name('promo.')->controller(PromoController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::put('/{id}', 'update')->name('update');
+            Route::get('/', 'index')->name('index');  
+            Route::post('/', 'store')->name('store');        
+            Route::put('/{id}', 'update')->name('update');   
         });
 
         Route::prefix('service')->name('service.')->controller(ServiceController::class)->group(function () {
@@ -45,7 +46,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
         Route::prefix('about')->name('about.')->controller(AboutController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::patch('/{id}', 'update')->name('update');
+            Route::put('/{id}', 'update')->name('update');
+            Route::post('/', 'store')->name('store');;
+
         });
 
         Route::prefix('project')->name('project.')->controller(ProjectController::class)->group(function () {
@@ -72,6 +75,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::prefix('footer')->name('footer.')->controller(FooterController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::put('/{id}', 'update')->name('update');
+            Route::post('/', 'store')->name('store');        
         });
     });
 

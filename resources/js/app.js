@@ -68,56 +68,6 @@ $(window).on("load", function () {
 });
 
 $(document).ready(function () {
-    $("#togglePassword").on("click", function () {
-        var passwordInput = $("#password");
-        var icon = $(this).find("i");
-
-        if (passwordInput.attr("type") === "password") {
-            passwordInput.attr("type", "text");
-            icon.removeClass("fa-eye").addClass("fa-eye-slash");
-        } else {
-            passwordInput.attr("type", "password");
-            icon.removeClass("fa-eye-slash").addClass("fa-eye");
-        }
-    });
-});
-
-// Disable Inspect pages
-$(document).ready(function () {
-    $(document).on("contextmenu", function (e) {
-        return false;
-    });
-});
-
-$(document).ready(function () {
-    $(document).keydown(function (e) {
-        // F12
-        if (e.keyCode == 123) {
-            return false;
-        }
-        // Ctrl+Shift+I
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
-            return false;
-        }
-        // Ctrl+Shift+C
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 67) {
-            return false;
-        }
-    });
-
-    $(document).keydown(function (e) {
-        // Ctrl+U (View Page Source)
-        if (e.ctrlKey && e.keyCode == 85) {
-            return false;
-        }
-        // Ctrl+Shift+J (Console)
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
-            return false;
-        }
-    });
-});
-
-$(document).ready(function () {
     const $navbar = $("#navbar");
     const $shadowSection = $("#shadow");
 

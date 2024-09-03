@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('client_sections', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
+            // $table->text('title');
             $table->string('image_path');
             $table->timestamps();
         });
