@@ -1,53 +1,25 @@
-{{-- <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
-
-
-@include('partials.start')
-<section class="w-full min-h-screen flex flex-col md:flex-row">
-    <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 p-4 md:p-8 md:flex justify-center items-center">
-        <div class="mx-auto lg:mt-16 mt-20 md:py-20">
-            <img src="{{ asset('images/zmi-auth-image.png') }}" alt="ZMI-Images-Auth" class="w-full max-w-lg mx-auto" />
-            <p class="text-center text-blue-900 text-lg font-semibold mt-4 mb-1">Partner Digital Untuk layanan Bisnis dan
-                pemerintahan</p>
-            <p class="text-center text-skyblue font-semibold text-sm">PT ZEN MULTIMEDIA INDONESIA</p>
-        </div>
-    </main>
-
-    <aside class="w-full lg:w-1/3 bg-[#1F2A7C] min-h-screen">
-        <div class="h-full px-6 flex flex-col justify-between">
-            <div class="w-full max-w-md xl:max-w-xl mx-auto lg:px-6 mt-28">
-                <div class="text-center mb-6">
-                    <h3 class="text-xl md:text-1xl text-white">Selamat datang Kembali</h3>
-                    <p class="text-base text-gray-300 mt-1">Pulihkan akun Anda</p>
-                </div>
-                <div class="flec flex-col justify-center h-full">
+@extends('layouts.main')
+@section('container')
+    <section class="bg-white w-full min-h-screen flex flex-col md:flex-row">
+        <main class="hidden w-full md:w-2/3 mb-4 md:mb-0 lg:flex justify-center items-center">
+            <div class="mx-auto fixed no-select">
+                <img src="{{ asset('dist/images/homepages/zmi-auth-images.png') }}" alt="zen-multimedia-indonesia"
+                    class="w-full max-w-md mx-auto" />
+                <p class="text-center text-blue-900 text-xl font-semibold mt-4 mb-1">
+                    Partner Digital Untuk Layanan Bisnis dan Pemerintahan</p>
+                <p class="text-center text-skyblue font-semibold text-sm">PT ZEN MULTIMEDIA INDONESIA</p>
+            </div>
+        </main>
+        <aside class="w-full lg:w-2/5 bg-[#213c88f1] min-h-screen">
+            <div class="h-full px-8 flex flex-col justify-between">
+                <div class="w-full max-w-md xl:max-w-xl mx-auto lg:px-6 mt-28">
+                    <div class="text-center mb-10">
+                        <h3 class="text-xl md:text-1xl text-white">Selamat Datang Kembali</h3>
+                        <p class="text-base text-gray-300 mt-1">Masuk Pulihkan akun Anda</p>
+                    </div>
 
                     <!-- Session Status -->
                     <x-auth-session-status class="mb-4 bg-gray-100 text-center rounded" :status="session('status')" />
-
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
@@ -90,12 +62,12 @@
                         </div>
                     </form>
                 </div>
+                <div class="text-center my-8 bottom-0">
+                    <span class="text-base font-semibold text-gray-200">
+                        Copyright By: {{ request()->getHost() }}
+                    </span>
+                </div>
             </div>
-            <div class="text-center my-5 bottom-0">
-                <span class="text-base text-gray-400">Copyright By: zenmultimediacorp.com</span>
-            </div>
-        </div>
-    </aside>
-</section>
-
-@include('partials.end')
+        </aside>
+    </section>
+@endsection

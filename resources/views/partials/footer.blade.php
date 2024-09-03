@@ -1,8 +1,8 @@
-<!-- Footer -->
 <footer id="footer" class="bg-primary text-gray-300">
     <div class="container mx-auto px-6 lg:px-8 py-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="space-y-6">
+                @if($footerSection)
                 <div>
                     <h2 class="text-lg font-semibold mb-4">Alamat</h2>
                     <p class="max-w-xs text-base hover:text-white transition duration-400">{{ $footerSection->alamat }}</p>
@@ -28,8 +28,10 @@
                         </a>
                     </div>
                 </div>
+                @endif
             </div>
             <div>
+                @if($footerSection)
                 <h2 class="text-lg font-semibold mb-4">Hubungi</h2>
                 <p class="text-base mb-4">Tertarik bekerja sama dengan kami?</p>
                 <ul class="space-y-2">
@@ -44,6 +46,7 @@
                         </a>
                     </li>                    
                 </ul>
+                @endif
             </div>
             <div>
                 <h2 class="text-lg font-semibold mb-4">Lokasi Kami</h2>
@@ -56,8 +59,7 @@
     </div>
     <div class=" py-6 text-center">
         <span class="text-base font-semibold text-gray-400">&copy; {{ date('Y') }}
-            zenmultimediacorp.com. All rights reserved.
+           {{ request()->getHost() }}. All rights reserved.
         </span>
     </div>
 </footer>
-<!-- Footer -->

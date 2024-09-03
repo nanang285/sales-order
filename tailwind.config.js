@@ -16,6 +16,9 @@ module.exports = {
 
     theme: {
         extend: {
+            fontFamily: {
+                arial: ["Arial", "sans-serif"],
+            },
             keyframes: {
                 slideUp: {
                     "0%": { transform: "translateY(100%)", opacity: "0" },

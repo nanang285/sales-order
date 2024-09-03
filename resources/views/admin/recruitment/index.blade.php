@@ -5,7 +5,7 @@
             @include('admin.partials.breadcrumb')
             @include('admin.partials.toast')
 
-            <div class="bg-white shadow-lg my-6 border rounded-lg p-6">
+            <div class="bg-white shadow-sm my-6 border rounded-lg p-6">
                 <div class="flex flex-col md:flex-row mb-6 items-center justify-between space-y-3 md:space-y-0 md:space-x-4">
                     <div class="w-full max-w-52">
                         <div class="flex items-center">
@@ -22,9 +22,9 @@
                                 <i class="fa-solid fa-user-plus"></i>
                             </a>
                             <button onclick="exportTableToExcel('dataTable', 'RekrutmenData')"
-                            class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center"
-                            type="button">
-                            <i class="fa-solid fa-file-export"></i><span class="">Export</span>
+                                class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center"
+                                type="button">
+                                <i class="fa-solid fa-file-export"></i><span class="">Export</span>
                             </button>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                     <div class="overflow-x-auto">
                         <div class="p-1.5 min-w-full inline-block align-middle">
                             <div class=" overflow-hidden">
-                                <table id="dataTable" class="min-w-full divide-y divide-gray-200">
+                                <table id="dataTable" class="min-w-full mt-3 divide-y divide-gray-200">
                                     <thead>
                                         <tr>
                                             <th scope="col"
@@ -122,7 +122,7 @@
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
-                                                Harapan&nbsp;Gaji
+                                                Harapan Gaji
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
@@ -152,20 +152,23 @@
                                                     {{ \Carbon\Carbon::parse($recruitment->created_at)->translatedFormat('d F Y') }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                    {{ $recruitment->name }}</td>
+                                                    {{ $recruitment->name }}
+                                                </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $recruitment->email }}</td>
+                                                    {{ $recruitment->email }}
+                                                </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $recruitment->phone_number }}</td>
+                                                    {{ $recruitment->phone_number }}
+                                                </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $recruitment->position }}</td>
+                                                    {{ $recruitment->position }}
+                                                </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                                                     Rp {{ number_format($recruitment->salary, 0, ',', '.') }}
                                                 </td>
-
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold
-                                                    @php
-                                                    $textColor = 'text-gray-500';
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-sm font-semibold
+                                                    @php $textColor = 'text-gray-500';
                                                             $animation = '';
                                                             $status = 'Belum Dimulai';
                                                             if ($recruitment->failed_stage) {
@@ -187,7 +190,7 @@
                                                                 $animation = 'animate-pulse';
                                                             } @endphp
                                                         {{ $textColor }} {{ $animation }}">
-                                                        {{ $status }}
+                                                    {{ $status }}
                                                 </td>
 
                                                 <td class="whitespace-nowrap text-end text-sm font-medium">
@@ -241,20 +244,20 @@
                                     </tbody>
                                 </table>
                                 <script>
-                                    function exportTableToExcel(tableID, filename = ''){
+                                    function exportTableToExcel(tableID, filename = '') {
                                         var dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
                                         var tableSelect = document.getElementById(tableID);
                                         var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-                            
+
                                         var downloadLink;
                                         filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
-                            
+
                                         downloadLink = document.createElement("a");
-                            
+
                                         var worksheet = XLSX.utils.table_to_sheet(tableSelect);
                                         var workbook = XLSX.utils.book_new();
                                         XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-                            
+
                                         XLSX.writeFile(workbook, filename);
                                     }
                                 </script>
@@ -309,7 +312,5 @@
                 modal.classList.add('hidden');
             });
         });
-
-        
     </script>
 @endsection

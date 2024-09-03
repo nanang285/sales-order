@@ -1,13 +1,13 @@
 @include('partials.start')
 @include('admin.partials.toast')
 <div id="about" class="h-full min-h-screen bg-fixed bg-black bg-cover bg-no-repeat p-4 md:py-16"
-style="background-image: url('{{ asset('images/bg-about.webp') }}');">
-<section class="mx-auto max-w-[800px] lg:px-6">
+style="background-image: url('{{ asset('dist/images/homepages/zmi-bg-hero.webp') }}');">
+<section class="mx-auto max-w-[1100px] lg:px-6">
         <div class="container mx-auto px-0 md:px-10">
-            <div class="py-5 px-6 lg:p-8 md:max-w-none lg:flex flex-col rounded ring-1 bg-white ring-gray-200 shadow-lg">
+            <div class="py-5 px-6 lg:p-8 md:max-w-none lg:flex flex-col rounded-xl ring-1 bg-white ring-gray-200 shadow-lg">
                 <div class="flex mb-5 flex-wrap justify-center sm:justify-start">
                     <div class="left-0 mr-1">
-                        <img src="{{ asset('images/zenmultimedia.png') }}" alt="Logo" class="w-full h-12 lg:h-14">
+                        <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" alt="Logo" class="w-full h-12 lg:h-14">
                     </div>
                     <div class="sm:ml-auto mt-1 text-center">
                         <h1 class="text-base lg:text-lg font-bold text-blue-700">FORMULIR LAMARAN KERJA</h1>

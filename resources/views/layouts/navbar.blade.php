@@ -2,7 +2,7 @@
     <div class="container lg:px-8 flex flex-wrap items-center justify-between mx-auto">
         <div class="lg-ml-8">
             <a class="" href="{{ Request::is('/') ? '#home' : url('') }}">
-                <img src="{{ asset('images/zmi-brand.png') }}" alt="Icon ZMI" class="h-11 md:h-12" />
+                <img src="{{ asset('dist/images/logo/zmi-logo-2.webp') }}" alt="Icon ZMI" class="h-11 md:h-12" />
             </a>
         </div>
         <button data-collapse-toggle="navbar-default" id="toggleSidebarMobile" aria-expanded="false" aria-controls="sidebar" class="p-2 text-gray-200 rounded cursor-pointer md:hidden">
@@ -32,9 +32,9 @@
                     </a>
                 </li>
                 <li class="my-1">
-                    <a href="{{ url('contact') }}"
-                        class="{{ Request::is('contact') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold">
-                        Hubungi Kami
+                    <a href="{{ url('documentation') }}"
+                        class="{{ Request::is('documentation') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold">
+                       Dokumentasi
                     </a>
                 </li>
             </ul>

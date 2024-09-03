@@ -45,3 +45,4 @@ class Recruitment extends Model
         });
     }
 }
+

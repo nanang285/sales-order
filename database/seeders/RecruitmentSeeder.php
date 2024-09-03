@@ -7,6 +7,8 @@ use Faker\Factory as Faker;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
+// DATA DUMMY
+
 // class RecruitmentSeeder extends Seeder
 // {
 //     public function run()

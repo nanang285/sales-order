@@ -1,12 +1,13 @@
 @include('partials.start')
+@include('admin.partials.toast')
 <div id="about" class="h-full min-h-screen bg-fixed bg-black bg-cover bg-no-repeat p-4 md:py-16"
-    style="background-image: url('{{ asset('images/bg-about.webp') }}');">
-    <section class="mx-auto max-w-[800px] lg:px-6">
+    style="background-image: url('{{ asset('dist/images/homepages/zmi-bg-hero.webp') }}');">
+    <section class="mx-auto max-w-[1000px] lg:px-6">
         <div class="container mx-auto px-0 md:px-10">
-            <div class="py-5 px-6 lg:p-8 md:max-w-none lg:flex flex-col rounded ring-1 bg-white ring-gray-200 shadow-lg">
+            <div class="py-5 px-6 lg:p-8 md:max-w-none lg:flex flex-col rounded-xl ring-1 bg-white ring-gray-200 shadow-lg">
                 <div class="flex mb-5 flex-wrap justify-center sm:justify-start">
                     <div class="left-0 mr-1">
-                        <img src="{{ asset('images/zenmultimedia.png') }}" alt="ZMI-Logo" class="w-full h-12 lg:h-14">
+                        <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" alt="zmi-logo" class="w-full h-12 lg:h-14">
                     </div>
                     <div class="sm:ml-auto mt-1 text-center">
                         <h1 class="text-base lg:text-lg font-bold text-blue-700">FORMULIR LAMARAN KERJA</h1>
@@ -22,7 +23,8 @@
                 <div class=" w-full">
                     <form class="space-y-6" action="{{ route('recruitment.store') }}" method="POST"
                         enctype="multipart/form-data">
-                        @csrf
+                         @csrf
+                         @method('POST')
                         <div class="mb-3">
                             <label for="email" class="block text-sm font-medium text-gray-600 mb-2">Email<span
                                     class="text-red-600 text-base">*</span></label>
@@ -66,7 +68,7 @@
                                 </div>
                                 <input type="number" name="nik" id="nik"
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukan NIK Anda" max="9999999999999999">
+                                    placeholder="Masukan NIK Anda" max="9999999999999999" maxlength="16">
                             </div>
                             <x-input-error :messages="$errors->get('nik')" class="my-1" />
                         </div>
@@ -94,7 +96,7 @@
                                 </div>
                                 <input type="number" name="phone_number" id="phone_number"
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukan No.Telp/HP/WA" required>
+                                    placeholder="Masukan No.Telp/HP/WA" maxlength="" required>
                             </div>
                             <x-input-error :messages="$errors->get('phone_number')" class="my-1" />
                         </div>
@@ -174,7 +176,7 @@
                                     required>
                             </div>
                             <x-input-error :messages="$errors->get('agree')" class="my-1" />
-                        </div>                        
+                        </div>
 
                         <div class="mb-3">
                             <label for="salary" class="block text-sm font-medium text-gray-600 mb-2">
@@ -189,26 +191,24 @@
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-8 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                                     placeholder="Gaji Yang Anda Harapkan" required maxlength="11">
                             </div>
-                            <x-input-error :messages="$errors->get('salary')" class="my-1" />
+                                <x-input-error :messages="$errors->get('salary')" class="my-1" />
                         </div>
-                        
+
                         <div class="mb-3">
+                            <label for="portfolio" class="block text-sm font-medium text-gray-600 mb-2">Portofolio</label>
                             <div class="relative">
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Upload Portofolio</label>
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <span class="text-base text-blue-800">
+                                        <i class="fa-solid fa-link"></i>
+                                    </span>
+                                </div>
+                                <input type="link" name="portfolio" id="portfolio"
+                                    class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="https://examples.com">
                             </div>
-                        
-                            <div id="link_input_section" class="relative bg-white">
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2 bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="link_input_help" name="portfolio" id="link_input" type="text"
-                                    placeholder="Masukkan URL portofolio" required>
-                                <x-input-error :messages="$errors->get('link')" class="my-1" />
-                                <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600" id="link_input_help">
-                                    Masukkan URL yang valid.
-                                </p>
-                            </div>
+                            <x-input-error :messages="$errors->get('portfolio')" class="my-1" />
                         </div>
-                        
+
                         <div class="mb-3">
                             <div class="relative">
                                 <label for="file_input" class="block text-sm font-medium text-gray-600 mb-2">
@@ -228,14 +228,14 @@
 
                             <div class=" bg-white">
                                 <p class="mt-5 mx-1 text-sm text-center font-semibold text-gray-600">
-                                    Sudah Pernah mengirimkan Lamaran?, <a href="{{ route('recruitment.checkrecruitment') }}"
-                                        class="text-blue-600">Cek
+                                    Sudah Pernah mengirimkan Lamaran?, <a
+                                        href="{{ route('recruitment.checkrecruitment') }}" class="text-blue-600">Cek
                                         Status disini.</a>
                                 </p>
                             </div>
                         </div>
                         <div class="flex justify-between my-4">
-                            <button type=""
+                            <button type="submit"
                                 class="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
                                 Kirim
                             </button>
@@ -285,5 +285,4 @@
             salaryInput.val(rawValue);
         });
     });
-
 </script>

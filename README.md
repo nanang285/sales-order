@@ -32,15 +32,16 @@
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://gitlabzmi.my.id/pt-zen-multimedia-indonesia/project-internal/zen-landingpages.git
-    cd zen-landingpages
+    git clone https://github.com/nanang285/sales-order.git
+    cd sales-order
     ```
 
 2.  **Install dependencies:**
 
     ```bash
     composer install
-    npm install && npm run dev
+    npm install
+    npm run dev
     ```
 
 3.  **Set up environment variables:**
@@ -86,7 +87,7 @@
 6.  **Seed the database with initial data:**
 
     ```bash
-    php artisan db:seed --class=UserSeeder
+    php artisan db:seed
     ```
 
 7.  **Start the development server:**
@@ -117,7 +118,5 @@ Special thanks to:
 -   Tailwind CSS
 
 ## 📧 Contact
-
-For any questions or feedback, feel free to reach out to us at your-email@gmail.com.
 
 © 2024 PT Zen Multimedia Indonesia. All rights reserved.

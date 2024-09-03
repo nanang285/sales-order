@@ -1,6 +1,7 @@
 @include('admin.partials.toast')
 @extends('admin.layouts.main')
 @section('container')
+
     <div class="relative">
         <div class="px-4">
             @include('admin.partials.home-bread')
@@ -19,10 +20,14 @@
                 <div class="grid grid-cols-10 gap-3 lg:gap-4">
                     <div class="rounded-md col-span-10 lg:col-span-4 flex flex-col">
                         <div class="relative">
+                            @if ($aboutSection)
                             <video class="w-full rounded-lg max-w-xl h-48 border object-cover" controls controlsList="nodownload">
                                 <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}"
                                     type="video/webm">
                             </video>
+                            @else
+                            <p>Tidak Ada Database</p>
+                            @endif
                         </div>
                         <div class="">
                             <input

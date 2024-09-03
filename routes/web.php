@@ -14,9 +14,17 @@ Route::get('/portfolio', [ProjectController::class, 'PortofolioIndex'])->name('p
 Route::get('/documentation', [GaleryController::class, 'DocIndex'])->name('documentation');
 Route::post('recruitment-store', [RecruitmentController::class, 'store'])->name('recruitment.store');
 
-Route::get('/success', function () {
-    return view('recruitment/recruitment-success');
+Route::get('/success/{token}', function ($token) {
+    if (session()->get('valid_token') !== $token) {
+        abort(403);
+    }
+
+    return view('recruitment/recruitment-success', ['token' => $token]);
 })->name('success');
+
+Route::get('/member/dashboard', function () {
+    return view('member/dashboard');
+})->name('/member.dashboard');
 
 Route::prefix('contact')->name('contact.')->controller(ContactController::class)->group(function () {
     Route::post('/', 'store')->name('store');

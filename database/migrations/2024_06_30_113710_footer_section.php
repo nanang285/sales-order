@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('footer_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('alamat');
-            $table->string('no_telp');
-            $table->string('email');
-            $table->text('sosmed_1');
-            $table->text('sosmed_2');
-            $table->text('sosmed_3');
-            $table->text('sosmed_4');
+            $table->text('alamat'); 
+            $table->string('no_telp', 20);
+            $table->string('email')->unique();
+            $table->string('sosmed_1')->nullable();
+            $table->string('sosmed_2')->nullable();
+            $table->string('sosmed_3')->nullable();
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

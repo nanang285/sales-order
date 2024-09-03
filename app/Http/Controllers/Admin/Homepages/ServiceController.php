@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         $serviceSection = ServiceSection::All();
         $breadcrumbTitle = 'Services';

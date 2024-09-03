@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\AboutSection;
 use App\Models\FooterSection;
+use App\Models\GalerySection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,9 +25,9 @@ class AboutController extends Controller
 
     public function AboutIndex()
     {
-        $aboutSection = AboutSection::first();
         $footerSection = footerSection::first();
-        return view('about-me', compact('aboutSection', 'footerSection'));
+        $galerySection = GalerySection::all();
+        return view('about-me', compact('galerySection', 'footerSection'));
     }
 
     public function update(Request $request, string $id)

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('promos', function (Blueprint $table) {
             $table->id();
-            $table->string('image_path');
+            $table->text('image_path');
             $table->timestamps();
         });
     }

@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\Homepages\AboutController;
 use App\Http\Controllers\Admin\Homepages\ProjectController;
-use App\Http\Controllers\Admin\Homepages\GaleryController;
-use App\Http\Controllers\Admin\Homepages\PromoController;
 use App\Http\Controllers\Admin\Homepages\ServiceController;
 use App\Http\Controllers\Admin\Homepages\ClientController;
 use App\Http\Controllers\Admin\Homepages\FooterController;
+use App\Http\Controllers\Admin\Homepages\GaleryController;
+use App\Http\Controllers\Admin\Homepages\PromoController;
+use App\Http\Controllers\Admin\Homepages\AboutController;
 use App\Http\Controllers\RecruitmentController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::post('/{uuid}/{stage}', 'updateStage')->name('updateStage');
         Route::put('/update', 'update')->name('update');
         Route::delete('/{uuid}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('absensi')->name('absensi.')->controller(AbsensiController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
     });
 
     Route::prefix('homepages')->name('homepages.')->group(function () {
