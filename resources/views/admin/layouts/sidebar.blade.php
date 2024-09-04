@@ -4,7 +4,7 @@
     <div class="relative flex flex-col pt-0 border-r h-full border-gray-200">
         <div class="flex flex-col flex-1 h-full">
             <div class="flex-1 px-6 space-y-1 py-5 bg-primary">
-                <div class="flex-grow flex justify-center lg:justify-start lg:flex-grow-0">
+                <div class= "mx-auto flex-grow flex justify-center lg:justify-start lg:flex-grow-0">
                     <a href="{{ Route('dashboard') }}"
                         class="flex items-center justify-center lg:justify-start text-base">
                         <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" class="h-12 lg:h-11 lg:items-center"

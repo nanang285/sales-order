@@ -1,7 +1,6 @@
 @if ($promoSection)
     <button data-modal-target="pop-up" data-modal-toggle="pop-up" hidden class=""></button>
 
-
     <div id="pop-up" tabindex="2" data-modal-backdrop="static" aria-hidden="false"
         class="fixed inset-0 z-[99999] flex justify-center items-center bg-gray-900 bg-opacity-90 fade-in"
         data-aos-close="zoom-in-down" data-aos-close-duration="500">

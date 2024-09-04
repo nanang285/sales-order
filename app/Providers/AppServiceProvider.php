@@ -13,7 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Registrasi layanan dapat dilakukan di sini jika diperlukan
     }
 
     /**
@@ -21,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Memaksa URL untuk menggunakan HTTPS jika berada di lingkungan produksi
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }

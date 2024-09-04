@@ -11,7 +11,7 @@
                             <h3 class="text-blue-700 text-lg font-semibold"><i class="fa-solid fa-caret-right"></i>&nbsp;
                                 Data Absensi</h3>
                         </div>
-                        
+
                     </div>
                 </div>
                 <hr>
@@ -26,42 +26,13 @@
                                                 class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
                                                 Nama
                                             </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                01
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                02
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                03
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                04
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                06
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                07
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                08
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                09
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
-                                                10
-                                            </th>
+                                            @foreach (range(1, 30) as $day)
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
+                                                    {{ str_pad($day, 2, '0', STR_PAD_LEFT) }}
+                                                </th>
+                                            @endforeach
+
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase border">
                                                 Total Kehadiran
@@ -70,48 +41,39 @@
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y rounded-xl divide-gray-200">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-800 border">
-                                                Nanang Supriatna
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
-                                                <i class="fa-solid fa-check"></i>
-                                            </td>
-                                            <td
-                                                class="px-6 py-4 whitespace-nowrap text-base  font-bold text-gray-800 border">
-                                                10
-                                            </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-800 border">
+                                            Nanang Supriatna
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm  font-medium text-green-500 border">
+                                            <i class="fa-solid fa-check"></i>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-base  font-bold text-gray-800 border">
+                                            10
+                                        </td>
                                         </t>
                                     </tbody>
                                 </table>
