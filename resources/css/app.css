@@ -8,13 +8,6 @@
     border-radius: 10px;
 }
 
-.no-select {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Standard */
-    pointer-events: none; /* Nonaktifkan pointer events untuk mencegah interaksi */
-}
-
 .text-urbanist {
     font-family: "Urbanist", sans-serif;
 }

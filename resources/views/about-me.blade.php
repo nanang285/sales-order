@@ -77,30 +77,29 @@
                     <div class="md:w-1/2 p-6 mt-8">
                         <h2 class="text-2xl font-bold mb-3">Visi Misi Kami</h2>
                         <p class="mb-3 text-2xl font-normal">
-                            Menjalankan Business Work Digital di era 4.0
-                            melalui prinsip Generator Kreativitas Sumber
-                            Daya Manusia (SDM)
+                            Menjalankan Business Work Digital di era 4.0 melalui prinsip Generator Kreativitas Sumber Daya
+                            Manusia (SDM)
                         </p>
-                        <li class="mb-3 text-lg font-bold">
-                            Menciptakan lapangan pekerjaan bagi sumber daya manusia yang mumpuni dalam bidang teknologi
-                        </li>
-                        <li class="mb-3 text-lg font-bold">
-                            Melakukan kajian-kajian dengan
-                            menerapkan prinsip keilmiahan serta
-                            solusi yang kreatif dan inovatif
-                        </li>
-                        <li class="mb-3 text-lg font-bold">
-                            Meningkatkan kapasitas kelembagaan
-                            sumber daya manusia , kualitas penelitian dan
-                            pengembangan dalam penyelenggaraan
-                            capacity, building serta mendorong pemanfaatannya melalui pendidikan dan pelatihan
-                        </li>
-                        <li class="mb-3 text-lg font-bold">
-                            Menghasilkan produk-produk yang baik, bermutu
-                            dan berkualitas sesuai dengan standar yang berlaku
-                            baik nasional maupun iternasional
-                        </li>
+                        <ul class="list-outside list-disc pl-4">
+                            <li class="mb-3 text-lg font-bold">
+                                Menciptakan lapangan pekerjaan bagi sumber daya manusia yang mumpuni dalam bidang teknologi
+                            </li>
+                            <li class="mb-3 text-lg font-bold">
+                                Melakukan kajian-kajian dengan menerapkan prinsip keilmiahan serta solusi yang kreatif dan
+                                inovatif
+                            </li>
+                            <li class="mb-3 text-lg font-bold">
+                                Meningkatkan kapasitas kelembagaan sumber daya manusia, kualitas penelitian dan pengembangan
+                                dalam penyelenggaraan capacity building serta mendorong pemanfaatannya melalui pendidikan
+                                dan pelatihan
+                            </li>
+                            <li class="mb-3 text-lg font-bold">
+                                Menghasilkan produk-produk yang baik, bermutu, dan berkualitas sesuai dengan standar yang
+                                berlaku baik nasional maupun internasional
+                            </li>
+                        </ul>
                     </div>
+
                     <div class="md:w-1/2 flex items-center justify-center p-6">
                         <div class="w-full max-w-sm">
                             <img src="{{ asset('dist/images/visi-misi.png') }}" alt="Deskripsi Gambar"
@@ -113,5 +112,56 @@
             </div>
         </div>
     </section>
+
+    <section id="projek-kami" class="w-full relative">
+        <div class="py-8 relative overflow-hidden">
+            <div class="container mx-auto px-6 lg:px-8 relative">
+                <img src="{{ asset('dist/images/homepages/absolute1.png') }}"
+                    class="absolute no-select -top-24 -right-24 w-full max-w-2xl" alt="Absolute 1">
+                <div class=" mx-auto max-w-full lg:text-center mb-12">
+                    <p class="mt-2 text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 text-center">
+                        <span class=" text-primary">Team Kami</span>
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-4">
+
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-center"
+                        class="relative max-w-full rounded-xl h-auto py-12 bg-white overflow-hidden shadow-lg z-40 group">
+                        <div class="text-center text-gray-500 dark:text-gray-400">
+                            <img class="mx-auto mb-4 w-44 h-44 rounded-full shadow-full"
+                                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
+                                alt="Bonnie Avatar">
+                            <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                <a href="#">Bonnie Green</a>
+                            </h3>
+                            <p>Fullstack</p>
+                            <ul class="flex justify-center mt-4 space-x-4">
+                                <li>
+                                    <a href="#" class="text-[#39569c] hover:text-gray-900 dark:hover:text-white">
+                                        <i class="fa-brands fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-[#EA4335] hover:text-gray-900 dark:hover:text-white">
+                                        <i class="fa-brands fa-google"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="text-[#4285F4] hover:text-gray-900 dark:hover:text-white dark:text-gray-300">
+                                        <i class="fa-brands fa-linkedin"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <img src="{{ asset('dist/images/homepages/absolute2.png') }}"
+                    class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs" alt="Zen Multimedia Indonesia">
+            </div>
+        </div>
+    </section>
+
     @include('partials.footer')
 @endsection

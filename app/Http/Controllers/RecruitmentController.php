@@ -72,7 +72,6 @@ class RecruitmentController extends Controller
             } elseif ($recruitment->stage1) {
                 $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Test Project';
             }
-            $recruitment->last_stage = 'Proses Seleksi Belum Dimulai';
         }
 
         return view('recruitment/check-recruitment', compact('recruitments'));
@@ -127,7 +126,7 @@ class RecruitmentController extends Controller
         }
 
         $stageDescriptions = [
-            'stage1' => 'Check CV',
+            'stage1' => 'Administrasi',
             'stage2' => 'Test Project',
             'stage3' => 'Interview',
             'stage4' => 'Offering',
@@ -200,7 +199,7 @@ class RecruitmentController extends Controller
             Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
 
             // Kirim notifikasi ke email Admin
-            Mail::to('nngs.me@gmail.com')->send(new RecruitmentStored($recruitment));
+            Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
 
             $token = Str::random(64);
             session(['valid_token' => $token]);
