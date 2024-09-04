@@ -1,7 +1,7 @@
 @include('partials.start')
 
 @include('admin.layouts.navbar')
-
+@include('components.preloader')
 <div class="flex pt-11 overflow-hidden">
     @include('admin.layouts.sidebar')
     <div class="fixed inset-0 z-10 hidden" id="sidebarBackdrop"></div>

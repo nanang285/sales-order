@@ -69,7 +69,7 @@ class AboutController extends Controller
 
         if ($request->hasFile('video_path')) {
             $video = $request->file('video_path');
-            $videoName = time() . '_' . $video->getClientOriginalName();
+            $videoName = $video->getClientOriginalName();
             $video->storeAs('public/uploads/about-section', $videoName);
             $aboutSection->video_path = $videoName;
         }

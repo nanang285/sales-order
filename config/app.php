@@ -123,8 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
         'timezone' => env('APP_TIMEZONE', 'UTC'),
     ],
-
-    
-    
-
 ];

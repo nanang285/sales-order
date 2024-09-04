@@ -199,7 +199,7 @@ class RecruitmentController extends Controller
             Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
 
             // Kirim notifikasi ke email Admin
-            Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
+            Mail::to('nngs.me@gmail.com')->send(new RecruitmentStored($recruitment));
 
             $token = Str::random(64);
             session(['valid_token' => $token]);

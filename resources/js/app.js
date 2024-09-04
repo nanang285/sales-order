@@ -114,7 +114,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    const text = "Selamat datang di halaman dashboard Zen Multimedia.";
+    const text = "Selamat Datang Di Halaman Dashboard Zen Multimedia.";
     const $welcomeMessage = $("#welcome-message");
     let index = 0;
 

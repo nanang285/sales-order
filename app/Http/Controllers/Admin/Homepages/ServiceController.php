@@ -33,13 +33,41 @@ class ServiceController extends Controller
         ]);
 
         $image = $request->file('image_path');
-        $imageName = $image->getClientOriginalName();
-        $imagePath = $image->storeAs('uploads/service-section', $imageName, 'public');
+        $tempImageName = time() . '.' . $image->getClientOriginalExtension();
+        $imagePath = public_path('storage/uploads/service-section');
+
+        // Simpan gambar asli terlebih dahulu
+        $image->move($imagePath, $tempImageName);
+
+        // Resize gambar dan ubah format ke WebP
+        $imgPath = $imagePath . '/' . $tempImageName;
+        $img = imagecreatefromstring(file_get_contents($imgPath));
+        $width = imagesx($img);
+        $height = imagesy($img);
+
+        // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
+        $newWidth = $width * 0.5;
+        $newHeight = $height * 0.5;
+        $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
+
+        // Buat gambar baru dengan ukuran yang diubah
+        $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+        // Simpan gambar yang telah diubah format dan ukuran file-nya
+        $newImageName = time() . '.webp';
+        $newImagePath = $imagePath . '/' . $newImageName;
+        imagewebp($resizedImg, $newImagePath, $compressionQuality);
+
+        // Hapus gambar sementara
+        unlink($imgPath);
+        imagedestroy($img);
+        imagedestroy($resizedImg);
 
         ServiceSection::create([
             'title' => $request->title,
             'subtitle' => $request->subtitle,
-            'image_path' => $imageName,
+            'image_path' => $newImageName,
         ]);
 
         return redirect()->route('admin.homepages.service.index')->with('success', true)->with('toast', 'add');
@@ -62,15 +90,44 @@ class ServiceController extends Controller
 
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
-            $imageName = $image->getClientOriginalName();
-            $image->storeAs('public/uploads/service-section', $imageName);
+            $tempImageName = time() . '.' . $image->getClientOriginalExtension();
+            $imagePath = public_path('storage/uploads/service-section');
 
+            // Simpan gambar asli terlebih dahulu
+            $image->move($imagePath, $tempImageName);
+
+            // Resize gambar dan ubah format ke WebP
+            $imgPath = $imagePath . '/' . $tempImageName;
+            $img = imagecreatefromstring(file_get_contents($imgPath));
+            $width = imagesx($img);
+            $height = imagesy($img);
+
+            // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
+            $newWidth = $width * 0.5;
+            $newHeight = $height * 0.5;
+            $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
+
+            // Buat gambar baru dengan ukuran yang diubah
+            $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
+            imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+            // Simpan gambar yang telah diubah format dan ukuran file-nya
+            $newImageName = time() . '.webp';
+            $newImagePath = $imagePath . '/' . $newImageName;
+            imagewebp($resizedImg, $newImagePath, $compressionQuality);
+
+            // Hapus gambar sementara
+            unlink($imgPath);
+            imagedestroy($img);
+            imagedestroy($resizedImg);
+
+            // Hapus gambar lama jika ada
             $oldImagePath = 'public/uploads/service-section/' . $serviceSection->image_path;
             if (Storage::exists($oldImagePath)) {
                 Storage::delete($oldImagePath);
             }
 
-            $updateData['image_path'] = $imageName;
+            $updateData['image_path'] = $newImageName;
         }
 
         $serviceSection->update($updateData);
