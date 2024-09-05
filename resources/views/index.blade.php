@@ -42,8 +42,7 @@
         <div class="py-12 relative overflow-hidden">
             <div class="container mx-auto px-6 lg:px-8 relative">
                 <div id="services" class="absolute -top-32"></div>
-                <img src="{{ asset('dist/images/homepages/absolute2.png') }}" class="no-select absolute -top-24 -right-24 w-full max-w-xl"
-                    alt="zen-multimedia-indonesia">
+                
                 <div class=" mx-auto max-w-full lg:text-center mb-12">
                     <p class=" text-3xl font-bold tracking-tight text-gray-900 text-center">
                         <span class=" text-primary">Layanan Kami</span>

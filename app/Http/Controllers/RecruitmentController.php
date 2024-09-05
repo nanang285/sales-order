@@ -163,7 +163,7 @@ class RecruitmentController extends Controller
             'agree' => 'required|string',
             'salary' => 'required|string|max:9',
             'portfolio' => 'nullable',
-            'file_path' => 'required|mimes:pdf|max:2048',
+            'file_path' => 'required|mimes:pdf|max:5000',
         ]);
 
         try {
@@ -192,7 +192,7 @@ class RecruitmentController extends Controller
             Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
 
             // Kirim notifikasi ke email Admin
-            Mail::to('nngs.me@gmail.com')->send(new RecruitmentStored($recruitment));
+            Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
 
             $token = Str::random(64);
             session(['valid_token' => $token]);
@@ -214,7 +214,7 @@ class RecruitmentController extends Controller
             'study' => 'required|string',
             'position' => 'required|string',
             'salary' => 'required|string|max:50',
-            'file_path' => 'required|mimes:pdf|max:1024',
+            'file_path' => 'required|mimes:pdf|max:5000',
         ]);
 
         try {
