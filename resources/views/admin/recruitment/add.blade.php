@@ -63,7 +63,7 @@
                         <div class="my-3">
                             <label for="study" class="block text-sm font-medium text-gray-700">Pendidikan <span
                                     class="text-red-600">*</span></label>
-                            <select id="study" name="study"
+                            <select id="study" name="study" required
                                 class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500">
                                 <option value="" disabled selected>Pilih Pendidikan</option>
                                 <option value="Sekolah Lanjutan Tingkat Atas (SLTA)">Sekolah Lanjutan Tingkat Atas (SLTA)
@@ -78,7 +78,7 @@
                         <div class="my-3">
                             <label for="position" class="block text-sm font-medium text-gray-700">Posisi Yang Dilamar <span
                                     class="text-red-600">*</span></label>
-                            <select id="position" name="position"
+                            <select id="position" name="position" required
                                 class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500">
                                 <option value="" disabled selected>Pilih Posisi Yang Dilamar</option>
                                 <option value="Project Manager">Project Manager</option>
@@ -148,7 +148,7 @@
                                     accept="application/pdf" required>
                                 <x-input-error :messages="$errors->get('file_path')" class="my-1" />
                                 <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600" id="file_input_help">
-                                    Hanya file pdf. (MAX. 2MB).
+                                    Hanya file pdf. (MAX. 5MB).
                                 </p>
                             </div>
                         </div>

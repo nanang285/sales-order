@@ -65,4 +65,6 @@
         </div>
     </section>
     @include('partials.footer')
+    @include('partials.banner')
+    @include('components.chatbubble')
 @endsection

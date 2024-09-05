@@ -307,5 +307,6 @@
         </section>
     </div>
     @include('partials.banner')
+    @include('components.chatbubble')
     @include('partials.footer')
 @endsection

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
+use App\Mail\RecruitmentStored;
+use App\Mail\RecruitmentReceived;
+use App\Mail\StageNotification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -52,7 +55,6 @@ class RecruitmentController extends Controller
 
     public function searchByEmail(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -69,8 +71,6 @@ class RecruitmentController extends Controller
                 $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Interview';
             } elseif ($recruitment->stage1) {
                 $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Test Project';
-            } else {
-                $recruitment->last_stage = 'Proses Seleksi Belum Dimulai';
             }
         }
 
@@ -125,17 +125,24 @@ class RecruitmentController extends Controller
             return redirect()->route('admin.recruitment.edit', $uuid)->with('error', 'Proses sudah dihentikan sebelumnya');
         }
 
+        $stageDescriptions = [
+            'stage1' => 'Administrasi',
+            'stage2' => 'Test Project',
+            'stage3' => 'Interview',
+            'stage4' => 'Offering',
+        ];
+
         if ($request->input('action') === 'yes') {
             $recruitment->update([$stage => true]);
-        } else {
-            $stageDescriptions = [
-                'stage1' => 'Check CV',
-                'stage2' => 'Test Project',
-                'stage3' => 'Interview',
-                'stage4' => 'Offering',
-            ];
 
+            // Kirim email notifikasi untuk keberhasilan pindah tahap
+            Mail::to($recruitment->email)->send(new StageNotification($recruitment, $stageDescriptions[$stage], 'success'));
+        } else {
             $recruitment->update(['failed_stage' => $stageDescriptions[$stage]]);
+
+            // Kirim email notifikasi untuk kegagalan tahap
+            Mail::to($recruitment->email)->send(new StageNotification($recruitment, $stageDescriptions[$stage], 'failed'));
+
             return redirect()->route('admin.recruitment.edit', $uuid)->with('error', 'Proses dihentikan');
         }
 
@@ -167,39 +174,47 @@ class RecruitmentController extends Controller
         ]);
 
         try {
-            $file = $request->file('file_path');
-            $fileName = $file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads/recruitment', $fileName, 'public');
+            if ($request->hasFile('file_path')) {
+                $file = $request->file('file_path');
+                $fileName = $file->getClientOriginalName();
+                $filePath = $file->storeAs('uploads/recruitment', $fileName, 'public');
 
-            $recruitment = Recruitment::create([
-                'uuid' => Str::uuid(),
-                'email' => $request->email,
-                'name' => $request->name,
-                'nik' => $request->nik,
-                'address' => $request->address,
-                'phone_number' => $request->phone_number,
-                'study' => $request->study,
-                'position' => $request->position,
-                'onsite' => $request->onsite,
-                'test' => $request->test,
-                'agree' => $request->agree,
-                'salary' => $request->salary,
-                'portfolio' => $request->portfolio,
-                'file_path' => $fileName,
-            ]);
+                $recruitment = Recruitment::create([
+                    'uuid' => Str::uuid(),
+                    'email' => $request->email,
+                    'name' => $request->name,
+                    'nik' => $request->nik,
+                    'address' => $request->address,
+                    'phone_number' => $request->phone_number,
+                    'study' => $request->study,
+                    'position' => $request->position,
+                    'onsite' => $request->onsite,
+                    'test' => $request->test,
+                    'agree' => $request->agree,
+                    'salary' => $request->salary,
+                    'portfolio' => $request->portfolio,
+                    'file_path' => $filePath,
+                ]);
 
-            // Kirim notifikasi ke email Pelamar
-            Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
+                // Kirim notifikasi ke email Pelamar
+                Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
 
-            // Kirim notifikasi ke email Admin
-            Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
+                // Kirim notifikasi ke email Admin
+                Mail::to('recruitment.zmi@2024')->send(new RecruitmentStored($recruitment));
 
-            $token = Str::random(64);
-            session(['valid_token' => $token]);
+                // Generate token sesi
+                $token = Str::random(64);
+                session(['valid_token' => $token]);
 
-            return redirect()->route('success', ['token' => $token]);
+                return redirect()->route('success', ['token' => $token]);
+            } else {
+                return redirect()->back()->with('error', 'File tidak ditemukan')->withInput();
+            }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to store data')->withInput();
+            return redirect()
+                ->back()
+                ->with('error', 'Failed to store data: ' . $e->getMessage())
+                ->withInput();
         }
     }
 
@@ -210,10 +225,14 @@ class RecruitmentController extends Controller
             'name' => 'required|string|max:50',
             'nik' => 'nullable|numeric|digits_between:1,16',
             'address' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
+            'phone_number' => 'required|string|max:14',
             'study' => 'required|string',
             'position' => 'required|string',
-            'salary' => 'required|string|max:50',
+            'onsite' => 'required|string',
+            'test' => 'required|string',
+            'agree' => 'required|string',
+            'salary' => 'required|string|max:9',
+            'portfolio' => 'nullable',
             'file_path' => 'required|mimes:pdf|max:5000',
         ]);
 
@@ -231,7 +250,11 @@ class RecruitmentController extends Controller
                 'phone_number' => $request->phone_number,
                 'study' => $request->study,
                 'position' => $request->position,
+                'onsite' => $request->onsite,
+                'test' => $request->test,
+                'agree' => $request->agree,
                 'salary' => $request->salary,
+                'portfolio' => $request->portfolio,
                 'file_path' => $fileName,
             ]);
 

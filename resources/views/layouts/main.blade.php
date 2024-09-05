@@ -4,6 +4,5 @@
 <main>
     @yield('container')
 </main>
-@include('components.chatbubble')
 {{-- @include('partials.footer') --}}
 @include('partials.end')
