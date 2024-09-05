@@ -8,6 +8,8 @@ use App\Models\ServiceSection;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
@@ -29,7 +31,7 @@ class ServiceController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'image_path' => 'required|image|mimes:webp,jpeg,png,jpg,gif|max:5000',
         ]);
 
         $image = $request->file('image_path');
@@ -46,8 +48,8 @@ class ServiceController extends Controller
         $height = imagesy($img);
 
         // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
-        $newWidth = $width * 0.5;
-        $newHeight = $height * 0.5;
+        $newWidth = $width * 1;
+        $newHeight = $height * 1;
         $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
 
         // Buat gambar baru dengan ukuran yang diubah
@@ -103,8 +105,8 @@ class ServiceController extends Controller
             $height = imagesy($img);
 
             // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
-            $newWidth = $width * 0.5;
-            $newHeight = $height * 0.5;
+            $newWidth = $width * 1;
+            $newHeight = $height * 1;
             $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
 
             // Buat gambar baru dengan ukuran yang diubah

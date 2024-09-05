@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
-
-use Intervention\Image\Facades\Image;
 use App\Models\Promo;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 
 class PromoController extends Controller
@@ -18,7 +19,7 @@ class PromoController extends Controller
         $promoSection = Promo::first();
         $breadcrumbTitle = 'PopUp';
 
-    return view('admin.homepages.popup', compact('promoSection', 'breadcrumbTitle'));
+        return view('admin.homepages.popup', compact('promoSection', 'breadcrumbTitle'));
     }
 
     public function edit()
@@ -35,7 +36,7 @@ class PromoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_path' => 'required|image|mimes:png,jpg,webp,gif|max:2048',
+            'image_path' => 'required|file|mimetypes:image/*|max:4096',
         ]);
 
         if ($request->hasFile('image_path')) {
@@ -53,8 +54,9 @@ class PromoController extends Controller
             $height = imagesy($img);
 
             // Resize gambar menjadi 50% dari ukuran aslinya
-            $newWidth = $width * 0.5;
-            $newHeight = $height * 0.5;
+            $newWidth = $width * 1;
+            $newHeight = $height * 1;
+            $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
 
             // Buat gambar baru dengan ukuran yang diubah
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
@@ -86,7 +88,7 @@ class PromoController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'image_path' => 'nullable|image|mimes:png,jpg,webp,gif|max:2048',
+            'image_path' => 'required|file|mimetypes:image/*|max:4096',
         ]);
 
         $promoSection = Promo::findOrFail($id);
@@ -106,8 +108,9 @@ class PromoController extends Controller
             $height = imagesy($img);
 
             // Resize gambar menjadi 50% dari ukuran aslinya
-            $newWidth = $width * 0.5;
-            $newHeight = $height * 0.5;
+            $newWidth = $width * 1;
+            $newHeight = $height * 1;
+            $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
 
             // Buat gambar baru dengan ukuran yang diubah
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
@@ -152,6 +155,6 @@ class PromoController extends Controller
 
         $project->delete();
 
-        return redirect()->route('promo')->with('success', true)->with('toast', 'delete');
+        return redirect()->route('admin.homepages.promo.index')->with('success', true)->with('toast', 'delete');
     }
 }

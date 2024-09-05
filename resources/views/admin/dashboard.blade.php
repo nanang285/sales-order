@@ -27,14 +27,28 @@
                         class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
                         <div>
                             <h2 class="text-xl font-semibold text-blue-700">Total Karyawan</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">24</h1>
+                            <h1 class="text-skyblue text-3xl font-bold">0</h1>
                         </div>
                     </div>
                     <div
                         class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
                         <div>
                             <h2 class="text-xl font-semibold text-blue-700">Data Rekrutmen</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">43</h1>
+                            <h1 class="text-skyblue text-3xl font-bold">{{ $recruitmentCount }}</h1>
+                        </div>
+                    </div>
+                    <div
+                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
+                        <div>
+                            <h2 class="text-xl font-semibold text-blue-700">Diterima</h2>
+                            <h1 class="text-skyblue text-3xl font-bold">0</h1>
+                        </div>
+                    </div>
+                    <div
+                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
+                        <div>
+                            <h2 class="text-xl font-semibold text-blue-700"> Tidak Diterima</h2>
+                            <h1 class="text-skyblue text-3xl font-bold">0</h1>
                         </div>
                     </div>
                 </div>
@@ -45,8 +59,18 @@
                                 <h3 class="text-blue-700 text-lg font-semibold"><i class="fa-solid fa-caret-right"></i>&nbsp;
                                     Resume Absen Karyawan</h3>
                             </div>
-    
                         </div>
+                        <div class="relative max-w-sm">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                              </svg>
+                            </div>
+                            <input type="month" id="month-input" name="month-input"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Select month">
+                          </div>
+                          
                     </div>
                     <hr>
                     <div class="flex flex-col">

@@ -3,13 +3,12 @@
     <button id="open-popup" hidden></button>
 
     <!-- Overlay -->
-    <div id="overlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 z-[99998] hidden"></div>
+    <div id="overlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 z-[99999] hidden"></div>
 
     <!-- Pop-up Container -->
     <div id="pop-up" tabindex="2" aria-hidden="false"
         class="fixed inset-0 z-[99999] flex justify-center items-center bg-transparent transition-opacity duration-300 opacity-0 pointer-events-none">
-        <div
-            class="relative p-4 w-full max-w-sm lg:max-w-lg xl:max-w-xl mx-auto flex justify-center">
+        <div class="relative p-4 w-full max-w-sm lg:max-w-lg xl:max-w-xl mx-auto flex justify-center">
             <div class="relative p-4">
                 <!-- Close Button -->
                 <button type="button"
@@ -24,11 +23,12 @@
                 </button>
                 <!-- Pop-up Content -->
                 <div class="flex items-center justify-center shadow-sm rounded-xl shadow-gray-700 overflow-hidden">
-                    <img class="rounded w-full h-auto"
-                        src="{{ $promoSection->image_path
-                            ? asset('storage/uploads/promo/' . $promoSection->image_path)
-                            : asset('dist/validate/promo/contoh.jpg') }}"
-                        alt="Promo Image" />
+                    @if (!empty($promoSection->image_path))
+                        <img class="rounded w-full h-auto"
+                            src="{{ asset('storage/uploads/promo/' . $promoSection->image_path) }}" />
+                    @else
+                        <img class="rounded w-full h-auto" src="{{asset('dist/validate/promo/contoh.jpg')}}" />
+                    @endif
                 </div>
             </div>
         </div>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 use App\Models\ClientSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +23,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'image_path' => 'required|file|mimetypes:image/*|max:4096', // Memperbolehkan semua jenis file gambar dengan maksimal ukuran 4MB
         ]);
 
         $image = $request->file('image_path');
@@ -57,7 +60,7 @@ class ClientController extends Controller
     {
         // Validasi input
         $request->validate([
-            'image_path' => 'nullable|image|mimes:png,jpg,webp,gif|max:2048',
+            'image_path' => 'nullable|file|mimetypes:image/*|max:4096', // Memperbolehkan semua jenis file gambar dengan maksimal ukuran 4MB
         ]);
 
         $clientSection = ClientSection::findOrFail($id);

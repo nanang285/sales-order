@@ -33,9 +33,9 @@ class AboutController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'subtitle' => '',
-            'video_path' => 'nullable|mimes:mp4,mov,webm,flv,mkv|max:102400',
-        ]);
+            'subtitle' => 'nullable|string', 
+            'video_path' => 'nullable|mimetypes:video/*|max:25000', // Validasi untuk file video
+        ]);        
 
         $aboutSection = AboutSection::findOrFail($id);
         $data = $request->only(['subtitle']);

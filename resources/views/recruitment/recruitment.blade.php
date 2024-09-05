@@ -222,7 +222,7 @@
                                 <x-input-error :messages="$errors->get('file_path')" class="my-1" />
                                 <p class="mt-2 mx-1 text-xs text-center font-semibold text-red-600"
                                     id="file_input_help">
-                                    Hanya file pdf. (MAX. 2MB).
+                                    Hanya file pdf. (MAX. 1MB).
                                 </p>
                             </div>
 

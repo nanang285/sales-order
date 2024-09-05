@@ -35,6 +35,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
             Route::get('/', 'index')->name('index');  
             Route::post('/', 'store')->name('store');        
             Route::put('/{id}', 'update')->name('update');   
+            Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
         Route::prefix('service')->name('service.')->controller(ServiceController::class)->group(function () {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 use App\Models\LatestProject;
 use App\Models\FooterSection;
@@ -41,7 +43,7 @@ class ProjectController extends Controller
             'title' => 'required|string|max:50',
             'subtitle' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'image_path' => 'required|file|mimetypes:image/*|max:4096',
         ]);
 
         $image = $request->file('image_path');
@@ -57,10 +59,9 @@ class ProjectController extends Controller
         $width = imagesx($img);
         $height = imagesy($img);
 
-        // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
         $newWidth = $width * 0.5;
         $newHeight = $height * 0.5;
-        $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
+        $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
 
         // Buat gambar baru dengan ukuran yang diubah
         $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
@@ -103,7 +104,7 @@ class ProjectController extends Controller
             'title' => 'string|max:50',
             'subtitle' => 'string|max:255',
             'button_link' => 'string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'image_path' => 'nullable|file|mimetypes:image/*|max:4096',
         ]);
 
         $latestProject = LatestProject::findOrFail($id);
@@ -131,7 +132,7 @@ class ProjectController extends Controller
             // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
             $newWidth = $width * 0.5;
             $newHeight = $height * 0.5;
-            $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
+            $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
 
             // Buat gambar baru dengan ukuran yang diubah
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);

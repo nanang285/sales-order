@@ -43,8 +43,11 @@
                                             class="font-semibold">Click to upload</span></p>
                                 </div>
                                 <input id="images" type="file" name="image_path" class="hidden" />
+
+
                             </label>
                         </div>
+                        <label class="block mt-2 text-sm font-medium text-red-600">Images (MAX 4MB)</label>
                     </div>
                     <button type="submit"
                         class="w-full text-green-700 hover:text-white border border-green-700 hover:bg-green-700 focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center">Tambah
@@ -74,8 +77,8 @@
                     </button>
                 </div>
                 <div class="">
-                    <form class="space-y-4" action="{{ route('admin.homepages.service.update', $service->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form class="space-y-4" action="{{ route('admin.homepages.service.update', $service->id) }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div>
@@ -141,7 +144,8 @@
                 </div>
                 <div class="">
                     <p class="text-sm text-red-500 ">Apakah Anda yakin ingin menghapus data ini?</p>
-                    <form class="mt-4" action="{{ route('admin.homepages.service.destroy', $service->id) }}" method="POST">
+                    <form class="mt-4" action="{{ route('admin.homepages.service.destroy', $service->id) }}"
+                        method="POST">
                         @csrf
                         @method('DELETE')
                         <div class="mb-3">

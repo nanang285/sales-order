@@ -91,11 +91,11 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="overflow-x-auto">
-                        <div class="p-1.5 min-w-full inline-block align-middle">
+                        <div class="min-w-full inline-block align-middle">
                             <div class=" overflow-hidden">
                                 <table id="dataTable" class="min-w-full mt-3 divide-y divide-gray-200">
                                     <thead>
-                                        <tr>
+                                        <tr class="">
                                             <th scope="col"
                                                 class="px-1 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
                                                 No
@@ -140,7 +140,7 @@
                                                 ($recruitments->currentPage() - 1) * $recruitments->perPage() + 1;
                                         @endphp
                                         @foreach ($recruitments as $index => $recruitment)
-                                            <tr>
+                                            <tr class="">
                                                 <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                     @if ($filter == 'oldest')
                                                         {{ $recruitments->total() - $recruitments->firstItem() - $index + 1 }}
@@ -245,19 +245,38 @@
                                 </table>
                                 <script>
                                     function exportTableToExcel(tableID, filename = '') {
-                                        var dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-                                        var tableSelect = document.getElementById(tableID);
-                                        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+                                        // Get current date and time for filename
+                                        const now = new Date();
+                                        const formattedDate = now.toISOString().split('T')[0]; // YYYY-MM-DD
+                                        const formattedTime = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // HH-MM-SS
+                                        filename = filename ? `${filename}_${formattedDate}_${formattedTime}.xlsx` :
+                                            `excel_data_${formattedDate}_${formattedTime}.xlsx`;
 
-                                        var downloadLink;
-                                        filename = filename ? filename + '.xlsx' : 'excel_data.xlsx';
+                                        // Get table element
+                                        const tableSelect = document.getElementById(tableID);
 
-                                        downloadLink = document.createElement("a");
+                                        // Remove "Aksi" column
+                                        const tableClone = tableSelect.cloneNode(true);
+                                        const headers = tableClone.querySelectorAll('thead th');
+                                        const columnIndexToRemove = Array.from(headers).findIndex(header => header.textContent.trim() === 'Aksi');
 
-                                        var worksheet = XLSX.utils.table_to_sheet(tableSelect);
-                                        var workbook = XLSX.utils.book_new();
+                                        if (columnIndexToRemove !== -1) {
+                                            const rows = tableClone.querySelectorAll('tr');
+                                            rows.forEach(row => {
+                                                const cells = row.querySelectorAll('th, td');
+                                                cells[columnIndexToRemove].remove();
+                                            });
+                                        }
+
+                                        // Convert table to sheet and create workbook
+                                        const dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+                                        const tableHTML = tableClone.outerHTML.replace(/ /g, '%20');
+                                        const downloadLink = document.createElement("a");
+                                        const worksheet = XLSX.utils.table_to_sheet(tableClone);
+                                        const workbook = XLSX.utils.book_new();
                                         XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
 
+                                        // Save workbook
                                         XLSX.writeFile(workbook, filename);
                                     }
                                 </script>

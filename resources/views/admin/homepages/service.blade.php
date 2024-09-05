@@ -6,7 +6,7 @@
             @include('admin.partials.toast')
             <div class="shadow p-3 my-6 bg-white border rounded-xl">
                 <div class="flex justify-between items-center mt-2 pb-4 mx-6">
-                    <h1 class="text-xl font-bold"><i class="fa-solid fa-caret-right"></i> Layanan </h1>
+                    <h1 class="text-xl text-blue-600 font-bold"><i class="fa-solid fa-caret-right"></i> Layanan </h1>
                     <button data-modal-target="add_modal" data-modal-toggle="add_modal"
                         class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded text-sm px-2.5 py-1 text-center"
                         type="button">
