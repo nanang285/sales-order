@@ -25,13 +25,13 @@
                                     class="text-red-600">*</span></label>
                             <input type="tel" name="phone_number" id="phone_number"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                placeholder="08**********" required />
+                                placeholder="Masukkan No. Telp" required />
                         </div>
 
                         <div class="my-3">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama Lengkap <span
                                     class="text-red-600">*</span></label>
-                            <input type="text" name="name" id="name"
+                            <input type="number" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Masukkan Nama Lengkap" required />
                         </div>
@@ -39,7 +39,7 @@
                         <div class="my-3">
                             <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">NIK/Nomor Induk
                                 Penduduk</label>
-                            <input type="number" name="nik" id="nik"
+                            <input type="text" name="nik" id="nik"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Masukkan NIK/Nomor Induk Kependudukan" />
                         </div>

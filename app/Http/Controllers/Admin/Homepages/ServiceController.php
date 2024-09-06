@@ -29,7 +29,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:100',
             'subtitle' => 'required|string|max:255',
             'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
@@ -81,7 +81,7 @@ class ServiceController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title' => 'string|max:50',
+            'title' => 'string|max:100',
             'subtitle' => 'string|max:255',
             'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
         ]);
