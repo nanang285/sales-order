@@ -8,7 +8,7 @@
                 <div class="mx-auto max-w-4xl">
                     <div class="flex justify-center">
                         <div class="mx-4 relative rounded-full px-3 mt-4 py-1 text-sm leading-6 text-gray-600">
-                            <div class="flex" id="shadow"></div>
+                            <div class="hidden lg:flex" id="shadow"></div>
                             <h1 class="text-4xl lg:text-5xl text-center font-normal tracking-tight text-white sm:text-6xl">
                                 Yuk Lihat Dokumentasi Dari Berbagai Kegiatan Kami
                             </h1>

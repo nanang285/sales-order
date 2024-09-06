@@ -43,7 +43,7 @@ class ProjectController extends Controller
             'title' => 'required|string|max:50',
             'subtitle' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image_path' => 'required|file|mimetypes:image/*|max:4096',
+            'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
 
         $image = $request->file('image_path');
@@ -104,7 +104,7 @@ class ProjectController extends Controller
             'title' => 'string|max:50',
             'subtitle' => 'string|max:255',
             'button_link' => 'string|max:255',
-            'image_path' => 'nullable|file|mimetypes:image/*|max:4096',
+            'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
         ]);
 
         $latestProject = LatestProject::findOrFail($id);

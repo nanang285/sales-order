@@ -135,13 +135,13 @@ class RecruitmentController extends Controller
         if ($request->input('action') === 'yes') {
             $recruitment->update([$stage => true]);
 
-            // Kirim email notifikasi untuk keberhasilan pindah tahap
-            Mail::to($recruitment->email)->send(new StageNotification($recruitment, $stageDescriptions[$stage], 'success'));
+            // // Kirim email notifikasi untuk keberhasilan pindah tahap
+            // Mail::to($recruitment->email)->send(new StageNotification($recruitment, $stageDescriptions[$stage], 'success'));
         } else {
             $recruitment->update(['failed_stage' => $stageDescriptions[$stage]]);
 
-            // Kirim email notifikasi untuk kegagalan tahap
-            Mail::to($recruitment->email)->send(new StageNotification($recruitment, $stageDescriptions[$stage], 'failed'));
+            // // Kirim email notifikasi untuk kegagalan tahap
+            // Mail::to($recruitment->email)->send(new StageNotification($recruitment, $stageDescriptions[$stage], 'failed'));
 
             return redirect()->route('admin.recruitment.edit', $uuid)->with('error', 'Proses dihentikan');
         }
@@ -196,11 +196,11 @@ class RecruitmentController extends Controller
                     'file_path' => $filePath,
                 ]);
 
-                // Kirim notifikasi ke email Pelamar
-                Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
+                // // Kirim notifikasi ke email Pelamar
+                // Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
 
-                // Kirim notifikasi ke email Admin
-                Mail::to('recruitment.zmi@2024')->send(new RecruitmentStored($recruitment));
+                // // Kirim notifikasi ke email Admin
+                // Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
 
                 // Generate token sesi
                 $token = Str::random(64);

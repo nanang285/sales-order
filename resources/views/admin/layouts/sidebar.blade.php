@@ -15,7 +15,7 @@
 
                     <li class="mt-4">
                         <a href="{{ route('admin.dashboard') }}"
-                            class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                             <i class="fa-solid fa-gauge text-base"></i>
                             <span class="ml-3">Dashboard</span>
                         </a>
@@ -23,7 +23,7 @@
 
                     <li class="mt-4">
                         <a href="#"
-                            class="{{ Route::currentRouteName() === 'admin.karyawan' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            class="{{ Route::currentRouteName() === 'admin.karyawan' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                             <i class="fa-solid fa-building-user text-base"></i>
                             <span class="ml-3">Karyawan</span>
                         </a>
@@ -31,7 +31,7 @@
 
                     <li>
                         <a href="{{ route('admin.recruitment.index') }}"
-                            class="{{ Route::currentRouteName() === 'admin.recruitment.index' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
+                            class="{{ Route::currentRouteName() === 'admin.recruitment.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
                             <i class="fa-solid fa-id-card text-base"></i>
 
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Rekrutmen</span>
@@ -40,7 +40,7 @@
 
                     <li class="">
                         <a href=""
-                            class="{{ Route::currentRouteName() === 'admin.job.index' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
+                            class="{{ Route::currentRouteName() === 'admin.job.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
                             <i class="fa-solid fa-user-plus"></i>
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Lowongan</span>
                         </a>
@@ -48,7 +48,7 @@
 
                     {{-- <li class="">
                         <a href="{{ Route('admin.absensi.index') }}"
-                            class="{{ Route::currentRouteName() === 'admin.absensi.index' ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
+                            class="{{ Route::currentRouteName() === 'admin.absensi.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
                             <i class="fa-solid fa-fingerprint"></i>
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Absensi</span>
                         </a>
@@ -65,49 +65,49 @@
                         <ul id="dropdown-layouts" class="hidden pl-5 space-y-1">
                             <li class="mt-2">
                                 <a href=" {{ Route('admin.homepages.promo.index') }} "
-                                    class="{{ Request::is('admin/promo') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/promo') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">PopUp</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.service.index') }}"
-                                    class="{{ Request::is('admin/service') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/service') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Layanan</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.about.index') }}"
-                                    class="{{ Request::is('admin/about') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/about') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Profil</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.project.index') }}"
-                                    class="{{ Request::is('admin/project') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/project') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Portofolio</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.galery.index') }}"
-                                    class="{{ Request::is('admin/galery') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/galery') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Galeri</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.client.index') }}"
-                                    class="{{ Request::is('admin/client') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/client') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Klien</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.footer.index') }}"
-                                    class="{{ Request::is('admin/footer') ? 'text-blue-600 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/footer') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Footer</span>
                                 </a>

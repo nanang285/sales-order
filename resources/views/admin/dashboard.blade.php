@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="max-w-full mx-auto my-4 bg-white border rounded-xl overflow-hidden P-6">
+            <div class="max-w-full mx-auto my-4 bg-white border rounded-xl overflow-hidden p-6">
                 <div class="flex space-x-6 col-span-10">
                     <div
                         class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
@@ -145,8 +145,5 @@
         </div>
     </div>
 @endsection
-<footer class="w-full text-center absolute bottom-0 mb-4 text-gray-500">
-    <span class="text-base font-semibold text-gray-400">&copy; {{ date('Y') }}
-        {{ request()->getHost() }}. All rights reserved.
-    </span>
-</footer>
+
+

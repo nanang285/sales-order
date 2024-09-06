@@ -31,14 +31,12 @@ class ServiceController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
-            'image_path' => 'required|image|mimes:webp,jpeg,png,jpg,gif|max:5000',
+            'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
 
         $image = $request->file('image_path');
         $tempImageName = time() . '.' . $image->getClientOriginalExtension();
         $imagePath = public_path('storage/uploads/service-section');
-
-        // Simpan gambar asli terlebih dahulu
         $image->move($imagePath, $tempImageName);
 
         // Resize gambar dan ubah format ke WebP
@@ -47,14 +45,19 @@ class ServiceController extends Controller
         $width = imagesx($img);
         $height = imagesy($img);
 
-        // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
+        // Ukuran Gambar Baru
         $newWidth = $width * 1;
         $newHeight = $height * 1;
-        $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
+        $compressionQuality = 50;
 
         // Buat gambar baru dengan ukuran yang diubah
         $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+        // Pastikan transparansi (untuk format PNG atau GIF)
+        imagesavealpha($resizedImg, true);
+        $transparent = imagecolorallocatealpha($resizedImg, 0, 0, 0, 127);
+        imagefill($resizedImg, 0, 0, $transparent);
 
         // Simpan gambar yang telah diubah format dan ukuran file-nya
         $newImageName = time() . '.webp';
@@ -80,7 +83,7 @@ class ServiceController extends Controller
         $request->validate([
             'title' => 'string|max:50',
             'subtitle' => 'string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
         ]);
 
         $serviceSection = ServiceSection::findOrFail($id);
@@ -112,6 +115,11 @@ class ServiceController extends Controller
             // Buat gambar baru dengan ukuran yang diubah
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
             imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+            // Pastikan transparansi (untuk format PNG atau GIF)
+            imagesavealpha($resizedImg, true);
+            $transparent = imagecolorallocatealpha($resizedImg, 0, 0, 0, 127);
+            imagefill($resizedImg, 0, 0, $transparent);
 
             // Simpan gambar yang telah diubah format dan ukuran file-nya
             $newImageName = time() . '.webp';

@@ -50,7 +50,7 @@ class GaleryController extends Controller
     $request->validate([
         'title' => 'required|string|max:255',
         'subtitle' => 'required|string|max:255',
-        'image_path' => 'required|file|mimetypes:image/*|max:4096',
+        'image_path' => 'required|image|mimetypes:image/*|max:4096',
     ]);
 
     $image = $request->file('image_path');
@@ -99,7 +99,7 @@ public function update(Request $request, string $id)
     $request->validate([
         'title' => 'string|max:255',
         'subtitle' => 'string|max:255',
-        'image_path' => 'nullable|file|mimetypes:image/*|max:4096',
+        'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
     ]);
 
     $galerySection = Galerysection::findOrFail($id);

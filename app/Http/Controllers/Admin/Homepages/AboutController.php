@@ -34,7 +34,7 @@ class AboutController extends Controller
     {
         $request->validate([
             'subtitle' => 'nullable|string', 
-            'video_path' => 'nullable|mimetypes:video/*|max:25000', // Validasi untuk file video
+            'video_path' => 'nullable|mimetypes:video/*|max:20400',
         ]);        
 
         $aboutSection = AboutSection::findOrFail($id);
@@ -59,8 +59,8 @@ class AboutController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subtitle' => 'required|string|max:255',
-            'video_path' => 'nullable|mimes:mp4,mov,webm,flv,mkv|max:102400',
+            'subtitle' => 'required|string',
+            'video_path' => 'required|mimetypes:video/*|max:20400',
         ]);
 
        

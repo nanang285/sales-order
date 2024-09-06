@@ -105,7 +105,7 @@
                             class="absolute flex items-center justify-center w-10 h-10 {{ $recruitment->stage1 ? 'bg-green-200' : ($recruitment->failed_stage === 'Check CV' ? 'bg-red-200' : 'bg-gray-100') }} rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 {{ $recruitment->stage1 ? 'dark:bg-green-900' : ($recruitment->failed_stage === 'Check CV' ? 'dark:bg-red-900' : 'dark:bg-gray-700') }}">
                             <i class="fa-regular fa-file-pdf"></i>
                         </span>
-                        <h3 class="text-base font-semibold mt-3 items-center leading-tight">Cek CV</h3>
+                        <h3 class="text-base font-semibold mt-3 items-center leading-tight">Check CV</h3>
                         @if (!$recruitment->stage1 && !$recruitment->failed_stage)
                             <form action="{{ route('admin.recruitment.updateStage', [$recruitment->uuid, 'stage1']) }}"
                                 method="POST">

@@ -96,7 +96,7 @@
                                 </div>
                                 <input type="number" name="phone_number" id="phone_number"
                                     class="bg-gray-50 border border-gray-300 text-blue-700 text-sm rounded-md block w-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukan No.Telp/HP/WA" maxlength="" required>
+                                    placeholder="08**********" maxlength="" required>
                             </div>
                             <x-input-error :messages="$errors->get('phone_number')" class="my-1" />
                         </div>

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClientSection;
+
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-use App\Models\ClientSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,11 +24,11 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_path' => 'required|file|mimetypes:image/*|max:4096', // Memperbolehkan semua jenis file gambar dengan maksimal ukuran 4MB
+            'image_path' => 'required|image|mimetypes:image/*|max:4096', // Memperbolehkan semua jenis file gambar dengan maksimal ukuran 4MB
         ]);
 
         $image = $request->file('image_path');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $imageName = time() . '.webp'; // Simpan sebagai WebP untuk mendukung transparansi
         $imagePath = public_path('storage/uploads/client-section');
 
         // Simpan gambar asli terlebih dahulu
@@ -39,14 +40,25 @@ class ClientController extends Controller
         $width = imagesx($img);
         $height = imagesy($img);
 
-        // Tentukan kualitas kompresi, misalnya 75%
-        $compressionQuality = 50;
+        // Tentukan kualitas kompresi, misalnya 70%
+        $compressionQuality = 70;
 
-        // Simpan gambar yang telah dikompresi
-        imagejpeg($img, $imgPath, $compressionQuality);
+        // Buat gambar baru dengan transparansi
+        $resizedImg = imagecreatetruecolor($width, $height);
+        imagealphablending($resizedImg, false);
+        imagesavealpha($resizedImg, true);
+        $transparent = imagecolorallocatealpha($resizedImg, 0, 0, 0, 127);
+        imagefilledrectangle($resizedImg, 0, 0, $width, $height, $transparent);
 
-        // Hapus resource gambar
+        // Salin gambar asli ke gambar yang baru dengan transparansi
+        imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $width, $height, $width, $height);
+
+        // Simpan gambar dalam format WebP yang mendukung transparansi
+        imagewebp($resizedImg, $imgPath, $compressionQuality);
+
+        // Hapus resource gambar untuk menghindari kebocoran memori
         imagedestroy($img);
+        imagedestroy($resizedImg);
 
         // Simpan nama gambar ke database
         ClientSection::create([
@@ -60,7 +72,7 @@ class ClientController extends Controller
     {
         // Validasi input
         $request->validate([
-            'image_path' => 'nullable|file|mimetypes:image/*|max:4096', // Memperbolehkan semua jenis file gambar dengan maksimal ukuran 4MB
+            'image_path' => 'nullable|image|mimetypes:image/*|max:4096', // Memperbolehkan semua jenis file gambar dengan maksimal ukuran 4MB
         ]);
 
         $clientSection = ClientSection::findOrFail($id);
@@ -76,7 +88,7 @@ class ClientController extends Controller
             // Simpan gambar asli terlebih dahulu
             $image->move($imagePath, $tempImageName);
 
-            // Resize gambar dan ubah format ke WebP
+            // Resize gambar dan ubah format ke WebP dengan transparansi
             $imgPath = $imagePath . '/' . $tempImageName;
             $img = imagecreatefromstring(file_get_contents($imgPath));
             $width = imagesx($img);
@@ -87,11 +99,17 @@ class ClientController extends Controller
             $newHeight = $height * 0.5;
             $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
 
-            // Buat gambar baru dengan ukuran yang diubah
+            // Cek apakah gambar memiliki transparansi
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
+            imagealphablending($resizedImg, false);
+            imagesavealpha($resizedImg, true);
+            $transparent = imagecolorallocatealpha($resizedImg, 0, 0, 0, 127);
+            imagefilledrectangle($resizedImg, 0, 0, $newWidth, $newHeight, $transparent);
+
+            // Copy gambar yang diresize dan pertahankan transparansi
             imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-            // Simpan gambar yang telah diubah format dan ukuran file-nya
+            // Simpan gambar yang telah diubah format ke WebP dengan transparansi
             $newImageName = time() . '.webp';
             $newImagePath = $imagePath . '/' . $newImageName;
             imagewebp($resizedImg, $newImagePath, $compressionQuality);

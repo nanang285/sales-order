@@ -43,35 +43,36 @@
 
                                         <div class="flex space-x-2">
                                             <button id="editButton" data-tooltip-target="tooltip-default" type="button"
-                                                class="text-white bg-yellow-400 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-1.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                                                class="text-yellow-400 border border-yellow-400 hover:text-white hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-1.5 text-center dark:border-yellow-600 dark:hover:bg-yellow-600 dark:hover:text-white dark:focus:ring-yellow-800">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
 
                                             @if ($promoSection)
                                                 <button id="deleteButton" type="button"
-                                                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                    class="text-red-500 border border-red-500 hover:text-white hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-1.5 text-center dark:border-red-600 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-800">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             @endif
+
                                         </div>
 
 
                                         <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50"></div>
 
                                         <div id="confirmationPopup"
-                                            class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                                            class="fixed inset-0 flex items-start justify-center top-20 z-50 hidden">
                                             <div class="bg-white rounded-lg shadow-lg p-6">
                                                 <form id="deleteForm"
                                                     action="{{ route('admin.homepages.promo.destroy', $promoSection->id ?? '') }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <p class="text-gray-700">Are you sure you want to delete this item?</p>
+                                                    <p class="text-gray-700">Apakah Anda yakin ingin menghapus data ini?</p>
                                                     <div class="flex justify-end mt-4">
                                                         <button type="submit" id="confirmDelete"
-                                                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Delete</button>
+                                                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Ya</button>
                                                         <button type="button" id="cancelDelete"
-                                                            class="ml-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Cancel</button>
+                                                            class="ml-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Tidak</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -96,8 +97,8 @@
                                     <input
                                         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                                         aria-describedby="file_input_help" id="file_input" type="file" name="image_path">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
-                                        (MAX. 4MB).
+                                    <p class="mt-1 text-sm text-red-600 dark:text-gray-300" id="file_input_help">
+                                        Gambar (MAX. 4MB).
                                     </p>
 
                                     <button type="submit" id="updateButton"
@@ -135,7 +136,7 @@
                                     function openConfirmationPopup() {
                                         $overlay.removeClass('hidden');
                                         $confirmationPopup.removeClass('hidden');
-                                        $body.css('overflow', 'hidden'); 
+                                        $body.css('overflow', 'hidden');
                                     }
 
                                     function closeConfirmationPopup() {
@@ -149,7 +150,7 @@
                                     $overlay.on('click', closeConfirmationPopup);
 
                                     $confirmDelete.on('click', function() {
-                                        $('#deleteForm').submit(); 
+                                        $('#deleteForm').submit();
                                     });
                                 });
                             </script>

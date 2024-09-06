@@ -14,9 +14,9 @@
                 @endif
 
                 <div class="grid grid-cols-10 gap-4">
-                    <div class="bg-white shadow-lg p-5 my-6 border rounded col-span-10">
+                    <div class="bg-white p-5 my-6 border rounded-xl col-span-10">
                         <div class="mb-5">
-                            <h3 class="text-gray-700 font-semibold">Pengaturan Footer</h3>
+                            <h1 class="text-lg text-blue-600 font-bold"><i class="fa-solid fa-caret-right"></i> Footer </h1>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">

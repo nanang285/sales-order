@@ -28,7 +28,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                         <textarea name="subtitle" id="subtitle_{{ $service->id ?? '' }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-24 max-h-28 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
-                            placeholder="Masukan Deskripsi" required></textarea>
+                            placeholder="Masukan Deskripsi" required maxlength="250"></textarea>
                     </div>
                     <div>
                         <label for="images" class="block mb-2 text-sm font-medium text-gray-900">Gambar</label>
@@ -42,12 +42,10 @@
                                     <p class="text-sm text-gray-500 dark:text-gray-400"><span
                                             class="font-semibold">Click to upload</span></p>
                                 </div>
-                                <input id="images" type="file" name="image_path" class="hidden" />
-
-
+                                <input id="images" type="file" name="image_path" class="hidden" required />
                             </label>
                         </div>
-                        <label class="block mt-2 text-sm font-medium text-red-600">Images (MAX 4MB)</label>
+                        <label class="block mt-2 text-center text-sm font-medium text-red-600">Gambar (MAX 4MB)</label>
                     </div>
                     <button type="submit"
                         class="w-full text-green-700 hover:text-white border border-green-700 hover:bg-green-700 focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center">Tambah
@@ -94,7 +92,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">Informasi</label>
                             <textarea name="subtitle" id="subtitle_{{ $service->id }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-24 max-h-28 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
-                                required placeholder="Masukan Informasi">{{ $service->subtitle }}</textarea>
+                                required placeholder="Masukan Informasi" maxlength="250">{{ $service->subtitle }}</textarea>
                         </div>
                         <div>
                             <label for="image_{{ $service->id }}"
@@ -113,6 +111,8 @@
                                         class="hidden" />
                                 </label>
                             </div>
+                        <label class="block mt-2 text-center text-sm font-medium text-red-600">Gambar (MAX 4MB)</label>
+
                         </div>
                         <button type="submit"
                             class="w-full text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-700 focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center">Edit

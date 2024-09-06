@@ -77,25 +77,47 @@
                     <div class="md:w-1/2 p-6 mt-8">
                         <h2 class="text-2xl font-bold mb-3">Visi Misi Kami</h2>
                         <p class="mb-3 text-2xl font-normal">
-                            Menjalankan Business Work Digital di era 4.0 melalui prinsip Generator Kreativitas Sumber Daya
-                            Manusia (SDM)
+                            Menjadi pemimpin dalam industri pengembangan perangkat lunak di Asia Tenggara dengan menyediakan
+                            solusi teknologi yang inovatif, andal, dan
+                            berkelanjutan, yang mendukung transformasi digital dan keberhasilan bisnis klien kami.
                         </p>
                         <ul class="list-outside list-disc pl-4">
                             <li class="mb-3 text-lg font-bold">
-                                Menciptakan lapangan pekerjaan bagi sumber daya manusia yang mumpuni dalam bidang teknologi
+                                Mengembangkan produk dan layanan
+                                perangkat lunak yang berfokus pada
+                                kebutuhan
+                                pelanggan
+                                dan
+                                mampu
+                                menjawab tantangan teknologi masa kini
                             </li>
                             <li class="mb-3 text-lg font-bold">
-                                Melakukan kajian-kajian dengan menerapkan prinsip keilmiahan serta solusi yang kreatif dan
-                                inovatif
+                                Menyediakan solusi teknologi yang scalable
+                                dan user-friendly, yang dapat beradaptasi
+                                dengan perubahan dan pertumbuhan bisnis.
                             </li>
                             <li class="mb-3 text-lg font-bold">
-                                Meningkatkan kapasitas kelembagaan sumber daya manusia, kualitas penelitian dan pengembangan
-                                dalam penyelenggaraan capacity building serta mendorong pemanfaatannya melalui pendidikan
-                                dan pelatihan
+                                Membangun hubungan jangka panjang
+                                dengan klien melalui komitmen terhadap
+                                kualitas,
+                                integritas, dan
+                                pelayanan
+                                pelanggan yang unggul.
                             </li>
                             <li class="mb-3 text-lg font-bold">
-                                Menghasilkan produk-produk yang baik, bermutu, dan berkualitas sesuai dengan standar yang
-                                berlaku baik nasional maupun internasional
+                                Mendorong inovasi berkelanjutan dalam
+                                pengembangan
+                                teknologi
+                                dengan
+                                memanfaatkan tren terbaru dan praktik
+                                terbaik di industri.
+                            </li>
+                            <li class="mb-3 text-lg font-bold">
+                                Memberikan kontribusi positif terhadap
+                                masyarakat
+                                dan lingkungan melalui
+                                penerapan teknologi yang berkelanjutan
+                                dan ramah lingkungan.
                             </li>
                         </ul>
                     </div>
@@ -113,7 +135,7 @@
         </div>
     </section>
 
-    <section id="projek-kami" class="w-full relative">
+    {{-- <section id="projek-kami" class="w-full relative">
         <div class="py-8 relative overflow-hidden">
             <div class="container mx-auto px-6 lg:px-8 relative">
                 <img src="{{ asset('dist/images/homepages/absolute1.png') }}"
@@ -123,45 +145,40 @@
                         <span class=" text-primary">Team Kami</span>
                     </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-4">
 
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                        class="relative max-w-full rounded-xl h-auto py-12 bg-white overflow-hidden shadow-lg z-40 group">
-                        <div class="text-center text-gray-500 dark:text-gray-400">
-                            <img class="mx-auto mb-4 w-44 h-44 rounded-full shadow-full"
-                                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
-                                alt="Bonnie Avatar">
-                            <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                <a href="#">Bonnie Green</a>
-                            </h3>
-                            <p>Fullstack</p>
-                            <ul class="flex justify-center mt-4 space-x-4">
-                                <li>
-                                    <a href="#" class="text-[#39569c] hover:text-gray-900 dark:hover:text-white">
-                                        <i class="fa-brands fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="text-[#EA4335] hover:text-gray-900 dark:hover:text-white">
-                                        <i class="fa-brands fa-google"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="text-[#4285F4] hover:text-gray-900 dark:hover:text-white dark:text-gray-300">
-                                        <i class="fa-brands fa-linkedin"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                <div class="flex justify-between items-center flex-col lg:flex-row md:mt-20">
+                    <div class="w-full lg:w-1/2">
+                        <h2
+                            class="font-manrope text-5xl text-gray-900 font-bold leading-[4rem] mb-7 text-center lg:text-left">
+                            Our leading, strong & creative team</h2>
+                        <p class="text-lg text-gray-500 mb-16 text-center lg:text-left">These people work on making our
+                            product best.</p>
+                        <button
+                            class="cursor-pointer py-3 px-8 w-60 bg-indigo-600 text-white text-base font-semibold transition-all duration-500 block text-center rounded-full hover:bg-indigo-700 mx-auto lg:mx-0">Join
+                            our team</button>
+                    </div>
+                    <div class="w-full lg:w-1/2 lg:mt-0 md:mt-40 mt-16 max-lg:max-w-2xl">
+                        <div class="grid grid-cols-1 min-[450px]:grid-cols-2 md:grid-cols-3 gap-8">
+                            <img src="https://pagedone.io/asset/uploads/1696238644.png" alt="Team tailwind section"
+                                class="w-44 h-56 rounded-2xl object-cover md:mt-20 mx-auto min-[450px]:mr-0" />
+                            <img src="https://pagedone.io/asset/uploads/1696238665.png" alt="Team tailwind section"
+                                class="w-44 h-56 rounded-2xl object-cover mx-auto min-[450px]:ml-0 md:mx-auto" />
+                            <img src="https://pagedone.io/asset/uploads/1696238684.png" alt="Team tailwind section"
+                                class="w-44 h-56 rounded-2xl object-cover md:mt-20 mx-auto min-[450px]:mr-0 md:ml-0" />
+                            <img src="https://pagedone.io/asset/uploads/1696238702.png" alt="Team tailwind section"
+                                class="w-44 h-56 rounded-2xl object-cover mx-auto min-[450px]:ml-0 md:mr-0 md:ml-auto" />
+                            <img src="https://pagedone.io/asset/uploads/1696238720.png" alt="Team tailwind section"
+                                class="w-44 h-56 rounded-2xl object-cover md:-mt-20 mx-auto min-[450px]:mr-0 md:mx-auto" />
+                            <img src="https://pagedone.io/asset/uploads/1696238737.png" alt="Team tailwind section"
+                                class="w-44 h-56 rounded-2xl object-cover mx-auto min-[450px]:ml-0 md:mr-0" />
+
                         </div>
                     </div>
-
                 </div>
-                <img src="{{ asset('dist/images/homepages/absolute2.png') }}"
-                    class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs" alt="Zen Multimedia Indonesia">
+
             </div>
         </div>
-    </section>
+    </section> --}}
     @include('partials.banner')
     @include('components.chatbubble')
     @include('partials.footer')

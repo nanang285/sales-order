@@ -36,7 +36,7 @@ class PromoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_path' => 'required|file|mimetypes:image/*|max:4096',
+            'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
 
         if ($request->hasFile('image_path')) {
@@ -88,7 +88,7 @@ class PromoController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'image_path' => 'required|file|mimetypes:image/*|max:4096',
+            'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
 
         $promoSection = Promo::findOrFail($id);

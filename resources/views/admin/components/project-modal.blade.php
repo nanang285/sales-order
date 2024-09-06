@@ -41,7 +41,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900">Subtitle</label>
                         <textarea name="subtitle" id="subtitle"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-24 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
-                            placeholder="Masukan subtitle" required></textarea>
+                            placeholder="Masukan subtitle" required maxlength="250"></textarea>
                     </div>
                     <div>
                         <label for="images"
@@ -59,9 +59,10 @@
                                 <input id="images" type="file" name="image_path" class="hidden" accept="image/*" />
                             </label>
                         </div>
+                        <label class="block mt-2 text-center text-sm font-medium text-red-600">Gambar (MAX 4MB)</label>
                     </div>
                     <button type="submit"
-                        class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah
+                        class="w-full text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah
                         Data</button>
                 </form>
             </div>
@@ -116,7 +117,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">Subtitle</label>
                             <textarea name="subtitle" id="subtitle_{{ $project->id }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-24 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
-                                required>{{ $project->subtitle }}</textarea>
+                                required maxlength="250">{{ $project->subtitle }}</textarea>
                         </div>
                         <div>
                             <label for="image_{{ $project->id }}" class="block mb-2 text-sm font-medium text-gray-900">Images</label>
@@ -132,6 +133,7 @@
                                     <input id="image_{{ $project->id }}" type="file" name="image_path" class="hidden" />
                                 </label>
                             </div>
+                        <label class="block mt-2 text-center text-sm font-medium text-red-600">Gambar (MAX 4MB)</label>
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
@@ -206,7 +208,7 @@
                             </div>
                         </div>
                         <button type="submit"
-                            class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Hapus
+                            class="w-full text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Hapus
                             Data</button>
                     </form>
                 </div>
