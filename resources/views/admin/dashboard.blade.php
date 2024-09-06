@@ -26,31 +26,38 @@
                     <div
                         class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
                         <div>
-                            <h2 class="text-xl font-semibold text-blue-700">Total Karyawan</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">0</h1>
-                        </div>
-                    </div>
-                    <div
-                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
-                        <div>
                             <h2 class="text-xl font-semibold text-blue-700">Data Rekrutmen</h2>
                             <h1 class="text-skyblue text-3xl font-bold">{{ $recruitmentCount }}</h1>
                         </div>
                     </div>
-                    <div
+                    {{-- <div
                         class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
                         <div>
-                            <h2 class="text-xl font-semibold text-blue-700">Diterima</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">0</h1>
+                            <h2 class="text-xl font-semibold text-blue-700">Belum Dimulai</h2>
+                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage1 }}</h1>
                         </div>
                     </div>
                     <div
                         class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
                         <div>
-                            <h2 class="text-xl font-semibold text-blue-700"> Tidak Diterima</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">0</h1>
+                            <h2 class="text-xl font-semibold text-blue-700"> Tes Projek</h2>
+                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage2 }}</h1>
                         </div>
                     </div>
+                    <div
+                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
+                        <div>
+                            <h2 class="text-xl font-semibold text-blue-700"> Interview</h2>
+                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage3 }}</h1>
+                        </div>
+                    </div>
+                    <div
+                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
+                        <div>
+                            <h2 class="text-xl font-semibold text-blue-700"> Penawaran</h2>
+                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage4 }}</h1>
+                        </div>
+                    </div> --}}
                 </div>
                 <div class="bg-white shadow-sm my-6 border rounded-lg p-6">
                     <div class="flex flex-col md:flex-row mb-6 items-center justify-between space-y-3 md:space-y-0 md:space-x-4">

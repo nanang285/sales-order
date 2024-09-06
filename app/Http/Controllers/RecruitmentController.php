@@ -135,7 +135,7 @@ class RecruitmentController extends Controller
         if ($request->input('action') === 'yes') {
             $recruitment->update([$stage => true]);
 
-            // // Kirim email notifikasi untuk keberhasilan pindah tahap
+            // // Kirim email notifikasi untuk keberhasilan tahap
             // Mail::to($recruitment->email)->send(new StageNotification($recruitment, $stageDescriptions[$stage], 'success'));
         } else {
             $recruitment->update(['failed_stage' => $stageDescriptions[$stage]]);

@@ -14,10 +14,52 @@ class DashboardController extends Controller
         // Menghitung jumlah data recruitments
         $recruitmentCount = Recruitment::count();
 
+        // Menghitung jumlah gagal di setiap tahap berdasarkan kegagalan di tahap terakhir
+        $failedStage1 = Recruitment::where('stage1', false)
+                        ->where('stage2', false)
+                        ->where('stage3', false)
+                        ->where('stage4', false)
+                        ->count();
+
+        $failedStage2 = Recruitment::where('stage1', true)
+                        ->where('stage2', false)
+                        ->where('stage3', false)
+                        ->where('stage4', false)
+                        ->count();
+
+        $failedStage3 = Recruitment::where('stage1', true)
+                        ->where('stage2', true)
+                        ->where('stage3', false)
+                        ->where('stage4', false)
+                        ->count();
+
+        $failedStage4 = Recruitment::where('stage1', true)
+                        ->where('stage2', true)
+                        ->where('stage3', true)
+                        ->where('stage4', false)
+                        ->count();
+
+        // Menghitung jumlah yang berhasil (semua stage bernilai true)
+        $successStage = Recruitment::where('stage1', true)
+                        ->where('stage2', true)
+                        ->where('stage3', true)
+                        ->where('stage4', true)
+                        ->count();
+
         $breadcrumbTitle = 'Dashboard';
 
-        return view('admin.dashboard', compact('recruitments', 'recruitmentCount', 'breadcrumbTitle'));
+        return view('admin.dashboard', compact(
+            'recruitments', 
+            'recruitmentCount', 
+            'failedStage1', 
+            'failedStage2', 
+            'failedStage3', 
+            'failedStage4', 
+            'successStage', 
+            'breadcrumbTitle'
+        ));
     }
+
 
     public function redirect()
     {

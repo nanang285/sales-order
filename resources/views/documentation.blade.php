@@ -46,7 +46,7 @@
                                         <p class="text-white text-2xl font-bold mb-4">{{ $galery->title }}</p>
                                         <p class="text-white text-lg lg:max-w-lg">
                                             {{ $galery->subtitle }}
-                                        </p>b
+                                        </p>
                                     </div>
                                 </div>
                             </a>

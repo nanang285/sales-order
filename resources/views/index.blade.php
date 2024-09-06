@@ -42,7 +42,8 @@
         <div class="py-12 relative overflow-hidden">
             <div class="container mx-auto px-6 lg:px-8 relative">
                 <div id="services" class="absolute -top-32"></div>
-                
+                <img src="{{ asset('dist/images/homepages/absolute1.png') }}"
+                    class="absolute no-select -top-24 -right-24 w-full max-w-2xl" alt="Absolute 1">
                 <div class=" mx-auto max-w-full lg:text-center mb-12">
                     <p class=" text-3xl font-bold tracking-tight text-gray-900 text-center">
                         <span class=" text-primary">Layanan Kami</span>
@@ -88,8 +89,8 @@
                     @endif
 
                 </div>
-                <img src="{{ asset('images/absolute3.png') }}" class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs"
-                    alt="zen-multimedia-indonesia">
+                <img src="{{ asset('dist/images/homepages/absolute2.png') }}"
+                    class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs" alt="Zen Multimedia Indonesia">
             </div>
         </div>
     </section>
@@ -277,17 +278,12 @@
         style="background-image: url('{{ asset('images/Rectangle 36.png') }}')">
         <section id="client" class="bg-lightblue py-6 mt-10 w-full">
             <div class="container mx-auto px-6 lg:px-8">
-                <div class="mx-auto max-w-2xl lg:text-center">
-                    <p class="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl text-center">
-                        <span class="text-primary">Klien Kami</span>
-                    </p>
-                    <p class="mt-2 text-lg leading-8 font-bold text-gray-600 text-center">
-                        <span class="text-primary sm:text-1xl">
-                            KAMI TELAH MELAYANI BANYAK KLIEN
-                        </span>
+                <div class="mx-auto py-4 max-w-2xl lg:text-center">
+                    <p class=" text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl text-center">
+                        <span class="text-primary">Mitra Kami</span>
                     </p>
                 </div>
-                <div class="relative mt-2 swiper-container swiper-klien-kami rounded-md overflow-hidden">
+                <div class="relative mt-4 swiper-container swiper-klien-kami rounded-md overflow-hidden">
                     <div class="marquee-container flex items-center space-x-4 animate-marquee">
                         @foreach ($clientSection as $client)
                             <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
