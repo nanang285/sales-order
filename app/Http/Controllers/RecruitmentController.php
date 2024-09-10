@@ -175,18 +175,17 @@ class RecruitmentController extends Controller
             'portfolio' => 'nullable',
             'file_path' => 'required|mimes:pdf|max:5000',
         ]);
-    
+
         try {
-           
-            $nik = $request->input('nik') ?: '-';
-          
             if ($request->hasFile('file_path')) {
                 $file = $request->file('file_path');
-                $fileName = $file->getClientOriginalName(); 
+                $fileName = $file->getClientOriginalName();
                 $filePath = $file->storeAs('uploads/recruitment', $fileName, 'public');
-    
-                
-                Recruitment::create([
+
+                // Cek apakah 'nik' kosong, jika iya set dengan '-'
+                $nik = $request->input('nik') ?: '-';
+
+                $recruitment = Recruitment::create([
                     'uuid' => Str::uuid(),
                     'email' => $request->email,
                     'name' => $request->name,
@@ -200,18 +199,31 @@ class RecruitmentController extends Controller
                     'agree' => $request->agree,
                     'salary' => $request->salary,
                     'portfolio' => $request->portfolio,
-                    'file_path' => $fileName, // Simpan nama file saja di database
+                    'file_path' => $fileName,
                 ]);
-    
-                return redirect()->route('success')->with('success', 'Data berhasil disimpan.');
+
+                // Kirim notifikasi ke email Pelamar
+                // Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
+
+                // Kirim notifikasi ke email Admin
+                // Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
+
+                // Generate token sesi
+                $token = Str::random(64);
+                session(['valid_token' => $token]);
+
+                return redirect()->route('success', ['token' => $token]);
             } else {
                 return redirect()->back()->with('error', 'File tidak ditemukan')->withInput();
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to store data: ' . $e->getMessage())->withInput();
+            return redirect()
+                ->back()
+                ->with('error', 'Failed to store data: ' . $e->getMessage())
+                ->withInput();
         }
     }
-    
+
     // Store Data in Admin
     public function Adminstore(Request $request)
     {
