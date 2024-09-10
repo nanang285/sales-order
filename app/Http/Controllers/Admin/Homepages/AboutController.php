@@ -34,7 +34,7 @@ class AboutController extends Controller
     {
         $request->validate([
             'subtitle' => 'required|string',
-            'video_path' => 'required|mimetypes:video/*|max:2400',
+            'video_path' => 'required|mimetypes:video/*|max:20400',
         ]);
 
         $aboutSection = new AboutSection();
@@ -43,7 +43,14 @@ class AboutController extends Controller
         if ($request->hasFile('video_path')) {
             $video = $request->file('video_path');
             $videoName = $video->getClientOriginalName();
-            $video->storeAs('public/uploads/about-section', $videoName);
+
+            // Tentukan path penyimpanan file
+            $destinationPath = public_path('uploads/about-section');
+
+            // Pindahkan file ke direktori yang diinginkan
+            $video->move($destinationPath, $videoName);
+
+            // Simpan nama file ke database
             $aboutSection->video_path = $videoName;
         }
 
@@ -65,11 +72,19 @@ class AboutController extends Controller
         if ($request->hasFile('video_path')) {
             $video = $request->file('video_path');
             $videoName = $video->getClientOriginalName();
-            $video->storeAs('public/uploads/about-section', $videoName);
+            $destinationPath = public_path('uploads/about-section');
 
+            // Hapus file lama jika ada
             if ($aboutSection->video_path) {
-                Storage::delete('public/uploads/about-section/' . $aboutSection->video_path);
+                $oldFilePath = public_path('uploads/about-section/' . $aboutSection->video_path);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
             }
+            
+            // Pindahkan file baru
+            $video->move($destinationPath, $videoName);
+
             $data['video_path'] = $videoName;
         }
 
