@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
+use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -157,7 +158,7 @@ class RecruitmentController extends Controller
         return view('admin.recruitment.add', compact('breadcrumbTitle'));
     }
 
-    // Store Data In Company Profile
+    // Store data in users
     public function store(Request $request)
     {
         $request->validate([
@@ -176,55 +177,49 @@ class RecruitmentController extends Controller
             'file_path' => 'required|mimes:pdf|max:5000',
         ]);
 
-        try {
-            if ($request->hasFile('file_path')) {
-                $file = $request->file('file_path');
-                $fileName = $file->getClientOriginalName();
-                $filePath = $file->storeAs('uploads/recruitment', $fileName, 'public');
+        if ($request->hasFile('file_path')) {
+            $file = $request->file('file_path');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path('storage/uploads/recruitment');
 
-                // Cek apakah 'nik' kosong, jika iya set dengan '-'
-                $nik = $request->input('nik') ?: '-';
+            $file->move($destinationPath, $fileName);
 
-                $recruitment = Recruitment::create([
-                    'uuid' => Str::uuid(),
-                    'email' => $request->email,
-                    'name' => $request->name,
-                    'nik' => $nik,
-                    'address' => $request->address,
-                    'phone_number' => $request->phone_number,
-                    'study' => $request->study,
-                    'position' => $request->position,
-                    'onsite' => $request->onsite,
-                    'test' => $request->test,
-                    'agree' => $request->agree,
-                    'salary' => $request->salary,
-                    'portfolio' => $request->portfolio,
-                    'file_path' => $fileName,
-                ]);
+            $nik = $request->input('nik') ?: '-';
 
-                // Kirim notifikasi ke email Pelamar
-                // Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
+            $recruitment = Recruitment::create([
+                'uuid' => Str::uuid(),
+                'email' => $request->email,
+                'name' => $request->name,
+                'nik' => $nik,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'study' => $request->study,
+                'position' => $request->position,
+                'onsite' => $request->onsite,
+                'test' => $request->test,
+                'agree' => $request->agree,
+                'salary' => $request->salary,
+                'portfolio' => $request->portfolio,
+                'file_path' => $fileName, // Simpan nama file ke database
+            ]);
 
-                // Kirim notifikasi ke email Admin
-                // Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
+            // Kirim notifikasi ke email Pelamar
+            // Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
 
-                // Generate token sesi
-                $token = Str::random(64);
-                session(['valid_token' => $token]);
+            // Kirim notifikasi ke email Admin
+            // Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
 
-                return redirect()->route('success', ['token' => $token]);
-            } else {
-                return redirect()->back()->with('error', 'File tidak ditemukan')->withInput();
-            }
-        } catch (\Exception $e) {
-            return redirect()
-                ->back()
-                ->with('error', 'Failed to store data: ' . $e->getMessage())
-                ->withInput();
+            // Generate token success
+            $token = Str::random(64);
+            session(['valid_token' => $token]);
+
+            return redirect()->route('success', ['token' => $token]);
+        } else {
+            return redirect()->back()->with('error', 'File tidak di Upload')->withInput();
         }
     }
 
-    // Store Data in Admin
+    // Store Data In Company Profile (Admin)
     public function Adminstore(Request $request)
     {
         $request->validate([
@@ -242,44 +237,39 @@ class RecruitmentController extends Controller
             'portfolio' => 'nullable',
             'file_path' => 'required|mimes:pdf|max:5000',
         ]);
-    
-        try {
-            // Cek apakah 'nik' kosong, jika iya set dengan '-'
-            $nik = $request->input('nik') ?: '-';
-    
-            // Proses upload file
-            if ($request->hasFile('file_path')) {
-                $file = $request->file('file_path');
-                $fileName = $file->getClientOriginalName(); // Dapatkan nama asli file
-                $filePath = $file->storeAs('uploads/recruitment', $fileName, 'public'); // Simpan file dan dapatkan path
-    
-                // Simpan data ke database
-                Recruitment::create([
-                    'uuid' => Str::uuid(),
-                    'email' => $request->email,
-                    'name' => $request->name,
-                    'nik' => $nik,
-                    'address' => $request->address,
-                    'phone_number' => $request->phone_number,
-                    'study' => $request->study,
-                    'position' => $request->position,
-                    'onsite' => $request->onsite,
-                    'test' => $request->test,
-                    'agree' => $request->agree,
-                    'salary' => $request->salary,
-                    'portfolio' => $request->portfolio,
-                    'file_path' => $fileName, // Simpan nama file saja di database
-                ]);
-    
-                return redirect()->route('admin.recruitment.index')->with('success', true)->with('toast', 'add');
-            } else {
-                return redirect()->back()->with('error', 'File tidak ditemukan')->withInput();
-            }
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to store data: ' . $e->getMessage())->withInput();
+
+        // Cek apakah 'nik' kosong, jika iya set dengan '-'
+        $nik = $request->input('nik') ?: '-';
+
+        if ($request->hasFile('file_path')) {
+            $file = $request->file('file_path');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path('storage/uploads/recruitment');
+
+            $file->move($destinationPath, $fileName);
+
+            Recruitment::create([
+                'uuid' => Str::uuid(),
+                'email' => $request->email,
+                'name' => $request->name,
+                'nik' => $nik,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'study' => $request->study,
+                'position' => $request->position,
+                'onsite' => $request->onsite,
+                'test' => $request->test,
+                'agree' => $request->agree,
+                'salary' => $request->salary,
+                'portfolio' => $request->portfolio,
+                'file_path' => $fileName,
+            ]);
+
+            return redirect()->route('admin.recruitment.index')->with('success', true)->with('toast', 'add');
+        } else {
+            return redirect()->back()->with('error', 'File tidak ditemukan')->withInput();
         }
     }
-    
 
     public function destroy($uuid)
     {

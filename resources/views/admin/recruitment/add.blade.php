@@ -18,12 +18,14 @@
                             <input type="email" name="email" id="email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Masukkan alamat email" required />
+                            <x-input-error :messages="$errors->get('email')" class="my-1" />
+
                         </div>
 
                         <div class="my-3">
                             <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">No. Hp/Wa <span
                                     class="text-red-600">*</span></label>
-                            <input type="tel" name="phone_number" id="phone_number"
+                            <input type="number" name="phone_number" id="phone_number"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Masukkan No. Telp" required />
                         </div>

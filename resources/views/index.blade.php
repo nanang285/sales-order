@@ -136,7 +136,6 @@
                         
                         <img src="{{ asset('dist/images/homepages/diskominfo.png') }}"
                              class="md:mx-5 mx-auto max-w-52 max-h-auto object-contain mt-4">
-                        
                     </div>
                 </div>
             </div>
@@ -276,21 +275,54 @@
                     </p>
                 </div>
                 <div class="relative mt-4 swiper-container swiper-klien-kami rounded-md overflow-hidden">
-                    <div class="marquee-container flex items-center space-x-4 animate-marquee">
-                        @foreach ($clientSection as $client)
-                            <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
-                                <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
-                                    alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
-                            </div>
-                        @endforeach
-                        @foreach ($clientSection as $client)
-                            <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
-                                <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
-                                    alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
-                            </div>
-                        @endforeach
+                    <div class="non-marquee-wrapper">
+                        <div class="non-marquee-container flex items-center">
+                            <!-- Daftar klien -->
+                            @foreach ($clientSection as $client)
+                                <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
+                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
+                                         alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
+                                </div>
+                            @endforeach
+                            <!-- Duplikat klien untuk animasi berkelanjutan -->
+                            @foreach ($clientSection as $client)
+                                <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
+                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
+                                         alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+                
+                <!-- CSS -->
+                <style>
+                    .non-marquee-wrapper {
+                        width: 100%;
+                        overflow: hidden; /* Menyembunyikan elemen di luar viewport */
+                    }
+                
+                    .non-marquee-container {
+                        display: flex;
+                        white-space: nowrap; /* Mencegah elemen berpindah ke baris baru */
+                        animation: scroll-left 30s linear infinite;
+                    }
+                
+                    @keyframes scroll-left {
+                        0% {
+                            transform: translateX(0); /* Mulai dari posisi awal */
+                        }
+                        100% {
+                            transform: translateX(-50%); /* Pindah setengah dari panjang total konten (karena kita menduplikasi konten) */
+                        }
+                    }
+                
+                    .client-logo {
+                        flex-shrink: 0;
+                        width: auto;
+                    }
+                </style>
+                
             </div>
         </section>
     </div>
