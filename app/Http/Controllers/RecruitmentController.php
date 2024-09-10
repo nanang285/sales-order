@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
-use App\Mail\RecruitmentStored;
-use App\Mail\RecruitmentReceived;
-use App\Mail\StageNotification;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
 use Illuminate\Support\Facades\Mail;
+use App\Mail\RecruitmentStored;
+use App\Mail\RecruitmentReceived;
+use App\Mail\StageNotification;
 
 class RecruitmentController extends Controller
 {
@@ -31,7 +33,7 @@ class RecruitmentController extends Controller
                     return $query->orderBy('created_at', 'asc');
                 }
             })
-            ->paginate(10);
+            ->paginate(20);
 
         return view('admin.recruitment.index', [
             'breadcrumbTitle' => $breadcrumbTitle,
@@ -64,7 +66,7 @@ class RecruitmentController extends Controller
 
         foreach ($recruitments as $recruitment) {
             if ($recruitment->stage4) {
-                $recruitment->last_stage = 'Selamat Anda Telah Lolos Semua Seleksi';
+                $recruitment->last_stage = 'Selamat Anda Telah Lolos Semua tahap Seleksi';
             } elseif ($recruitment->stage3) {
                 $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Offering';
             } elseif ($recruitment->stage2) {
@@ -91,7 +93,7 @@ class RecruitmentController extends Controller
             'name' => 'required|string|max:50',
             'nik' => 'nullable|numeric|digits_between:1,16',
             'address' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
+            'phone_number' => 'required|string|max:15',
             'study' => 'required|string',
             'position' => 'required|string',
             'salary' => 'required|string|max:50',
@@ -105,12 +107,12 @@ class RecruitmentController extends Controller
             'name' => 'required|string|max:50',
             'nik' => 'nullable|numeric|digits_between:1,16',
             'address' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
+            'phone_number' => 'required|string|max:15',
             'study' => 'required|string',
             'position' => 'required|string',
             'salary' => 'required|string|max:50',
             'file_path' => 'required|mimes:pdf|max:5000',
-        ];
+        ]; 
 
         $recruitment->update($updateData);
 
@@ -155,6 +157,7 @@ class RecruitmentController extends Controller
         return view('admin.recruitment.add', compact('breadcrumbTitle'));
     }
 
+    // Store Data In Company Profile
     public function store(Request $request)
     {
         $request->validate([
@@ -218,6 +221,7 @@ class RecruitmentController extends Controller
         }
     }
 
+    // Store Data in Admin
     public function Adminstore(Request $request)
     {
         $request->validate([

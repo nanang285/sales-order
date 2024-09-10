@@ -194,12 +194,11 @@
                                                 </td>
 
                                                 <td class="whitespace-nowrap text-end text-sm font-medium">
-                                                    <button data-modal-target="pdfModal"
-                                                        data-file-path="{{ asset('storage/uploads/recruitment/' . $recruitment->file_path) }}"
-                                                        class="text-yellow-300 border-2 border-yellow-300 hover:text-white hover:bg-yellow-300 font-medium rounded-md text-sm inline-flex items-center justify-center w-8 h-8 m-1"
-                                                        type="button">
+                                                    <a href="{{ asset('storage/uploads/recruitment/' . $recruitment->file_path) }}"
+                                                        target="_blank"
+                                                        class="text-yellow-300 border-2 border-yellow-300 hover:text-white hover:bg-yellow-300 font-medium rounded-md text-sm inline-flex items-center justify-center w-8 h-8 m-1">
                                                         <i class="fa-solid fa-eye"></i>
-                                                    </button>
+                                                    </a>
                                                     <a href="{{ route('admin.recruitment.edit', $recruitment->uuid) }}"
                                                         class="text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded-md text-sm inline-flex items-center justify-center w-8 h-8 m-1"
                                                         type="button">
@@ -214,32 +213,6 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <div id="pdfModal" tabindex="-1" aria-hidden="true"
-                                                class="hidden backdrop-blur-sm bg-gray-800 bg-opacity-20 overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full max-h-full">
-                                                <div class="relative p-4 w-full max-w-4xl max-h-full">
-                                                    <div class="relative bg-white rounded-lg shadow">
-                                                        <div
-                                                            class="absolute flex items-center justify-between p-4 -right-6 -top-6">
-                                                            <button type="button"
-                                                                class="text-gray-400 border border-black bg-gray-100 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-7 h-7 inline-flex justify-center items-center"
-                                                                data-modal-hide="pdfModal">
-                                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                    viewBox="0 0 14 14">
-                                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                                </svg>
-                                                                <span class="sr-only">Close modal</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="p-2">
-                                                            <iframe id="pdfFrame" src="" width="100%"
-                                                                height="500px"></iframe>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>

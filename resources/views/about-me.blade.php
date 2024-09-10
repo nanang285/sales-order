@@ -75,14 +75,14 @@
                 </div>
                 <div data-aos="fade-up" data-aos-anchor-placement="top-center" class="flex flex-col md:flex-row">
                     <div class="md:w-1/2 p-6 mt-8">
-                        <h2 class="text-2xl font-bold mb-3">Visi Misi Kami</h2>
-                        <p class="mb-3 text-2xl font-normal">
+                        <h2 class="text-2xl font-bold mb-3 text-primary">Visi & Misi Kami</h2>
+                        <p class="mb-3 text-2xl font-normal text-blue-900">
                             Menjadi pemimpin dalam industri pengembangan perangkat lunak di Asia Tenggara dengan menyediakan
                             solusi teknologi yang inovatif, andal, dan
                             berkelanjutan, yang mendukung transformasi digital dan keberhasilan bisnis klien kami.
                         </p>
                         <ul class="list-outside list-disc pl-4">
-                            <li class="mb-3 text-lg font-bold">
+                            <li class="mb-3 text-lg font-semibold">
                                 Mengembangkan produk dan layanan
                                 perangkat lunak yang berfokus pada
                                 kebutuhan
@@ -91,12 +91,12 @@
                                 mampu
                                 menjawab tantangan teknologi masa kini
                             </li>
-                            <li class="mb-3 text-lg font-bold">
+                            <li class="mb-3 text-lg font-semibold">
                                 Menyediakan solusi teknologi yang scalable
                                 dan user-friendly, yang dapat beradaptasi
                                 dengan perubahan dan pertumbuhan bisnis.
                             </li>
-                            <li class="mb-3 text-lg font-bold">
+                            <li class="mb-3 text-lg font-semibold">
                                 Membangun hubungan jangka panjang
                                 dengan klien melalui komitmen terhadap
                                 kualitas,
@@ -104,7 +104,7 @@
                                 pelayanan
                                 pelanggan yang unggul.
                             </li>
-                            <li class="mb-3 text-lg font-bold">
+                            <li class="mb-3 text-lg font-semibold">
                                 Mendorong inovasi berkelanjutan dalam
                                 pengembangan
                                 teknologi
@@ -112,7 +112,7 @@
                                 memanfaatkan tren terbaru dan praktik
                                 terbaik di industri.
                             </li>
-                            <li class="mb-3 text-lg font-bold">
+                            <li class="mb-3 text-lg font-semibold">
                                 Memberikan kontribusi positif terhadap
                                 masyarakat
                                 dan lingkungan melalui

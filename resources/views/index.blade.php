@@ -49,46 +49,54 @@
                         <span class=" text-primary">Layanan Kami</span>
                     </p>
                 </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-2">
                     @if ($serviceSection->isEmpty())
                         <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                            class="bg-white border shadow-sm hover:shadow-[#91aaff9f] rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col lg:flex-row">
-                            <div class="order-2 lg:order-1">
+                            class="relative bg-white border shadow-md hover:shadow-lg rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col-reverse lg:flex-row overflow-hidden">
+                            
+                            <div class="absolute top-0 left-0 w-24 h-24 bg-blue-400 rounded-full opacity-15 transform -translate-x-1/4 -translate-y-1/4"></div>
+                            <div class="absolute bottom-0 right-0 w-32 h-32 bg-blue-300 rounded-full opacity-20 transform translate-x-1/4 translate-y-1/4"></div>
+                            
+                            <div class="order-2 lg:order-1 relative z-10">
                                 <h3 class="lg:text-2xl font-bold lg:font-semibold">
                                     <span class="text-primary">IT Solution</span>
                                 </h3>
-                                <p class="mt-2 text-lg lg:max-w-80 font-semibold text-gray-600">
-                                    <span class="text-skyblue">Kami menyediakan berbagai macam layanan IT, mulai dari
-                                        pembuatan Website, Pembuatan Aplikasi, Penyediaan Server, dan lainnya</span>
+                                <p class="mt-2 text-lg lg:max-w-96 font-semibold text-gray-600 text-justify">
+                                    <span class="text-skyblue">Kami menyediakan berbagai macam layanan IT, mulai dari pembuatan Website, Pembuatan Aplikasi, Penyediaan Server, dan lainnya</span>
                                 </p>
                             </div>
-                            <div class="order-1 lg:order-2 flex justify-center items-center">
+                            <div class="order-1 lg:order-2 flex justify-center items-center relative z-10">
                                 <img src="{{ asset('dist/validate/service-section/zmi-services1.png') }}" alt="Dummy Image"
-                                    class="relative w-full max-w-72 lg:w-full h-auto object-cover mb-4 lg:mb-0 no-select">
+                                    class="w-full max-w-72 lg:w-full h-auto object-cover mb-4 lg:mb-0 no-select">
                             </div>
                         </div>
                     @else
                         @foreach ($serviceSection as $service)
                             <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                                class="bg-white border shadow-sm hover:shadow-[#91aaff9f] rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col lg:flex-row">
-                                <div class="order-2 lg:order-1">
+                                class="relative bg-white border shadow-md hover:shadow-lg rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col-reverse lg:flex-row overflow-hidden">
+                                
+                                <div class="absolute top-0 left-0 w-24 h-24 bg-blue-400 rounded-full opacity-15 transform -translate-x-1/4 -translate-y-1/4"></div>
+                                <div class="absolute bottom-0 right-0 w-32 h-32 bg-blue-300 rounded-full opacity-20 transform translate-x-1/4 translate-y-1/4"></div>
+                                
+                                <div class="order-2 lg:order-1 relative z-10">
                                     <h3 class="lg:text-2xl font-bold lg:font-semibold">
                                         <span class="text-primary">{{ $service->title }}</span>
                                     </h3>
-                                    <p class="mt-2 text-lg lg:max-w-80 font-semibold text-gray-600">
+                                    <p class="mt-2 text-lg lg:max-w-96 font-semibold text-gray-600 text-justify">
                                         <span class="text-skyblue">{{ $service->subtitle }}</span>
                                     </p>
                                 </div>
-                                <div class="order-1 lg:order-2 flex justify-center items-center">
+                                <div class="order-1 lg:order-2 flex justify-center items-center relative z-10">
                                     <img src="{{ asset('storage/uploads/service-section/' . ($service->image_path ?? 'dist/validate/latest-project/service-section/zmi-services (1).png')) }}"
                                         alt=""
-                                        class="relative w-full max-w-72 lg:w-full h-auto object-cover mb-4 lg:mb-0 no-select">
+                                        class="w-full max-w-72 lg:w-full h-auto object-cover mb-4 lg:mb-0 no-select">
                                 </div>
                             </div>
                         @endforeach
                     @endif
-
                 </div>
+
                 <img src="{{ asset('dist/images/homepages/absolute2.png') }}"
                     class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs" alt="Zen Multimedia Indonesia">
             </div>
@@ -103,7 +111,7 @@
                     class="lg:py-8 lg:my-5 lg:px-2 lg:max-w-none lg:flex rounded-xl ring-1 bg-white ring-gray-200">
                     <div class="w-full lg:w-1/2 flex flex-wrap p-5">
                         @if (!empty($aboutSection->video_path))
-                            <video class="w-full lg:max-w-lg mx-auto lg:mx-10 border rounded-lg object-cover" controls
+                            <video class="w-full lg:max-w-full mx-auto lg:mx-10 border rounded-lg object-cover" controls
                                 controlsList="nodownload">
                                 <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}"
                                     type="video/webm">
@@ -119,32 +127,16 @@
                     <div class="w-full lg:w-1/2 flex flex-wrap p-5">
                         <div class="mb-3">
                             <h1 class="text-2xl lg:top-0 md:mx-5 mb-2 font-bold tracking-tight text-primary">
-                                Mengapa Harus ZMI?
+                                Kenapa Harus ZMI?
                             </h1>
-                            <p class="md:mx-5 max-w-full text-sm text-primary">
+                            <p class="md:mx-5 max-w-full text-sm text-primary text-justify break-words">
                                 {{ $aboutSection->subtitle ?? 'PT Zen Multimedia adalah perusahaan IT yang berfokus pada pembuatan website, aplikasi, dan multimedia. Berbasis di Purwakarta, kami terdiri dari tim berpengalaman yang memberikan layanan purna jual terbaik. Kami melayani pemerintahan, UMKM, swasta, dan perseorangan.' }}
                             </p>
                         </div>
-                        <div class="flex-row">
-                            <p class="md:mx-5 mb-3 max-w-full text-sm text-primary">
-                                <span class="text-green-600"><i class="fa-regular fa-circle-check"></i></span>
-                                Ahli dalam Konsultasi IT (Web & Development Sistem)
-                            </p>
-                            <p class="md:mx-5 mb-3 max-w-full text-sm text-primary">
-                                <span class="text-green-600"><i class="fa-regular fa-circle-check"></i></span>
-                                Fleksibilitas dalam Pelayanan Pelanggan
-                            </p>
-                            <p class="md:mx-5 mb-3 max-w-full text-sm text-primary">
-                                <span class="text-green-600"><i class="fa-regular fa-circle-check"></i></span>
-                                Kompetensi dalam Multimedia
-                            </p>
-                            <p class="md:mx-5 mb-3 max-w-full text-sm text-primary">
-                                <span class="text-green-600"><i class="fa-regular fa-circle-check"></i></span>
-                                Inovasi dan Kreativitas
-                            </p>
-                        </div>
+                        
                         <img src="{{ asset('dist/images/homepages/diskominfo.png') }}"
-                            class="md:mx-5 max-w-44 max-h-12 object-contain">
+                             class="md:mx-5 mx-auto max-w-52 max-h-auto object-contain mt-4">
+                        
                     </div>
                 </div>
             </div>

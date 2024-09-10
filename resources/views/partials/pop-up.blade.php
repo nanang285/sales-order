@@ -1,16 +1,12 @@
 @if ($promoSection)
-    <!-- Trigger Button (Hidden) -->
     <button id="open-popup" hidden></button>
 
-    <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 z-[99999] hidden"></div>
 
-    <!-- Pop-up Container -->
     <div id="pop-up" tabindex="2" aria-hidden="false"
         class="fixed inset-0 z-[99999] flex justify-center items-center bg-transparent transition-opacity duration-300 opacity-0 pointer-events-none">
         <div class="relative p-4 w-full max-w-sm lg:max-w-lg xl:max-w-xl mx-auto flex justify-center">
             <div class="relative p-4">
-                <!-- Close Button -->
                 <button type="button"
                     class="text-gray-400 right-2 top-2 absolute border border-gray-300 bg-gray-100 hover:bg-gray-300 hover:text-gray-600 transition duration-300 rounded-md text-sm w-6 h-6 ms-auto inline-flex justify-center items-center"
                     id="close-popup">
@@ -21,20 +17,18 @@
                     </svg>
                     <span class="sr-only">Close Pop-up</span>
                 </button>
-                <!-- Pop-up Content -->
                 <div class="flex items-center justify-center shadow-sm rounded-xl shadow-gray-700 overflow-hidden">
                     @if (!empty($promoSection->image_path))
                         <img class="rounded w-full h-auto"
                             src="{{ asset('storage/uploads/promo/' . $promoSection->image_path) }}" />
                     @else
-                        <img class="rounded w-full h-auto" src="{{asset('dist/validate/promo/contoh.jpg')}}" />
+                        <img class="rounded w-full h-auto" src="{{ asset('dist/validate/promo/contoh.jpg') }}" />
                     @endif
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript for Pop-up Functionality -->
     <script>
         const overlay = document.getElementById('overlay');
         const popUp = document.getElementById('pop-up');
@@ -42,28 +36,25 @@
         const closePopupButton = document.getElementById('close-popup');
         const body = document.body;
 
-        // Open Popup
         function openPopup() {
             overlay.classList.remove('hidden');
             popUp.classList.remove('opacity-0', 'pointer-events-none');
             popUp.classList.add('opacity-100', 'pointer-events-auto');
-            body.style.overflow = 'hidden'; // Disable scrolling
+            body.style.overflow = 'hidden';
         }
 
-        // Close Popup
+
         function closePopup() {
             overlay.classList.add('hidden');
             popUp.classList.remove('opacity-100', 'pointer-events-auto');
             popUp.classList.add('opacity-0', 'pointer-events-none');
-            body.style.overflow = ''; // Enable scrolling
+            body.style.overflow = '';
         }
 
-        // Event Listeners
         openPopupButton.addEventListener('click', openPopup);
         closePopupButton.addEventListener('click', closePopup);
         overlay.addEventListener('click', closePopup);
 
-        // For demonstration purposes, simulate opening the pop-up
         document.addEventListener('DOMContentLoaded', function() {
             openPopupButton.click();
         });

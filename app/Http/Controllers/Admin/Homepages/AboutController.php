@@ -30,12 +30,34 @@ class AboutController extends Controller
         return view('about-me', compact('galerySection', 'footerSection'));
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'subtitle' => 'required|string',
+            'video_path' => 'required|mimetypes:video/*|max:2400',
+        ]);
+
+        $aboutSection = new AboutSection();
+        $aboutSection->subtitle = $request->input('subtitle');
+
+        if ($request->hasFile('video_path')) {
+            $video = $request->file('video_path');
+            $videoName = $video->getClientOriginalName();
+            $video->storeAs('public/uploads/about-section', $videoName);
+            $aboutSection->video_path = $videoName;
+        }
+
+        $aboutSection->save();
+
+        return redirect()->route('admin.homepages.about.index')->with('success', 'Data successfully added');
+    }
+
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'subtitle' => 'nullable|string', 
+            'subtitle' => 'nullable|string',
             'video_path' => 'nullable|mimetypes:video/*|max:20400',
-        ]);        
+        ]);
 
         $aboutSection = AboutSection::findOrFail($id);
         $data = $request->only(['subtitle']);
@@ -54,28 +76,5 @@ class AboutController extends Controller
         $aboutSection->update($data);
 
         return redirect()->route('admin.homepages.about.index')->with('success', true)->with('toast', 'edit');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'subtitle' => 'required|string',
-            'video_path' => 'required|mimetypes:video/*|max:20400',
-        ]);
-
-       
-        $aboutSection = new AboutSection();
-        $aboutSection->subtitle = $request->input('subtitle');
-
-        if ($request->hasFile('video_path')) {
-            $video = $request->file('video_path');
-            $videoName = $video->getClientOriginalName();
-            $video->storeAs('public/uploads/about-section', $videoName);
-            $aboutSection->video_path = $videoName;
-        }
-
-        $aboutSection->save();
-
-        return redirect()->route('admin.homepages.about.index')->with('success', true)->with('toast', 'add');
     }
 }
