@@ -4,23 +4,24 @@
 
     @include('partials.pop-up')
 
+    {{-- Hero Section --}}
     <div class="relative">
         <div class="bg-fixed bg-cover bg-no-repeat"
             style="background-image: url('{{ asset('dist/images/homepages/zmi-bg-hero.webp') }}')">
             <div class="relative bg-gray-900 bg-opacity-90">
-                <div class="px-4 mx-auto sm:max-w-xl md:max-w-screen-xl md:px-24 lg:px-8 pt-16 lg:py-20">
+                <div class="px-4 mx-auto sm:max-w-xl lg:max-w-screen-xl pt-16 lg:py-20">
                     <div class="hidden lg:flex" id="shadow"></div>
-                    <div class="flex flex-col items-center justify-between md:flex-row py-8">
-                        <div class="w-full max-w-full lg:mb-12 xl:mb-0 text-center lg:text-left xl:pr-16 xl:w-7/12">
+                    <div class="flex flex-col items-center justify-between lg:flex-row py-8">
+                        <div class="w-full max-w-full lg:mb-12 xl:mb-0 text-center lg:text-left xl:w-7/12">
                             <h2
-                                class="max-w-xl mt-10 mb-6 text-4xl lg:text-left text-center font-semibold tracking-tight text-white">
+                                class="max-w-full mt-10 mb-6 text-4xl lg:text-5xl lg:text-left text-center font-semobild tracking-tight text-white">
                                 Partner Digital Untuk layanan Bisnis Dan Pemerintahan
                             </h2>
-                            <p class="max-w-xl mb-4 text-xl text-gray-300">
+                            <p class="max-w-xl mb-5 text-xl lg:text-2xl text-gray-300">
                                 Kami melayani jasa pembuatan website, aplikasi, dan multimedia.
                             </p>
                             <a href="#services"
-                                class="rounded-lg px-3.5 py-2 text-base font-semibold border border-gray-200 hover:bg-gray-200 hover:text-gray-800 text-white shadow-sm transition duration-300">
+                                class="rounded-lg px-3.5 py-2.5 text-base font-semibold border border-gray-200 hover:bg-gray-200 hover:text-gray-800 text-white shadow-sm transition duration-300">
                                 Lihat Selengkapnya
                             </a>
                         </div>
@@ -38,6 +39,7 @@
         </div>
     </div>
 
+    {{-- Service Section --}}
     <section class="w-full relative">
         <div class="py-12 relative overflow-hidden">
             <div class="container mx-auto px-6 lg:px-8 relative">
@@ -98,50 +100,55 @@
                 </div>
 
                 <img src="{{ asset('dist/images/homepages/absolute2.png') }}"
-                    class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs" alt="Zen Multimedia Indonesia">
+                    class="no-select absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs" alt="Zen Multimedia Indonesia">
             </div>
         </div>
     </section>
 
+    {{-- About Section --}}
     <div class="bg-fixed bg-cover bg-no-repeat py-12 lg:py-14"
         style="background-image: url('{{ asset('dist/images/homepages/zmi-bg-about.webp') }}')">
-        <section class="mx-auto max-w-screen-full lg:px-6">
+        <section class="mx-auto max-w-screen-full lg:px-6 py-10">
             <div class="container mx-auto px-6 lg:px-10">
                 <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                    class="lg:py-8 lg:my-5 lg:px-2 lg:max-w-none lg:flex rounded-xl ring-1 bg-white ring-gray-200">
-                    <div class="w-full lg:w-1/2 flex flex-wrap p-5">
+                    class="lg:py-8 lg:my-5 lg:px-2 lg:max-w-none lg:flex rounded-xl ring-1 bg-white ring-gray-200 shadow-lg transition-shadow duration-300 hover:shadow-xl">
+                    
+                    <div class="w-full lg:w-1/2 flex flex-wrap p-5 lg:p-8">
                         @if (!empty($aboutSection->video_path))
-                            <video class="w-full lg:max-w-full mx-auto lg:mx-10 border rounded-lg object-cover" controls
+                            <video class="w-full mx-auto lg:max-w-full lg:mx-10 border-2 border-gray-300 rounded-lg object-cover shadow-md" controls
                                 controlsList="nodownload">
-                                <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}"
-                                    type="video/webm">
+                                <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}" type="video/webm">
                             </video>
                         @else
-                            <video class="w-full lg:max-w-lg mx-auto lg:mx-10 border rounded-lg object-cover" controls
+                            <video class="w-full mx-auto lg:max-w-lg lg:mx-10 border-2 border-gray-300 rounded-lg object-cover shadow-md" controls
                                 controlsList="nodownload">
-                                <source src="{{ asset('dist/validate/about-section/zmi-profil-video.webm') }}"
-                                    type="video/webm">
+                                <source src="{{ asset('dist/validate/about-section/zmi-profil-video.webm') }}" type="video/webm">
                             </video>
                         @endif
                     </div>
-                    <div class="w-full lg:w-1/2 flex flex-wrap p-5">
+        
+                    <div class="w-full lg:w-1/2 flex flex-col justify-between p-5 lg:p-8">
                         <div class="mb-3">
-                            <h1 class="text-2xl lg:top-0 md:mx-5 mb-2 font-bold tracking-tight text-primary">
+                            <h1 class="text-3xl font-semibold tracking-tight text-primary mb-4 lg:mx-6">
                                 Kenapa Harus ZMI?
                             </h1>
-                            <p class="md:mx-5 max-w-full text-sm text-primary text-justify break-words">
+                            <p class="text-base lg:text-lg text-gray-700 text-justify lg:mx-6">
                                 {{ $aboutSection->subtitle ?? 'PT Zen Multimedia adalah perusahaan IT yang berfokus pada pembuatan website, aplikasi, dan multimedia. Berbasis di Purwakarta, kami terdiri dari tim berpengalaman yang memberikan layanan purna jual terbaik. Kami melayani pemerintahan, UMKM, swasta, dan perseorangan.' }}
                             </p>
                         </div>
-                        
-                        <img src="{{ asset('dist/images/homepages/diskominfo.png') }}"
-                             class="md:mx-5 mx-auto max-w-52 max-h-auto object-contain mt-4">
+                    
+                        <div class="flex no-select justify-center lg:justify-start mt-6 flex-grow">
+                            <img src="{{ asset('dist/images/homepages/diskominfo.png') }}" 
+                                 class=" lg:mx-6 mx-auto w-52 h-auto object-contain rounded-none transition-transform duration-300 hover:scale-105">
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </section>
     </div>
 
+    {{-- latest Project --}}
     <section class="w-full relative py-6 lg:py-12">
         <div class="container mx-auto px-6 lg:px-9">
             <div>
@@ -218,6 +225,7 @@
         </div>
     </section>
 
+    {{-- Gallery Section --}}
     <section class="w-full">
         <div class="">
             <div class=" container mx-auto px-6 lg:px-8">
@@ -265,6 +273,7 @@
             </div>
     </section>
 
+    {{-- Client Section --}}
     <div id="about" class="bg-fixed bg-cover bg-no-repeat"
         style="background-image: url('{{ asset('images/Rectangle 36.png') }}')">
         <section id="client" class="bg-lightblue py-6 mt-10 w-full">
@@ -274,17 +283,23 @@
                         <span class="text-primary">Mitra Kami</span>
                     </p>
                 </div>
-                <div class="relative mt-4 swiper-container swiper-klien-kami rounded-md overflow-hidden">
+                <div class="relative     swiper-container swiper-klien-kami rounded-md overflow-hidden">
                     <div class="non-marquee-wrapper">
                         <div class="non-marquee-container flex items-center">
-                            <!-- Daftar klien -->
+                            <!-- Daftar Mitra -->
                             @foreach ($clientSection as $client)
                                 <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
                                     <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
                                          alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
                                 </div>
                             @endforeach
-                            <!-- Duplikat klien untuk animasi berkelanjutan -->
+                            <!-- Duplikat Mitra untuk animasi berkelanjutan -->
+                            @foreach ($clientSection as $client)
+                                <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
+                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
+                                         alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
+                                </div>
+                            @endforeach
                             @foreach ($clientSection as $client)
                                 <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
                                     <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"

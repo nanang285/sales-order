@@ -1,6 +1,8 @@
 @extends('layouts.main')
 @section('container')
 @include('layouts.navbar')
+@include('components.preloader')
+
 
     <div class="relative">
         <div id="about" class="bg-fixed bg-cover bg-no-repeat"

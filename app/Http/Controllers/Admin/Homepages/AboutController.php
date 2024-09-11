@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Homepages;
 use App\Http\Controllers\Controller;
 
 use App\Models\AboutSection;
+use App\Models\OurTeam;
 use App\Models\FooterSection;
 use App\Models\GalerySection;
 use Illuminate\Http\Request;
@@ -23,11 +24,13 @@ class AboutController extends Controller
         ]);
     }
 
+    // Route to About-Me, Our-Team
     public function AboutIndex()
     {
-        $footerSection = footerSection::first();
         $galerySection = GalerySection::all();
-        return view('about-me', compact('galerySection', 'footerSection'));
+        $ourTeam = OurTeam::All();
+        $footerSection = footerSection::first();
+        return view('about-me', compact('galerySection', 'footerSection', 'ourTeam'));
     }
 
     public function store(Request $request)
@@ -44,8 +47,7 @@ class AboutController extends Controller
             $video = $request->file('video_path');
             $videoName = $video->getClientOriginalName();
 
-            // Tentukan path penyimpanan file
-            $destinationPath = public_path('uploads/about-section');
+            $destinationPath = public_path('storage/uploads/about-section');
 
             // Pindahkan file ke direktori yang diinginkan
             $video->move($destinationPath, $videoName);
@@ -72,11 +74,11 @@ class AboutController extends Controller
         if ($request->hasFile('video_path')) {
             $video = $request->file('video_path');
             $videoName = $video->getClientOriginalName();
-            $destinationPath = public_path('uploads/about-section');
+            $destinationPath = public_path('storage/uploads/about-section');
 
             // Hapus file lama jika ada
             if ($aboutSection->video_path) {
-                $oldFilePath = public_path('uploads/about-section/' . $aboutSection->video_path);
+                $oldFilePath = public_path('storage/uploads/about-section/' . $aboutSection->video_path);
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }

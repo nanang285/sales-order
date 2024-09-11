@@ -7,10 +7,32 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
-        return view('employees.index', compact('employees'));
+        $search = $request->input('search');
+        $filter = $request->query('filter', 'newest');
+
+        $breadcrumbTitle = 'Karyawan';
+
+        $employees = Employee::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%");
+            })
+            ->when($filter, function ($query, $filter) {
+                if ($filter == 'newest') {
+                    return $query->orderBy('created_at', 'desc');
+                } elseif ($filter == 'oldest') {
+                    return $query->orderBy('created_at', 'asc');
+                }
+            })
+            ->paginate(20);
+
+        return view('admin.employees.index', [
+            'breadcrumbTitle' => $breadcrumbTitle,
+            'employees' => $employees,
+            'filter' => $filter,
+            'search' => $search,
+        ]);
     }
 
     public function create()
@@ -45,7 +67,7 @@ class EmployeeController extends Controller
 
     public function edit(Employee $employee)
     {
-        return view('employees.edit', compact('employee'));
+        return view('admin.employees.edit', compact('employee'));
     }
 
     public function update(Request $request, Employee $employee)

@@ -21,7 +21,7 @@ class RecruitmentController extends Controller
         $search = $request->input('search');
         $filter = $request->query('filter', 'newest');
 
-        $breadcrumbTitle = 'Recruitment';
+        $breadcrumbTitle = 'Rekrutmen';
 
         $recruitments = Recruitment::query()
             ->when($search, function ($query, $search) {

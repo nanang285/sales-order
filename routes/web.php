@@ -7,10 +7,6 @@ use App\Http\Controllers\Admin\Homepages\GaleryController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployeeController;
-
-Route::resource('employees', EmployeeController::class);
-
 
 Route::get('/', [HomeController::class, 'index'])->name('');
 Route::get('/about-me', [AboutController::class, 'AboutIndex'])->name('aboutme');
