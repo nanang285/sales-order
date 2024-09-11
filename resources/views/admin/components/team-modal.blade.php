@@ -156,7 +156,7 @@
                 <!-- Modal body -->
                 <div class="">
                     <p class="text-sm text-red-500 ">Apakah Anda yakin ingin menghapus data ini?</p>
-                    <form class="mt-4" action="{{ route('admin.homepages.galery.destroy', $team->id) }}" method="POST">
+                    <form class="mt-4" action="{{ route('admin.homepages.our-team.destroy', $team->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                     
@@ -181,7 +181,7 @@
                             <div class="flex items-center justify-center w-full">
                                 <label for=""
                                     class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                    <img src="{{ asset('storage/uploads/galery-section/' . ($team->image_path ?? '')) }}"
+                                    <img src="{{ asset('storage/uploads/our-team/' . ($team->image_path ?? '')) }}"
                                     alt="Zen Multimedia Indonesia" class="w-14">
                                 </label>
                             </div>
