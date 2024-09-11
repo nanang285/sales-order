@@ -135,9 +135,6 @@
                             class="relative max-w-72 rounded-xl bg-white overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group">
                             <img class="object-cover shadow w-full h-auto transform transition-transform duration-300 ease-in-out group-hover:scale-105 lg:group-hover:scale-110"
                                 src="{{ asset('storage/uploads/our-team/' . ($team->image_path ?? '')) }}" alt="zmi-team-images">
-                            <div class="absolute top-2 left-2 p-2 bg-white rounded-full shadow-lg">
-                                <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" class="w-14 h-auto">
-                            </div>
                             <div class="absolute inset-x-0 py-4 bottom-5 flex flex-col items-center justify-center bg-gradient-to-t bg-gray-800 bg-opacity-80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <p class="text-white text-center text-xl font-semibold mb-1">{{ $team->title }}</p>
                                 <p class="text-white text-center text-lg font-normal">{{ $team->role }}</p>

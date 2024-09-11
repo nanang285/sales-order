@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
-@include('layouts.navbar')
-@include('components.preloader')
+    @include('layouts.navbar')
+    @include('components.preloader')
 
 
     <div class="relative">
@@ -61,8 +61,8 @@
                         </div>
                     @endforeach
                 </div>
-                <img src="{{ asset('dist/images/homepages/absolute2.png') }}" class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs"
-                    alt="Zen Multimedia Indonesia">
+                <img src="{{ asset('dist/images/homepages/absolute2.png') }}"
+                    class="absolute -bottom-24 -left-10 lg:w-1/4 max-w-xs" alt="Zen Multimedia Indonesia">
             </div>
         </div>
     </section>
