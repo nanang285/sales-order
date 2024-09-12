@@ -26,7 +26,6 @@ class GaleryController extends Controller
     public function DocIndex()
     {
         $galerySection = GalerySection::All();
-        $ourTeam = ourTeam::All();
         $footerSection = FooterSection::first();
         return view('documentation', compact('galerySection', 'footerSection'));
     }

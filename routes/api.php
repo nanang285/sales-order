@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\FingerprintController;
+use Illuminate\Support\Facades\Route;
 
-Route::post('/set-absensi', [FingerprintController::class, 'handleData']);
+// use App\Http\Controllers\AbsenController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// Route::post('/post-absensi', [\App\Http\Controllers\FingerprintController::class, 'handleData']);
+// Route::post('/post-absensi', [\App\Http\Controllers\AbsenController::class, 'handleData']);

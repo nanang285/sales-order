@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -63,7 +64,7 @@ class DashboardController extends Controller
 
     public function redirect()
     {
-        if (auth()->user()->role === 'admin') {
+        if (Auth::user()->role === 'admin') {
             return redirect()->route('admin.dashboard');
         } else {
             return redirect()->route('member.dashboard');
