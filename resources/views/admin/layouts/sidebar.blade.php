@@ -7,7 +7,7 @@
                 <div class= "mx-auto flex-grow flex justify-center lg:justify-start lg:flex-grow-0">
                     <a href="{{ Route('dashboard') }}"
                         class="flex items-center justify-center lg:justify-start text-base">
-                        <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" class="h-12 lg:h-11 lg:items-center"
+                        <img src="{{ asset('dist/images/logo/zmi-logo-2.webp') }}" class="h-12 lg:h-11 lg:items-center"
                             alt="zen-multimedia-logo" />
                     </a>
                 </div>
@@ -23,9 +23,9 @@
 
                     <li class="mt-4">
                         <a href="{{route('admin.employees.index')}}"
-                            class="{{ Route::currentRouteName() === 'admin.karyawan' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            class="{{ Route::currentRouteName() === 'admin.employees.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                             <i class="fa-solid fa-building-user text-base"></i>
-                            <span class="ml-3">Absensi</span>
+                            <span class="ml-3">Karyawan</span>
                         </a>
                     </li>
 
@@ -37,23 +37,7 @@
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Rekrutmen</span>
                         </a>
                     </li>
-
-                    {{-- <li class="">
-                        <a href=""
-                            class="{{ Route::currentRouteName() === 'admin.job.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
-                            <i class="fa-solid fa-user-plus"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Lowongan</span>
-                        </a>
-                    </li> --}}
-
-                    <li class="">
-                        <a href="{{ Route('admin.absensi.index') }}"
-                            class="{{ Route::currentRouteName() === 'admin.absensi.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
-                            <i class="fa-solid fa-fingerprint"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Absensi</span>
-                        </a>
-                    </li>
-
+        
                     <li>
                         <button type="button" id="dropdownButton"
                             class="flex items-center w-full font-semibold text-base px-4 py-2.5 text-gray-300 rounded-lg group hover:bg-[#bdd4f69d] transition duration-300"

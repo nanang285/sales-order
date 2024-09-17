@@ -63,7 +63,7 @@ class ClientController extends Controller
     {
         // Validasi input
         $request->validate([
-            'image_path' => 'nullable|image|mimetypes:image/*|max:4096', // Memperbolehkan semua jenis file gambar dengan maksimal ukuran 4MB
+            'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
         ]);
 
         $clientSection = ClientSection::findOrFail($id);
@@ -73,7 +73,7 @@ class ClientController extends Controller
 
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
-            $tempImageName = time() . '.' . $image->getClientOriginalExtension(); // Nama sementara
+            $tempImageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('storage/uploads/client-section');
 
             // Simpan gambar asli terlebih dahulu

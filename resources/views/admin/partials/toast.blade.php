@@ -16,6 +16,24 @@
 </div>
 @endif
 
+@if(session('toast') == 'error')
+<div id="toast-error" class="toast-message flex items-center w-full max-w-xs p-2 mb-4 my-6 text-gray-500 bg-white rounded-lg shadow fixed right-0 top-20 mr-4 mt-4 z-30"
+    role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
+        <i class="fa-solid fa-circle-check"></i>
+        <span class="sr-only">Check icon</span>
+    </div>
+    <div class="ms-3 text-sm font-normal">Tambah data Berhasil.</div>
+    <button type="button"
+        class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 
+        p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
+        data-dismiss-target="#toast-add" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+</div>
+@endif
+
 @if(session('toast') == 'add')
 <div id="toast-add" class="toast-message flex items-center w-full max-w-xs p-2 mb-4 my-6 text-gray-500 bg-white rounded-lg shadow fixed right-0 top-20 mr-4 mt-4 z-30"
     role="alert">

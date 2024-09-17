@@ -76,7 +76,6 @@ class AboutController extends Controller
             $videoName = $video->getClientOriginalName();
             $destinationPath = public_path('storage/uploads/about-section');
 
-            // Hapus file lama jika ada
             if ($aboutSection->video_path) {
                 $oldFilePath = public_path('storage/uploads/about-section/' . $aboutSection->video_path);
                 if (file_exists($oldFilePath)) {
@@ -84,7 +83,6 @@ class AboutController extends Controller
                 }
             }
             
-            // Pindahkan file baru
             $video->move($destinationPath, $videoName);
 
             $data['video_path'] = $videoName;

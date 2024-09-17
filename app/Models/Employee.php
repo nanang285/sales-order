@@ -22,8 +22,15 @@ class Employee extends Model
 
     protected $casts = [
         'id' => 'string',
+        'name' => 'string',
         'division' => 'string',
         'role' => 'string',
         'fingerprint_id' => 'integer'
     ];
+
+    public function absens()
+    {
+        return $this->hasMany(Absen::class, 'fingerprint_id', 'fingerprint_id');
+    }
+
 }

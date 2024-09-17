@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Homepages\PromoController;
 use App\Http\Controllers\Admin\Homepages\AboutController;
 use App\Http\Controllers\Admin\Homepages\TeamController;
 use App\Http\Controllers\RecruitmentController;
-use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
@@ -27,16 +27,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::delete('/{uuid}', 'destroy')->name('destroy');
     });
 
+    // Detail absen
+    Route::prefix('absen')->name('absen.')->controller(AbsenController::class)->group(function () {
+        // Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'detail')->name('detail');
+    });
+
     Route::prefix('employees')->name('employees.')->controller(EmployeeController::class)->group(function () {
         Route::get('/', 'index')->name('index');  
         Route::get('/{id}', 'edit')->name('edit');
         Route::post('/', 'store')->name('store');        
         Route::put('/{id}', 'update')->name('update');   
         Route::delete('/{id}', 'destroy')->name('destroy');
-    });
-
-    Route::prefix('absensi')->name('absensi.')->controller(AbsensiController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
     });
 
     Route::prefix('homepages')->name('homepages.')->group(function () {

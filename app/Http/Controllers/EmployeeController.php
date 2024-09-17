@@ -16,7 +16,7 @@ class EmployeeController extends Controller
 
         $employees = Employee::query()
             ->when($search, function ($query, $search) {
-                return $query->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%");
+                return $query->where('name', 'like', "%{$search}%")->orWhere('division', 'like', "%{$search}%");
             })
             ->when($filter, function ($query, $filter) {
                 if ($filter == 'newest') {
@@ -37,61 +37,40 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        return view('employees.create');
+        return view('admin.employees.create');
     }
 
-    public function store(Request $request)
+     
+
+    public function edit($id)
+    {
+        $breadcrumbTitle = 'Edit';
+        $employees = Employee::where('id', $id)->firstOrFail();
+        return view('admin.employees.edit', compact('employees', 'breadcrumbTitle'));
+    }
+
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'division' => 'required|in:Backend Developer,Frontend Developer,UI/UX Depelover,Mobile Developer,Fullstack Depelover,DevOps Developer',
-            'role' => 'required|in:Staff,Instership,Praktik Kerja Lapangan,Lead,Project Manager,Human Resource Development,Finance,Direktur',
-            'fingerprint_id' => 'nullable|integer',
+            'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
+            'role' => 'nullable|in:Employee,Staff,Internship,Lead,Project Manager,Human Resource Development,Finance,Direktur',
+            'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id',
         ]);
 
-        Employee::create([
-            'id' => (string) \Illuminate\Support\Str::uuid(), // Generate a new UUID
-            'name' => $request->input('name'),
-            'division' => $request->input('division'),
-            'role' => $request->input('role'),
-            'fingerprint_id' => $request->input('fingerprint_id')
-        ]);
+        $employees = Employee::findOrFail($id);
 
-        return redirect()->route('employees.index');
+        $employees->update($request->only(['name', 'division', 'role', 'fingerprint_id']));
+
+        return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'update');
     }
 
-    public function show(Employee $employee)
+    public function destroy($id)
     {
-        return view('employees.show', compact('employee'));
-    }
+        $employees = Employee::findOrFail($id);
 
-    public function edit(Employee $employee)
-    {
-        return view('admin.employees.edit', compact('employee'));
-    }
+        $employees->delete();
 
-    public function update(Request $request, Employee $employee)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'division' => 'required|in:Backend Developer,Frontend Developer,UI/UX Depelover,Mobile Developer,Fullstack Depelover,DevOps Developer',
-            'role' => 'required|in:Staff,Instership,Praktik Kerja Lapangan,Lead,Project Manager,Human Resource Development,Finance,Direktur',
-            'fingerprint_id' => 'nullable|integer',
-        ]);
-
-        $employee->update($request->only([
-            'name', 
-            'division', 
-            'role', 
-            'fingerprint_id'
-        ]));
-
-        return redirect()->route('employees.index');
-    }
-
-    public function destroy(Employee $employee)
-    {
-        $employee->delete();
-        return redirect()->route('employees.index');
+        return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'delete');
     }
 }
