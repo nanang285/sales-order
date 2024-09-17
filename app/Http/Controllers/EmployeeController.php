@@ -40,7 +40,25 @@ class EmployeeController extends Controller
         return view('admin.employees.create');
     }
 
-     
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
+            'role' => 'nullable|in:Employee,Staff,Internship,Lead,Project Manager,Human Resource Development,Finance,Direktur',
+            'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id',
+        ]);
+
+        Employee::create([
+            'id' => (string) \Illuminate\Support\Str::uuid(),
+            'name' => $request->input('name'),
+            'division' => $request->input('division'),
+            'role' => $request->input('role'),
+            'fingerprint_id' => $request->input('fingerprint_id'),
+        ]);
+
+        return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'add');
+    }
 
     public function edit($id)
     {
@@ -55,14 +73,14 @@ class EmployeeController extends Controller
             'name' => 'required|string|max:255',
             'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
             'role' => 'nullable|in:Employee,Staff,Internship,Lead,Project Manager,Human Resource Development,Finance,Direktur',
-            'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id',
+            'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id,' . $id,
         ]);
 
         $employees = Employee::findOrFail($id);
 
         $employees->update($request->only(['name', 'division', 'role', 'fingerprint_id']));
 
-        return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'update');
+        return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'edit');
     }
 
     public function destroy($id)

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('absens', function (Blueprint $table) {
             
             $table->unsignedBigInteger('fingerprint_id');
-            
+
             $table->foreign('fingerprint_id')->references('fingerprint_id')->on('employees')->onDelete('cascade');
         });
     }

@@ -122,7 +122,7 @@
                                 Divisi</label>
                             <select id="division" name="division"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
-                                <option value="" {{ is_null($employee->division) ? 'selected' : '' }}> </option>
+                                <option value="" {{ is_null($employee->division) ? 'selected' : '' }}> - </option>
                                 <option value="Backend Developer"
                                     {{ $employee->division == 'Backend Developer' ? 'selected' : '' }}>Backend
                                     Developer</option>
@@ -151,7 +151,7 @@
                             <select id="role" name="role"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
                                 <!-- Tidak ada opsi default, opsi kosong diizinkan -->
-                                <option value="" {{ is_null($employee->role) ? 'selected' : '' }}> </option>
+                                <option value="" {{ is_null($employee->role) ? 'selected' : '' }}> - </option>
                                 <option value="Employee" {{ $employee->role == 'Employee' ? 'selected' : '' }}>
                                     Employee
                                 </option>
