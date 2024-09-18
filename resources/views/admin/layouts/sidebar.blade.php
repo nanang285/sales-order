@@ -29,6 +29,14 @@
                         </a>
                     </li>
 
+                    <li class="mt-4">
+                        <a href="{{ route('admin.attendance.index')}}"
+                            class="{{ Route::currentRouteName() === 'admin.attendance.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            <i class="fa-solid fa-user-clock text-base"></i>
+                            <span class="ml-3">Jam Absen</span>
+                        </a>
+                    </li>
+
                     <li>
                         <a href="{{ route('admin.recruitment.index')    }}"
                             class="{{ Route::currentRouteName() === 'admin.recruitment.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">

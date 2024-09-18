@@ -9,4 +9,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/set-absensi', [\App\Http\Controllers\AbsenController::class, 'handleData']); 
+Route::post('/set-absensi', [\App\Http\Controllers\AbsenController::class, 'handleData']);

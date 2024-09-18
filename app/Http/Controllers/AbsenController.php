@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Absen;
 use App\Models\Employee;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Log;
 
@@ -16,6 +17,9 @@ class AbsenController extends Controller
 
         // Menampilkan Data karyawan yang dipilih berdasarkan $id
         $employee = Employee::findOrFail($id);
+
+        // Megnambil data dari tabel Attendance
+        // $attendances = Attendance::firstOrFail();
 
         // Mengambil semua kehadiran untuk karyawan yang dipilih
         $absens = Absen::where('fingerprint_id', $employee->fingerprint_id)
@@ -31,10 +35,9 @@ class AbsenController extends Controller
                 $timeIn = new \DateTime($absen->time_in);
                 $timeOut = new \DateTime($absen->time_out);
 
-                $JamMasuk = new \DateTime($timeIn->format('Y-m-d') . ' 09:00:00');
+                $JamMasuk = new \DateTime($timeIn->format('Y-m-d') . '09:00:00');
 
-                $JamKeluar = new \DateTime($timeIn->format('Y-m-d') . ' 18:00:00');
-
+                $JamKeluar = new \DateTime($timeIn->format('Y-m-d') . '18:00:00');
 
                 if ($timeIn < $JamMasuk) {
                     $timeIn = $JamMasuk;
@@ -62,11 +65,17 @@ class AbsenController extends Controller
         return view('admin.absen.detail-absen', compact('employee', 'absens', 'totalJamKerja', 'jumlahKehadiran', 'breadcrumbTitle'));
     }
 
+    // PROSES PENERIMAAN  DATA DARI REQUEST
     public function handleData(Request $request)
     {
         // ini validasi id request
         $id = $request->input('id', 0);
         $timestamp = $request->input('time_stamp', date('Y-m-d H:i:s'));
+
+        // Cek apakah ID yang diterima terdaftar atau tidak
+        if (!Employee::where('fingerprint_id', $id)->exists()) {
+            return response()->json(['message' => 'ID fingerprint tidak dikenali.'], 500);
+        }
 
         $timestamp = explode(' ', $timestamp);
 
@@ -88,31 +97,34 @@ class AbsenController extends Controller
         $date = $timestamp[0];
         $time = $timestamp[1];
 
-        $timeInMin = '06:00:00'; //Absen masuk minmal
-        $timeInMax = '10:00:00'; //Absen masuk maxmal / telat
-        $timeOutMin = '11:00:00'; // Absen keluar minimal
+        // Megnambil data dari tabel Attendance
+        $attendances = Attendance::firstOrFail();
+
+        $timeInMin = '06:00:00'; // Absen masuk minimal
+        $timeInMax = $attendances->time_in_max; // Absen masuk maksimal atau telat
+        // $timeOutMin = $attendances->time_out_min; // Absen keluar minimal
 
         $lastAbsen = Absen::where('fingerprint_id', $fingerprint_id)->where('date', $date)->orderBy('time_in', 'desc')->first();
 
-        if ($lastAbsen && Carbon::parse($lastAbsen->time_in)->diffInMinutes(Carbon::parse($time)) < 1) {
-            return response()->json(['message' => 'Anda sudah absen masuk sebelumnya'], 400);
+        if ($lastAbsen && Carbon::parse($lastAbsen->time_in)->diffInMinutes(Carbon::parse($time)) < 10) {
+            return response()->json(['message' => 'Gagal, Anda sudah absen masuk sebelumnya'], 500);
         }
 
         $absen = Absen::where('fingerprint_id', $fingerprint_id)->where('date', $date)->first();
 
         if ($absen) {
-            if ($time < $timeOutMin) {
-                return response()->json(['message' => 'Waktu absen pulang minimal jam 16:00'], 400);
-            }
+            // if ($time < $timeOutMin) {
+            //     return response()->json(['message' => 'Gagal, Waktu absen pulang belum terpenuhi'], 500);
+            // }
 
             if ($absen->time_out) {
-                return response()->json(['message' => 'Absen hari ini telah terpenuhi'], 400);
+                return response()->json(['message' => 'Gagal, Absen hari ini telah terpenuhi'], 500);
             } else {
                 $absen->time_out = $time;
             }
         } else {
             if ($time < $timeInMin) {
-                return response()->json(['message' => 'Waktu absen masuk minimal jam 06:00'], 400);
+                return response()->json(['message' => ' Gagal, Waktu absen masuk minimal jam 06:00'], 500);
             }
 
             $keterangan = $time > $timeInMax ? 'Telat' : 'Hadir';
@@ -128,7 +140,7 @@ class AbsenController extends Controller
 
         return response()->json(
             [
-                'message' => $absen->keterangan == 'Telat' ? 'Absen berhasil, namun telat' : 'Absen berhasil',
+                'message' => $absen->keterangan == 'Telat' ? 'Success, Absen berhasil, namun telat' : 'Success, Absen berhasil',
             ],
             201,
         );

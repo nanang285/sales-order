@@ -9,9 +9,10 @@ use App\Http\Controllers\Admin\Homepages\PromoController;
 use App\Http\Controllers\Admin\Homepages\AboutController;
 use App\Http\Controllers\Admin\Homepages\TeamController;
 use App\Http\Controllers\RecruitmentController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
@@ -27,10 +28,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::delete('/{uuid}', 'destroy')->name('destroy');
     });
 
-    // Detail absen
     Route::prefix('absen')->name('absen.')->controller(AbsenController::class)->group(function () {
-        // Route::get('/', 'index')->name('index');
         Route::get('/{id}', 'detail')->name('detail');
+    });
+
+    Route::prefix('attendance')->name('attendance.')->controller(AttendanceController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');        
+        Route::patch('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
     Route::prefix('employees')->name('employees.')->controller(EmployeeController::class)->group(function () {

@@ -10,8 +10,9 @@ class AboutSection extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'subtitle',
-        'video_path',
+        'time_in',
+        'time_in_max',
+        'time_ot',
+        'time_out_max'
     ];
 }
