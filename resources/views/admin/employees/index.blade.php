@@ -38,10 +38,11 @@
                                 </form>
                             </div>
                             <button data-modal-target="add_modal" data-modal-toggle="add_modal"
-                                class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center"
+                                class="transition duration-300 block font-medium rounded-md text-sm px-2.5 py-1 text-center text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500"
                                 type="button">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
+
                         </div>
                     </div>
                 </div>

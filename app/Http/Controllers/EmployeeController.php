@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,9 @@ class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
+        $isAdmin = $user->role === 'admin';
+
         $search = $request->input('search');
         $filter = $request->query('filter', 'newest');
 
@@ -25,23 +29,26 @@ class EmployeeController extends Controller
                     return $query->orderBy('created_at', 'asc');
                 }
             })
-            ->paginate(20);
+            ->paginate(100);
 
         return view('admin.employees.index', [
             'breadcrumbTitle' => $breadcrumbTitle,
             'employees' => $employees,
             'filter' => $filter,
             'search' => $search,
+            'isAdmin' => $isAdmin,
         ]);
-    }
-
-    public function create()
-    {
-        return view('admin.employees.create');
     }
 
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
@@ -60,15 +67,15 @@ class EmployeeController extends Controller
         return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'add');
     }
 
-    public function edit($id)
-    {
-        $breadcrumbTitle = 'Edit';
-        $employees = Employee::where('id', $id)->firstOrFail();
-        return view('admin.employees.edit', compact('employees', 'breadcrumbTitle'));
-    }
-
     public function update(Request $request, $id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
@@ -85,6 +92,13 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+
         $employees = Employee::findOrFail($id);
 
         $employees->delete();

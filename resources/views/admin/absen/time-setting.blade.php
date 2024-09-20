@@ -84,13 +84,6 @@
                                                         type="button">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </button>
-                                                    <button data-modal-target="delete_modal_{{ $attendances->id ?? '' }}"
-                                                        data-modal-toggle="delete_modal_{{ $attendances->id ?? '' }}"
-                                                        class="text-red-700 border border-red-700 hover:bg-red-800 hover:text-white font-medium rounded text-sm 
-                                                        px-2.5 py-1.5 m-1 text-center"
-                                                        type="button">
-                                                        <i class="fa-solid fa-trash "></i>
-                                                    </button>
                                                 @endif
                                             </td>
 

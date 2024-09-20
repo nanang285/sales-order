@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin\Homepages;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -22,13 +25,15 @@ class TeamController extends Controller
         return view('admin.homepages.our-team', compact('ourTeam', 'breadcrumbTitle'));
     }
 
-    public function create()
-    {
-        return view('admin.our-team.create');
-    }
-
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'title' => 'required|string|max:255',
             'role' => 'required|string|max:255',
@@ -78,6 +83,13 @@ class TeamController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'title' => 'string|max:255',
             'role' => 'string|max:255',
@@ -140,6 +152,13 @@ class TeamController extends Controller
 
     public function destroy($id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $project = OurTeam::findOrFail($id);
 
         if ($project->image_path) {

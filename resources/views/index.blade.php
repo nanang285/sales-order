@@ -11,13 +11,12 @@
             <div class="relative bg-gray-900 bg-opacity-90">
                 <div class="px-4 mx-auto sm:max-w-xl lg:max-w-screen-xl pt-16 lg:py-20">
                     <div class="hidden lg:flex" id="shadow"></div>
-                    <div class="flex flex-col items-center justify-between lg:flex-row py-8">
-                        <div class="w-full max-w-full lg:mb-12 xl:mb-0 text-center lg:text-left xl:w-7/12">
-                            <h2
-                                class="max-w-full mt-10 mb-6 text-4xl lg:text-5xl lg:text-left text-center font-semobild tracking-tight text-white">
+                    <div class="flex flex-col lg:flex-row justify-between py-8 w-full">
+                        <div class="w-full lg:w-7/12 text-center lg:text-left">
+                            <h2 class="text-4xl lg:text-5xl font-semibold tracking-tight text-white mb-6">
                                 Partner Digital Untuk layanan Bisnis Dan Pemerintahan
                             </h2>
-                            <p class="max-w-xl mb-5 text-xl lg:text-2xl text-gray-300">
+                            <p class="text-xl lg:text-2xl text-gray-300 mb-5">
                                 Kami melayani jasa pembuatan website, aplikasi, dan multimedia.
                             </p>
                             <a href="#services"
@@ -25,19 +24,16 @@
                                 Lihat Selengkapnya
                             </a>
                         </div>
-                        <div class="w-full max-w-lg  xl:w-xl">
-                            <div class="flex items-center justify-center flex-col lg:flex-row">
-                                <div class="flex-none">
-                                    <img src="{{ asset('dist/images/homepages/zmi-hero-images.webp') }}"
-                                        alt="zenmultimediaindonesia" class="w-full max-w-xl h-auto object-cover">
-                                </div>
-                            </div>
+                        <div class="w-full lg:w-5/12 flex items-center justify-center mt-10 lg:mt-0">
+                            <img src="{{ asset('dist/images/homepages/zmi-hero-images.webp') }}"
+                                alt="zenmultimediaindonesia" class="w-full h-auto object-cover">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
 
     {{-- Service Section --}}
     <section class="w-full relative">

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Recruitment;
 use Illuminate\Support\Facades\File;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -82,6 +85,14 @@ class RecruitmentController extends Controller
 
     public function edit($uuid)
     {
+        
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
         $breadcrumbTitle = 'Edit';
         return view('admin.recruitment.edit', compact('recruitment', 'breadcrumbTitle'));
@@ -89,6 +100,14 @@ class RecruitmentController extends Controller
 
     public function update(Request $request, string $id)
     {
+        
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -122,6 +141,14 @@ class RecruitmentController extends Controller
 
     public function updateStage(Request $request, $uuid, $stage)
     {
+        
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
 
         if ($recruitment->failed_stage) {
@@ -154,6 +181,14 @@ class RecruitmentController extends Controller
 
     public function add()
     {
+        
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $breadcrumbTitle = 'Add';
         return view('admin.recruitment.add', compact('breadcrumbTitle'));
     }
@@ -161,6 +196,7 @@ class RecruitmentController extends Controller
     // Store data in users
     public function store(Request $request)
     {
+        
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -222,6 +258,14 @@ class RecruitmentController extends Controller
     // Store Data In Company Profile (Admin)
     public function Adminstore(Request $request)
     {
+        
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -273,6 +317,14 @@ class RecruitmentController extends Controller
 
     public function destroy($uuid)
     {
+        
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
         $recruitment = Recruitment::findOrFail($uuid);
 

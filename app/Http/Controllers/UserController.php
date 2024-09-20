@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\View\View;
 
 use Illuminate\Http\RedirectResponse;
 
@@ -15,45 +14,127 @@ class UserController extends Controller
 {
     public function index()
     {
+        $users = User::all();
 
-        $users = User::All();
-        return view('admin.users.index', compact('users'));
+        return response()->json(['success' => true, 'message' => 'Suceess, Daftar user berhasil diambil', 'data' => $users], 200);
     }
 
-    public function AdminEdit($request)
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:50',
+                'email' => 'required|string|email|max:50|unique:users,email',
+                'password' => 'required|string|min:8',
+                'role' => 'required|string|in:admin,tester',
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+            ]);
+
+            return response()->json(
+                [
+                    'message' => 'Succes, User berhasil dibuat',
+                    'data' => $user,
+                ],
+                201,
+            );
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(
+                [
+                    'message' => 'Error, Validasi gagal',
+                    'errors' => $e->errors(),
+                ],
+                422,
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'message' => 'Error, Terjadi kesalahan pada server',
+                ],
+                500,
+            );
+        }
+    }
+
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $request->id,
-            'role' => 'required|string|in:admin,user',
-        ]);
-    }
-    
-    public function edit(User $user)
-    {
-        return view('users.edit', compact('user'));
-    }
-
-    public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'role' => 'required|string|in:admin,user',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8',
+            'role' => 'required|string|in:admin,tester',
         ]);
 
-        $user->update($request->only(['name', 'email', 'role']));
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error, User tidak ditemukan',
+                ],
+                404,
+            );
+        }
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+        ]);
 
         if ($request->filled('password')) {
             $user->update(['password' => Hash::make($request->password)]);
         }
 
-        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui');
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Success, User berhasil diperbarui',
+                'data' => $user,
+            ],
+            200,
+        );
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus');
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error, User tidak ditemukan',
+                ],
+                404,
+            );
+        }
+
+        try {
+            $user->delete();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Error, User berhasil dihapus',
+                ],
+                200,
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => ' Error, Terjadi kesalahan saat menghapus user',
+                    'error' => $e->getMessage(),
+                ],
+                500,
+            );
+        }
     }
 }

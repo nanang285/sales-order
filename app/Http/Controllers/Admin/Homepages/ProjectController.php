@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -32,13 +36,15 @@ class ProjectController extends Controller
         return view('portofolio', compact('latestProject', 'footerSection'));
     }
 
-    public function create()
-    {
-        return view('admin.project.create');
-    }
-
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'title' => 'required|string|max:50',
             'subtitle' => 'required|string|max:255',
@@ -87,19 +93,15 @@ class ProjectController extends Controller
         return redirect()->route('admin.homepages.project.index')->with('success', true)->with('toast', 'add');
     }
 
-    public function edit(): View
-    {
-        $latestProject = LatestProject::All();
-
-        if (!$latestProject) {
-            $latestProject = new LatestProject();
-        }
-
-        return view('admin.project.edit', compact('latestProject'));
-    }
-
     public function update(Request $request, string $id): RedirectResponse
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'title' => 'string|max:50',
             'subtitle' => 'string|max:255',
@@ -164,6 +166,13 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $project = LatestProject::findOrFail($id);
         if ($project->image_path) {
             Storage::disk('public')->delete('uploads/latest-project/' . $project->image_path);

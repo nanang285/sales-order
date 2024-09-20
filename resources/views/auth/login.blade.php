@@ -82,14 +82,9 @@
 
                         <div class="flex space-x-3">
                             <button type="submit"
-                                class="w-1/2 text-lg text-white bg-transparent border border-white rounded-md font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
+                                class="w-full text-lg text-white bg-transparent border border-white rounded-md font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
                                 Masuk
                             </button>
-
-                            <a href="{{ route('register') }}"
-                                class="w-1/2 text-lg text-center text-white bg-transparent border border-white rounded-md font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
-                                Daftar
-                            </a>
                         </div>
                     </form>
                 </div>

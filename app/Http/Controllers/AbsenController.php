@@ -14,19 +14,13 @@ class AbsenController extends Controller
     public function detail($id)
     {
         $breadcrumbTitle = 'Detail Absen';
-
-        // Menampilkan Data karyawan yang dipilih berdasarkan $id
         $employee = Employee::findOrFail($id);
 
-        // Megnambil data dari tabel Attendance
-        // $attendances = Attendance::firstOrFail();
-
-        // Mengambil semua kehadiran untuk karyawan yang dipilih
         $absens = Absen::where('fingerprint_id', $employee->fingerprint_id)
             ->oldest()
             ->get();
 
-        // Menghitung jam absen karyawan
+        // Ini Untuk Menghitung total Jam Kerja & Absen Karyawan
         $totalMenit = 0;
         $jumlahKehadiran = $absens->count();
 
@@ -35,25 +29,19 @@ class AbsenController extends Controller
                 $timeIn = new \DateTime($absen->time_in);
                 $timeOut = new \DateTime($absen->time_out);
 
-                $JamMasuk = new \DateTime($timeIn->format('Y-m-d') . '09:00:00');
+                $interval = $timeIn->diff($timeOut);
+                $selisihMenit = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
 
-                $JamKeluar = new \DateTime($timeIn->format('Y-m-d') . '18:00:00');
+                $istirahatMulai = new \DateTime($timeIn->format('Y-m-d') . ' 12:00:00');
+                $istirahatSelesai = new \DateTime($timeIn->format('Y-m-d') . ' 13:00:00');
 
-                if ($timeIn < $JamMasuk) {
-                    $timeIn = $JamMasuk;
+                if ($timeIn <= $istirahatSelesai && $timeOut >= $istirahatMulai) {
+                    $selisihMenit -= 60;
                 }
 
-                if ($timeOut > $JamKeluar) {
-                    $interval = $timeIn->diff($JamKeluar);
-                    $totalMenit += $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
-                } else {
-                    $interval = $timeIn->diff($timeOut);
-                    $totalMenit += $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
-                }
+                $totalMenit += $selisihMenit;
             }
         }
-
-        $totalMenit -= 60;
 
         $totalMenit = max($totalMenit, 0);
 
@@ -65,16 +53,14 @@ class AbsenController extends Controller
         return view('admin.absen.detail-absen', compact('employee', 'absens', 'totalJamKerja', 'jumlahKehadiran', 'breadcrumbTitle'));
     }
 
-    // PROSES PENERIMAAN  DATA DARI REQUEST
+    // PROSES PENERIMAAN  DATA DARI REQUEST FINGERPRINT/IOT
     public function handleData(Request $request)
     {
-        // ini validasi id request
         $id = $request->input('id', 0);
         $timestamp = $request->input('time_stamp', date('Y-m-d H:i:s'));
 
-        // Cek apakah ID yang diterima terdaftar atau tidak
         if (!Employee::where('fingerprint_id', $id)->exists()) {
-            return response()->json(['message' => 'ID fingerprint tidak dikenali.'], 500);
+            return response()->json(['message' => 'Error, ID fingerprint tidak terdaftar.'], 500);
         }
 
         $timestamp = explode(' ', $timestamp);
@@ -87,7 +73,6 @@ class AbsenController extends Controller
 
         // Log::info('data: ', ['data' => $data]);
 
-        // Bgaian Request data ke database
         $request->validate([
             'id' => 'required|exists:employees,fingerprint_id',
             'time_stamp' => 'required|date_format:Y-m-d H:i:s',
@@ -98,11 +83,10 @@ class AbsenController extends Controller
         $time = $timestamp[1];
 
         // Megnambil data dari tabel Attendance
-        $attendances = Attendance::firstOrFail();
+        $attendances = Attendance::first();
 
         $timeInMin = '06:00:00'; // Absen masuk minimal
         $timeInMax = $attendances->time_in_max; // Absen masuk maksimal atau telat
-        // $timeOutMin = $attendances->time_out_min; // Absen keluar minimal
 
         $lastAbsen = Absen::where('fingerprint_id', $fingerprint_id)->where('date', $date)->orderBy('time_in', 'desc')->first();
 

@@ -6,7 +6,7 @@
                 class="inline-flex p-1 me-3 bg-gray-200 rounded-full dark:bg-gray-600 w-6 h-6 items-center justify-center">
                 <i class="fa-solid fa-handshake"></i>
             </span>
-            <span class="text-center">"Tunggu apa lagi? Ayo Bangun Website Anda & Jadilah Mitra Kami!"
+            <span class="text-center">"Tunggu apa lagi? Ayo Bangun Sistem Anda & Jadilah Mitra Kami!"
             </span>
         </p>
     </div>

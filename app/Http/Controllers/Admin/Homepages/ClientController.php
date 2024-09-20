@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use App\Models\ClientSection;
 
 use Intervention\Image\Facades\Image;
@@ -24,6 +27,13 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
@@ -61,6 +71,13 @@ class ClientController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         // Validasi input
         $request->validate([
             'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
@@ -128,6 +145,13 @@ class ClientController extends Controller
 
     public function destroy($id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $clientSection = ClientSection::findOrFail($id);
 
         if ($clientSection->image_path) {

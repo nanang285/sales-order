@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use App\Models\AboutSection;
 use App\Models\OurTeam;
 use App\Models\FooterSection;
@@ -24,7 +27,6 @@ class AboutController extends Controller
         ]);
     }
 
-    // Route to About-Me, Our-Team
     public function AboutIndex()
     {
         $galerySection = GalerySection::all();
@@ -35,6 +37,13 @@ class AboutController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'subtitle' => 'required|string',
             'video_path' => 'required|mimetypes:video/*|max:20400',
@@ -49,10 +58,8 @@ class AboutController extends Controller
 
             $destinationPath = public_path('storage/uploads/about-section');
 
-            // Pindahkan file ke direktori yang diinginkan
             $video->move($destinationPath, $videoName);
 
-            // Simpan nama file ke database
             $aboutSection->video_path = $videoName;
         }
 
@@ -63,6 +70,13 @@ class AboutController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'subtitle' => 'nullable|string',
             'video_path' => 'nullable|mimetypes:video/*|max:20400',

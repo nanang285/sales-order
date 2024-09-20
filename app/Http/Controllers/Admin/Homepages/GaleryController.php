@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin\Homepages;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -30,13 +33,15 @@ class GaleryController extends Controller
         return view('documentation', compact('galerySection', 'footerSection'));
     }
 
-    public function create()
-    {
-        return view('admin.galery.create');
-    }
-
     public function edit()
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+
         $galerySection = GalerySection::All();
 
         if (!$galerySection) {
@@ -47,70 +52,20 @@ class GaleryController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'subtitle' => 'required|string|max:255',
-        'image_path' => 'required|image|mimetypes:image/*|max:4096',
-    ]);
+    {
+        $user = auth()->user();
 
-    $image = $request->file('image_path');
-    $tempImageName = time() . '.' . $image->getClientOriginalExtension();
-    $imagePath = public_path('storage/uploads/galery-section');
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
 
-    // Simpan gambar asli terlebih dahulu
-    $image->move($imagePath, $tempImageName);
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string|max:255',
+            'image_path' => 'required|image|mimetypes:image/*|max:4096',
+        ]);
 
-    // Resize gambar dan ubah format ke WebP
-    $imgPath = $imagePath . '/' . $tempImageName;
-    $img = imagecreatefromstring(file_get_contents($imgPath));
-    $width = imagesx($img);
-    $height = imagesy($img);
-
-    // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
-    $newWidth = $width * 0.5;
-    $newHeight = $height * 0.5;
-    $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
-
-    // Buat gambar baru dengan ukuran yang diubah
-    $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
-    imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-    // Simpan gambar yang telah diubah format dan ukuran file-nya
-    $newImageName = time() . '.webp';
-    $newImagePath = $imagePath . '/' . $newImageName;
-    imagewebp($resizedImg, $newImagePath, $compressionQuality);
-
-    // Hapus gambar sementara
-    unlink($imgPath);
-    imagedestroy($img);
-    imagedestroy($resizedImg);
-
-    GalerySection::create([
-        'title' => $request->title,
-        'subtitle' => $request->subtitle,
-        'image_path' => $newImageName,
-    ]);
-
-    return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'add');
-}
-
-public function update(Request $request, string $id)
-{
-    $request->validate([
-        'title' => 'string|max:255',
-        'subtitle' => 'string|max:255',
-        'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
-    ]);
-
-    $galerySection = Galerysection::findOrFail($id);
-
-    $updateData = [
-        'title' => $request->title,
-        'subtitle' => $request->subtitle,
-    ];
-
-    if ($request->hasFile('image_path')) {
         $image = $request->file('image_path');
         $tempImageName = time() . '.' . $image->getClientOriginalExtension();
         $imagePath = public_path('storage/uploads/galery-section');
@@ -143,23 +98,93 @@ public function update(Request $request, string $id)
         imagedestroy($img);
         imagedestroy($resizedImg);
 
-        // Hapus gambar lama jika ada
-        $oldImagePath = 'public/uploads/galery-section/' . $galerySection->image_path;
-        if (Storage::exists($oldImagePath)) {
-            Storage::delete($oldImagePath);
-        }
+        GalerySection::create([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'image_path' => $newImageName,
+        ]);
 
-        $updateData['image_path'] = $newImageName;
+        return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'add');
     }
 
-    $galerySection->update($updateData);
+    public function update(Request $request, string $id)
+    {
+        $user = auth()->user();
 
-    return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'edit');
-}
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
+        $request->validate([
+            'title' => 'string|max:255',
+            'subtitle' => 'string|max:255',
+            'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
+        ]);
 
+        $galerySection = Galerysection::findOrFail($id);
+
+        $updateData = [
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+        ];
+
+        if ($request->hasFile('image_path')) {
+            $image = $request->file('image_path');
+            $tempImageName = time() . '.' . $image->getClientOriginalExtension();
+            $imagePath = public_path('storage/uploads/galery-section');
+
+            // Simpan gambar asli terlebih dahulu
+            $image->move($imagePath, $tempImageName);
+
+            // Resize gambar dan ubah format ke WebP
+            $imgPath = $imagePath . '/' . $tempImageName;
+            $img = imagecreatefromstring(file_get_contents($imgPath));
+            $width = imagesx($img);
+            $height = imagesy($img);
+
+            // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
+            $newWidth = $width * 0.5;
+            $newHeight = $height * 0.5;
+            $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
+
+            // Buat gambar baru dengan ukuran yang diubah
+            $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
+            imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+            // Simpan gambar yang telah diubah format dan ukuran file-nya
+            $newImageName = time() . '.webp';
+            $newImagePath = $imagePath . '/' . $newImageName;
+            imagewebp($resizedImg, $newImagePath, $compressionQuality);
+
+            // Hapus gambar sementara
+            unlink($imgPath);
+            imagedestroy($img);
+            imagedestroy($resizedImg);
+
+            // Hapus gambar lama jika ada
+            $oldImagePath = 'public/uploads/galery-section/' . $galerySection->image_path;
+            if (Storage::exists($oldImagePath)) {
+                Storage::delete($oldImagePath);
+            }
+
+            $updateData['image_path'] = $newImageName;
+        }
+
+        $galerySection->update($updateData);
+
+        return redirect()->route('admin.homepages.galery.index')->with('success', true)->with('toast', 'edit');
+    }
 
     public function destroy($id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $project = GalerySection::findOrFail($id);
 
         if ($project->image_path) {

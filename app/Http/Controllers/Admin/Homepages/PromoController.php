@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\Homepages;
 use App\Http\Controllers\Controller;
 use App\Models\Promo;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Facades\Image;
@@ -22,19 +25,15 @@ class PromoController extends Controller
         return view('admin.homepages.popup', compact('promoSection', 'breadcrumbTitle'));
     }
 
-    public function edit()
-    {
-        $promoSection = Promo::first();
-
-        if (!$promoSection) {
-            $promoSection = new Promo();
-        }
-
-        return view('admin.promo.edit', compact('promoSection'));
-    }
-
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
@@ -87,6 +86,13 @@ class PromoController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'image_path' => 'required|image|mimetypes:image/*|max:4096',
         ]);
@@ -147,6 +153,13 @@ class PromoController extends Controller
 
     public function destroy($id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $project = Promo::findOrFail($id);
 
         if ($project->image_path) {

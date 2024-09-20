@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use App\Models\FooterSection;
 use Illuminate\Http\Request;
 
@@ -21,6 +24,13 @@ class FooterController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'alamat' => 'nullable|string',
             'no_telp' => 'nullable|string',
@@ -44,6 +54,13 @@ class FooterController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== 'admin') {
+            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
+            return redirect()->back();
+        }
+        
         $request->validate([
             'alamat' => 'nullable|string',
             'no_telp' => 'nullable|string',

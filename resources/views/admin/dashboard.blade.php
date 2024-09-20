@@ -5,22 +5,38 @@
             @include('admin.partials.breadcrumb')
             @include('admin.partials.toast')
 
-            @php
-                use Carbon\Carbon;
-                setlocale(LC_TIME, 'id_ID');
-                \Carbon\Carbon::setLocale('id');
-                $currentDate = Carbon::now()->translatedFormat('l, d F Y');
-            @endphp
-
-            <div class="max-w-full mx-auto my-4 bg-white border rounded-xl overflow-hidden flex items-center p-6 space-x-4">
-                <img class="w-16 h-16 p-2 rounded-full border-2 border-blue-500"
-                    src="{{ asset('dist/images/logo/zmi-logo-3.webp') }}" alt="Avatar">
-                <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Hai, {{ Auth::user()->name }}</h2>
-                    <p class="text-gray-500 text-xl font-semibold">Semangat, dan selamat beraktivitas - {{ $currentDate }}
+            <div
+                class="max-w-full mx-auto my-4 bg-white border rounded-xl overflow-hidden flex justify-between items-center p-6 space-x-4">
+                <div class="flex items-center space-x-4">
+                    <img class="w-16 h-16 p-2 rounded-full border-2 border-blue-500"
+                        src="{{ asset('dist/images/logo/zmi-logo-3.webp') }}" alt="Avatar">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-800">Hai, {{ Auth::user()->name }}</h2>
+                        <p class="text-gray-500 text-xl font-semibold">
+                            Semangat, dan selamat beraktivitas -
+                            <span
+                                id="date">{{ \Carbon\Carbon::now()->setTimezone(config('app.timezone'))->translatedFormat('l, d F Y') }}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p id="time" class="text-xl font-semibold bg-blue-500 shadow-md px-2 py-1.5 rounded-md text-white">
+                        {{ \Carbon\Carbon::now()->setTimezone(config('app.timezone'))->format('H:i:s') }}
                     </p>
                 </div>
             </div>
+
+            <script>
+                function updateTime() {
+                    var now = new Date();
+                    var formattedTime = now.toLocaleTimeString('id-ID');
+                    $('#time').text(formattedTime);
+                }
+
+                $(document).ready(function() {
+                    setInterval(updateTime, 1000);
+                });
+            </script>
 
             <div class="max-w-full mx-auto my-4 bg-white border rounded-xl overflow-hidden p-6">
                 <div class="flex space-x-6 col-span-10">
@@ -115,11 +131,20 @@
                                 <tbody class="divide-y rounded-xl divide-gray-200">
                                     @foreach ($employees as $employee)
                                         <tr>
-                                            <td class="px-4 py-2 whitespace-nowrap text-base font-bold text-blue-600 hover:text-blue-800 border">
-                                                <a href="{{ route('admin.absen.detail', $employee->id) }}">
-                                                    <div class="fa-solid fa-eye"></div>
-                                                </a>
+                                            <td
+                                                class="px-4 py-2 whitespace-nowrap text-base font-bold 
+                                                @if ($isAdmin) text-blue-600 hover:text-blue-800 border
+                                                @else
+                                                        text-gray-400 cursor-not-allowed border @endif">
+                                                @if ($isAdmin)
+                                                    <a href="{{ route('admin.absen.detail', $employee->id) }}">
+                                                        <div class="fa-solid fa-eye"></div>
+                                                    </a>
+                                                @else
+                                                    <span class="fa-solid fa-eye"></span>
+                                                @endif
                                             </td>
+
                                             <td class="px-5 py-2 whitespace-nowrap text-sm font-bold text-gray-800 border">
                                                 {{ $employee->name }}
                                             </td>
@@ -137,7 +162,7 @@
                                                         ->where('date', $date)
                                                         ->first();
                                                 @endphp
-                                                <td class="px-5 py-2 whitespace-nowrap text-sm font-medium border">
+                                                <td class="px-5 py-2 whitespace-nowrap text-sm font-medium border items-center justify-center">
                                                     @if ($selectedMonth->format('Y-m') < $currentMonth)
                                                         @if ($hadir)
                                                             <i class="fa-solid fa-check text-green-500 rounded-full"></i>
@@ -153,7 +178,7 @@
                                                             <i class="fa-solid fa-times text-red-500 rounded-full"></i>
                                                         @endif
                                                     @else
-                                                        <span class="text-gray-400 rounded-full">-</span>
+                                                        <span class="text-gray-400 rounded-full"></span>
                                                     @endif
                                                 </td>
                                             @endforeach
