@@ -11,7 +11,6 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/set-absensi', [\App\Http\Controllers\AbsenController::class, 'handleData']);
 
-Route::get('/show-user', [\App\Http\Controllers\UserController::class, 'index']);
 Route::post('/add-user', [\App\Http\Controllers\UserController::class, 'store']);
 Route::put('/edit-user/{id}', [\App\Http\Controllers\UserController::class, 'update']);
 Route::delete('/delete-user/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Admin\Homepages\ProjectController;
 use App\Http\Controllers\Admin\Homepages\ServiceController;
 use App\Http\Controllers\Admin\Homepages\ClientController;
@@ -7,13 +9,14 @@ use App\Http\Controllers\Admin\Homepages\FooterController;
 use App\Http\Controllers\Admin\Homepages\GaleryController;
 use App\Http\Controllers\Admin\Homepages\PromoController;
 use App\Http\Controllers\Admin\Homepages\AboutController;
+use App\Http\Controllers\Admin\Homepages\AboutUsController;
+use App\Http\Controllers\Admin\Homepages\VissionMissionController;
 use App\Http\Controllers\Admin\Homepages\TeamController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
 
@@ -41,10 +44,23 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::prefix('employees')->name('employees.')->controller(EmployeeController::class)->group(function () {
         Route::get('/', 'index')->name('index');  
-        Route::get('/{id}', 'edit')->name('edit');
         Route::post('/', 'store')->name('store');        
         Route::put('/{id}', 'update')->name('update');   
         Route::delete('/{id}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('about-us')->name('about-us.')->controller(AboutUsController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/{id}', 'update')->name('update');
+        Route::post('/', 'store')->name('store');;
+
+    });
+
+    Route::prefix('visi-misi')->name('visi-misi.')->controller(VissionMissionController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/{id}', 'update')->name('update');
+        Route::post('/', 'store')->name('store');;
+
     });
 
     Route::prefix('homepages')->name('homepages.')->group(function () {
@@ -56,7 +72,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
-        Route::prefix('service')->name('service.')->controller(ServiceController::class)->group(function () {
+         Route::prefix('service')->name('service.')->controller(ServiceController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
             Route::patch('/{id}', 'update')->name('update');

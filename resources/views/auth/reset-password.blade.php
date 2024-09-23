@@ -1,6 +1,3 @@
-
-@include('partials.end') --}}
-
 @extends('layouts.main')
 @section('container')
     @include('partials.start')
@@ -18,23 +15,24 @@
                 <img src="{{ asset('dist/images/homepages/zmi-auth-images.png') }}" alt="zen-multimedia-indonesia"
                     class="w-full max-w-md mx-auto" />
                 <p class="text-center text-blue-900 text-xl font-semibold mt-4 mb-1">
-                    Partner Digital Untuk Layanan Bisnis dan Pemerintahan</p>
+                    Partner Digital Untuk Layanan Bisnis dan Pemerintahan
+                </p>
                 <p class="text-center text-skyblue font-semibold text-sm">PT ZEN MULTIMEDIA INDONESIA</p>
             </div>
         </main>
-        <aside class="w-full lg:w-2/5 bg-[#213c88f1] min-h-screen">
-            <div class="h-full px-8 flex flex-col justify-between">
-                <div class="w-full max-w-md xl:max-w-xl mx-auto lg:px-6 mt-28">
+        <aside class="w-full lg:w-2/5 bg-[#213c88f1] flex flex-col justify-between min-h-screen">
+            <div class="flex-grow px-8">
+                <div class="w-full max-w-md mx-auto mt-28">
                     <div class="text-center mb-10">
-                        <h3 class="text-xl md:text-1xl text-white">Selamat Datang Kembali</h3>
-                        <p class="text-base text-gray-300 mt-1">Pulihkan akun Anda</p>
+                        <h3 class="text-xl md:text-2xl text-white font-bold">Selamat Datang Kembali</h3>
+                        <p class="text-base text-gray-300 mt-1">Pulihkan Akun Anda</p>
                     </div>
                     <form method="POST" action="{{ route('password.store') }}">
                         @csrf
-                    
+
                         <!-- Password Reset Token -->
                         <input type="hidden" name="token" value="{{ $request->route('token') }}">
-                    
+
                         <div class="mb-3">
                             <div class="relative">
                                 <label for="email" class="block text-sm font-medium text-white mb-2">{{ __('Email') }}</label>
@@ -51,7 +49,7 @@
                             </div>
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
-                    
+
                         <div class="mb-3">
                             <div class="relative">
                                 <label for="password" class="block text-sm font-medium text-white mb-2">Kata Sandi</label>
@@ -68,7 +66,7 @@
                             </div>
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
-                    
+
                         <div class="mb-3">
                             <div class="relative">
                                 <label for="password_confirmation" class="block text-sm font-medium text-white mb-2">Ulangi Sandi</label>
@@ -85,7 +83,7 @@
                             </div>
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
-                    
+
                         <div class="flex space-x-3">
                             <button type="submit"
                                 class="w-full text-lg text-white bg-transparent border border-white rounded-lg font-bold hover:bg-white hover:text-primary py-1 transition duration-300">
@@ -94,11 +92,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="text-center my-8 bottom-0">
-                    <span class="text-base font-semibold text-gray-200">
-                        Copyright By: {{ request()->getHost() }}
-                    </span>
-                </div>
+            </div>
+
+            <div class="text-center p-4">
+                <span class="text-base font-semibold text-gray-300">
+                    &copy; {{ date('Y') }} {{ request()->getHost() }}. All Rights Reserved.
+                </span>
             </div>
         </aside>
     </section>

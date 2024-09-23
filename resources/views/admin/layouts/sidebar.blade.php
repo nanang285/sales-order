@@ -55,15 +55,15 @@
                     </button>
                     <ul id="beranda" class="hidden pl-5 space-y-1">
                         <li>
-                            <a href="#"
-                                class="{{ Request::is('admin/ourteam') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} cursor-not-allowed flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            <a href="{{route('admin.about-us.index')}}"
+                                class="{{ Request::is('admin/about-us') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                 <i class="fa-solid fa-circle text-xs"></i>
                                 <span class="ml-3">Tentang</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#"
-                                class="{{ Request::is('admin/ourteam') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} cursor-not-allowed flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            <a href="{{ route('admin.visi-misi.index')}}"
+                                class="{{ Request::is('admin/visi-misi') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                 <i class="fa-solid fa-circle text-xs"></i>
                                 <span class="ml-3">Visi & Misi</span>
                             </a>

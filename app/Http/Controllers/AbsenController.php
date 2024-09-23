@@ -7,7 +7,7 @@ use App\Models\Absen;
 use App\Models\Employee;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;
 
 class AbsenController extends Controller
 {
@@ -56,70 +56,84 @@ class AbsenController extends Controller
     // PROSES PENERIMAAN  DATA DARI REQUEST FINGERPRINT/IOT
     public function handleData(Request $request)
     {
+        // Lakukan validasi tanpa pengecekan exists terlebih dahulu
+        $request->validate([
+            'id' => 'required',
+            'time_stamp' => 'required|date_format:Y-m-d H:i:s',
+        ]);
+
         $id = $request->input('id', 0);
         $timestamp = $request->input('time_stamp', date('Y-m-d H:i:s'));
 
+        // Cek apakah ID fingerprint terdaftar secara manual
         if (!Employee::where('fingerprint_id', $id)->exists()) {
             return response()->json(['message' => 'Error, ID fingerprint tidak terdaftar.'], 500);
         }
 
         $timestamp = explode(' ', $timestamp);
 
+        // Log data untuk keperluan debug
         $data = [
-            'fingerprint_id' => $id, // isi fingerprint_id dengan id dari request
+            'fingerprint_id' => $id,
             'date' => $timestamp[0],
             'time' => $timestamp[1],
         ];
 
-        // Log::info('data: ', ['data' => $data]);
+        Log::info('Data absen diterima:', ['data' => $data]);
 
-        $request->validate([
-            'id' => 'required|exists:employees,fingerprint_id',
-            'time_stamp' => 'required|date_format:Y-m-d H:i:s',
-        ]);
-
-        $fingerprint_id = $request->input('id');
-        $date = $timestamp[0];
-        $time = $timestamp[1];
-
-        // Megnambil data dari tabel Attendance
         $attendances = Attendance::first();
+        if (!$attendances) {
+            return response()->json(['message' => 'Data attendance tidak tersedia.'], 500);
+        }
 
-        $timeInMin = '06:00:00'; // Absen masuk minimal
-        $timeInMax = $attendances->time_in_max; // Absen masuk maksimal atau telat
+        $timeInMin = '06:00:00';
+        $timeInMax = $attendances->time_in_max;
 
-        $lastAbsen = Absen::where('fingerprint_id', $fingerprint_id)->where('date', $date)->orderBy('time_in', 'desc')->first();
+        
+        Log::info('Time In Max', ['time_in_max' => $timeInMax]);
 
-        if ($lastAbsen && Carbon::parse($lastAbsen->time_in)->diffInMinutes(Carbon::parse($time)) < 10) {
+        $lastAbsen = Absen::where('fingerprint_id', $id)
+            ->where('date', $timestamp[0])
+            ->orderBy('time_in', 'desc')
+            ->first();
+
+        if ($lastAbsen && Carbon::parse($lastAbsen->time_in)->diffInMinutes(Carbon::parse($timestamp[1])) < 10) {
             return response()->json(['message' => 'Gagal, Anda sudah absen masuk sebelumnya'], 500);
         }
 
-        $absen = Absen::where('fingerprint_id', $fingerprint_id)->where('date', $date)->first();
+        $absen = Absen::where('fingerprint_id', $id)
+            ->where('date', $timestamp[0])
+            ->first();
 
         if ($absen) {
-            // if ($time < $timeOutMin) {
-            //     return response()->json(['message' => 'Gagal, Waktu absen pulang belum terpenuhi'], 500);
-            // }
-
             if ($absen->time_out) {
                 return response()->json(['message' => 'Gagal, Absen hari ini telah terpenuhi'], 500);
             } else {
-                $absen->time_out = $time;
+                $absen->time_out = $timestamp[1];
+                Log::info('Absen keluar berhasil diupdate.', ['time_out' => $timestamp[1]]);
             }
         } else {
-            if ($time < $timeInMin) {
-                return response()->json(['message' => ' Gagal, Waktu absen masuk minimal jam 06:00'], 500);
+            if ($timestamp[1] < $timeInMin) {
+                return response()->json(['message' => 'Gagal, Waktu absen masuk minimal jam 06:00'], 500);
             }
 
-            $keterangan = $time > $timeInMax ? 'Telat' : 'Hadir';
+            $keterangan = $timestamp[1] > $timeInMax ? 'Telat' : 'Hadir';
 
             $absen = new Absen();
-            $absen->fingerprint_id = $fingerprint_id;
-            $absen->date = $date;
-            $absen->time_in = $time;
+            $absen->fingerprint_id = $id;
+            $absen->date = $timestamp[0];
+            $absen->time_in = $timestamp[1];
             $absen->keterangan = $keterangan;
+
+            Log::info('Absen masuk berhasil.', [
+                'fingerprint_id' => $id,
+                'date' => $timestamp[0],
+                'time_in' => $timestamp[1],
+                'keterangan' => $keterangan,
+            ]);
         }
 
+        // Simpan data absen
         $absen->save();
 
         return response()->json(

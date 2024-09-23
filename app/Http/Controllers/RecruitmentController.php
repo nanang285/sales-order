@@ -240,10 +240,10 @@ class RecruitmentController extends Controller
             ]);
 
             // Kirim notifikasi ke email Pelamar
-            // Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
+            Mail::to($request->email)->send(new RecruitmentReceived($recruitment));
 
             // Kirim notifikasi ke email Admin
-            // Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
+            Mail::to('recruitment.zmi@gmail.com')->send(new RecruitmentStored($recruitment));
 
             // Generate token success
             $token = Str::random(64);

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 use App\Models\AboutSection;
+use App\Models\VissionMission;
+use App\Models\AboutUs;
 use App\Models\OurTeam;
 use App\Models\FooterSection;
 use App\Models\GalerySection;
@@ -19,7 +21,7 @@ class AboutController extends Controller
     public function index()
     {
         $aboutSection = AboutSection::first();
-        $breadcrumbTitle = 'Profil';
+        $breadcrumbTitle = 'Profil'; 
 
         return view('admin.homepages.about', [
             'aboutSection' => $aboutSection,
@@ -31,8 +33,10 @@ class AboutController extends Controller
     {
         $galerySection = GalerySection::all();
         $ourTeam = OurTeam::All();
+        $Vission = VissionMission::first();
         $footerSection = footerSection::first();
-        return view('about-me', compact('galerySection', 'footerSection', 'ourTeam'));
+        $aboutUs = AboutUs::first();
+        return view('about-me', compact('galerySection', 'footerSection', 'ourTeam', 'Vission', 'aboutUs'));
     }
 
     public function store(Request $request)
