@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Employee extends Model
 {
@@ -27,6 +28,15 @@ class Employee extends Model
         'role' => 'string',
         'fingerprint_id' => 'integer'
     ];
+
+    public function scopeSearch(Builder $query, $search)
+    {
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        return $query;
+    }
 
     public function absens()
     {

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 use Carbon\Carbon;
+
 use App\Models\Absen;
 use App\Models\Employee;
 use App\Models\Attendance;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+
 
 class AbsenController extends Controller
 {
@@ -56,7 +59,6 @@ class AbsenController extends Controller
     // PROSES PENERIMAAN  DATA DARI REQUEST FINGERPRINT/IOT
     public function handleData(Request $request)
     {
-        // Lakukan validasi tanpa pengecekan exists terlebih dahulu
         $request->validate([
             'id' => 'required',
             'time_stamp' => 'required|date_format:Y-m-d H:i:s',
@@ -65,14 +67,14 @@ class AbsenController extends Controller
         $id = $request->input('id', 0);
         $timestamp = $request->input('time_stamp', date('Y-m-d H:i:s'));
 
-        // Cek apakah ID fingerprint terdaftar secara manual
+        // Cek apakah ID fingerprint terdaftar
         if (!Employee::where('fingerprint_id', $id)->exists()) {
             return response()->json(['message' => 'Error, ID fingerprint tidak terdaftar.'], 500);
         }
 
         $timestamp = explode(' ', $timestamp);
 
-        // Log data untuk keperluan debug
+        // Log data (DEBUG)
         $data = [
             'fingerprint_id' => $id,
             'date' => $timestamp[0],
@@ -133,7 +135,6 @@ class AbsenController extends Controller
             ]);
         }
 
-        // Simpan data absen
         $absen->save();
 
         return response()->json(

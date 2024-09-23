@@ -9,48 +9,37 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
-{
-    protected $user;
-    protected $isAdmin;
-
-    public function __construct()
-    {
-        $this->user = Auth::user();
-        $this->isAdmin = $this->user->role === 'admin';
-    }
-
+class DashboardController extends Controller {
+    
     public function index(Request $request)
     {
-        $isAdmin = $this->isAdmin;
+        $user = Auth::user();
+        $isAdmin = $user->role === 'admin';
         
-        $selectedMonth = $this->getSelectedMonth($request->input('month'));
+        $selectedMonth = $request->input('month') ? Carbon::parse($request->input('month')) : now();
         $daysInMonth = $selectedMonth->daysInMonth;
-
-        $absens = $this->getAbsensForMonth($selectedMonth);
-        $employees = Employee::orderBy('name')->get();
+    
+        $absens = Absen::filterByMonth($selectedMonth)->get();
+        
+        $employees = Employee::orderBy('name');
+        if ($request->filled('search')) {
+            $employees = $employees->searchByName($request->input('search'));
+        }
+        $employees = $employees->get();
+    
         $recruitments = Recruitment::all();
-        $recruitmentCount = Recruitment::count();
-
+        if ($request->filled('searchRecruitment')) {
+            $recruitments = Recruitment::search($request->input('searchRecruitment'))->get();
+        }
+        $recruitmentCount = $recruitments->count();
+    
         $breadcrumbTitle = 'Dashboard';
-
+    
         return view('admin.dashboard', compact('isAdmin', 'recruitments', 'recruitmentCount', 'breadcrumbTitle', 'absens', 'employees', 'selectedMonth', 'daysInMonth'));
     }
+    
 
-    public function redirect()
-    {
+    public function redirect() {
         return redirect()->route('admin.dashboard');
-    }
-
-    private function getSelectedMonth($month): Carbon
-    {
-        return $month ? Carbon::parse($month) : now();
-    }
-
-    private function getAbsensForMonth(Carbon $selectedMonth)
-    {
-        return Absen::whereYear('date', $selectedMonth->year)
-            ->whereMonth('date', $selectedMonth->month)
-            ->get();
     }
 }

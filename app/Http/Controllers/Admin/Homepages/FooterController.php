@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-
-use App\Models\FooterSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+use App\Models\FooterSection;
 
 class FooterController extends Controller
 {

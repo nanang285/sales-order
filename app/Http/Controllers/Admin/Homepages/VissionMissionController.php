@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Homepages;
-use App\Http\Controllers\Controller;
 
-use App\Models\VissionMission;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+
+use App\Models\VissionMission;
 
 class VissionMissionController extends Controller
 {

@@ -3,24 +3,22 @@
 namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
+use App\Models\User;
+use App\Models\LatestProject;
+use App\Models\FooterSection;
+
+// IMAGE RESIZE AND CONVERT
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-use App\Models\LatestProject;
-use App\Models\FooterSection;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 class ProjectController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         $latestProject = LatestProject::All();
         $breadcrumbTitle = 'Projects';
@@ -28,7 +26,7 @@ class ProjectController extends Controller
         return view('admin.homepages.project', compact('latestProject', 'breadcrumbTitle'));
     }
 
-    public function PortofolioIndex(): View
+    public function PortofolioIndex()
     {
         $latestProject = LatestProject::All();
         $footerSection = footerSection::first();
@@ -56,10 +54,8 @@ class ProjectController extends Controller
         $tempImageName = time() . '.' . $image->getClientOriginalExtension();
         $imagePath = public_path('storage/uploads/latest-project');
 
-        // Simpan gambar asli terlebih dahulu
         $image->move($imagePath, $tempImageName);
 
-        // Resize gambar dan ubah format ke WebP
         $imgPath = $imagePath . '/' . $tempImageName;
         $img = imagecreatefromstring(file_get_contents($imgPath));
         $width = imagesx($img);
@@ -67,18 +63,15 @@ class ProjectController extends Controller
 
         $newWidth = $width * 0.5;
         $newHeight = $height * 0.5;
-        $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
-
-        // Buat gambar baru dengan ukuran yang diubah
+        $compressionQuality = 60;
+       
         $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-        // Simpan gambar yang telah diubah format dan ukuran file-nya
         $newImageName = time() . '.webp';
         $newImagePath = $imagePath . '/' . $newImageName;
         imagewebp($resizedImg, $newImagePath, $compressionQuality);
 
-        // Hapus gambar sementara
         unlink($imgPath);
         imagedestroy($img);
         imagedestroy($resizedImg);
@@ -122,35 +115,28 @@ class ProjectController extends Controller
             $tempImageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('storage/uploads/latest-project');
 
-            // Simpan gambar asli terlebih dahulu
             $image->move($imagePath, $tempImageName);
 
-            // Resize gambar dan ubah format ke WebP
             $imgPath = $imagePath . '/' . $tempImageName;
             $img = imagecreatefromstring(file_get_contents($imgPath));
             $width = imagesx($img);
             $height = imagesy($img);
 
-            // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
             $newWidth = $width * 0.5;
             $newHeight = $height * 0.5;
-            $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
+            $compressionQuality = 60;
 
-            // Buat gambar baru dengan ukuran yang diubah
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
             imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-            // Simpan gambar yang telah diubah format dan ukuran file-nya
             $newImageName = time() . '.webp';
             $newImagePath = $imagePath . '/' . $newImageName;
             imagewebp($resizedImg, $newImagePath, $compressionQuality);
 
-            // Hapus gambar sementara
             unlink($imgPath);
             imagedestroy($img);
             imagedestroy($resizedImg);
 
-            // Hapus gambar lama jika ada
             $oldImagePath = 'public/uploads/latest-project/' . $latestProject->image_path;
             if (Storage::exists($oldImagePath)) {
                 Storage::delete($oldImagePath);

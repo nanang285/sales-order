@@ -26,18 +26,7 @@ class RecruitmentController extends Controller
 
         $breadcrumbTitle = 'Rekrutmen';
 
-        $recruitments = Recruitment::query()
-            ->when($search, function ($query, $search) {
-                return $query->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%");
-            })
-            ->when($filter, function ($query, $filter) {
-                if ($filter == 'newest') {
-                    return $query->orderBy('created_at', 'desc');
-                } elseif ($filter == 'oldest') {
-                    return $query->orderBy('created_at', 'asc');
-                }
-            })
-            ->paginate(20);
+        $recruitments = Recruitment::filter($search, $filter)->paginate(20);
 
         return view('admin.recruitment.index', [
             'breadcrumbTitle' => $breadcrumbTitle,
@@ -54,7 +43,8 @@ class RecruitmentController extends Controller
         ]);
 
         $name = $request->input('name');
-        $recruitments = Recruitment::where('name', 'LIKE', "%{$name}%")->get();
+
+        $recruitments = Recruitment::searchByName($name);
 
         return view('admin.recruitment.index', compact('recruitments'));
     }
@@ -66,33 +56,21 @@ class RecruitmentController extends Controller
         ]);
 
         $email = $request->input('email');
-        $recruitments = Recruitment::where('email', $email)->get();
 
-        foreach ($recruitments as $recruitment) {
-            if ($recruitment->stage4) {
-                $recruitment->last_stage = 'Selamat Anda Telah Lolos Semua tahap Seleksi';
-            } elseif ($recruitment->stage3) {
-                $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Offering';
-            } elseif ($recruitment->stage2) {
-                $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Interview';
-            } elseif ($recruitment->stage1) {
-                $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Test Project';
-            }
-        }
+        $recruitments = Recruitment::searchByEmail($email);
 
-        return view('recruitment/check-recruitment', compact('recruitments'));
+        return view('recruitment.check-recruitment', compact('recruitments'));
     }
 
     public function edit($uuid)
     {
-        
         $user = auth()->user();
 
         if ($user->role !== 'admin') {
             session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
             return redirect()->back();
         }
-        
+
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
         $breadcrumbTitle = 'Edit';
         return view('admin.recruitment.edit', compact('recruitment', 'breadcrumbTitle'));
@@ -100,14 +78,13 @@ class RecruitmentController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
         $user = auth()->user();
 
         if ($user->role !== 'admin') {
             session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
             return redirect()->back();
         }
-        
+
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -141,14 +118,13 @@ class RecruitmentController extends Controller
 
     public function updateStage(Request $request, $uuid, $stage)
     {
-        
         $user = auth()->user();
 
         if ($user->role !== 'admin') {
             session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
             return redirect()->back();
         }
-        
+
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
 
         if ($recruitment->failed_stage) {
@@ -181,22 +157,19 @@ class RecruitmentController extends Controller
 
     public function add()
     {
-        
         $user = auth()->user();
 
         if ($user->role !== 'admin') {
             session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
             return redirect()->back();
         }
-        
+
         $breadcrumbTitle = 'Add';
         return view('admin.recruitment.add', compact('breadcrumbTitle'));
     }
 
-    // Store data in users
     public function store(Request $request)
     {
-        
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -236,7 +209,7 @@ class RecruitmentController extends Controller
                 'agree' => $request->agree,
                 'salary' => $request->salary,
                 'portfolio' => $request->portfolio,
-                'file_path' => $fileName, // Simpan nama file ke database
+                'file_path' => $fileName,
             ]);
 
             // Kirim notifikasi ke email Pelamar
@@ -258,14 +231,13 @@ class RecruitmentController extends Controller
     // Store Data In Company Profile (Admin)
     public function Adminstore(Request $request)
     {
-        
         $user = auth()->user();
 
         if ($user->role !== 'admin') {
             session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
             return redirect()->back();
         }
-        
+
         $request->validate([
             'email' => 'required|email|unique:recruitments,email',
             'name' => 'required|string|max:50',
@@ -282,7 +254,6 @@ class RecruitmentController extends Controller
             'file_path' => 'required|mimes:pdf|max:5000',
         ]);
 
-        // Cek apakah 'nik' kosong, jika iya set dengan '-'
         $nik = $request->input('nik') ?: '-';
 
         if ($request->hasFile('file_path')) {
@@ -317,14 +288,13 @@ class RecruitmentController extends Controller
 
     public function destroy($uuid)
     {
-        
         $user = auth()->user();
 
         if ($user->role !== 'admin') {
             session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
             return redirect()->back();
         }
-        
+
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
         $recruitment = Recruitment::findOrFail($uuid);
 

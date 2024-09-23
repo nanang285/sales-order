@@ -14,27 +14,47 @@ class Recruitment extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = [
-        'uuid',
-        'email',
-        'name',
-        'nik',
-        'address',
-        'phone_number',
-        'study',
-        'position',
-        'onsite',
-        'test',
-        'agree',
-        'salary',
-        'portfolio',
-        'file_path',
-        'stage1',
-        'stage2',
-        'stage3',
-        'stage4',
-        'failed_stage',
-    ];
+    protected $fillable = ['uuid', 'email', 'name', 'nik', 'address', 'phone_number', 'study', 'position', 'onsite', 'test', 'agree', 'salary', 'portfolio', 'file_path', 'stage1', 'stage2', 'stage3', 'stage4', 'failed_stage'];
+
+    public static function filter($search = null, $filter = null)
+    {
+        $query = self::query();
+    
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+        }
+    
+        if ($filter) {
+            if ($filter == 'newest') {
+                $query->orderBy('created_at', 'desc');
+            } elseif ($filter == 'oldest') {
+                $query->orderBy('created_at', 'asc');
+            }
+        }
+    
+        return $query;
+    }    
+
+    public static function searchByEmail($email)
+    {
+        return self::where('email', $email)->get()->each(function ($recruitment) {
+            if ($recruitment->stage4) {
+                $recruitment->last_stage = 'Selamat Anda Telah Lolos Semua tahap Seleksi';
+            } elseif ($recruitment->stage3) {
+                $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Offering';
+            } elseif ($recruitment->stage2) {
+                $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Interview';
+            } elseif ($recruitment->stage1) {
+                $recruitment->last_stage = 'Selamat Anda Lolos Ke tahap Test Project';
+            }
+        });
+    }
+
+    public static function searchByName($name)
+    {
+        return self::where('name', 'LIKE', "%{$name}%")->get();
+    }
 
     protected static function boot()
     {
@@ -45,4 +65,3 @@ class Recruitment extends Model
         });
     }
 }
-

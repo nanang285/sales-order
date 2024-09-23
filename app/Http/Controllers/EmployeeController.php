@@ -9,36 +9,26 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
     public function index(Request $request)
-    {
-        $user = Auth::user();
-        $isAdmin = $user->role === 'admin';
+{
+    $user = Auth::user();
+    $isAdmin = $user->role === 'admin';
 
-        $search = $request->input('search');
-        $filter = $request->query('filter', 'newest');
+    $search = $request->input('search');
+    $filter = '';
+    $breadcrumbTitle = 'Karyawan';
 
-        $breadcrumbTitle = 'Karyawan';
+    $employees = Employee::search($search)
+        ->paginate(100);
 
-        $employees = Employee::query()
-            ->when($search, function ($query, $search) {
-                return $query->where('name', 'like', "%{$search}%")->orWhere('division', 'like', "%{$search}%");
-            })
-            ->when($filter, function ($query, $filter) {
-                if ($filter == 'newest') {
-                    return $query->orderBy('created_at', 'desc');
-                } elseif ($filter == 'oldest') {
-                    return $query->orderBy('created_at', 'asc');
-                }
-            })
-            ->paginate(100);
+    return view('admin.employees.index', [
+        'breadcrumbTitle' => $breadcrumbTitle,
+        'employees' => $employees,
+        'search' => $search,
+        'filter' => $filter,
+        'isAdmin' => $isAdmin,
+    ]);
+}
 
-        return view('admin.employees.index', [
-            'breadcrumbTitle' => $breadcrumbTitle,
-            'employees' => $employees,
-            'filter' => $filter,
-            'search' => $search,
-            'isAdmin' => $isAdmin,
-        ]);
-    }
 
     public function store(Request $request)
     {
@@ -50,7 +40,7 @@ class EmployeeController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:3|max:50',
             'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
             'role' => 'nullable|in:Employee,Staff,Internship,Lead,Project Manager,Human Resource Development,Finance,Direktur',
             'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id',
@@ -77,7 +67,7 @@ class EmployeeController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:3|max:50',
             'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
             'role' => 'nullable|in:Employee,Staff,Internship,Lead,Project Manager,Human Resource Development,Finance,Direktur',
             'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id,' . $id,

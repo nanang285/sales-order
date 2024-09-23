@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
+use App\Models\User;
 use App\Models\AboutSection;
 use App\Models\VissionMission;
 use App\Models\AboutUs;
 use App\Models\OurTeam;
 use App\Models\FooterSection;
 use App\Models\GalerySection;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
 
 class AboutController extends Controller
 {

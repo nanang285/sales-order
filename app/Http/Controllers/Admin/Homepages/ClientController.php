@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin\Homepages;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
+use App\Models\User;
 use App\Models\ClientSection;
 
+// RESIZE & CONVERT IMAGES
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-
 class ClientController extends Controller
-{
+{   
+    // VIEW 
     public function index()
     {
         $clientSection = ClientSection::All();
@@ -25,6 +25,7 @@ class ClientController extends Controller
         return view('admin.homepages.client', compact('clientSection', 'breadcrumbTitle'));
     }
 
+    // ADD FUNCTIONS
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -69,6 +70,7 @@ class ClientController extends Controller
         return redirect()->route('admin.homepages.client.index')->with('success', true)->with('toast', 'add');
     }
 
+    // EDIT FUNCTIONS
     public function update(Request $request, string $id)
     {
         $user = auth()->user();
@@ -78,14 +80,12 @@ class ClientController extends Controller
             return redirect()->back();
         }
         
-        // Validasi input
         $request->validate([
             'image_path' => 'nullable|image|mimetypes:image/*|max:4096',
         ]);
 
         $clientSection = ClientSection::findOrFail($id);
 
-        // Inisialisasi array untuk data yang akan diupdate
         $updateData = [];
 
         if ($request->hasFile('image_path')) {
@@ -93,56 +93,47 @@ class ClientController extends Controller
             $tempImageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('storage/uploads/client-section');
 
-            // Simpan gambar asli terlebih dahulu
             $image->move($imagePath, $tempImageName);
 
-            // Resize gambar dan ubah format ke WebP dengan transparansi
             $imgPath = $imagePath . '/' . $tempImageName;
             $img = imagecreatefromstring(file_get_contents($imgPath));
             $width = imagesx($img);
             $height = imagesy($img);
 
-            // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
             $newWidth = $width * 0.5;
             $newHeight = $height * 0.5;
-            $compressionQuality = 50; // Untuk WebP, ini bisa dikontrol melalui kualitas
+            $compressionQuality = 50;
 
-            // Cek apakah gambar memiliki transparansi
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
             imagealphablending($resizedImg, false);
             imagesavealpha($resizedImg, true);
             $transparent = imagecolorallocatealpha($resizedImg, 0, 0, 0, 127);
             imagefilledrectangle($resizedImg, 0, 0, $newWidth, $newHeight, $transparent);
 
-            // Copy gambar yang diresize dan pertahankan transparansi
             imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-            // Simpan gambar yang telah diubah format ke WebP dengan transparansi
             $newImageName = time() . '.webp';
             $newImagePath = $imagePath . '/' . $newImageName;
             imagewebp($resizedImg, $newImagePath, $compressionQuality);
 
-            // Hapus gambar sementara
             unlink($imgPath);
             imagedestroy($img);
             imagedestroy($resizedImg);
 
-            // Hapus gambar lama jika ada
             $oldImagePath = 'public/uploads/client-section/' . $clientSection->image_path;
             if (Storage::exists($oldImagePath)) {
                 Storage::delete($oldImagePath);
             }
 
-            // Tambahkan nama gambar baru ke data yang akan diupdate
             $updateData['image_path'] = $newImageName;
         }
 
-        // Update data lainnya jika ada
         $clientSection->update($updateData);
 
         return redirect()->route('admin.homepages.client.index')->with('success', true)->with('toast', 'edit');
     }
 
+    // DELETE FUNCTIONS
     public function destroy($id)
     {
         $user = auth()->user();

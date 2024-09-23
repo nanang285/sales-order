@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Log;
 
 class AttendanceController extends Controller
 {
@@ -51,8 +50,6 @@ class AttendanceController extends Controller
         }
 
         $attendances = Attendance::findOrFail($id);
-
-        // \Log::info('Request Data:', $request->all());
 
         $request->validate([
             'time_in' => 'required|date_format:H:i',

@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Homepages;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use App\Models\AboutUs;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+
 
 class AboutUsController extends Controller
 {
@@ -18,8 +19,6 @@ class AboutUsController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info($request->all());
-
         $request->validate([
             'description' => 'required|string',
             'list_items' => 'required|array',
@@ -43,7 +42,7 @@ class AboutUsController extends Controller
         }
 
         $request->validate([
-            'description' => 'required|string|max:1000',
+            'description' => 'max:10|required|string|max:1000',
             'list_items' => 'required|array',
         ]);
 

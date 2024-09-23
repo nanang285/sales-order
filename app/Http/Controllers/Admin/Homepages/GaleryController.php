@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Homepages;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\User;
+use App\Models\GalerySection;
+use App\Models\OurTeam;
+use App\Models\FooterSection;
 
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-
-use App\Models\GalerySection;
-use App\Models\ourTeam;
-use App\Models\FooterSection;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class GaleryController extends Controller
 {
@@ -31,24 +31,6 @@ class GaleryController extends Controller
         $galerySection = GalerySection::All();
         $footerSection = FooterSection::first();
         return view('documentation', compact('galerySection', 'footerSection'));
-    }
-
-    public function edit()
-    {
-        $user = auth()->user();
-
-        if ($user->role !== 'admin') {
-            session()->flash('Error', 'Error, Kamu tidak memiliki akses ini.');
-            return redirect()->back();
-        }
-
-        $galerySection = GalerySection::All();
-
-        if (!$galerySection) {
-            $galerySection = new GalerySection();
-        }
-
-        return view('admin.galery.edit', compact('galerySection'));
     }
 
     public function store(Request $request)
@@ -70,30 +52,24 @@ class GaleryController extends Controller
         $tempImageName = time() . '.' . $image->getClientOriginalExtension();
         $imagePath = public_path('storage/uploads/galery-section');
 
-        // Simpan gambar asli terlebih dahulu
         $image->move($imagePath, $tempImageName);
 
-        // Resize gambar dan ubah format ke WebP
         $imgPath = $imagePath . '/' . $tempImageName;
         $img = imagecreatefromstring(file_get_contents($imgPath));
         $width = imagesx($img);
         $height = imagesy($img);
 
-        // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
         $newWidth = $width * 0.5;
         $newHeight = $height * 0.5;
-        $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
+        $compressionQuality = 60;
 
-        // Buat gambar baru dengan ukuran yang diubah
         $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-        // Simpan gambar yang telah diubah format dan ukuran file-nya
         $newImageName = time() . '.webp';
         $newImagePath = $imagePath . '/' . $newImageName;
         imagewebp($resizedImg, $newImagePath, $compressionQuality);
 
-        // Hapus gambar sementara
         unlink($imgPath);
         imagedestroy($img);
         imagedestroy($resizedImg);
@@ -134,35 +110,28 @@ class GaleryController extends Controller
             $tempImageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('storage/uploads/galery-section');
 
-            // Simpan gambar asli terlebih dahulu
             $image->move($imagePath, $tempImageName);
 
-            // Resize gambar dan ubah format ke WebP
             $imgPath = $imagePath . '/' . $tempImageName;
             $img = imagecreatefromstring(file_get_contents($imgPath));
             $width = imagesx($img);
             $height = imagesy($img);
 
-            // Tentukan ukuran baru, misalnya mengurangi ukuran file sekitar 50%
             $newWidth = $width * 0.5;
             $newHeight = $height * 0.5;
-            $compressionQuality = 60; // Untuk WebP, ini bisa dikontrol melalui kualitas
+            $compressionQuality = 60;
 
-            // Buat gambar baru dengan ukuran yang diubah
             $resizedImg = imagecreatetruecolor($newWidth, $newHeight);
             imagecopyresampled($resizedImg, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-            // Simpan gambar yang telah diubah format dan ukuran file-nya
             $newImageName = time() . '.webp';
             $newImagePath = $imagePath . '/' . $newImageName;
             imagewebp($resizedImg, $newImagePath, $compressionQuality);
 
-            // Hapus gambar sementara
             unlink($imgPath);
             imagedestroy($img);
             imagedestroy($resizedImg);
 
-            // Hapus gambar lama jika ada
             $oldImagePath = 'public/uploads/galery-section/' . $galerySection->image_path;
             if (Storage::exists($oldImagePath)) {
                 Storage::delete($oldImagePath);
