@@ -64,6 +64,14 @@
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                                Jam Masuk
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                                Jam Keluar
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
                                                 Divisi
                                             </th>
                                             <th scope="col"
@@ -95,6 +103,12 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                     {{ $employee->name }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $employee->jam_masuk }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $employee->jam_keluar }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                     {{ $employee->division }}

@@ -4,31 +4,33 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
     public function index(Request $request)
-{
-    $user = Auth::user();
-    $isAdmin = $user->role === 'admin';
+    {
+        $attendances = Attendance::all();
 
-    $search = $request->input('search');
-    $filter = '';
-    $breadcrumbTitle = 'Karyawan';
+        $user = Auth::user();
+        $isAdmin = $user->role === 'admin';
 
-    $employees = Employee::search($search)
-        ->paginate(100);
+        $search = $request->input('search');
+        $filter = '';
+        $breadcrumbTitle = 'Karyawan';
 
-    return view('admin.employees.index', [
-        'breadcrumbTitle' => $breadcrumbTitle,
-        'employees' => $employees,
-        'search' => $search,
-        'filter' => $filter,
-        'isAdmin' => $isAdmin,
-    ]);
-}
+        $employees = Employee::search($search)->orderBy('name', 'asc')->paginate(10);
 
+        return view('admin.employees.index', [
+            'breadcrumbTitle' => $breadcrumbTitle,
+            'employees' => $employees,
+            'search' => $search,
+            'filter' => $filter,
+            'isAdmin' => $isAdmin,
+            'attendances' => $attendances,
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -43,14 +45,19 @@ class EmployeeController extends Controller
             'name' => 'required|string|min:3|max:50',
             'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
             'role' => 'nullable|in:Employee,Staff,Internship,Lead,Project Manager,Human Resource Development,Finance,Direktur',
+            'attendance_id' => 'required|exists:attendances,id',
             'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id',
         ]);
+
+        $attendance = Attendance::findOrFail($request->attendance_id);
 
         Employee::create([
             'id' => (string) \Illuminate\Support\Str::uuid(),
             'name' => $request->input('name'),
             'division' => $request->input('division'),
             'role' => $request->input('role'),
+            'jam_masuk' => $attendance->time_in,
+            'jam_keluar' => $attendance->time_out,
             'fingerprint_id' => $request->input('fingerprint_id'),
         ]);
 
@@ -70,12 +77,20 @@ class EmployeeController extends Controller
             'name' => 'required|string|min:3|max:50',
             'division' => 'nullable|in:Backend Developer,Frontend Developer,UI/UX Developer,Mobile Developer,Fullstack Developer,DevOps Developer',
             'role' => 'nullable|in:Employee,Staff,Internship,Lead,Project Manager,Human Resource Development,Finance,Direktur',
-            'fingerprint_id' => 'required|integer|unique:employees,fingerprint_id,' . $id,
+            'attendance_id' => 'required|exists:attendances,id',
         ]);
 
-        $employees = Employee::findOrFail($id);
+        $employee = Employee::findOrFail($id);
 
-        $employees->update($request->only(['name', 'division', 'role', 'fingerprint_id']));
+        $attendance = Attendance::findOrFail($request->attendance_id);
+
+        $employee->update([
+            'name' => $request->input('name'),
+            'division' => $request->input('division'),
+            'role' => $request->input('role'),
+            'jam_masuk' => $attendance->time_in,
+            'jam_keluar' => $attendance->time_out,
+        ]);
 
         return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'edit');
     }

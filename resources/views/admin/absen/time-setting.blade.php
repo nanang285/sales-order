@@ -14,18 +14,13 @@
                             </h3>
                         </div>
                     </div>
-
-                    @if (empty($attendances))
-                        <!-- Jika $attendances adalah array -->
-                        <div class="flex items-center space-x-2">
-                            <button data-modal-target="add_modal" data-modal-toggle="add_modal"
-                                class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded text-sm px-2.5 py-1 text-center"
-                                type="button">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </div>
-                    @endif
-
+                    <div class="flex items-center space-x-2">
+                        <button data-modal-target="add_modal" data-modal-toggle="add_modal"
+                            class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded text-sm px-2.5 py-1 text-center"
+                            type="button">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <hr>
                 <div class="flex flex-col">
@@ -58,36 +53,42 @@
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200">
-                                        <tr class="">
-                                            <td
-                                                class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
-                                                {{ $attendances->time_in ?? '' }}
-                                            </td>
-                                            <td
-                                                class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
-                                                {{ $attendances->time_in_max ?? '' }}
-                                            </td>
-                                            <td
-                                                class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
-                                                {{ $attendances->time_out_min ?? '' }}
-                                            </td>
-                                            <td
-                                                class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
-                                                {{ $attendances->time_out ?? '' }}
-                                            </td>
-                                            <td
-                                                class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
-                                                @if (!empty($attendances))
-                                                    <button data-modal-target="edit_modal_{{ $attendances->id ?? '' }}"
-                                                        data-modal-toggle="edit_modal_{{ $attendances->id ?? '' }}"
+                                        @foreach ($attendances as $attendance)
+                                            <tr class="">
+                                                <td
+                                                    class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $attendance->time_in ?? '' }}
+                                                </td>
+                                                <td
+                                                    class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $attendance->time_in_max ?? '' }}
+                                                </td>
+                                                <td
+                                                    class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $attendance->time_out_min ?? '' }}
+                                                </td>
+                                                <td
+                                                    class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $attendance->time_out ?? '' }}
+                                                </td>
+                                                <td
+                                                    class="px-6 py-3 border whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    <button data-modal-target="edit_modal_{{ $attendance->id ?? '' }}"
+                                                        data-modal-toggle="edit_modal_{{ $attendance->id ?? '' }}"
                                                         class="text-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white font-medium rounded-md text-sm px-2.5 py-1.5 m-1 text-center"
                                                         type="button">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </button>
-                                                @endif
-                                            </td>
-
-                                        </tr>
+                                                    <button data-modal-target="delete_modal_{{ $attendance->id }}"
+                                                        data-modal-toggle="delete_modal_{{ $attendance->id }}"
+                                                        class="text-red-700 border border-red-700 hover:bg-red-800 hover:text-white font-medium rounded text-sm 
+                                                            px-2.5 py-1.5 m-1 text-center"
+                                                        type="button">
+                                                        <i class="fa-solid fa-trash "></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

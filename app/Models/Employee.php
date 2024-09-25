@@ -18,6 +18,8 @@ class Employee extends Model
         'name',
         'division',
         'role',
+        'jam_masuk',
+        'jam_keluar',
         'fingerprint_id'
     ];
 

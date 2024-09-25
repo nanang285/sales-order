@@ -33,6 +33,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::prefix('absen')->name('absen.')->controller(AbsenController::class)->group(function () {
         Route::get('/{id}', 'detail')->name('detail');
+        
     });
 
     Route::prefix('attendance')->name('attendance.')->controller(AttendanceController::class)->group(function () {

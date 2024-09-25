@@ -21,7 +21,7 @@
                 </div>
                 <div class="text-right">
                     <p id="time" class="text-xl font-semibold bg-blue-500 shadow-md px-2 py-1.5 rounded-md text-white">
-                        {{ \Carbon\Carbon::now()->setTimezone(config('app.timezone'))->format('H:i:s') }}
+                        {{ \Carbon\Carbon::now()->setTimezone(config('app.timezone'))->format('H.i.s') }}
                     </p>
                 </div>
             </div>
@@ -47,34 +47,6 @@
                             <h1 class="text-skyblue text-3xl font-bold">{{ $recruitmentCount }}</h1>
                         </div>
                     </div>
-                    {{-- <div
-                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
-                        <div>
-                            <h2 class="text-xl font-semibold text-blue-700">Belum Dimulai</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage1 }}</h1>
-                        </div>
-                    </div>
-                    <div
-                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
-                        <div>
-                            <h2 class="text-xl font-semibold text-blue-700"> Tes Projek</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage2 }}</h1>
-                        </div>
-                    </div>
-                    <div
-                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
-                        <div>
-                            <h2 class="text-xl font-semibold text-blue-700"> Interview</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage3 }}</h1>
-                        </div>
-                    </div>
-                    <div
-                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
-                        <div>
-                            <h2 class="text-xl font-semibold text-blue-700"> Penawaran</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">{{ $failedStage4 }}</h1>
-                        </div>
-                    </div> --}}
                 </div>
 
                 <div class="bg-white shadow-sm my-6 border rounded-lg p-6">
@@ -103,7 +75,6 @@
                             $daysInMonth = $selectedMonth->daysInMonth;
                             $currentMonth = $today->format('Y-m');
                         @endphp
-
                         <div class="relative overflow-x-auto">
                             <table id="dataTable" class="min-w-full mt-3 rounded-xl divide-y divide-gray-200">
                                 <thead>
@@ -162,25 +133,26 @@
                                                         ->where('date', $date)
                                                         ->first();
                                                 @endphp
-                                                <td class="px-5 py-2 whitespace-nowrap text-sm font-medium border items-center justify-center">
-                                                    @if ($selectedMonth->format('Y-m') < $currentMonth)
-                                                        @if ($hadir)
-                                                            <i class="fa-solid fa-check text-green-500 rounded-full"></i>
-                                                            @php $totalKehadiran++; @endphp
-                                                        @else
-                                                            <i class="fa-solid fa-times text-red-500 rounded-full"></i>
-                                                        @endif
-                                                    @elseif($selectedMonth->format('Y-m') == $currentMonth && $day <= $today->day)
-                                                        @if ($hadir)
-                                                            <i class="fa-solid fa-check text-green-500 rounded-full"></i>
-                                                            @php $totalKehadiran++; @endphp
-                                                        @else
-                                                            <i class="fa-solid fa-times text-red-500 rounded-full"></i>
-                                                        @endif
+                                               <td class="px-5 py-2 whitespace-nowrap text-sm font-medium border items-center justify-center">
+                                                @if ($selectedMonth->format('Y-m') < $currentMonth)
+                                                    @if ($hadir)
+                                                        {!! '<i class="fa-solid fa-check text-green-500 rounded-full"></i>' !!}
+                                                        @php $totalKehadiran++; @endphp
                                                     @else
-                                                        <span class="text-gray-400 rounded-full"></span>
+                                                        {!! '<i class="fa-solid fa-times text-red-500 rounded-full"></i>' !!}
                                                     @endif
-                                                </td>
+                                                @elseif($selectedMonth->format('Y-m') == $currentMonth && $day <= $today->day)
+                                                    @if ($hadir)
+                                                        {!! '<i class="fa-solid fa-check text-green-500 rounded-full"></i>' !!}
+                                                        @php $totalKehadiran++; @endphp
+                                                    @else
+                                                        {!! '<i class="fa-solid fa-times text-red-500 rounded-full"></i>' !!}
+                                                    @endif
+                                                @else
+                                                    {!! '<span class="text-gray-400 rounded-full"></span>' !!}
+                                                @endif
+                                            </td>
+                                            
                                             @endforeach
                                             <td
                                                 class="px-5 py-4 whitespace-nowrap text-base font-bold text-gray-800 border sticky right-0 bg-white z-10">

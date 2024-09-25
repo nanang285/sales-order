@@ -65,7 +65,21 @@
                         </select>
                         <x-input-error :messages="$errors->get('role')" class="my-1" />
                     </div>
-                    
+
+                    <div>
+                        <label for="attendance_id" class="block text-sm font-medium text-gray-700">
+                            Pilih Jam Masuk - Keluar
+                        </label>
+                        <select id="attendance_id" name="attendance_id" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
+                            <option value="" disabled selected>Pilih Jam</option>
+                            @foreach ($attendances as $attendance)
+                                <option value="{{ $attendance->id }}">{{ $attendance->time_in }} - {{ $attendance->time_out }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('attendance_id')" class="my-1" />
+                    </div>                    
+
                     <div>
                         <label for="fingerprint_id" class="block mb-2 text-sm font-medium text-gray-900">ID Fingerprint</label>
                         <input type="number" name="fingerprint_id" id="fingerprint_id"
@@ -175,13 +189,26 @@
                         </div>
 
                         <div>
-                            <label for="fingerprint_{{ $employee->id }}"
-                                class="block mb-2 text-sm font-medium text-gray-900">ID Fingerprint</label>
-                            <input type="number" name="fingerprint_id" id="fingerprint_{{ $employee->id }}"
-                                value="{{ $employee->fingerprint_id }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
-                                required maxlength="9" />
-                        </div>
+                            <label for="attendance_id" class="block text-sm font-medium text-gray-700">
+                                Pilih Jam Masuk - Keluar
+                            </label>
+                            <select id="attendance_id" name="attendance_id"
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
+                                @foreach ($attendances as $attendance)
+                                    <option value="{{ $attendance->id }}">{{ $attendance->time_in }} - {{ $attendance->time_out }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('attendance_id')" class="my-1" />
+                        </div>  
+
+                        <div>
+                            <label for="fingerprint_{{ $employee->id }}" class="block mb-2 text-sm font-medium text-gray-900">
+                                ID Fingerprint
+                            </label>
+                            <div id="fingerprint_{{ $employee->id }}" class="bg-gray-200 border border-gray-300 text-gray-900 cursor-not-allowed text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500">
+                                {{ $employee->fingerprint_id }}
+                            </div>
+                        </div>                        
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
                             Data</button>
@@ -228,7 +255,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
                             <input type="text" name="name" id="name_{{ $employee->id }}"
                                 value="{{ $employee->name }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                class="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                 readonly />
                         </div>
                         <div class="mb-3">
@@ -236,7 +263,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">Divisi</label>
                             <input type="text" name="name" id="name_{{ $employee->id }}"
                                 value="{{ $employee->division }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                class="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                 readonly />
                         </div>
                         <div class="mb-3">
@@ -244,7 +271,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">Role</label>
                             <input type="text" name="name" id="name_{{ $employee->id }}"
                                 value="{{ $employee->role }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                class="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                 readonly />
                         </div>
                         <div class="mb-3">
@@ -252,7 +279,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">ID Fingerprint</label>
                             <input type="text" name="name" id="name_{{ $employee->id }}"
                                 value="{{ $employee->fingerprint_id }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
+                                class="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                                 readonly />
                         </div>
 
