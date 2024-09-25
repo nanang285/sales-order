@@ -17,8 +17,18 @@ use App\Mail\RecruitmentStored;
 use App\Mail\RecruitmentReceived;
 use App\Mail\StageNotification;
 
+use App\Exports\RecruitmentExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class RecruitmentController extends Controller
 {
+    // Export data Rekrutmen
+    public function export()
+    {
+        dd('Export method called');
+        return Excel::download(new RecruitmentExport, 'recruitments.xlsx');
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');

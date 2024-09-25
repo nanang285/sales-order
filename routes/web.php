@@ -7,6 +7,14 @@ use App\Http\Controllers\Admin\Homepages\GaleryController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use App\Exports\RecruitmentExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+Route::get('/export-recruitment', function () {
+    return Excel::download(new RecruitmentExport, 'recruitments.csv');
+})->name('export-recruitment');
+
+
 
 Route::get('/', [HomeController::class, 'index'])->name('');
 Route::get('/about-me', [AboutController::class, 'AboutIndex'])->name('aboutme');
