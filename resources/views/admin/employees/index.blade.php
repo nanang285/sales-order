@@ -68,6 +68,14 @@
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                                Jam Masuk Mak
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                                Jam Keluar Min
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
                                                 Jam Keluar
                                             </th>
                                             <th scope="col"
@@ -108,6 +116,12 @@
                                                     {{ $employee->jam_masuk }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $employee->jam_masuk_maksimal }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                    {{ $employee->jam_keluar_minimal }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                     {{ $employee->jam_keluar }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
@@ -136,7 +150,6 @@
                                                         <i class="fa-solid fa-trash "></i>
                                                     </button>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                     </tbody>

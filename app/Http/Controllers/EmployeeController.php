@@ -20,7 +20,7 @@ class EmployeeController extends Controller
         $filter = '';
         $breadcrumbTitle = 'Karyawan';
 
-        $employees = Employee::search($search)->orderBy('name', 'asc')->paginate(10);
+        $employees = Employee::search($search)->orderBy('name', 'asc')->paginate(100);
 
         return view('admin.employees.index', [
             'breadcrumbTitle' => $breadcrumbTitle,
@@ -57,7 +57,9 @@ class EmployeeController extends Controller
             'division' => $request->input('division'),
             'role' => $request->input('role'),
             'jam_masuk' => $attendance->time_in,
+            'jam_masuk_maksimal' => $attendance->time_in_max,
             'jam_keluar' => $attendance->time_out,
+            'jam_keluar_minimal' => $attendance->time_out_min,
             'fingerprint_id' => $request->input('fingerprint_id'),
         ]);
 
@@ -89,7 +91,9 @@ class EmployeeController extends Controller
             'division' => $request->input('division'),
             'role' => $request->input('role'),
             'jam_masuk' => $attendance->time_in,
+            'jam_masuk_maksimal' => $attendance->time_in_max,
             'jam_keluar' => $attendance->time_out,
+            'jam_keluar_minimal' => $attendance->time_out_min,
         ]);
 
         return redirect()->route('admin.employees.index')->with('success', true)->with('toast', 'edit');

@@ -19,7 +19,6 @@ class AbsenController extends Controller
         $employee = Employee::findOrFail($id);
 
         $bulan = $request->input('bulan', now()->format('Y-m'));
-
         $bulanNumber = date('m', strtotime($bulan));
         $tahun = date('Y', strtotime($bulan));
 
@@ -40,8 +39,8 @@ class AbsenController extends Controller
             if ($timeIn) {
                 $startTime = new \DateTime($timeIn->format('Y-m-d') . ' ' . $employee->jam_masuk);
                 $endTime = new \DateTime($timeIn->format('Y-m-d') . ' ' . $employee->jam_keluar);
-
-                $limitTime = clone $startTime;
+                $jamMasukMaksimal = new \DateTime($timeIn->format('Y-m-d') . ' ' . $employee->jam_masuk_maksimal);
+                $jamKeluarMinimal = new \DateTime($timeIn->format('Y-m-d') . ' ' . $employee->jam_keluar_minimal);
 
                 $actualStartTime = max($timeIn, $startTime);
 
@@ -57,8 +56,15 @@ class AbsenController extends Controller
                         $selisihMenit -= 60;
                     }
 
-                    $keterangan = $timeIn > $limitTime ? 'Telat' : 'Hadir';
+                    if ($timeIn > $jamMasukMaksimal) {
+                        $keterangan = 'Telat';
+                    } elseif ($timeOut < $jamKeluarMinimal) {
+                        $keterangan = 'Hadir, Kurang terpenuhi';
+                    } else {
+                        $keterangan = 'Hadir';
+                    }
 
+                    // Tambahkan ke absensi harian
                     $absensiHarian[] = [
                         'tanggal' => $absen->date,
                         'time_in' => $timeIn->format('H:i:s'),
@@ -109,17 +115,11 @@ class AbsenController extends Controller
         $timestamp = explode(' ', $timestamp);
         Log::info('Data absen diterima:', ['fingerprint_id' => $id, 'date' => $timestamp[0], 'time' => $timestamp[1]]);
 
-        // Megambil data dari tabel Attendance
-        $attendance = Attendance::first();
-        if (!$attendance) {
-            return response()->json(['message' => 'Error, Data Jam Absen tidak tersedia.'], 500);
-        }
+        $timeOutMin = '13:00:00';
+        $timeOutMax = '22:00:00';
 
-        $timeInMin = '06:00:00';
-        $timeInMax = $attendance->time_in_max;
-        $timeOutMin = $attendance->time_out_min;
-
-        Log::info('Time In Max', ['time_in_max' => $timeInMax]);
+        Log::info('Time Out Min', ['time_out_min' => $timeOutMin]);
+        Log::info('Time Out Max', ['time_out_max' => $timeOutMax]);
 
         $lastAbsen = Absen::where('fingerprint_id', $id)
             ->where('date', $timestamp[0])
@@ -142,12 +142,19 @@ class AbsenController extends Controller
             if ($absen->time_out) {
                 return response()->json(['message' => 'Gagal, Absen hari ini telah terpenuhi'], 500);
             } else {
+                if ($timestamp[1] > $timeOutMax) {
+                    return response()->json(['message' => 'Error, Waktu absen pulang sudah terlewati.'], 500);
+                }
+
                 $absen->time_out = $timestamp[1];
                 Log::info('Absen keluar berhasil diupdate.', ['time_out' => $timestamp[1]]);
                 $absen->save();
                 return response()->json(['message' => 'Absen pulang berhasil'], 201);
             }
         } else {
+            $timeInMin = '06:00:00';
+            $timeInMax = '12:00:00';
+
             if ($timestamp[1] > $timeInMax) {
                 return response()->json(['message' => 'Error, Waktu absen masuk sudah terlewati.'], 500);
             }

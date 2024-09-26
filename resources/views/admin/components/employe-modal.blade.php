@@ -23,7 +23,8 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name<span class="text-red-600 text-base">*</span>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name<span
+                                class="text-red-600 text-base">*</span>
                         </label>
                         <input type="text" name="name" id="name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
@@ -46,7 +47,7 @@
                         </select>
                         <x-input-error :messages="$errors->get('division')" class="my-1" />
                     </div>
-                    
+
                     <div>
                         <label for="role" class="block text-sm font-medium text-gray-700">
                             Role
@@ -67,26 +68,46 @@
                     </div>
 
                     <div>
-                        <label for="attendance_id" class="block text-sm font-medium text-gray-700">
+                        <label for="attendance_id_1" class="block text-sm font-medium text-gray-700">
                             Pilih Jam Masuk - Keluar
                         </label>
-                        <select id="attendance_id" name="attendance_id" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
+                        <select id="attendance_id_1" name="attendance_id" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm"
+                            onchange="syncAttendanceOptions()">
                             <option value="" disabled selected>Pilih Jam</option>
                             @foreach ($attendances as $attendance)
-                                <option value="{{ $attendance->id }}">{{ $attendance->time_in }} - {{ $attendance->time_out }}</option>
+                                <option value="{{ $attendance->id }}" data-in="{{ $attendance->time_in }}"
+                                    data-out="{{ $attendance->time_out }}">{{ $attendance->time_in }} -
+                                    {{ $attendance->time_out }}</option>
                             @endforeach
                         </select>
-                        <x-input-error :messages="$errors->get('attendance_id')" class="my-1" />
-                    </div>                    
+                        <x-input-error :messages="$errors->get('attendance_id_1')" class="my-1" />
+                    </div>
 
                     <div>
-                        <label for="fingerprint_id" class="block mb-2 text-sm font-medium text-gray-900">ID Fingerprint</label>
+                        <label for="attendance_id_2" class="block text-sm font-medium text-gray-700">
+                            Maksimal Masuk , Minimal Keluar
+                        </label>
+                        <select id="attendance_id_2" name="attendance_id" required disabled
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm cursor-not-allowed">
+                            <option value="" disabled selected>Pilih Jam</option>
+                            @foreach ($attendances as $attendance)
+                                <option value="{{ $attendance->id }}" data-max-in="{{ $attendance->time_in_max }}"
+                                    data-min-out="{{ $attendance->time_out_min }}">{{ $attendance->time_in_max }} ,
+                                    {{ $attendance->time_out_min }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('attendance_id_2')" class="my-1" />
+                    </div>
+
+                    <div>
+                        <label for="fingerprint_id" class="block mb-2 text-sm font-medium text-gray-900">ID
+                            Fingerprint</label>
                         <input type="number" name="fingerprint_id" id="fingerprint_id"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                             placeholder="Masukan Id Fingerprint" required />
                     </div>
-                    
+
                     <button type="submit"
                         class="w-full text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah
                         Data</button>
@@ -111,15 +132,15 @@
                         data-modal-hide="edit_modal_{{ $employee->id }}">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
                 <div class="">
-                    <form class="space-y-4" action="{{ route('admin.employees.update', $employee->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form class="space-y-4" action="{{ route('admin.employees.update', $employee->id) }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div>
@@ -136,7 +157,8 @@
                                 Divisi</label>
                             <select id="division" name="division"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
-                                <option value="" {{ is_null($employee->division) ? 'selected' : '' }}> - </option>
+                                <option value="" {{ is_null($employee->division) ? 'selected' : '' }}> -
+                                </option>
                                 <option value="Backend Developer"
                                     {{ $employee->division == 'Backend Developer' ? 'selected' : '' }}>Backend
                                     Developer</option>
@@ -189,26 +211,47 @@
                         </div>
 
                         <div>
-                            <label for="attendance_id" class="block text-sm font-medium text-gray-700">
+                            <label for="attendance" class="block text-sm font-medium text-gray-700">
                                 Pilih Jam Masuk - Keluar
                             </label>
-                            <select id="attendance_id" name="attendance_id"
+                            <select id="attendance" name="attendance_id" required
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
                                 @foreach ($attendances as $attendance)
-                                    <option value="{{ $attendance->id }}">{{ $attendance->time_in }} - {{ $attendance->time_out }}</option>
+                                    <option value="{{ $attendance->id }}"
+                                        data-time-in-max="{{ $attendance->time_in_max }}"
+                                        data-time-out-min="{{ $attendance->time_out_min }}">
+                                        {{ $attendance->time_in }} - {{ $attendance->time_out }}
+                                    </option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('attendance_id')" class="my-1" />
-                        </div>  
+                            <x-input-error :messages="$errors->get('')" class="my-1" />
+                        </div>
+
+                        <div class="hidden">
+                            <label for="attendance-max-min" class="block text-sm font-medium text-gray-700">
+                                Maksimal Masuk , Minimal Keluar
+                            </label>
+                            <select id="attendance-max-min" name="attendance_id_max_min" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none text-sm">
+                                @foreach ($attendances as $attendance)
+                                    <option value="{{ $attendance->id }}">{{ $attendance->time_in_max }} -
+                                        {{ $attendance->time_out_min }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('')" class="my-1" />
+                        </div>
+
 
                         <div>
-                            <label for="fingerprint_{{ $employee->id }}" class="block mb-2 text-sm font-medium text-gray-900">
+                            <label for="fingerprint_{{ $employee->id }}"
+                                class="block mb-2 text-sm font-medium text-gray-900">
                                 ID Fingerprint
                             </label>
-                            <div id="fingerprint_{{ $employee->id }}" class="bg-gray-200 border border-gray-300 text-gray-900 cursor-not-allowed text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500">
+                            <div id="fingerprint_{{ $employee->id }}"
+                                class="bg-gray-200 border border-gray-300 text-gray-900 cursor-not-allowed text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500">
                                 {{ $employee->fingerprint_id }}
                             </div>
-                        </div>                        
+                        </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
                             Data</button>
@@ -292,3 +335,31 @@
         </div>
     </div>
 @endforeach
+
+<script>
+    function syncAttendanceOptions() {
+        var select1 = document.getElementById('attendance_id_1');
+        var select2 = document.getElementById('attendance_id_2');
+
+        var selectedValue = select1.value;
+
+        for (var i = 0; i < select2.options.length; i++) {
+            if (select2.options[i].value === selectedValue) {
+                select2.selectedIndex = i;
+                break;
+            }
+        }
+    }
+    $(document).ready(function() {
+        $('#attendance').change(function() {
+            var selectedOption = $(this).find('option:selected');
+            var timeInMax = selectedOption.data('time-in-max');
+            var timeOutMin = selectedOption.data('time-out-min');
+
+            // Mengupdate opsi kedua
+            $('#attendance-max-min').val(selectedOption.val()).prop('disabled', false).empty();
+            $('#attendance-max-min').append('<option value="' + selectedOption.val() + '">' +
+                timeInMax + ' - ' + timeOutMin + '</option>');
+        });
+    });
+</script>

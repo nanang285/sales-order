@@ -19,7 +19,9 @@ class Employee extends Model
         'division',
         'role',
         'jam_masuk',
+        'jam_masuk_maksimal',
         'jam_keluar',
+        'jam_keluar_minimal',
         'fingerprint_id'
     ];
 
