@@ -29,7 +29,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::post('/{uuid}/{stage}', 'updateStage')->name('updateStage');
         Route::put('/update', 'update')->name('update');
         Route::delete('/{uuid}', 'destroy')->name('destroy');
-        Route::get('/export', 'export')->name('export');
     });
 
     Route::prefix('absen')->name('absen.')->controller(AbsenController::class)->group(function () {

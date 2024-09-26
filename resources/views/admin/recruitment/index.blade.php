@@ -21,10 +21,11 @@
                                 type="button">
                                 <i class="fa-solid fa-user-plus"></i>
                             </a>
-                            <a href="{{ route('export-recruitment') }}"
-                                class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center">
+                            <button onclick="exportTableToExcel('dataTable', 'RekrutmenData')"
+                                class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center"
+                                type="button">
                                 <i class="fa-solid fa-file-export"></i><span class="">Export</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
