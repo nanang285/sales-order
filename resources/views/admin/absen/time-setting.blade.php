@@ -9,7 +9,6 @@
                     <div class="w-full max-w-xl mb-4">
                         <div class="flex items-center">
                             <h3 class="text-blue-700 text-lg font-semibold flex items-center">
-                                <i class="fa-solid fa-caret-right mr-2"></i>
                                 Pengaturan Waktu Absen
                             </h3>
                         </div>

@@ -69,7 +69,7 @@
                                                     <span
                                                         class="absolute left-0 flex items-center justify-center w-2 h-2 text-sm {{ $recruitment->stage1 ? 'opacity-100 text-green-600' : ($recruitment->failed_stage === 'Check CV' ? 'opacity-100 text-red-600' : 'opacity-0') }} transition-opacity duration-300">
                                                         <i
-                                                            class="fa-solid {{ $recruitment->failed_stage === 'Check CV' ? 'fa-circle-xmark' : 'fa-circle-check' }}"></i>
+                                                            class="fa-solid {{ $recruitment->failed_stage === 'Administrasi' ? 'fa-circle-xmark' : 'fa-circle-check' }}"></i>
                                                     </span>
                                                     <i class="fa-regular fa-file-pdf"></i>
                                                 </span>

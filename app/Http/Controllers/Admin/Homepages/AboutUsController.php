@@ -42,8 +42,8 @@ class AboutUsController extends Controller
         }
 
         $request->validate([
-            'description' => 'max:10|required|string|max:1000',
-            'list_items' => 'required|array',
+            'description' => 'required|string',
+            'list_items' => 'required|array', 
         ]);
 
         $aboutUs = AboutUs::findOrFail($id);

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\Homepages\VissionMissionController;
 use App\Http\Controllers\Admin\Homepages\ProjectController;
 use App\Http\Controllers\Admin\Homepages\ServiceController;
 use App\Http\Controllers\Admin\Homepages\ClientController;
@@ -10,13 +11,13 @@ use App\Http\Controllers\Admin\Homepages\GaleryController;
 use App\Http\Controllers\Admin\Homepages\PromoController;
 use App\Http\Controllers\Admin\Homepages\AboutController;
 use App\Http\Controllers\Admin\Homepages\AboutUsController;
-use App\Http\Controllers\Admin\Homepages\VissionMissionController;
 use App\Http\Controllers\Admin\Homepages\TeamController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Events\EventController;
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
 
@@ -62,6 +63,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::put('/{id}', 'update')->name('update');
         Route::post('/', 'store')->name('store');;
 
+    });
+
+    Route::prefix('events')->name('events.')->controller(EventController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/payments', 'payments')->name('payments');
+        Route::get('/add', 'add')->name('add');
+        Route::put('/{id}', 'update')->name('update');
+        Route::post('/', 'store')->name('store');;
     });
 
     Route::prefix('homepages')->name('homepages.')->group(function () {

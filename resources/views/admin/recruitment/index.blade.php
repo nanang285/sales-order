@@ -9,8 +9,9 @@
                 <div class="flex flex-col md:flex-row mb-6 items-center justify-between space-y-3 md:space-y-0 md:space-x-4">
                     <div class="w-full max-w-52">
                         <div class="flex items-center">
-                            <h3 class="text-blue-700 text-lg font-semibold"><i class="fa-solid fa-caret-right"></i>&nbsp;Data
-                                Rekrutmen</h3>
+                            <h3 class="text-blue-700 text-lg font-semibold">
+                                Data Rekrutmen
+                            </h3>
                         </div>
                     </div>
                     <div
@@ -21,268 +22,153 @@
                                 type="button">
                                 <i class="fa-solid fa-user-plus"></i>
                             </a>
-                            <button onclick="exportTableToExcel('dataTable', 'RekrutmenData')"
+                            <a href="{{ route('admin.recruitment.export') }}"
                                 class="transition duration-300 block text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 font-medium rounded-md text-sm px-2.5 py-1 text-center"
                                 type="button">
                                 <i class="fa-solid fa-file-export"></i><span class="">Export</span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <hr>
-                <div
-                    class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 mt-6">
-                    <div class="w-full max-w-52">
-                        <form action="{{ route('admin.recruitment.index') }}" method="GET"
-                            class="flex items-center max-w-md mx-auto">
-                            @csrf
-                            <label for="simple-search" class="sr-only">Search</label>
-                            <div class="relative w-full">
-                                <input type="text" name="search" id="simple-search"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-1.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Cari" required />
-                            </div>
-                            <button type="submit"
-                                class="p-2 ms-2 text-sm font-medium text-white bg-blue-700 rounded-md border border-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                                <span class="sr-only">Search</span>
-                            </button>
-                        </form>
-                    </div>
-
-                    <div
-                        class="w-full md:w-auto flex flex-col md:flex-row md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <div class="flex items-center space-x-3 w-full md:w-auto">
-                            <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                class="w-full md:w-auto flex items-center justify-center py-1.5 px-4 text-sm font-medium text-gray-700 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700"
-                                type="button">
-                                <i class="fa-solid fa-filter"></i>
-                                <span class="mx-2">Filter</span>
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </button>
-                            <div id="filterDropdown"
-                                class="border-gray-400 border z-10 hidden w-40 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                                <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Filter Data</h6>
-                                <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                    <li class="flex items-center">
-                                        <input id="newest" name="filter" type="radio" value="newest"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="newest"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                            Terbaru
-                                        </label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="oldest" name="filter" type="radio" value="oldest"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="oldest"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                            Terlama
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="flex flex-col">
-                    <div class="overflow-x-auto">
-                        <div class="min-w-full inline-block align-middle">
-                            <div class=" overflow-hidden">
-                                <table id="dataTable" class="min-w-full mt-3 divide-y divide-gray-200">
-                                    <thead>
-                                        <tr class="">
-                                            <th scope="col"
-                                                class="px-1 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                    <div class="overflow-hidden">
+                        <div class="py-4 px-1">
+                            <table id="pagination-table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 No
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Data Masuk
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Nama Lengkap
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Email
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
-                                                No.Telp
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
-                                                Posisi dilamar
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
+                                                No Telp
+                                            </span>
+                                        </th>
+                                        <th data-type="date">
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
+                                                Posisi Dilamar
+                                            </span>
+                                        </th>
+                                        <th data-type="date">
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Harapan Gaji
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-semibold text-blue-700 uppercase">
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Tahapan
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-end text-xs font-semibold text-blue-700 uppercase">
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Aksi
-                                            </th>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($recruitments as $index => $recruitment)
+                                        <tr>
+                                            <td class="text-sm font-semibold text-gray-600">{{ $loop->iteration }}</td>
+                                            <td class="text-sm font-semibold text-gray-600">
+                                                {{ \Carbon\Carbon::parse($recruitment->created_at)->translatedFormat('d F Y') }}
+                                            </td>
+                                            <td class="text-sm font-semibold text-gray-600">
+                                                {{ $recruitment->name }}
+                                            </td>
+                                            <td class="text-sm font-semibold text-gray-600">
+                                                {{ $recruitment->email }}
+                                            </td>
+                                            <td class="text-sm font-semibold text-gray-600">
+                                                {{ $recruitment->phone_number }}
+                                            </td>
+                                            <td class="text-sm font-semibold text-gray-600">
+                                                {{ $recruitment->position }}
+                                            </td>
+                                            <td class="text-sm font-semibold text-gray-600">Rp
+                                                {{ number_format($recruitment->salary, 0, ',', '.') }}</td>
+                                            <td class="text-sm font-semibold text-gray-600
+                                                @php
+                                                    $textColor = 'text-gray-500';
+                                                    $animation = '';
+                                                    $status = 'Belum Dimulai';
+
+                                                    // Cek jika semua stage benar dan tidak ada yang gagal
+                                                    if ($recruitment->failed_stage) {
+                                                        $textColor = 'text-red-600';
+                                                        $status = $recruitment->failed_stage;
+                                                    } elseif (
+                                                        $recruitment->stage4 &&
+                                                        $recruitment->stage3 &&
+                                                        $recruitment->stage2 &&
+                                                        $recruitment->stage1
+                                                    ) {
+                                                        $textColor = 'text-green-600';
+                                                        $status = 'Diterima';
+                                                    } elseif ($recruitment->stage4) {
+                                                        $textColor = 'text-blue-600';
+                                                        $status = 'Offering';
+                                                    } elseif ($recruitment->stage3) {
+                                                        $textColor = 'text-blue-600';
+                                                        $status = 'Interview';
+                                                    } elseif ($recruitment->stage2) {
+                                                        $textColor = 'text-blue-600';
+                                                        $status = 'Test Project';
+                                                    } elseif ($recruitment->stage1) {
+                                                        $textColor = 'text-blue-600';
+                                                        $status = 'Check CV';
+                                                    } else {
+                                                        $animation = 'animate-pulse';
+                                                    }
+                                                @endphp
+                                                {{ $textColor }} {{ $animation }}">
+                                                {{ $status }}
+                                            </td>
+                                            <td class="text-sm font-semibold text-gray-600">
+                                                <a href="{{ asset('storage/uploads/recruitment/' . $recruitment->file_path) }}"
+                                                    target="_blank"
+                                                    class="text-yellow-300 border-2 border-yellow-300 hover:text-white hover:bg-yellow-300 font-medium rounded-md text-sm inline-flex items-center justify-center w-8 h-8 m-1">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+                                                <a href="{{ route('admin.recruitment.edit', $recruitment->uuid) }}"
+                                                    class="text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded-md text-sm inline-flex items-center justify-center w-8 h-8 m-1"
+                                                    type="button">
+                                                    <i class="fa-solid fa-user-pen"></i>
+                                                </a>
+                                                <button data-modal-target="delete_modal_{{ $recruitment->uuid }}"
+                                                    data-modal-toggle="delete_modal_{{ $recruitment->uuid }}"
+                                                    class="text-red-700 border-2 border-red-700 hover:bg-red-700 hover:text-white font-medium rounded-md text-sm px-2 py-1 m-1 text-center"
+                                                    type="button">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200">
-                                        @php
-                                            $startNumber =
-                                                ($recruitments->currentPage() - 1) * $recruitments->perPage() + 1;
-                                        @endphp
-                                        @foreach ($recruitments as $index => $recruitment)
-                                            <tr class="">
-                                                <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                    @if ($filter == 'oldest')
-                                                        {{ $recruitments->total() - $recruitments->firstItem() - $index + 1 }}
-                                                    @else
-                                                        {{ $recruitments->firstItem() + $index }}
-                                                    @endif
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                    {{ \Carbon\Carbon::parse($recruitment->created_at)->translatedFormat('d F Y') }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                    {{ $recruitment->name }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $recruitment->email }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $recruitment->phone_number }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $recruitment->position }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    Rp {{ number_format($recruitment->salary, 0, ',', '.') }}
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-semibold
-                                                    @php $textColor = 'text-gray-500';
-                                                            $animation = '';
-                                                            $status = 'Belum Dimulai';
-                                                            if ($recruitment->failed_stage) {
-                                                                $textColor = 'text-red-600';
-                                                                $status = $recruitment->failed_stage;
-                                                            } elseif ($recruitment->stage4) {
-                                                                $textColor = 'text-green-600';
-                                                                $status = 'Offering';
-                                                            } elseif ($recruitment->stage3) {
-                                                                $textColor = 'text-green-600';
-                                                                $status = 'Interview';
-                                                            } elseif ($recruitment->stage2) {
-                                                                $textColor = 'text-green-600';
-                                                                $status = 'Test Project';
-                                                            } elseif ($recruitment->stage1) {
-                                                                $textColor = 'text-green-600';
-                                                                $status = 'Check CV';
-                                                            } else {
-                                                                $animation = 'animate-pulse';
-                                                            } @endphp
-                                                        {{ $textColor }} {{ $animation }}">
-                                                    {{ $status }}
-                                                </td>
-
-                                                <td class="whitespace-nowrap text-end text-sm font-medium">
-                                                    <a href="{{ asset('storage/uploads/recruitment/' . $recruitment->file_path) }}"
-                                                        target="_blank"
-                                                        class="text-yellow-300 border-2 border-yellow-300 hover:text-white hover:bg-yellow-300 font-medium rounded-md text-sm inline-flex items-center justify-center w-8 h-8 m-1">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </a>
-                                                    <a href="{{ route('admin.recruitment.edit', $recruitment->uuid) }}"
-                                                        class="text-blue-500 border-2 border-blue-500 hover:text-white hover:bg-blue-500 font-medium rounded-md text-sm inline-flex items-center justify-center w-8 h-8 m-1"
-                                                        type="button">
-                                                        <i class="fa-solid fa-user-pen"></i>
-                                                    </a>
-                                                    <button data-modal-target="delete_modal_{{ $recruitment->uuid }}"
-                                                        data-modal-toggle="delete_modal_{{ $recruitment->uuid }}"
-                                                        class="text-red-700 border-2 border-red-700 hover:bg-red-700 hover:text-white font-medium rounded-md text-sm 
-                                                        px-2 py-1 m-1 text-center"
-                                                        type="button">
-                                                        <i class="fa-solid fa-trash "></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <script>
-                                    function exportTableToExcel(tableID, filename = '') {
-                                        // Get current date and time for filename
-                                        const now = new Date();
-                                        const formattedDate = now.toISOString().split('T')[0]; // YYYY-MM-DD
-                                        const formattedTime = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // HH-MM-SS
-                                        filename = filename ? `${filename}_${formattedDate}_${formattedTime}.xlsx` :
-                                            `excel_data_${formattedDate}_${formattedTime}.xlsx`;
-
-                                        // Get table element
-                                        const tableSelect = document.getElementById(tableID);
-
-                                        // Remove "Aksi" column
-                                        const tableClone = tableSelect.cloneNode(true);
-                                        const headers = tableClone.querySelectorAll('thead th');
-                                        const columnIndexToRemove = Array.from(headers).findIndex(header => header.textContent.trim() === 'Aksi');
-
-                                        if (columnIndexToRemove !== -1) {
-                                            const rows = tableClone.querySelectorAll('tr');
-                                            rows.forEach(row => {
-                                                const cells = row.querySelectorAll('th, td');
-                                                cells[columnIndexToRemove].remove();
-                                            });
-                                        }
-
-                                        // Convert table to sheet and create workbook
-                                        const dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-                                        const tableHTML = tableClone.outerHTML.replace(/ /g, '%20');
-                                        const downloadLink = document.createElement("a");
-                                        const worksheet = XLSX.utils.table_to_sheet(tableClone);
-                                        const workbook = XLSX.utils.book_new();
-                                        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-
-                                        // Save workbook
-                                        XLSX.writeFile(workbook, filename);
-                                    }
-                                </script>
-                            </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col overflow-x-auto md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                    aria-label="Table navigation">
-                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                        Menampilkan
-                        <span
-                            class="font-semibold text-gray-900 dark:text-white">{{ $recruitments->firstItem() }}-{{ $recruitments->lastItem() }}</span>
-                        Dari
-                        <span class="font-semibold text-gray-900 dark:text-white">{{ $recruitments->total() }}</span>
-                        Data.
-                    </span>
-                    {{ $recruitments->links('vendor.pagination') }}
-                </div>
-
             </div>
         </div>
     </div>
     @include('admin.recruitment.modal')
-
-    <script>
-        document.querySelectorAll('input[name="filter"]').forEach((filter) => {
-            filter.addEventListener('change', function() {
-                const selectedFilter = this.value;
-                const url = new URL(window.location.href);
-                url.searchParams.set('filter', selectedFilter);
-                window.location.href = url.toString();
-            });
-        });
-    </script>
 @endsection

@@ -43,7 +43,7 @@ class VissionMissionController extends Controller
         }
 
         $request->validate([
-            'description' => 'required|string|max:1000',
+            'description' => 'required|string',
             'list_items' => 'required|array',
         ]);
 

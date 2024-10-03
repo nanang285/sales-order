@@ -39,13 +39,107 @@
             </script>
 
             <div class="max-w-full mx-auto my-4 bg-white border rounded-xl overflow-hidden p-6">
-                <div class="flex space-x-6 col-span-10">
+
+
+                <div class="bg-white shadow-sm border rounded-lg p-6">
                     <div
-                        class="w-72 max-w-md bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex items-center p-6 space-x-4">
-                        <div>
-                            <h2 class="text-xl font-semibold text-blue-700">Data Rekrutmen</h2>
-                            <h1 class="text-skyblue text-3xl font-bold">{{ $recruitmentCount }}</h1>
+                        class="flex flex-col md:flex-row mb-6 items-center justify-between space-y-3 md:space-y-0 md:space-x-4">
+                        <div class="w-full max-w-full">
+                            <div class="flex items-center">
+                                <h3 class="text-blue-700 text-2lg font-semibold py-2">
+                                    Data Rekrutmen
+                                </h3>
+                            </div>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="flex space-x-6 col-span-10">
+                        {{-- <div
+                            class="w-72 max-w-md bg-white border border-gray-200 rounded-lg shadow-sm mt-4 overflow-hidden col-span-4">
+                            <ul class="flex flex-wrap text-sm justify-between font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50"
+                                id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
+                                <li class="me-auto">
+                                    <span class="inline-block p-2 text-blue-700 text-lg font-semibold">Total</span>
+                                </li>
+                            </ul>
+
+                            <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800">
+                                <h1 class="text-4xl font-bold text-left text-blue-700">{{ $recruitmentCount }}</h1>
+                            </div>
+                        </div> --}}
+
+                        {{-- <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+
+                            <!-- Line Chart -->
+                            <div class="py-6" id="pie-chart"></div>
+    
+                        </div> --}}
+    
+                        <script>
+                            const getChartOptions = () => {
+                                return {
+                                    series: [20, 35, 15, 10],
+                                    colors: ["#1C64F2", "#16BDCA", "#9061A7"],
+                                    chart: {
+                                        height: 420,
+                                        width: "100%",
+                                        type: "pie",
+                                    },
+                                    stroke: {
+                                        colors: ["white"],
+                                        lineCap: "",
+                                    },
+                                    plotOptions: {
+                                        pie: {
+                                            labels: {
+                                                show: true,
+                                            },
+                                            size: "100%",
+                                            dataLabels: {
+                                                offset: -25
+                                            }
+                                        },
+                                    },
+                                    labels: ["Frontend", "Backend", "Fullstack", "Mobile"],
+                                    dataLabels: {
+                                        enabled: true,
+                                        style: {
+                                            fontFamily: "Inter, sans-serif",
+                                        },
+                                    },
+                                    legend: {
+                                        position: "bottom",
+                                        fontFamily: "Inter, sans-serif",
+                                    },
+                                    yaxis: {
+                                        labels: {
+                                            formatter: function(value) {
+                                                return value + "%"
+                                            },
+                                        },
+                                    },
+                                    xaxis: {
+                                        labels: {
+                                            formatter: function(value) {
+                                                return value + "%"
+                                            },
+                                        },
+                                        axisTicks: {
+                                            show: false,
+                                        },
+                                        axisBorder: {
+                                            show: false,
+                                        },
+                                    },
+                                }
+                            }
+    
+                            if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
+                                const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
+                                chart.render();
+                            }
+                        </script>
+                        
                     </div>
                 </div>
 
@@ -54,8 +148,8 @@
                         class="flex flex-col md:flex-row mb-6 items-center justify-between space-y-3 md:space-y-0 md:space-x-4">
                         <div class="w-full max-w-full">
                             <div class="flex items-center">
-                                <h3 class="text-blue-700 text-lg font-semibold">
-                                    <i class="fa-solid fa-caret-right"></i>&nbsp; Resume Absen
+                                <h3 class="text-blue-700 text-2lg font-semibold">
+                                    Data Absen Karyawan
                                 </h3>
                             </div>
                         </div>
@@ -133,26 +227,26 @@
                                                         ->where('date', $date)
                                                         ->first();
                                                 @endphp
-                                               <td class="px-5 py-2 whitespace-nowrap text-sm font-medium border items-center justify-center">
-                                                @if ($selectedMonth->format('Y-m') < $currentMonth)
-                                                    @if ($hadir)
-                                                        {!! '<i class="fa-solid fa-check text-green-500 rounded-full"></i>' !!}
-                                                        @php $totalKehadiran++; @endphp
+                                                <td
+                                                    class="px-5 py-2 whitespace-nowrap text-sm font-medium border items-center justify-center">
+                                                    @if ($selectedMonth->format('Y-m') < $currentMonth)
+                                                        @if ($hadir)
+                                                            {!! '<i class="fa-solid fa-check text-green-500 rounded-full"></i>' !!}
+                                                            @php $totalKehadiran++; @endphp
+                                                        @else
+                                                            {!! '<i class="fa-solid fa-times text-red-500 rounded-full"></i>' !!}
+                                                        @endif
+                                                    @elseif($selectedMonth->format('Y-m') == $currentMonth && $day <= $today->day)
+                                                        @if ($hadir)
+                                                            {!! '<i class="fa-solid fa-check text-green-500 rounded-full"></i>' !!}
+                                                            @php $totalKehadiran++; @endphp
+                                                        @else
+                                                            {!! '<i class="fa-solid fa-times text-red-500 rounded-full"></i>' !!}
+                                                        @endif
                                                     @else
-                                                        {!! '<i class="fa-solid fa-times text-red-500 rounded-full"></i>' !!}
+                                                        {!! '<span class="text-gray-400 rounded-full"></span>' !!}
                                                     @endif
-                                                @elseif($selectedMonth->format('Y-m') == $currentMonth && $day <= $today->day)
-                                                    @if ($hadir)
-                                                        {!! '<i class="fa-solid fa-check text-green-500 rounded-full"></i>' !!}
-                                                        @php $totalKehadiran++; @endphp
-                                                    @else
-                                                        {!! '<i class="fa-solid fa-times text-red-500 rounded-full"></i>' !!}
-                                                    @endif
-                                                @else
-                                                    {!! '<span class="text-gray-400 rounded-full"></span>' !!}
-                                                @endif
-                                            </td>
-                                            
+                                                </td>
                                             @endforeach
                                             <td
                                                 class="px-5 py-4 whitespace-nowrap text-base font-bold text-gray-800 border sticky right-0 bg-white z-10">

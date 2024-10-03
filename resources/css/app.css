@@ -3,85 +3,95 @@
 @tailwind utilities;
 
 ::selection {
-    background: #6c76d2;
-    color: #f8f8f8;
-    border-radius: 10px;
+background: #6c76d2;
+color: #f8f8f8;
+border-radius: 10px;
+}
+
+@layer components {
+.brands-wrapper {
+@apply flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-4;
+}
+}
+
+.swiper-container:hover .brands-wrapper {
+    animation-play-state: paused;
 }
 
 .no-select {
-    user-select: none; /* Standard syntax */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
+user-select: none; /* Standard syntax */
+-webkit-user-select: none; /* Safari */
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 .text-urbanist {
-    font-family: "Urbanist", sans-serif;
+font-family: "Urbanist", sans-serif;
 }
 
 html {
-    scroll-behavior: smooth;
+scroll-behavior: smooth;
 }
 
 body {
-    font-size: 15pt;
-    font-family: "Urbanist", sans-serif, Arial;
-    letter-spacing: 1px;
-    background-color: #f3f4f6;
+font-size: 15pt;
+font-family: "Urbanist", sans-serif, Arial;
+letter-spacing: 1px;
+background-color: #f3f4f6;
 }
 
 header {
-    @apply z-[9900];
+@apply z-[9900];
 }
 
 .btn-masuk {
-    font-size: 19px;
+font-size: 19px;
 }
 
 .btn-masuk span {
-    font-weight: 700;
+font-weight: 700;
 }
 
 .swiper-container {
-    width: 100%;
-    overflow: hidden;
+width: 100%;
+overflow: hidden;
 }
 
 .button-next {
-    color: #ffffff !important;
-    text-decoration: none;
+color: #ffffff !important;
+text-decoration: none;
 }
 
 @keyframes marquee {
-    from {
-        transform: translateX(0%);
-    }
+from {
+transform: translateX(0%);
+}
 
-    to {
-        transform: translateX(-50%);
-    }
+to {
+transform: translateX(-50%);
+}
 }
 
 .animate-marquee {
-    animation: marquee 10s linear infinite;
+animation: marquee 10s linear infinite;
 }
 
 .swiper-klien-kami {
-    width: 100%;
-    white-space: nowrap;
+width: 100%;
+white-space: nowrap;
 }
 
 .marquee-container {
-    display: flex;
-    width: 200%;
+display: flex;
+width: 200%;
 }
 
 .fade-out {
-    opacity: 0;
-    transition: opacity 0.5s ease;
+opacity: 0;
+transition: opacity 0.5s ease;
 }
 
 .fade-in {
-    opacity: 1;
-    transition: opacity 0.5s ease;
+opacity: 1;
+transition: opacity 0.5s ease;
 }

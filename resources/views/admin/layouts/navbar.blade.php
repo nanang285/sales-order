@@ -23,7 +23,7 @@
             <div class="flex flex-row space-x-4 relative">
                 <div>
                     <button type="button"
-                        class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        class="flex text-sm bg-white rounded-full focus:ring-4 p-1 focus:ring-gray-300 dark:focus:ring-gray-600"
                         id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-6 h-6 rounded-full" src="{{ asset('dist/images/logo/zmi-logo-3.webp') }}"

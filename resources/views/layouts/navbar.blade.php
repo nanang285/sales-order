@@ -37,6 +37,12 @@
                        Dokumentasi
                     </a>
                 </li>
+                <li class="my-1">
+                    <a href="{{ Route('events') }}" id="services-link"
+                        class="{{ Request::is('event') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold">
+                        Temukan Acara
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

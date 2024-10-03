@@ -1,5 +1,5 @@
 <div id="bottom-banner" tabindex="-1"
-    class="fixed bottom-0 start-0 z-50 flex justify-between w-full p-4 border-t border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+    class="fixed bottom-0 start-0 z-20 flex justify-between w-full p-4 border-t border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
     <div class="flex items-center mx-auto">
         <p class="flex items-center text-sm lg:text-base font-normal text-gray-500 dark:text-gray-400">
             <span

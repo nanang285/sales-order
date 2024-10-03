@@ -10,6 +10,9 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 
+    {{-- Datatables --}}
+    <link rel="stylesheet" href="{{asset('dist/styles/datatables.css')}}">
+
     {{-- Favicon Link --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
@@ -30,7 +33,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
 </head>
 
 <body class="bg-gray-100">

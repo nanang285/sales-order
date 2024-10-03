@@ -37,125 +37,222 @@
                         </a>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.recruitment.index') }}"
                             class="{{ Route::currentRouteName() === 'admin.recruitment.index' ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg hover:bg-[#bdd4f69d] group transition duration-300">
-                            <i class="fa-solid fa-id-card text-base"></i>
 
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Rekrutmen</span>
                         </a>
-                    </li>
+                    </li> --}}
 
-                    <button type="button" id="dropdownButton"
+                    <div>
+                        <button type="button" id="dropdownButton4"
+                            class="flex items-center w-full font-semibold text-base px-4 py-2.5 text-gray-300 rounded-lg group hover:bg-[#bdd4f69d] transition duration-300"
+                            aria-controls="recruitment" data-collapse-toggle="recruitment">
+                            <i class="fa-solid fa-address-card"></i>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>
+                                Rekrutmen
+                            </span>
+                            <i class="fa-solid fa-chevron-down transition-transform animate-bounce duration-300"></i>
+                        </button>
+                        <ul id="recruitment" class="hidden pl-5 space-y-1 py-2">
+                            <li>
+                                <a href="{{ route('admin.recruitment.index') }}"
+                                    class="{{ Request::is('admin/recruitment') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    <i class="fa-solid fa-circle text-xs"></i>
+                                    <span class="ml-3">Data Pelamar</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="{{ Request::is('') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    <i class="fa-solid fa-circle text-xs"></i>
+                                    <span class="ml-3">Verifikasi Email</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <button type="button" id="dropdownButton"
+                            class="flex items-center w-full font-semibold text-base px-4 py-2.5 text-gray-300 rounded-lg group hover:bg-[#bdd4f69d] transition duration-300"
+                            aria-controls="beranda" data-collapse-toggle="beranda">
+                            <i class="fa-solid fa-building-user"></i>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Tentang
+                                Kami</span>
+                            <i class="fa-solid fa-chevron-down transition-transform animate-bounce duration-300"></i>
+                        </button>
+                        <ul id="beranda" class="hidden pl-5 space-y-1 py-2">
+                            <li>
+                                <a href="{{ route('admin.about-us.index') }}"
+                                    class="{{ Request::is('admin/about-us') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    <i class="fa-solid fa-circle text-xs"></i>
+                                    <span class="ml-3">Tentang</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.visi-misi.index') }}"
+                                    class="{{ Request::is('admin/visi-misi') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    <i class="fa-solid fa-circle text-xs"></i>
+                                    <span class="ml-3">Visi & Misi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.homepages.our-team.index') }}"
+                                    class="{{ Request::is('admin/homepages/our-team') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    <i class="fa-solid fa-circle text-xs"></i>
+                                    <span class="ml-3">Our Team</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button type="button" id="dropdownButton3"
                         class="flex items-center w-full font-semibold text-base px-4 py-2.5 text-gray-300 rounded-lg group hover:bg-[#bdd4f69d] transition duration-300"
-                        aria-controls="beranda" data-collapse-toggle="beranda">
-                        <i class="fa-solid fa-building-user"></i>
-                        <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Tentang Kami</span>
+                        aria-controls="event" data-collapse-toggle="event">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Daftar Acara</span>
                         <i class="fa-solid fa-chevron-down transition-transform animate-bounce duration-300"></i>
                     </button>
-                    <ul id="beranda" class="hidden pl-5 space-y-1">
+                    <ul id="event" class="hidden pl-5 space-y-1">
                         <li>
-                            <a href="{{route('admin.about-us.index')}}"
-                                class="{{ Request::is('admin/about-us') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            <a href="{{ route('admin.events.index') }}"
+                                class="{{ Request::is('admin/events') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                 <i class="fa-solid fa-circle text-xs"></i>
-                                <span class="ml-3">Tentang</span>
+                                <span class="ml-3">Acara</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.visi-misi.index')}}"
-                                class="{{ Request::is('admin/visi-misi') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            <a href="{{ route('admin.events.payments') }}"
+                                class="{{ Request::is('admin/events/payments') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                 <i class="fa-solid fa-circle text-xs"></i>
-                                <span class="ml-3">Visi & Misi</span>
+                                <span class="ml-3">Pembayaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul id="event" class="hidden pl-5 space-y-1">
+                        <li>
+                            <a href="{{ route('admin.events.index') }}"
+                                class="{{ Request::is('admin/events') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                <i class="fa-solid fa-circle text-xs"></i>
+                                <span class="ml-3">Acara</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.homepages.our-team.index') }}"
-                                class="{{ Request::is('admin/ourteam') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            <a href="{{ route('admin.events.payments') }}"
+                                class="{{ Request::is('admin/events/payments') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                 <i class="fa-solid fa-circle text-xs"></i>
-                                <span class="ml-3">Our Team</span>
+                                <span class="ml-3">Pembayaran</span>
                             </a>
                         </li>
                     </ul>
 
                     <li>
-                        <button type="button" id="dropdownButton"
+                        <button type="button" id="dropdownButton2"
                             class="flex items-center w-full font-semibold text-base px-4 py-2.5 text-gray-300 rounded-lg group hover:bg-[#bdd4f69d] transition duration-300"
-                            aria-controls="dropdown-layouts" data-collapse-toggle="dropdown-layouts">
+                            aria-controls="homepages" data-collapse-toggle="homepages">
                             <i class="fa-solid fa-house-chimney"></i>
                             <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Beranda</span>
                             <i class="fa-solid fa-chevron-down transition-transform animate-bounce duration-300"></i>
                         </button>
-                        <ul id="dropdown-layouts" class="hidden pl-5 space-y-1">
+                        <ul id="homepages" class="hidden pl-5 space-y-1">
                             <li class="mt-2">
                                 <a href=" {{ Route('admin.homepages.promo.index') }} "
-                                    class="{{ Request::is('admin/promo') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/homepages/promo') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">PopUp</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.service.index') }}"
-                                    class="{{ Request::is('admin/service') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/homepages/service') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Layanan</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.about.index') }}"
-                                    class="{{ Request::is('admin/about') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/homepages/about') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Profil</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.project.index') }}"
-                                    class="{{ Request::is('admin/project') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/homepages/project') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Portofolio</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.galery.index') }}"
-                                    class="{{ Request::is('admin/galery') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/homepages/galery') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Galeri</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.client.index') }}"
-                                    class="{{ Request::is('admin/client') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/homepages/client') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Klien</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ Route('admin.homepages.footer.index') }}"
-                                    class="{{ Request::is('admin/footer') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                                    class="{{ Request::is('admin/homepages/footer') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
                                     <span class="ml-3">Footer</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-
-                    <div id="dropdown-cta" class="p-4 mt-6 rounded-lg bg-blue-50 dark:bg-blue-900" role="alert">
-                        <div class="flex items-center mb-3">
-                            <span
-                                class="bg-orange-100 text-orange-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">Notes</span>
-                            <button type="button"
-                                class="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
-                                data-dismiss-target="#dropdown-cta" aria-label="Close">
-                                <span class="sr-only">Close</span>
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-                        <p class="mb-3 text-sm text-blue-800 dark:text-blue-400">
-                            Kelola data dan pantau aktivitas dari sini.
-                        </p>
-                    </div>
                 </ul>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownButton');
+            const links = document.querySelectorAll('#beranda a');
 
+            links.forEach(link => {
+                if (link.classList.contains('text-gray-200')) {
+                    dropdownButton.classList.add('text-gray-200', 'bg-[#bdd4f69d]');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownButton2');
+            const links = document.querySelectorAll('#homepages a');
+
+            links.forEach(link => {
+                if (link.classList.contains('text-gray-200')) {
+                    dropdownButton.classList.add('text-gray-200', 'bg-[#bdd4f69d]');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownButton3');
+            const links = document.querySelectorAll('#event a');
+
+            links.forEach(link => {
+                if (link.classList.contains('text-gray-200')) {
+                    dropdownButton.classList.add('text-gray-200', 'bg-[#bdd4f69d]');
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownButton4');
+            const links = document.querySelectorAll('#recruitment a');
+
+            links.forEach(link => {
+                if (link.classList.contains('text-gray-200')) {
+                    dropdownButton.classList.add('text-gray-200', 'bg-[#bdd4f69d]');
+                }
+            });
+        });
+    </script>
 </aside>

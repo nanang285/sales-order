@@ -6,13 +6,16 @@ use App\Http\Controllers\Admin\Homepages\ProjectController;
 use App\Http\Controllers\Admin\Homepages\GaleryController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\ContactController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Events\EventController;
 
-Route::get('/', [HomeController::class, 'index'])->name('');
-Route::get('/about-me', [AboutController::class, 'AboutIndex'])->name('aboutme');
-Route::get('/portfolio', [ProjectController::class, 'PortofolioIndex'])->name('portofolio');
-Route::get('/documentation', [GaleryController::class, 'DocIndex'])->name('documentation');
-Route::post('recruitment-store', [RecruitmentController::class, 'store'])->name('recruitment.store');
+use Illuminate\Support\Facades\Route;
+use App\Exports\RecruitmentExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+Route::get('/admin/recruitment/export', function () {
+    $fileName = 'Recruitment_Report_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
+    return Excel::download(new RecruitmentExport, $fileName);
+})->name('admin.recruitment.export');
 
 Route::get('/success/{token}', function ($token) {
     if (session()->get('valid_token') !== $token) {
@@ -30,6 +33,15 @@ Route::prefix('contact')->name('contact.')->controller(ContactController::class)
     Route::post('/', 'store')->name('store');
     Route::get('/', 'index')->name('index');
 });
+
+Route::get('/', [HomeController::class, 'index'])->name('');
+Route::get('/about-me', [AboutController::class, 'AboutIndex'])->name('aboutme');
+Route::get('/portfolio', [ProjectController::class, 'PortofolioIndex'])->name('portofolio');
+Route::get('/documentation', [GaleryController::class, 'DocIndex'])->name('documentation');
+Route::post('recruitment-store', [RecruitmentController::class, 'store'])->name('recruitment.store');
+
+Route::get('/events', [EventController::class, 'list'])->name('events');
+Route::get('/events/zen-multimedia-expo-2024', [EventController::class, 'detail'])->name('detail-event');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

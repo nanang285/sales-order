@@ -9,8 +9,10 @@ module.exports = {
     ],
 
     plugins: [
+        require('flowbite-typography'),
         require("flowbite/plugin")({
             datatables: true,
+            wysiwyg: true,
         }),
     ],
 
@@ -24,18 +26,19 @@ module.exports = {
                     "0%": { transform: "translateY(100%)", opacity: "0" },
                     "100%": { transform: "translateY(0)", opacity: "1" },
                 },
-            },
-            animation: {
-                slideUp: "slideUp 0.5s ease-in-out forwards",
-            },
-            animation: {
-                wiggle: "wiggle 1s ease-in-out infinite",
-            },
-            keyframes: {
                 wiggle: {
                     "0%, 100%": { transform: "rotate(-1.3deg)" },
                     "50%": { transform: "rotate(1.3deg)" },
                 },
+                'infinite-scroll': {
+                    from: { transform: 'translateX(0)' },
+                    to: { transform: 'translateX(-100%)' },
+                },
+            },
+            animation: {
+                slideUp: "slideUp 0.5s ease-in-out forwards",
+                wiggle: "wiggle 1s ease-in-out infinite",
+                'infinite-scroll': 'infinite-scroll 40s linear infinite',
             },
             colors: {
                 primary: {

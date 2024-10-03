@@ -19,20 +19,16 @@ use App\Mail\StageNotification;
 
 class RecruitmentController extends Controller
 {
+    
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $filter = $request->query('filter', 'newest');
-
         $breadcrumbTitle = 'Rekrutmen';
 
-        $recruitments = Recruitment::filter($search, $filter)->paginate(20);
+        $recruitments = Recruitment::All();
 
         return view('admin.recruitment.index', [
             'breadcrumbTitle' => $breadcrumbTitle,
             'recruitments' => $recruitments,
-            'filter' => $filter,
-            'search' => $search,
         ]);
     }
 

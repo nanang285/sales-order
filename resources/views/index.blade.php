@@ -38,6 +38,7 @@
             </div>
         </div>
     </div>
+    {{-- End Hero Section --}}
 
     {{-- Service Section --}}
     <section class="w-full relative">
@@ -56,16 +57,21 @@
                     @if ($serviceSection->isEmpty())
                         <div data-aos="fade-up" data-aos-anchor-placement="top-center"
                             class="relative bg-white border shadow-md hover:shadow-lg rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col-reverse lg:flex-row overflow-hidden">
-                            
-                            <div class="absolute top-0 left-0 w-24 h-24 bg-blue-400 rounded-full opacity-15 transform -translate-x-1/4 -translate-y-1/4"></div>
-                            <div class="absolute bottom-0 right-0 w-32 h-32 bg-blue-300 rounded-full opacity-20 transform translate-x-1/4 translate-y-1/4"></div>
-                            
+
+                            <div
+                                class="absolute top-0 left-0 w-24 h-24 bg-blue-400 rounded-full opacity-15 transform -translate-x-1/4 -translate-y-1/4">
+                            </div>
+                            <div
+                                class="absolute bottom-0 right-0 w-32 h-32 bg-blue-300 rounded-full opacity-20 transform translate-x-1/4 translate-y-1/4">
+                            </div>
+
                             <div class="order-2 lg:order-1 relative z-10">
                                 <h3 class="lg:text-2xl font-bold lg:font-semibold">
                                     <span class="text-primary">IT Solution</span>
                                 </h3>
                                 <p class="mt-2 text-lg lg:max-w-96 font-semibold text-gray-600 text-justify">
-                                    <span class="text-skyblue">Kami menyediakan berbagai macam layanan IT, mulai dari pembuatan Website, Pembuatan Aplikasi, Penyediaan Server, dan lainnya</span>
+                                    <span class="text-skyblue">Kami menyediakan berbagai macam layanan IT, mulai dari
+                                        pembuatan Website, Pembuatan Aplikasi, Penyediaan Server, dan lainnya</span>
                                 </p>
                             </div>
                             <div class="order-1 lg:order-2 flex justify-center items-center relative z-10">
@@ -77,10 +83,14 @@
                         @foreach ($serviceSection as $service)
                             <div data-aos="fade-up" data-aos-anchor-placement="top-center"
                                 class="relative bg-white border shadow-md hover:shadow-lg rounded-xl lg:h-full p-6 lg:p-8 z-20 flex flex-col-reverse lg:flex-row overflow-hidden">
-                                
-                                <div class="absolute top-0 left-0 w-24 h-24 bg-blue-400 rounded-full opacity-15 transform -translate-x-1/4 -translate-y-1/4"></div>
-                                <div class="absolute bottom-0 right-0 w-32 h-32 bg-blue-300 rounded-full opacity-20 transform translate-x-1/4 translate-y-1/4"></div>
-                                
+
+                                <div
+                                    class="absolute top-0 left-0 w-24 h-24 bg-blue-400 rounded-full opacity-15 transform -translate-x-1/4 -translate-y-1/4">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 right-0 w-32 h-32 bg-blue-300 rounded-full opacity-20 transform translate-x-1/4 translate-y-1/4">
+                                </div>
+
                                 <div class="order-2 lg:order-1 relative z-10">
                                     <h3 class="lg:text-2xl font-bold lg:font-semibold">
                                         <span class="text-primary">{{ $service->title }}</span>
@@ -104,6 +114,7 @@
             </div>
         </div>
     </section>
+    {{-- End Service Sectiom --}}
 
     {{-- About Section --}}
     <div class="bg-fixed bg-cover bg-no-repeat py-12 lg:py-14"
@@ -112,21 +123,25 @@
             <div class="container mx-auto px-6 lg:px-10">
                 <div data-aos="fade-up" data-aos-anchor-placement="top-center"
                     class="lg:py-8 lg:my-5 lg:px-2 lg:max-w-none lg:flex rounded-xl ring-1 bg-white ring-gray-200 shadow-lg transition-shadow duration-300 hover:shadow-xl">
-                    
+
                     <div class="w-full lg:w-1/2 flex flex-wrap p-5 lg:p-8">
                         @if (!empty($aboutSection->video_path))
-                            <video class="w-full mx-auto lg:max-w-full lg:mx-10 border-2 border-gray-300 rounded-lg object-cover shadow-md" controls
-                                controlsList="nodownload">
-                                <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}" type="video/webm">
+                            <video
+                                class="w-full mx-auto lg:max-w-full lg:mx-10 border-2 border-gray-300 rounded-lg object-cover shadow-md"
+                                controls controlsList="nodownload">
+                                <source src="{{ asset('storage/uploads/about-section/' . $aboutSection->video_path) }}"
+                                    type="video/webm">
                             </video>
                         @else
-                            <video class="w-full mx-auto lg:max-w-lg lg:mx-10 border-2 border-gray-300 rounded-lg object-cover shadow-md" controls
-                                controlsList="nodownload">
-                                <source src="{{ asset('dist/validate/about-section/zmi-profil-video.webm') }}" type="video/webm">
+                            <video
+                                class="w-full mx-auto lg:max-w-lg lg:mx-10 border-2 border-gray-300 rounded-lg object-cover shadow-md"
+                                controls controlsList="nodownload">
+                                <source src="{{ asset('dist/validate/about-section/zmi-profil-video.webm') }}"
+                                    type="video/webm">
                             </video>
                         @endif
                     </div>
-        
+
                     <div class="w-full lg:w-1/2 flex flex-col justify-between p-5 lg:p-8">
                         <div class="mb-3">
                             <h1 class="text-3xl font-semibold tracking-tight text-primary mb-4 lg:mx-6">
@@ -136,17 +151,18 @@
                                 {{ $aboutSection->subtitle ?? 'PT Zen Multimedia adalah perusahaan IT yang berfokus pada pembuatan website, aplikasi, dan multimedia. Berbasis di Purwakarta, kami terdiri dari tim berpengalaman yang memberikan layanan purna jual terbaik. Kami melayani pemerintahan, UMKM, swasta, dan perseorangan.' }}
                             </p>
                         </div>
-                    
+
                         <div class="flex no-select justify-center lg:justify-start mt-6 flex-grow">
-                            <img src="{{ asset('dist/images/homepages/diskominfo.png') }}" 
-                                 class=" lg:mx-6 mx-auto w-52 h-auto object-contain rounded-none transition-transform duration-300 hover:scale-105">
+                            <img src="{{ asset('dist/images/homepages/diskominfo.png') }}"
+                                class=" lg:mx-6 mx-auto w-52 h-auto object-contain rounded-none transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </section>
     </div>
+    {{-- End About Section --}}
 
     {{-- latest Project --}}
     <section class="w-full relative py-6 lg:py-12">
@@ -224,6 +240,7 @@
         </div>
         </div>
     </section>
+    {{-- End Latest Project --}}
 
     {{-- Gallery Section --}}
     <section class="w-full">
@@ -272,6 +289,7 @@
                 </div>
             </div>
     </section>
+    {{-- End Gallery Section --}}
 
     {{-- Client Section --}}
     <div id="about" class="bg-fixed bg-cover bg-no-repeat"
@@ -283,61 +301,25 @@
                         <span class="text-primary">Mitra Kami</span>
                     </p>
                 </div>
-                <div class="relative     swiper-container swiper-klien-kami rounded-md overflow-hidden">
-                    <div class="non-marquee-wrapper">
-                        <div class="non-marquee-container flex items-center">
-                            <!-- Daftar Mitra -->
+                <div class="relative swiper-container swiper-klien-kami rounded-md overflow-hidden">
+                    <div
+                        class="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+                        <ul class="brands-wrapper">
                             @foreach ($clientSection as $client)
-                                <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
-                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
-                                         alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
-                                </div>
+                            <li>
+                                <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}" width="170" height="170" />
+                            </li>
                             @endforeach
-                            <!-- Duplikat Mitra untuk animasi berkelanjutan -->
+                        </ul>
+                        <ul class="brands-wrapper">
                             @foreach ($clientSection as $client)
-                                <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
-                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
-                                         alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
-                                </div>
+                            <li>
+                                <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}" width="170" height="170" />
+                            </li>
                             @endforeach
-                            @foreach ($clientSection as $client)
-                                <div class="client-logo flex-shrink-0 flex justify-center mx-2 h-auto">
-                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
-                                         alt="Client {{ $loop->iteration }}" class="object-contain h-52 max-w-full">
-                                </div>
-                            @endforeach
-                        </div>
+                        </ul>
                     </div>
                 </div>
-                
-                <!-- CSS -->
-                <style>
-                    .non-marquee-wrapper {
-                        width: 100%;
-                        overflow: hidden; /* Menyembunyikan elemen di luar viewport */
-                    }
-                
-                    .non-marquee-container {
-                        display: flex;
-                        white-space: nowrap; /* Mencegah elemen berpindah ke baris baru */
-                        animation: scroll-left 30s linear infinite;
-                    }
-                
-                    @keyframes scroll-left {
-                        0% {
-                            transform: translateX(0); /* Mulai dari posisi awal */
-                        }
-                        100% {
-                            transform: translateX(-50%); /* Pindah setengah dari panjang total konten (karena kita menduplikasi konten) */
-                        }
-                    }
-                
-                    .client-logo {
-                        flex-shrink: 0;
-                        width: auto;
-                    }
-                </style>
-                
             </div>
         </section>
     </div>
