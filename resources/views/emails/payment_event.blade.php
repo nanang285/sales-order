@@ -103,7 +103,7 @@
                         <td class="body" style="padding: 40px; text-align: left; font-size: 16px; line-height: 1.6;">
                             Halo, <b>{{ $data['nama_lengkap'] }}</b><br>
                             Terima kasih atas dukungan dan Partisipasi Anda. Kami harap anda hadir dalam acara
-                            "<b>{{ $data['nama_lengkap'] }}</b>" ini.<br><br>
+                            "<b>{{ $data['jenis_produk'] }}</b>" ini.<br><br>
                             Kami percaya acara ini akan menjadi pengalaman yang bermakna, dan kehadiran Anda akan
                             semakin memperkaya momen berharga ini.
                             Sekali lagi, terima kasih, dan sampai jumpa di acara kami.
