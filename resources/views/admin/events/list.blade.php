@@ -66,6 +66,11 @@
                                         </th>
                                         <th data-type="date">
                                             <span class="flex items-center text-sm font-bold text-blue-800">
+                                                Jenis Quota
+                                            </span>
+                                        </th>
+                                        <th data-type="date">
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Jumlah Quota
                                             </span>
                                         </th>
@@ -83,53 +88,61 @@
                                 </thead>
                                 <tbody> 
                                     
-                                    <tr>
-                                        <td class="text-sm font-semibold text-gray-600">1</td>
-                                        <td class="text-sm font-semibold text-gray-600">
-                                            <img src="{{asset('dist/images/event-zmi-2.png')}}" class="w-32">
-                                        </td>
-                                        <td class="text-sm font-semibold text-gray-600">
-                                            Zen Multimedia Expo 2024
-                                        </td>
-                                        <td class="text-sm font-semibold text-gray-600">
-                                            <span class="bg-blue-500 rounded p-2 text-white">Gratis</span>
-                                        </td>
-                                        <td class="text-sm font-semibold text-gray-600">Rp 0,00 </td>
-                                        <td class="text-sm font-semibold text-gray-600">100</td>
-                                        <td class="text-sm font-semibold text-gray-600">DevOps</td>
-                                        <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
-                                            <!-- Edit Button with Tooltip -->
-                                            <div class="relative group">
-                                                <button data-modal-target="edit_modal_" data-modal-toggle="edit_modal_"
-                                                    class="text-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white font-medium rounded text-sm px-2.5 py-1.5 m-1 text-center"
-                                                    type="button">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
+                                   @foreach ($events as $event )
+                                   <tr>
+                                    <td class="text-sm font-semibold text-gray-600">1</td>
+                                    <td class="text-sm font-semibold text-gray-600">
+                                        <a href="{{ asset('storage/uploads/event/' . $event->image_path) }}"
+                                            data-lightbox="galery" data-title="{{ $event->title }}">
+                                            <img src="{{ asset('storage/uploads/event/' . ($event->image_path ?? '')) }}"
+                                                alt="{{ $event->image_path }}" class="w-20 rounded">
+                                        </a>
+                                    </td>
+                                    <td class="text-sm font-semibold text-gray-600">
+                                       {{$event->judul}}
+                                    </td>
+                                    <td class="text-sm font-semibold text-gray-600">
+                                        {{$event->type}}
+                                    </td>
+                                    <td class="text-sm font-semibold text-gray-600">
+                                        Rp {{ number_format($event->harga, 0, ',', '.') }}    
+                                    </td>
+                                    <td class="text-sm font-semibold text-gray-600">
+                                        {{$event->status_quota}}
+                                    </td>
+                                    <td class="text-sm font-semibold text-gray-600">
+                                        {{$event->quota}}
+                                    </td>
+                                    <td class="text-sm font-semibold text-gray-600">DevOps</td>
+                                    <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
+                                        <div class="relative group">
+                                            <a href="{{ route('admin.events.edit', $event->slug) }}" data-modal-target="edit_modal_" data-modal-toggle="edit_modal_"
+                                                class="text-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white font-medium rounded text-sm px-2.5 py-1.5 m-1 text-center"
+                                                type="button">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
                                         
-                                                <!-- Tooltip for Edit -->
-                                                <div class="absolute z-10 bottom-full mb-2 px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                    Edit
-                                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                                </div>
+                                            <div class="absolute z-10 bottom-full mb-2 px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                Edit
+                                                <div class="tooltip-arrow" data-popper-arrow></div>
                                             </div>
+                                        </div>
                                         
-                                            <!-- Delete Button with Tooltip -->
-                                            <div class="relative group">
-                                                <button data-modal-target="delete_modal_" data-modal-toggle="delete_modal_"
-                                                    class="text-red-700 border border-red-700 hover:bg-red-800 hover:text-white font-medium rounded text-sm px-2.5 py-1.5 m-1 text-center"
-                                                    type="button">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
+                                        <div class="relative group">
+                                            <a href="{{route('admin.events.hapus', $event->slug)}}" data-modal-target="delete_modal_" data-modal-toggle="delete_modal_"
+                                                class="text-red-700 border border-red-700 hover:bg-red-800 hover:text-white font-medium rounded text-sm px-2.5 py-1.5 m-1 text-center"
+                                                type="button">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
                                         
-                                                <!-- Tooltip for Delete -->
-                                                <div class="absolute z-10 bottom-full mb-2 px-3 py-2 text-sm font-medium text-white bg-red-700 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                    Hapus
-                                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                                </div>
+                                            <div class="absolute z-10 bottom-full mb-2 px-3 py-2 text-sm font-medium text-white bg-red-700 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                Hapus
+                                                <div class="tooltip-arrow" data-popper-arrow></div>
                                             </div>
-                                        </td>
-                                        
-                                    </tr>
+                                        </div>
+                                    </td>
+                                </tr>
+                                   @endforeach
                                 </tbody>
                             </table>
                         </div>

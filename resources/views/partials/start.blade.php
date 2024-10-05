@@ -33,6 +33,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            CKEDITOR.replace('description', {
+                removePlugins: 'about', // Menonaktifkan plugin "about"
+                // Tambahkan opsi lainnya sesuai kebutuhan
+            });
+        });
+    </script>
+    
+    <style>
+        .cke_notifications_area {
+            display: none !important;
+        }
+    </style>
+    
 </head>
 
 <body class="bg-gray-100">

@@ -126,27 +126,17 @@
                             <a href="{{ route('admin.events.payments') }}"
                                 class="{{ Request::is('admin/events/payments') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                 <i class="fa-solid fa-circle text-xs"></i>
-                                <span class="ml-3">Pembayaran</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul id="event" class="hidden pl-5 space-y-1">
-                        <li>
-                            <a href="{{ route('admin.events.index') }}"
-                                class="{{ Request::is('admin/events') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
-                                <i class="fa-solid fa-circle text-xs"></i>
-                                <span class="ml-3">Acara</span>
+                                <span class="ml-3">Transaksi</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.events.payments') }}"
-                                class="{{ Request::is('admin/events/payments') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            <a href="{{ route('admin.events.ticket')}}"
+                                class="{{ Request::is('admin/events/ticket') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                 <i class="fa-solid fa-circle text-xs"></i>
-                                <span class="ml-3">Pembayaran</span>
+                                <span class="ml-3">Tiket</span>
                             </a>
                         </li>
                     </ul>
-
                     <li>
                         <button type="button" id="dropdownButton2"
                             class="flex items-center w-full font-semibold text-base px-4 py-2.5 text-gray-300 rounded-lg group hover:bg-[#bdd4f69d] transition duration-300"

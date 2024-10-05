@@ -122,7 +122,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     'success' => true,
-                    'message' => 'Error, User berhasil dihapus',
+                    'message' => 'Success, User berhasil dihapus',
                 ],
                 200,
             );

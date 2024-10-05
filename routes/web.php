@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Homepages\GaleryController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Events\EventController;
+use App\Http\Controllers\Events\PaymentEventController;
 
 use Illuminate\Support\Facades\Route;
 use App\Exports\RecruitmentExport;
@@ -41,7 +42,12 @@ Route::get('/documentation', [GaleryController::class, 'DocIndex'])->name('docum
 Route::post('recruitment-store', [RecruitmentController::class, 'store'])->name('recruitment.store');
 
 Route::get('/events', [EventController::class, 'list'])->name('events');
-Route::get('/events/zen-multimedia-expo-2024', [EventController::class, 'detail'])->name('detail-event');
+Route::get('/events/{slug}', [EventController::class, 'detail'])->name('detail-event');
+
+Route::post('/payment-event/store', [PaymentEventController::class, 'store'])->name('payment-event.store');
+Route::get('event/invoice/{kode}', [EventController::class, 'invoice'])->name('event.invoice');
+Route::get('event/ticket/{kode}', [EventController::class, 'showTicket'])->name('event.ticket');
+
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

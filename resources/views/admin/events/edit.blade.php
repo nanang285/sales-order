@@ -18,15 +18,16 @@
                 <hr>
                 <div class="flex flex-col">
                     <div class="min-w-full">
-                        <form action="{{ route('admin.events.store') }}" method="post" id="eventForm" enctype="multipart/form-data">
+                        <form action="{{ route('admin.events.update', $event->slug) }}" method="post" id="eventForm" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="overflow-hidden py-4 px-1">
                                 <div class="grid grid-cols-10 gap-3 lg:gap-4">
                                     <div class="rounded-lg col-span-10 lg:col-span-4">
                                         <div class="grid grid-cols-5 gap-2 lg:gap-3 mb-4">
                                             <div class="rounded col-span-5 lg:col-span-5 flex flex-col relative">
                                                 <div class="w-full max-w-full">
-                                                    <img id="image_preview" src="{{ asset('dist/images/no-image.png') }}" class="rounded-lg">
+                                                    <img id="image_preview" src="{{ asset('storage/uploads/event/' . ($event->image_path ?? '')) }}" class="rounded-lg">
                                                 </div>
                                             </div>
                                         </div>
@@ -60,7 +61,7 @@
                                         <div class="mt-3">
                                             <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                                             <textarea name="description" id="description" placeholder="Tulis deskripsi acara di sini..."
-                                                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"></textarea>
+                                                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">{!!$event->description!!}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-span-10 lg:col-span-6">
@@ -70,7 +71,7 @@
                                                     <div class="px-3 py-2 border-b">
                                                         <div class="my-3">
                                                             <label for="judul" class="block mb-2 text-sm font-medium text-gray-900">Judul</label>
-                                                            <input type="text" name="judul" id="judul" required
+                                                            <input type="text" name="judul" id="judul" required value="{{$event->judul}}"
                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                             @error('judul')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
@@ -78,7 +79,7 @@
                                                         </div>
                                                         <div class="my-3">
                                                             <label for="lokasi" class="block mb-2 text-sm font-medium text-gray-900">Lokasi</label>
-                                                            <input type="text" name="lokasi" id="lokasi" required
+                                                            <input type="text" name="lokasi" id="lokasi" required value="{{$event->lokasi}}"
                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                             @error('lokasi')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
@@ -87,28 +88,32 @@
                                                         <div class="my-3">
                                                             <label for="waktu" class="block mb-2 text-sm font-medium text-gray-900">Waktu Acara</label>
                                                             <input type="datetime-local" name="waktu" id="waktu" required
+                                                                   value="{{ \Carbon\Carbon::parse($event->waktu)->format('Y-m-d\TH:i') }}" 
                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                             @error('waktu')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                                                             @enderror
                                                         </div>
+                                                        
                         
                                                         <div class="my-3">
                                                             <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Tipe Acara</label>
                                                             <select name="type" id="type" required
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                                 <option value="">Pilih Tipe Acara</option>
-                                                                <option value="gratis">Gratis</option>
-                                                                <option value="berbayar">Berbayar</option>
+                                                                <option value="gratis" {{ (isset($event->type) && $event->type == 'gratis') ? 'selected' : '' }}>Gratis</option>
+                                                                <option value="berbayar" {{ (isset($event->type) && $event->type == 'berbayar') ? 'selected' : '' }}>Berbayar</option>
                                                             </select>
                                                             @error('type')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                         
+                                                        
                                                         <div class="mb-4">
                                                             <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
-                                                            <input type="text" id="harga" name="harga" placeholder="Masukkan harga"
+                                                            <input type="text" id="harga" name="harga" placeholder="Masukkan harga" 
+                                                                value="{{ isset($event->harga) ? 'Rp ' . number_format($event->harga, 0, ',', '.') : '' }}"
                                                                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                                                             @error('harga')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
@@ -153,32 +158,36 @@
                                                                     hargaInput.value = '0';
                                                                 } else {
                                                                     let rawValue = hargaInput.value.replace(/[^,\d]/g, '');
-                                                                    hargaInput.value = parseFloat(rawValue.replace(/,/g, ''));
+                                                                    hargaInput.value = parseFloat(rawValue.replace(/,/g, '.'));
                                                                 }
                                                             });
                                                         </script>
                                                         
-                        
-                                                        <div class="my-3">
+                                                        <div>
                                                             <label for="pilihan_sesi" class="block mb-2 text-sm font-medium text-gray-900">Jumlah Sesi</label>
                                                             <select name="pilihan_sesi" id="pilihan_sesi" required
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                                 <option value="">Pilih Sesi</option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
+                                                                <option value="1" {{ (old('pilihan_sesi') == 1 || $event->pilihan_sesi == 1) ? 'selected' : '' }}>1</option>
+                                                                <option value="2" {{ (old('pilihan_sesi') == 2 || $event->pilihan_sesi == 2) ? 'selected' : '' }}>2</option>
+                                                                <option value="3" {{ (old('pilihan_sesi') == 3 || $event->pilihan_sesi == 3) ? 'selected' : '' }}>3</option>
+                                                                <option value="4" {{ (old('pilihan_sesi') == 4 || $event->pilihan_sesi == 4) ? 'selected' : '' }}>4</option>
+                                                                <option value="5" {{ (old('pilihan_sesi') == 5 || $event->pilihan_sesi == 5) ? 'selected' : '' }}>5</option>
+                                                                <option value="6" {{ (old('pilihan_sesi') == 6 || $event->pilihan_sesi == 6) ? 'selected' : '' }}>6</option>
+                                                                <option value="7" {{ (old('pilihan_sesi') == 7 || $event->pilihan_sesi == 7) ? 'selected' : '' }}>7</option>
+                                                                <option value="8" {{ (old('pilihan_sesi') == 8 || $event->pilihan_sesi == 8) ? 'selected' : '' }}>8</option>
+                                                                <option value="9" {{ (old('pilihan_sesi') == 9 || $event->pilihan_sesi == 9) ? 'selected' : '' }}>9</option>
+                                                                <option value="10" {{ (old('pilihan_sesi') == 10 || $event->pilihan_sesi == 10) ? 'selected' : '' }}>10</option>
                                                             </select>
                                                             @error('pilihan_sesi')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                                                             @enderror
                                                         </div>
+                                                        
                         
                                                         <div class="my-3">
                                                             <label for="kategori" class="block mb-2 text-sm font-medium text-gray-900">Kategori atau Topik</label>
-                                                            <input type="text" name="kategori" id="kategori" required
+                                                            <input type="text" name="kategori" id="kategori" required value="{{$event->kategori}}"
                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                             @error('kategori')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
@@ -191,17 +200,18 @@
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                                                     onchange="toggleQuotaInput()">
                                                                 <option value="">Pilih Status Kuota</option>
-                                                                <option value="unlimited">Unlimited</option>
-                                                                <option value="limited">Limited</option>
+                                                                <option value="unlimited" {{ (isset($event->status_quota) && $event->status_quota == 'unlimited') ? 'selected' : '' }}>Unlimited</option>
+                                                                <option value="limited" {{ (isset($event->status_quota) && $event->status_quota == 'limited') ? 'selected' : '' }}>Limited</option>
                                                             </select>
                                                             @error('status_quota')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                         
+                                                        
                                                         <div class="my-3">
                                                             <label for="quota" class="block mb-2 text-sm font-medium text-gray-900">Kuota</label>
-                                                            <input type="number" name="quota" id="quota" min="1"
+                                                            <input type="number" name="quota" id="quota" min="1" value="{{$event->quota}}"
                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                             @error('quota')
                                                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
@@ -229,7 +239,7 @@
                         
                                                         <button type="submit" id="updateButton"
                                                                 class="my-1 ring-2 font-semibold ring-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 text-sm py-1.5 px-2.5 rounded transition duration-300">
-                                                            Kirim
+                                                            Update
                                                         </button>
                                                     </div>
                                                 </div>

@@ -18,6 +18,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Events\EventController;
+use App\Http\Controllers\Events\PaymentEventController;
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
 
@@ -64,13 +65,23 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::post('/', 'store')->name('store');;
 
     });
+    
+    // EVENTS
+    Route::prefix('payments')->name('payments.')->controller(PaymentEventController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        
+    });
 
     Route::prefix('events')->name('events.')->controller(EventController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/ticket', 'ticket')->name('ticket');
         Route::get('/payments', 'payments')->name('payments');
         Route::get('/add', 'add')->name('add');
-        Route::put('/{id}', 'update')->name('update');
-        Route::post('/', 'store')->name('store');;
+        Route::put('/update/{slug}', 'update')->name('update');
+        Route::delete('/delete/{slug}', 'destroy')->name('delete');
+        Route::post('/', 'store')->name('store');
+        Route::get('/edit/{slug}', 'edit')->name('edit');
+        Route::get('/hapus/{slug}', 'delete')->name('hapus');
     });
 
     Route::prefix('homepages')->name('homepages.')->group(function () {

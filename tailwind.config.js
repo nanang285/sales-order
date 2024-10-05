@@ -12,7 +12,7 @@ module.exports = {
         require('flowbite-typography'),
         require("flowbite/plugin")({
             datatables: true,
-            wysiwyg: true,
+            // wysiwyg: true,
         }),
     ],
 

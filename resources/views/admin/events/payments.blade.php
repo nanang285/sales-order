@@ -10,7 +10,7 @@
                     <div class="w-full max-w-52">
                         <div class="flex items-center">
                             <h3 class="text-blue-700 text-2lg font-bold">
-                                List Pembayaran
+                                List Pembelian
                             </h3>
                         </div>
                     </div>
@@ -57,36 +57,39 @@
                                                Keterangan
                                             </span>
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Aksi
                                             </span>
-                                        </th>
+                                        </th> --}}
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     
+                                    @foreach ( $paymentEvent as $payment )
                                     <tr>
                                         <td class="text-sm font-semibold text-gray-600">1</td>
                                         <td class="text-sm font-semibold text-gray-600">
-                                            Zen Multimedia Expo 2024
+                                            {{$payment->jenis_produk}}
                                         </td>
                                         <td class="text-sm font-semibold text-gray-600">
-                                            Nanang Supriatna
+                                            {{$payment->nama_lengkap}}
                                         </td>
                                         <td class="text-sm font-semibold text-gray-600">
-                                            nngs.me@gmail.com
+                                            {{$payment->email}}
                                         </td>
                                         <td class="text-sm font-semibold text-gray-600">
-                                            085171111552
+                                            {{$payment->no_telp}}
                                         </td>
                                         <td class="text-sm font-semibold text-gray-600">
-                                            Rp 0,00
+                                            Rp {{ number_format($payment->harga, 0, ',', '.') }}
                                         </td>
-                                        <td class="text-base font-bold text-green-600">
-                                            <span class="bg-blue-500 rounded p-2 text-white">Paid</span>
+                                        <td class="text-base font-bold">
+                                            <span class="bg-blue-500 rounded p-2 text-white">
+                                            {{$payment->keterangan ?? '-'}}
+                                            </span>
                                         </td>
-                                        <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
+                                        {{-- <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
                                             <!-- Edit Button with Tooltip -->
                                             <div class="relative group">
                                                 <button data-modal-target="edit_modal_" data-modal-toggle="edit_modal_"
@@ -101,9 +104,10 @@
                                                     <div class="tooltip-arrow" data-popper-arrow></div>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                         
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

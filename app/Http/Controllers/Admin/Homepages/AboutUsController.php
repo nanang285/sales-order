@@ -29,7 +29,7 @@ class AboutUsController extends Controller
             'list_items' => json_encode($request->list_items),
         ]);
 
-        return redirect()->route('admin.about-us.index')->with('success', 'Data berhasil disimpan!');
+        return redirect()->route('admin.about-us.index')->with('success', true)->with('toast', 'add');
     }
 
     public function update(Request $request, $id)

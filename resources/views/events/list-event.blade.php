@@ -4,7 +4,8 @@
     @include('components.preloader')
 
     <div class="relative">
-        <div class="bg-fixed bg-cover bg-no-repeat"  style="background-image: url('{{ asset('dist/images/homepages/zmi-bg-portfolio.jpg') }}')">
+        <div class="bg-fixed bg-cover bg-no-repeat"
+            style="background-image: url('{{ asset('dist/images/homepages/zmi-bg-portfolio.jpg') }}')">
             <div class="relative max-h-screen py-28 lg:py-56 bg-gray-900 bg-opacity-90">
                 <div class="mx-auto max-w-4xl">
                     <div class="flex justify-center">
@@ -51,18 +52,6 @@
                                 aria-labelledby="dropdownDefaultButton">
                                 <li>
                                     <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">AI</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">DevOps</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cloud</a>
-                                </li>
-                                <li>
-                                    <a href="#"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cybersecurity</a>
                                 </li>
                             </ul>
@@ -71,71 +60,86 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-3">
+
+                    @foreach ($events as $event)
                     <div data-aos="fade-up" data-aos-anchor-placement="top-center"
-                        class="relative max-w-full rounded-xl bg-white border overflow-hidden shadow-lg z-40 group">
-                        <img class="w-full transition-transform duration-500 ease-in-out"
-                            src="{{ asset('dist/images/event-zmi-2.png') }}">
-                            <div
-                            class="absolute top-3 right-3 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <button
-                                class="bg-gray-300 text-gray-600 text-sm font-semibold w-10 h-10 rounded-full shadow-md hover:bg-gray-400 transition duration-200"
-                                onclick="copyLink()">
+                        class="relative max-w-full rounded-xl bg-white border overflow-hidden shadow-lg z-40 group flex flex-col">
+                
+                        <div class="relative w-full h-64">
+                            <img class="absolute inset-0 object-cover w-full h-full"
+                                src="{{ asset('storage/uploads/event/' . ($event->image_path ?? 'default-image.jpg')) }}"
+                                alt="{{ $event->judul }}">
+                        </div>
+                
+                        <div class="absolute top-3 right-3 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="bg-gray-300 text-gray-600 text-sm font-semibold w-10 h-10 rounded-full shadow-md hover:bg-gray-400 transition duration-200"
+                                onclick="copyLink('{{ route('detail-event', $event->slug) }}')">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>
-                        
+                
                         <script>
-                            function copyLink() {
-                                // Link yang ingin di-copy
-                                var link = "https://zenmultimedia.co.id/events/zen-multimedia-expo-2024";
-                                
-                                // Buat elemen input sementara
+                            function copyLink(link) {
                                 var tempInput = document.createElement("input");
                                 tempInput.value = link;
                                 document.body.appendChild(tempInput);
-                        
-                                // Pilih dan salin teks dari elemen input
+                
                                 tempInput.select();
-                                tempInput.setSelectionRange(0, 99999); // Untuk mobile
-                        
-                                // Eksekusi perintah copy
+                                tempInput.setSelectionRange(0, 99999);
+                
                                 document.execCommand("copy");
-                        
-                                // Hapus elemen input sementara
+                
                                 document.body.removeChild(tempInput);
-                        
-                                // Berikan notifikasi bahwa link telah disalin (opsional)
+                
                                 alert("Link berhasil disalin ke clipboard: " + link);
                             }
                         </script>
-                        
-                        <div class="px-4 py-4">
+                
+                        <div class="px-4 py-4 flex-grow flex flex-col">
                             <div class="font-bold text-xl mb-2 text-gray-800">
-                                <a target="_blank" href="{{ Route('detail-event')}}">
-                                    <span class="text-lg font-bold">
-                                        Zen Multimedia Expo 2024: Menjelajah Kreativitas Di Era Digital
-                                    </span>
+                                <a target="_blank" href="{{ route('detail-event', $event->slug) }}">
+                                    <span class="text-lg font-bold">{{ $event->judul }}</span>
                                 </a>
                             </div>
+                
                             <p class="text-blue-700 text-sm font-semibold">
-                                Kamis, 10 Oktober 2024 • 13:00 WIB
+                                {{ \Carbon\Carbon::parse($event->waktu)->translatedFormat('l, d-m-Y H:i:s') }}
                             </p>
+                
                             <p class="text-blue-800 text-base font-normal mb-2">
-                                Kantor ZMI, Purwakarta.
+                                {{ $event->lokasi ?? '-' }}
                             </p>
-                            <div class="flex justify-between no-select items-center">
-                                <span
-                                    class="bg-gray-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2 border border-blue-500">
-                                    Kuota 100
+                
+                            <p class="text-gray-600 text-sm mb-2">
+                                Kategori: <span class="font-semibold">{{ $event->kategori ?? 'Tidak ada' }}</span>
+                            </p>
+                
+                            {{-- <p class="text-gray-600 text-sm mb-2">
+                                Sesi: <span class="font-semibold">{{ $event->pilihan_sesi ?? 'Tidak ada' }}</span>
+                            </p> --}}
+                
+                            <div class="mt-auto flex justify-between items-center">
+                                <span class="bg-gray-100 
+                                @if ($event->quota == 0) text-red-800 border-red-500 
+                                @elseif ($event->status_quota == 'unlimited') text-green-800 border-green-500 
+                                @else text-blue-800 border-blue-500 @endif
+                                text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2 border">
+                                {{ $event->status_quota == 'unlimited' ? 'Unlimited' : ($event->quota == 0 ? 'Habis' : $event->quota) }}
                                 </span>
-                                <span
-                                    class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded border border-blue-400">
-                                    Gratis
+                                <span class="
+                                    @if ($event->harga > 0) 
+                                        bg-green-100 text-green-800 border border-green-400 
+                                    @else 
+                                        bg-blue-100 text-blue-800 border border-blue-400 
+                                    @endif
+                                    text-xs font-medium px-2.5 py-0.5 rounded">
+                                    {{ $event->harga > 0 ? 'Rp ' . number_format($event->harga, 0, ',', '.') : 'Gratis' }}
                                 </span>
                             </div>
                         </div>
                     </div>
+                @endforeach
                 </div>
             </div>
         </div>
