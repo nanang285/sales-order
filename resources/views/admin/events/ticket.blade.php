@@ -84,7 +84,9 @@
                                             <td class="text-sm font-semibold text-gray-600">
                                                 {{ $ticket->type }}
                                             </td>
-                                            <td class="text-sm font-semibold text-gray-600">{{ $ticket->email }}</td>
+                                            <td class="text-sm font-semibold text-gray-600">
+                                                Rp {{ number_format($ticket->harga, 0, ',', '.') }}
+                                            </td>
                                             <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
                                                 <div class="relative group">
                                                     <a href="{{ route('event.ticket', $ticket->kode_invoice) }}"
