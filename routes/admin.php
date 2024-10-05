@@ -17,8 +17,8 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Events\EventController;
-use App\Http\Controllers\Events\PaymentEventController;
+use App\Http\Controllers\Ticket\EventController;
+use App\Http\Controllers\Ticket\PaymentEventController;
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
 

@@ -6,9 +6,8 @@ use App\Http\Controllers\Admin\Homepages\ProjectController;
 use App\Http\Controllers\Admin\Homepages\GaleryController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Events\EventController;
-use App\Http\Controllers\Events\PaymentEventController;
-
+use App\Http\Controllers\Ticket\EventController;
+use App\Http\Controllers\Ticket\PaymentEventController;
 
 use Illuminate\Support\Facades\Route;
 use App\Exports\RecruitmentExport;

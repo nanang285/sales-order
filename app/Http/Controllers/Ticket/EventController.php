@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Events;
+namespace App\Http\Controllers\Ticket;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
