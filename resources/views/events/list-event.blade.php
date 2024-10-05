@@ -35,7 +35,7 @@
                     <p class="mt-2 text-3xl lg:text-3xl font-bold tracking-tight text-gray-900 text-left">
                         <span class="text-primary">Zen Multimedia Events</span>
                     </p>
-                    <div class="relative group">
+                    {{-- <div class="relative group">
 
                         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -52,12 +52,11 @@
                                 aria-labelledby="dropdownDefaultButton">
                                 <li>
                                     <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cybersecurity</a>
                                 </li>
                             </ul>
                         </div>
 
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-3">

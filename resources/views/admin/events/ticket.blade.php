@@ -14,26 +14,6 @@
                             </h3>
                         </div>
                     </div>
-                    <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <div class="flex items-center space-x-2 w-full relative">
-                            <!-- Button with Tooltip -->
-                            <a href="{{ route('admin.events.add') }}" data-modal-target="add_modal"
-                                data-modal-toggle="add_modal" data-tooltip-target="tooltip-default"
-                                class="transition duration-300 block font-medium rounded-md text-sm px-2.5 py-1 text-center text-green-500 border-2 border-green-500 hover:text-white hover:bg-green-500 relative"
-                                type="button">
-                                <i class="fa-solid fa-plus"></i>
-                            </a>
-
-                            <!-- Tooltip -->
-                            <div id="tooltip-default" role="tooltip"
-                                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-green-500 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                Tambah
-                                <div class="tooltip-arrow" data-popper-arrow></div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <hr>
                 <div class="flex flex-col">

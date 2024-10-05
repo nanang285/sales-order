@@ -80,7 +80,7 @@ class PaymentEventController extends Controller
         // Tampilkan halaman invoice
         return view('events.invoice', [
             'ticketData' => $ticketData,
-            'kode' => $kodeUnik,
+            'kode' => $kode,
             'success' => 'Data berhasil disimpan, kuota diperbarui, dan email telah dikirim.',
         ]);
     }
