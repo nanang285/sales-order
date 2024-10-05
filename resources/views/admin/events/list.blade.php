@@ -88,9 +88,9 @@
                                 </thead>
                                 <tbody> 
                                     
-                                   @foreach ($events as $event )
+                                   @foreach ($events as $index => $event )
                                    <tr>
-                                    <td class="text-sm font-semibold text-gray-600">1</td>
+                                    <td class="text-sm font-semibold text-gray-600">{{ $index + 1 }}</td>
                                     <td class="text-sm font-semibold text-gray-600">
                                         <a href="{{ asset('storage/uploads/event/' . $event->image_path) }}"
                                             data-lightbox="galery" data-title="{{ $event->title }}">
