@@ -58,7 +58,7 @@ class DashboardController extends Controller
 
         $totalFailed = count($failedStages['Administrasi']) + count($failedStages['Test Project']) + count($failedStages['Interview']) + count($failedStages['Offering']);
 
-        $totalSuccess = Recruitment::where('stage4', 1)->count(); // Hanya yang mencapai stage 4 dianggap sukses
+        $totalSuccess = Recruitment::where('stage4', 1)->count();
 
         $breadcrumbTitle = 'Dashboard';
 

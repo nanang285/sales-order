@@ -19,7 +19,6 @@ use App\Mail\StageNotification;
 
 class RecruitmentController extends Controller
 {
-    
     public function index(Request $request)
     {
         $breadcrumbTitle = 'Rekrutmen';
@@ -31,20 +30,7 @@ class RecruitmentController extends Controller
             'recruitments' => $recruitments,
         ]);
     }
-
-    public function searchByName(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-        ]);
-
-        $name = $request->input('name');
-
-        $recruitments = Recruitment::searchByName($name);
-
-        return view('admin.recruitment.index', compact('recruitments'));
-    }
-
+    
     public function searchByEmail(Request $request)
     {
         $request->validate([
@@ -292,13 +278,13 @@ class RecruitmentController extends Controller
         }
 
         $recruitment = Recruitment::where('uuid', $uuid)->firstOrFail();
-        $recruitment = Recruitment::findOrFail($uuid);
 
         if ($recruitment->file_path) {
             Storage::disk('public')->delete('uploads/recruitment/' . $recruitment->file_path);
         }
 
         $recruitment->delete();
+
         return redirect()->route('admin.recruitment.index')->with('success', true)->with('toast', 'delete');
     }
 }

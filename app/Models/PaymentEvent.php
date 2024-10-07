@@ -12,6 +12,11 @@ class PaymentEvent extends Model
     protected $table = 'payment_events';
     
     protected $fillable = [
-        'nama_lengkap','jenis_produk', 'email', 'no_telp', 'jabatan', 'nama_perusahaan', 'alamat', 'harga', 'keterangan'
+        'nama_lengkap','jenis_produk', 'email', 'no_telp', 'jabatan', 'nama_perusahaan', 'alamat', 'harga', 'keterangan', 'external_id'
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

@@ -47,6 +47,11 @@ Route::get('/events/{slug}', [EventController::class, 'detail'])->name('detail-e
 Route::post('/payment-event/store', [PaymentEventController::class, 'store'])->name('payment-event.store');
 Route::get('event/invoice/{kode}', [EventController::class, 'invoice'])->name('event.invoice');
 Route::get('event/ticket/{kode}', [EventController::class, 'showTicket'])->name('event.ticket');
+Route::get('/events/filter', [EventController::class, 'filterByCategory']);
+
+Route::get('/transaksi/{external_id}', [PaymentEventController::class, 'show'])->name('transaksi.show');
+// Route::get('/invoice', [PaymentEventController::class, 'failed'])->name('invoice.gagal');
+
 
 
 require __DIR__ . '/auth.php';

@@ -4,6 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\Ticket\PaymentEventController;
+
+Route::post('/create-invoice', [PaymentEventController::class, 'store']);
+Route::post('/xendit/callback', [PaymentEventController::class, 'handleCallback'])->name('xendit.callback');
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();

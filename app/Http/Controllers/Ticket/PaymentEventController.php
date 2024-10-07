@@ -6,82 +6,111 @@ use App\Http\Controllers\Controller;
 use App\Models\PaymentEvent;
 use App\Models\Event;
 use App\Models\Ticket;
-use Illuminate\Support\Str;
 use App\Mail\PaymentEventMail;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PaymentEventController extends Controller
 {
     public function store(Request $request)
     {
-        // Validasi data yang diterima dari request
-        $request->validate([
-            'jenis_produk' => 'required|string',
-            'nama_lengkap' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'no_telp' => 'required|string|max:20',
-            'jabatan' => 'required|string|max:255',
-            'nama_perusahaan' => 'required|string|max:255',
-            'alamat' => 'required|string|max:500',
+        // Validasi input
+        $validated = $request->validate([
             'harga' => 'required|numeric',
-            'event_id' => 'required|exists:events,id',
-            'image_path' => 'nullable|string|max:255',
-            'waktu' => 'nullable|date',
-            'type' => 'nullable|string|max:255',
+            'email' => 'required|email',
+            'no_telp' => 'required|string',
+            'nama_lengkap' => 'required|string',
+            'nama_perusahaan' => 'required|string',
+            'jenis_produk' => 'required|string',
+            'jabatan' => 'required|string',
+            'alamat' => 'required|string',
         ]);
 
-        // Cari event berdasarkan ID
-        $event = Event::findOrFail($request->event_id);
+        $validated['harga'] = (int) $validated['harga'];
 
-        // Cek kuota event
-        if (!$event || $event->quota < 1) {
-            return redirect()
-                ->back()
-                ->withErrors(['quota' => 'Kuota tidak tersedia.']);
+        \Log::info('Data yang sudah divalidasi: ', $validated);
+
+        // Kirim POST request ke Xendit
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('XENDIT_API_KEY'),
+        ])->post('https://xendit.zenmultimedia.co.id/api/invoice', [
+            'amount' => $validated['harga'],
+            'payer_email' => $validated['email'],
+            'description' => $validated['nama_perusahaan'],
+            'accountNumber' => $validated['no_telp'],
+            'accountName' => $validated['nama_lengkap'],
+        ]);
+
+        // Debug: Cek respons dari API
+        \Log::info('Xendit Response: ', $response->json());
+        \Log::info('Xendit Response Status Code: ', [$response->status()]);
+        \Log::info('Xendit Response Body: ', [$response->body()]);
+
+        if ($response->successful()) {
+            $responseData = $response->json();
+
+            // Simpan data transaksi di sesi
+            session(['transaction_data' => $responseData]);
+
+            // Ambil external_id dari responseData
+            $external_id = $responseData['data']['external_id']; // Ganti sesuai struktur data Anda
+
+            PaymentEvent::create([
+                'harga' => $validated['harga'],
+                'email' => $validated['email'],
+                'no_telp' => $validated['no_telp'],
+                'nama_lengkap' => $validated['nama_lengkap'],
+                'nama_perusahaan' => $validated['nama_perusahaan'],
+                'jenis_produk' => $validated['jenis_produk'],
+                'jabatan' => $validated['jabatan'],
+                'alamat' => $validated['alamat'],
+                'external_id' => $external_id,
+                'keterangan' => 'Sedang Di Proses',
+            ]);
+
+            // Redirect ke rute 'transaksi.show' dengan external_id
+            return redirect()->route('transaksi.show', ['external_id' => $external_id]);
         }
 
-        // Buat kode unik untuk invoice
-        $kodeUnik = Str::random(20);
+        return redirect()->back()->with('error', 'Payment failed. Please try again.');
+    }
 
-        // Simpan data pembayaran
-        $paymentEvent = PaymentEvent::create($request->only([
-            'nama_lengkap', 'jenis_produk', 'email', 'no_telp', 
-            'jabatan', 'nama_perusahaan', 'alamat', 'harga'
-        ]) + ['kode_invoice' => $kodeUnik]);
+    public function show(Request $request, $external_id)
+    {
+        // Cek apakah ada data transaksi di sesi
+        $transactionData = $request->session()->get('transaction_data');
 
-        // Kurangi kuota event
-        $event->quota -= 1;
-        $event->save();
+        // Tampilkan view dengan data transaksi
+        return view('invoice.show', compact('transactionData'));
+    }
 
-        // Siapkan data tiket
-        $ticketData = [
-            'event_id' => $event->id,
-            'jenis_produk' => $paymentEvent->jenis_produk,
-            'nama_lengkap' => $paymentEvent->nama_lengkap,
-            'nama_perusahaan' => $paymentEvent->nama_perusahaan,
-            'jabatan' => $paymentEvent->jabatan,
-            'email' => $paymentEvent->email,
-            'alamat' => $paymentEvent->alamat,
-            'no_telp' => $paymentEvent->no_telp,
-            'harga' => $paymentEvent->harga,
-            'kode_invoice' => $kodeUnik,
-            'image_path' => $request->input('image_path'),
-            'waktu' => $request->input('waktu'),
-            'type' => $request->input('type'),
-        ];
+    // CALLBACK XENDIT
+    public function handleCallback(Request $request)
+    {
+        // Ambil data dari Xendit
+        $data = $request->all();
 
-        // Buat tiket
-        Ticket::create($ticketData);
+        \Log::info('Xendit Callback Data: ', $data);
 
-        // Kirim email konfirmasi
-        Mail::to($paymentEvent->email)->send(new PaymentEventMail($ticketData));
+        $paymentEvent = PaymentEvent::where('external_id', $data['data']['external_id'])->first();
 
-        // Tampilkan halaman invoice
-        return view('events.invoice', [
-            'ticketData' => $ticketData,
-            'kode' => $kodeUnik,
-            'success' => 'Data berhasil disimpan, kuota diperbarui, dan email telah dikirim.',
-        ]);
+        if ($paymentEvent) {
+            $status = $data['data']['status'];
+            $paymentEvent->keterangan = $status === 'PAID' ? 'Pembayaran Berhasil' : 'Pembayaran Gagal';
+            $paymentEvent->save();
+
+            // // Kirim email konfirmasi jika pembayaran berhasil
+            // if ($status === 'PAID') {
+            //     Mail::to($paymentEvent->email)->send(new PaymentEventMail($paymentEvent));
+            // }
+
+            // Kembalikan response sukses ke Xendit
+            return response()->json(['status' => 'success'], 200);
+        }
+
+        // Jika tidak ditemukan, kembalikan response gagal
+        return response()->json(['status' => 'failure'], 404);
     }
 }

@@ -11,11 +11,13 @@ use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\PaymentEvent;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
     public function index()
     {
+        $this->deleteExpiredEvents();
         $breadcrumbTitle = 'Acara';
         $latestProject = LatestProject::All();
         $footerSection = footerSection::first();
@@ -46,7 +48,6 @@ class EventController extends Controller
             }
         }
 
-        // Return the ticket view with the retrieved data
         return view('events.ticket', compact('ticketData'));
     }
 
@@ -96,20 +97,9 @@ class EventController extends Controller
         return view('admin.events.edit', compact('latestProject', 'footerSection', 'event', 'breadcrumbTitle'));
     }
 
-    public function delete($slug)
-    {
-        $breadcrumbTitle = 'Hapus';
-
-        $latestProject = LatestProject::all();
-        $footerSection = FooterSection::first();
-
-        $event = Event::where('slug', $slug)->firstOrFail();
-
-        return view('admin.events.delete', compact('latestProject', 'footerSection', 'event', 'breadcrumbTitle'));
-    }
-
     public function detail($slug)
-    {
+    {   
+        $this->deleteExpiredEvents();
         $latestProject = LatestProject::all();
         $footerSection = FooterSection::first();
 
@@ -120,6 +110,7 @@ class EventController extends Controller
 
     public function list()
     {
+        $this->deleteExpiredEvents();
         $events = Event::All();
         $latestProject = LatestProject::All();
         $footerSection = footerSection::first();
@@ -258,8 +249,11 @@ class EventController extends Controller
             $harga = is_numeric($harga) ? (float) $harga : 0;
         }
 
+        $newSlug = Str::slug($request->input('judul'));
+        
         $event->update([
             'judul' => $request->input('judul'),
+             'slug' => $newSlug,
             'lokasi' => $request->input('lokasi'),
             'description' => $request->input('description'),
             'image_path' => $imageName,
@@ -275,6 +269,18 @@ class EventController extends Controller
         return redirect()->route('admin.events.index')->with('success', true)->with('toast', 'edit');
     }
 
+    public function delete($slug)
+    {
+        $breadcrumbTitle = 'Hapus';
+
+        $latestProject = LatestProject::all();
+        $footerSection = FooterSection::first();
+
+        $event = Event::where('slug', $slug)->firstOrFail();
+
+        return view('admin.events.delete', compact('latestProject', 'footerSection', 'event', 'breadcrumbTitle'));
+    }
+
     public function destroy($slug)
     {
         $event = Event::where('slug', $slug)->first();
@@ -283,8 +289,46 @@ class EventController extends Controller
             return redirect()->route('admin.events.index')->with('error', 'Event not found.');
         }
 
-        $event->delete();
+        // Periksa apakah waktu event sudah terlewati
+        $currentTime = now(); // Waktu saat ini
+        $eventTime = $event->waktu; // Pastikan kolom waktu ada dalam model Event
 
-        return redirect()->route('admin.events.index')->with('success', true)->with('toast', 'delete');
+        if ($currentTime->greaterThan($eventTime)) {
+            // Hapus gambar jika ada
+            if ($event->image_path) {
+                Storage::disk('public')->delete('uploads/event/' . $event->image_path);
+            }
+
+            // Hapus event
+            $event->delete();
+            return redirect()->route('admin.events.index')->with('success', true)->with('toast', 'Event deleted successfully.');
+        } else {
+            return redirect()->route('admin.events.index')->with('error', 'Event cannot be deleted because it has not yet passed the specified time.');
+        }
+    }
+
+    private function deleteExpiredEvents()
+    {
+        // Ambil waktu saat ini
+        $currentTime = now();
+
+        // Cari semua event yang waktunya sudah terlewati
+        $expiredEvents = Event::where('waktu', '<', $currentTime)->get();
+
+        foreach ($expiredEvents as $event) {
+            // Hapus gambar jika ada
+            if ($event->image_path) {
+                Storage::disk('public')->delete('uploads/event/' . $event->image_path);
+            }
+
+            // Hapus event dari database
+            $event->delete();
+        }
+
+        // Optional: Tambahkan notifikasi atau log jika perlu
+        if ($expiredEvents->isNotEmpty()) {
+            // Misalnya, bisa menambahkan flash message
+            session()->flash('success', 'Expired events deleted successfully.');
+        }
     }
 }

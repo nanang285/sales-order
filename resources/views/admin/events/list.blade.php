@@ -113,7 +113,7 @@
                                     <td class="text-sm font-semibold text-gray-600">
                                         {{$event->quota}}
                                     </td>
-                                    <td class="text-sm font-semibold text-gray-600">DevOps</td>
+                                    <td class="text-sm font-semibold text-gray-600">{{$event->kategori}}</td>
                                     <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
                                         <div class="relative group">
                                             <a href="{{ route('admin.events.edit', $event->slug) }}" data-modal-target="edit_modal_" data-modal-toggle="edit_modal_"

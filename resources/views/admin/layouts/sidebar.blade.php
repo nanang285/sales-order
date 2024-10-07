@@ -63,13 +63,13 @@
                                     <span class="ml-3">Data Pelamar</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#"
-                                    class="{{ Request::is('') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
+                            {{-- <li>
+                                <a href="{{route('admin.recruitment.email')}}"
+                                    class="{{ Request::is('admin/recruitment/email') ? 'text-gray-200 bg-[#bdd4f69d]' : 'text-gray-300' }} flex items-center px-4 py-2.5 font-semibold text-base rounded-lg pl-4 group hover:bg-[#bdd4f69d] transition duration-300">
                                     <i class="fa-solid fa-circle text-xs"></i>
-                                    <span class="ml-3">Verifikasi Email</span>
+                                    <span class="ml-3">Email Verifikasi</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
 

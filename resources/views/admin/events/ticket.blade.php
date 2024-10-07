@@ -10,7 +10,7 @@
                     <div class="w-full max-w-52">
                         <div class="flex items-center">
                             <h3 class="text-blue-700 text-2lg font-bold">
-                                List Acara
+                                Daftar Ticket
                             </h3>
                         </div>
                     </div>
