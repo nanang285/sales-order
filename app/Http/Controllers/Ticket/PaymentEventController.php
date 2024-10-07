@@ -91,20 +91,26 @@ class PaymentEventController extends Controller
     {
         // Ambil data dari Xendit
         $data = $request->all();
-
         \Log::info('Xendit Callback Data: ', $data);
+
+        // Validasi external_id
+        if (!isset($data['data']['external_id']) || !isset($data['data']['status'])) {
+            return response()->json(['status' => 'failure', 'message' => 'Missing data'], 400);
+        }
 
         $paymentEvent = PaymentEvent::where('external_id', $data['data']['external_id'])->first();
 
         if ($paymentEvent) {
             $status = $data['data']['status'];
             $paymentEvent->keterangan = $status === 'PAID' ? 'Pembayaran Berhasil' : 'Pembayaran Gagal';
-            $paymentEvent->save();
 
-            // // Kirim email konfirmasi jika pembayaran berhasil
-            // if ($status === 'PAID') {
-            //     Mail::to($paymentEvent->email)->send(new PaymentEventMail($paymentEvent));
-            // }
+            $success = $paymentEvent->save();
+            \Log::info('PaymentEvent saved: ', ['success' => $success]);
+
+            // Kirim email konfirmasi jika pembayaran berhasil
+            if ($status === 'PAID') {
+                Mail::to($paymentEvent->email)->send(new PaymentEventMail($paymentEvent));
+            }
 
             // Kembalikan response sukses ke Xendit
             return response()->json(['status' => 'success'], 200);
