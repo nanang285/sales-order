@@ -146,7 +146,7 @@
 
             function store() {
                 $.ajax({
-                    url: '/api/xendit/callback',
+                    url: 'https://zenmultimedia.co.id/api/xendit/callback',
                     method: 'GET',
                     success: function(response) {
                         $('#loading').addClass('hidden'); // Hide loading
