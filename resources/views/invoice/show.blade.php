@@ -141,7 +141,6 @@
                 var url = $(this).attr('href');
                 window.open(url, '_blank');
 
-                // Start polling to check payment status
                 store();
             });
 
