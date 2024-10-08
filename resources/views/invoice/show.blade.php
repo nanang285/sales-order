@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('container')
-@include('components.preloader')
+    @include('components.preloader')
     <div id="loading" class="hidden absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
         <div class="text-white">Loading...</div>
     </div>
@@ -126,63 +126,67 @@
 
     <script>
         $(document).ready(function() {
-            // Tampilkan loading jika ada parameter di URL
+            // Show loading if there's a loading parameter in the URL
             if (window.location.search.includes('loading=true')) {
-                $('#loading').removeClass('hidden'); // Tampilkan loading
+                $('#loading').removeClass('hidden');
             } else {
-                $('#loading').addClass('hidden'); // Sembunyikan loading jika tidak ada parameter
+                $('#loading').addClass('hidden');
             }
 
             $('#payButton').on('click', function(e) {
                 e.preventDefault();
-                $('#loading').removeClass('hidden'); // Tampilkan loading
+                $('#loading').removeClass('hidden');
 
-                // Buka invoice di tab baru
+                // Open invoice in a new tab
                 var url = $(this).attr('href');
                 window.open(url, '_blank');
 
-                // Mulai polling untuk memeriksa status pembayaran
-                checkPaymentStatus();
+                // Start polling to check payment status
+                store();
             });
 
-            function checkPaymentStatus() {
+            function store() {
                 $.ajax({
                     url: '/api/xendit/callback',
                     method: 'GET',
                     success: function(response) {
-                        // Cek status pembayaran
-                        if (response.status) { // Pastikan ada status dalam response
-                            $('#loading').addClass('hidden'); // Sembunyikan loading
+                        $('#loading').addClass('hidden'); // Hide loading
 
-                            // Tampilkan alert dengan status
+                        // Check payment status
+                        if (response.status) {
                             alert('Status transaksi: ' + response.status);
+                            if (response.status === 'PAID') {
+                                // Optionally handle successful payment here
+                            } else if (response.status === 'FAILED') {
+                                // Handle failed payment
+                            }
 
-                            // Reload halaman setelah 5 detik
+                            // Reload page after 5 seconds
                             setTimeout(function() {
                                 location.reload();
-                            }, 5000); // Reload setelah 5 detik
+                            }, 5000);
                         } else {
-                            // Jika tidak ada status, reload halaman untuk mencoba lagi
-                            $('#loading').removeClass('hidden'); // Tampilkan loading
-                            location.href = location.pathname +
-                            '?loading=true'; // Reload dengan parameter loading
+                            reloadPage();
                         }
                     },
                     error: function() {
-                        // Jika terjadi error, tetap reload halaman untuk mencoba lagi
-                        $('#loading').removeClass('hidden'); // Tampilkan loading
-                        location.href = location.pathname +
-                        '?loading=true'; // Reload dengan parameter loading
+                        reloadPage();
                     }
                 });
 
-                // Tambahkan reload terus menerus
-                setTimeout(function() {
-                    location.href = location.pathname + '?loading=true'; // Reload dengan parameter loading
-                }, 10000); // Reload setiap 10 detik jika tidak ada respons
+                var interval = setInterval(function() {
+                    reloadPage();
+                }, 10000);
+
+                function reloadPage() {
+                    $('#loading').removeClass('hidden');
+                    location.href = location.pathname + '?loading=true';
+                    clearInterval(interval);
+                }
             }
         });
     </script>
+
 
 
 @endsection
