@@ -68,7 +68,7 @@
                             class="relative max-w-full rounded-xl bg-white border overflow-hidden shadow-lg z-40 group flex flex-col">
 
                             <div class="relative w-full h-64">
-                                <a target="_blank" href="{{ route('detail-event', $event->slug) }}">
+                                <a href="{{ route('detail-event', $event->slug) }}">
                                 <img class="absolute inset-0 object-cover w-full h-full"
                                     src="{{ asset('storage/uploads/event/' . ($event->image_path ?? 'default-image.jpg')) }}"
                                     alt="{{ $event->judul }}">
@@ -86,7 +86,7 @@
 
                             <div class="px-4 py-4 flex-grow flex flex-col">
                                 <div class="font-bold text-xl mb-2 text-gray-800">
-                                    <a target="_blank" href="{{ route('detail-event', $event->slug) }}">
+                                    <a href="{{ route('detail-event', $event->slug) }}">
                                         <span class="text-lg font-bold">{{ $event->judul }}</span>
                                     </a>
                                 </div>
@@ -103,28 +103,24 @@
                                     Kategori: <span class="font-semibold">{{ $event->kategori ?? 'Tidak ada' }}</span>
                                 </p>
 
-                                {{-- <p class="text-gray-600 text-sm mb-2">
-                                    Sesi: <span class="font-semibold">{{ $event->pilihan_sesi ?? 'Tidak ada' }}</span>
-                                </p> --}}
-
-                                <div class="mt-auto flex justify-between items-center">
-                                    <span
-                                        class="bg-gray-100 
-                                @if ($event->quota == 0) text-red-800 border-red-500 
-                                @elseif ($event->status_quota == 'unlimited') text-green-800 border-green-500 
-                                @else text-blue-800 border-blue-500 @endif
-                                text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2 border">
+                                <div class="mt-auto flex items-center">
+                                    <span class="text-sm font-semibold">Sisa Kuota:</span>
+                                    <span class="bg-gray-100 
+                                        @if ($event->quota == 0) text-red-800 border-red-500 
+                                        @elseif ($event->status_quota == 'unlimited') text-green-800 border-green-500 
+                                        @else text-blue-800 border-blue-500 @endif
+                                        text-xs font-medium inline-flex items-center px-3 py-1 rounded border mx-2">
                                         {{ $event->status_quota == 'unlimited' ? 'Unlimited' : ($event->quota == 0 ? 'Habis' : $event->quota) }}
                                     </span>
-                                    <span
-                                        class="
-                                    @if ($event->harga > 0) bg-green-100 text-green-800 border border-green-400 
-                                    @else 
-                                        bg-blue-100 text-blue-800 border border-blue-400 @endif
-                                    text-xs font-medium px-2.5 py-0.5 rounded">
+                                    <div class="flex-grow"></div>
+                                    <span class=" 
+                                        @if ($event->harga > 0) bg-green-100 text-green-800 border border-green-400 
+                                        @else bg-blue-100 text-blue-800 border border-blue-400 @endif
+                                        text-xs font-medium px-3 py-1 rounded">
                                         {{ $event->harga > 0 ? 'Rp ' . number_format($event->harga, 0, ',', '.') : 'Gratis' }}
                                     </span>
                                 </div>
+                                
                             </div>
                         </div>
                     @endforeach

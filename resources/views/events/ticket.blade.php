@@ -2,11 +2,16 @@
 @section('container')
     @include('components.preloader')
 
-    <div class="flex justify-center items-center min-h-screen"> <!-- Flexbox untuk pusat halaman -->
+    <a href="{{route('events')}}" onclick="history.back()"
+        class="fixed bg-blue-500 top-[50px] left-10 z-[10] text-white font-semibold text-base py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
+        <i class="fa-solid fa-left-long"></i> Kembali
+    </a>
+
+    <div class="flex justify-center items-center min-h-screen">
         <div class="max-w-md w-full overflow-hidden shadow-lg rounded-lg border bg-white">
             @if (isset($ticketData) && $ticketData)
                 <img class="w-full" src="{{ asset('storage/uploads/event/' . $ticketData->image_path) }}" alt="Gambar">
-                <div class="py-4">
+                <div class="py-4 bg-white">
                     <div class="font-bold text-center text-lg mb-2">ZEN MULTIMEDIA EXPO 2024</div>
                     <hr class="border-dashed border border-gray-600 mb-2">
                     <p class="text-gray-700 text-center font-bold text-sm mx-2 mb-0">

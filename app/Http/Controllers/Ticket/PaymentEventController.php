@@ -128,10 +128,12 @@ class PaymentEventController extends Controller
 
         // Check Event quota, for -1 quota if  status_kuota not "unlimited"
         if ($event->status_quota !== 'unlimited') {
-            $event->quota -= 1;
-            $event->save();
+            if ($event->quota > 0) { 
+                $event->quota -= 1;
+                $event->save();
+            }
         }
-
+        
         // Create unique code for Event Link Ticket
         $kodeUnik = Str::random(20);
 

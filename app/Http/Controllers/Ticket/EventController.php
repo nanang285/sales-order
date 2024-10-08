@@ -53,10 +53,10 @@ class EventController extends Controller
 
     public function payments()
     {
-        $paymentEvent = paymentEvent::all();
+        $paymentEvent = paymentEvent::orderBy('created_at', 'desc')->get();
 
         $breadcrumbTitle = 'Pembayaran';
-        $latestProject = LatestProject::All();
+        $latestProject = LatestProject::all();
         $footerSection = footerSection::first();
 
         return view('admin.events.payments', compact('latestProject', 'footerSection', 'breadcrumbTitle', 'paymentEvent'));

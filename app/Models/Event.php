@@ -9,10 +9,8 @@ class Event extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika berbeda dari konvensi
     protected $table = 'events';
 
-    // Tentukan kolom yang dapat diisi secara massal
     protected $fillable = [
         'judul',
         'slug',

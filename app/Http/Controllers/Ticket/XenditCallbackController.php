@@ -70,6 +70,14 @@ class XenditCallbackController extends Controller
 
         $event = Event::find($payment->event_id);
 
+        // Check Event quota, for -1 quota if  status_kuota not "unlimited"
+        if ($event->status_quota !== 'unlimited') {
+            if ($event->quota > 0) { 
+                $event->quota -= 1;
+                $event->save();
+            }
+        }
+        
         $ticketData = [
             'event_id' => $payment->event_id,
             'jenis_produk' => $payment->jenis_produk,
