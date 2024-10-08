@@ -1,7 +1,6 @@
 @extends('layouts.main')
 @section('container')
-    @include('components.preloader')
-
+@include('components.preloader')
     <div id="loading" class="hidden absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
         <div class="text-white">Loading...</div>
     </div>
@@ -127,6 +126,13 @@
 
     <script>
         $(document).ready(function() {
+            // Tampilkan loading jika ada parameter di URL
+            if (window.location.search.includes('loading=true')) {
+                $('#loading').removeClass('hidden'); // Tampilkan loading
+            } else {
+                $('#loading').addClass('hidden'); // Sembunyikan loading jika tidak ada parameter
+            }
+
             $('#payButton').on('click', function(e) {
                 e.preventDefault();
                 $('#loading').removeClass('hidden'); // Tampilkan loading
@@ -136,37 +142,45 @@
                 window.open(url, '_blank');
 
                 // Mulai polling untuk memeriksa status pembayaran
-                var interval = setInterval(checkPaymentStatus, 5000);
-
-                function checkPaymentStatus() {
-                    $.ajax({
-                        url: '/api/xendit/callback', // URL untuk memeriksa status pembayaran
-                        method: 'GET',
-                        success: function(response) {
-                            // Cek status pembayaran
-                            if (response.status) { // Pastikan ada status dalam response
-                                clearInterval(interval); // Hentikan polling
-                                $('#loading').addClass('hidden'); // Sembunyikan loading
-
-                                // Tampilkan alert dengan status
-                                alert('Status transaksi: ' + response.status);
-
-                                // Reload halaman setelah 5 detik
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 5000); // Reload setelah 5 detik
-                            } else {
-                                location.reload(); // Reload halaman untuk memeriksa status lagi
-                            }
-                        },
-                        error: function() {
-                            clearInterval(interval); // Hentikan polling jika ada error
-                            $('#loading').addClass('hidden'); // Sembunyikan loading
-                            alert('Terjadi kesalahan dalam memeriksa status pembayaran.');
-                        }
-                    });
-                }
+                checkPaymentStatus();
             });
+
+            function checkPaymentStatus() {
+                $.ajax({
+                    url: '/api/xendit/callback',
+                    method: 'GET',
+                    success: function(response) {
+                        // Cek status pembayaran
+                        if (response.status) { // Pastikan ada status dalam response
+                            $('#loading').addClass('hidden'); // Sembunyikan loading
+
+                            // Tampilkan alert dengan status
+                            alert('Status transaksi: ' + response.status);
+
+                            // Reload halaman setelah 5 detik
+                            setTimeout(function() {
+                                location.reload();
+                            }, 5000); // Reload setelah 5 detik
+                        } else {
+                            // Jika tidak ada status, reload halaman untuk mencoba lagi
+                            $('#loading').removeClass('hidden'); // Tampilkan loading
+                            location.href = location.pathname +
+                            '?loading=true'; // Reload dengan parameter loading
+                        }
+                    },
+                    error: function() {
+                        // Jika terjadi error, tetap reload halaman untuk mencoba lagi
+                        $('#loading').removeClass('hidden'); // Tampilkan loading
+                        location.href = location.pathname +
+                        '?loading=true'; // Reload dengan parameter loading
+                    }
+                });
+
+                // Tambahkan reload terus menerus
+                setTimeout(function() {
+                    location.href = location.pathname + '?loading=true'; // Reload dengan parameter loading
+                }, 10000); // Reload setiap 10 detik jika tidak ada respons
+            }
         });
     </script>
 
