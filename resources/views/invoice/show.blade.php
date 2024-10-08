@@ -2,6 +2,9 @@
 @section('container')
     @include('components.preloader')
 
+    <div id="loading" class="hidden absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+        <div class="text-white">Loading...</div>
+    </div>
     <div class="flex items-center justify-center min-h-screen bg-gray-100 relative">
         @if (session()->has('invoice_url'))
             <a href="{{ route('events') }}" onclick="history.back()"
@@ -10,10 +13,7 @@
             </a>
 
             <div class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow border my-6 relative" id="invoice">
-                <div id="loading"
-                    class="hidden absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-                    <div class="text-white">Loading...</div>
-                </div>
+
 
                 <div class="grid grid-cols-2 items-center mb-4">
                     <div>
@@ -128,26 +128,44 @@
     <script>
         $(document).ready(function() {
             $('#payButton').on('click', function(e) {
-                $('#loading').removeClass('hidden');
-
-                $('body').css('pointer-events', 'none');
-                $('#payButton').prop('disabled', true);
-
-                setTimeout(function() {
-
-                    var url = $('#payButton').attr('href');
-                    window.open(url, '_blank');
-                }, 1000);
-
                 e.preventDefault();
-            });
+                $('#loading').removeClass('hidden'); // Tampilkan loading
 
-            $(window).on('beforeunload', function() {
-                return "Anda yakin ingin meninggalkan halaman ini?";
-            });
+                // Buka invoice di tab baru
+                var url = $(this).attr('href');
+                window.open(url, '_blank');
 
-            $(document).on('contextmenu', function(e) {
-                e.preventDefault();
+                // Mulai polling untuk memeriksa status pembayaran
+                var interval = setInterval(checkPaymentStatus, 5000);
+
+                function checkPaymentStatus() {
+                    $.ajax({
+                        url: '/api/xendit/callback', // URL untuk memeriksa status pembayaran
+                        method: 'GET',
+                        success: function(response) {
+                            // Cek status pembayaran
+                            if (response.status) { // Pastikan ada status dalam response
+                                clearInterval(interval); // Hentikan polling
+                                $('#loading').addClass('hidden'); // Sembunyikan loading
+
+                                // Tampilkan alert dengan status
+                                alert('Status transaksi: ' + response.status);
+
+                                // Reload halaman setelah 5 detik
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 5000); // Reload setelah 5 detik
+                            } else {
+                                location.reload(); // Reload halaman untuk memeriksa status lagi
+                            }
+                        },
+                        // error: function() {
+                        //     clearInterval(interval); // Hentikan polling jika ada error
+                        //     $('#loading').addClass('hidden'); // Sembunyikan loading
+                        //     alert('Terjadi kesalahan dalam memeriksa status pembayaran.');
+                        // }
+                    });
+                }
             });
         });
     </script>
