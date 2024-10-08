@@ -26,6 +26,17 @@ class EventController extends Controller
         return view('admin.events.list', compact('latestProject', 'footerSection', 'breadcrumbTitle', 'events'));
     }
 
+    public function loading($kode)
+    {
+        $transactionData = PaymentEvent::where('external_id', $kode)->first();
+
+        if (!$transactionData) {
+            return redirect()->route('event.error');
+        }
+
+        return view('invoice.loading', compact('transactionData'));
+    }
+
     public function ticket()
     {
         $breadcrumbTitle = 'Acara';

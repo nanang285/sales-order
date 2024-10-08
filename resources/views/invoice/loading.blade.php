@@ -1,29 +1,21 @@
 @extends('layouts.main')
 @section('container')
-    <div id="loading" class="hidden absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+    <div id="loading" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
         <div class="text-white">Loading...</div>
     </div>
     <div class="flex items-center justify-center min-h-screen bg-gray-100 relative">
         @if (session()->has('invoice_url'))
-            <a href="{{ route('events') }}" onclick="history.back()"
-                class="fixed top-[16px] bg-blue-500 z-10 text-white font-semibold text-base py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
-                <i class="fa-solid fa-left-long"></i> Kembali
-            </a>
-
             <div class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow border my-6 relative" id="invoice">
-
-
+                <!-- Konten Invoice Anda di sini -->
                 <div class="grid grid-cols-2 items-center mb-4">
                     <div>
                         <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" class="w-44">
                     </div>
-
                     <div class="text-right">
                         <p class="text-gray-500 font-semibold text-base">Created By</p>
                         <p class="text-gray-500 text-sm">PT. ZEN MULTIMEDIA INDONESIA</p>
                     </div>
                 </div>
-
                 <hr>
                 <div class="grid items-center mt-4">
                     <div>
@@ -33,7 +25,6 @@
                                 <p>{{ $transactionData->external_id }}</p>
                             </div>
                         </div>
-
                         <div class="grid grid-cols-2 gap-4">
                             <div class="text-gray-700 font-semibold text-base">
                                 <p>Email</p>
@@ -42,7 +33,6 @@
                                 <p class="mb-4">Jabatan</p>
                                 <p>Proses Transaksi </p>
                             </div>
-
                             <div class="text-gray-500 font-semibold text-base text-right">
                                 <p>{{ $transactionData->email }}</p>
                                 <p>{{ $transactionData->nama_lengkap }}</p>
@@ -53,7 +43,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="-mx-4 mt-8 flow-root sm:mx-0">
                     <table class="min-w-full">
                         <colgroup>
@@ -80,7 +69,6 @@
                                 <td class="py-5 pl-3 pr-4 text-right text-base font-bold text-gray-500 sm:pr-0">Rp
                                     {{ number_format($transactionData->harga, 0, ',', '.') }}</td>
                             </tr>
-
                             <tr>
                                 <td scope="row" class="pl-3 pr-3 pt-4 text-left text-base font-bold text-gray-900">Total
                                 </td>
@@ -89,29 +77,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                @if (trim($transactionData->keterangan) === 'PAID')
-                    <div class="pt-4 text-base font-semibold text-gray-500 text-center">
-                        Cek email untuk detail atau Klik <span class="text-green-500">Dapatkan Tiket</span> Anda.
-                    </div>
-                @endif
-
-                <div class="mt-8 flex justify-center">
-                    @if (trim($transactionData->keterangan) === 'PAID')
-                        <a href="{{ route('event.ticket', ['kode' => $external_id]) }}"
-                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
-                            Dapatkan Tiket
-                        </a>
-                    @elseif (trim($transactionData->keterangan) === 'EXPIRED' || trim($transactionData->keterangan) === 'FAILED')
-                        <p class="text-red-500 font-bold">Transaksi Expired atau Gagal</p>
-                    @else
-                        <a href="{{ session('invoice_url') }}" target="_blank"
-                            class="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-1.5 px-3 rounded-lg"
-                            id="payButton" data-kode="{{ $transactionData->external_id }}">
-                            Bayar
-                        </a>
-                    @endif
                 </div>
 
                 <div class="border-t-2 pt-4 text-sm font-semibold text-red-500 text-center mt-16">
@@ -127,37 +92,34 @@
 
     <script>
         $(document).ready(function() {
-            function showLoading() {
-                $('#loading').removeClass('hidden');
+            function checkPaymentStatus() {
+                // Cek keterangan dari transactionData di database
+                if ('{{ $transactionData->keterangan }}' !== 'PENDING') {
+                    // Redirect ke rute transaksi jika keterangan bukan "PENDING"
+                    window.location.href = '{{ route('transaksi.show', ['external_id' => $transactionData->external_id]) }}'; 
+                } else {
+                    // Jika keterangan masih "PENDING", lakukan pemeriksaan status pembayaran melalui AJAX
+                    $.ajax({
+                        url: '{{ route('event.loading', ['kode' => $transactionData->external_id]) }}',
+                        type: 'GET',
+                        success: function(data) {
+                            // Periksa status pembayaran di sini jika diperlukan
+                            console.log('Status pembayaran:', data.status);
+                        },
+                        error: function() {
+                            console.error('Error checking payment status');
+                        }
+                    });
+                }
             }
     
-            $('#payButton').on('click', function(e) {
-                e.preventDefault();
-                showLoading();
-    
-                // Ambil data kode dari atribut data-kode
-                var kodeValue = $(this).data('kode'); // Mengambil external_id dari data-kode
-    
-                // Redirect ke URL pembayaran
-                var url = $(this).attr('href'); // Ambil URL dari atribut href tombol
-                window.open(url, '_blank');
-    
+            setInterval(function() {
+                checkPaymentStatus();
                 setTimeout(function() {
-                    // Redirect ke halaman loading dengan parameter kode
-                    window.location.href = '{{ route('event.loading', ['kode' => '__kode__']) }}'
-                        .replace('__kode__', kodeValue);
-                        
-                    // Menghapus halaman saat ini dari riwayat
-                    window.history.replaceState(null, '', window.location.href);
-                }, 2000);
-            });
-    
-            window.onbeforeunload = function() {
-                showLoading();
-            };
+                    window.location.reload();
+                }, 5000);
+            }, 5000);
         });
     </script>
     
-
-
 @endsection

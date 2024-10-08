@@ -50,8 +50,9 @@ Route::get('event/invoice/{kode}', [EventController::class, 'invoice'])->name('e
 Route::get('event/ticket/{kode}', [EventController::class, 'showTicket'])->name('event.ticket');
 Route::get('/events/filter', [EventController::class, 'filterByCategory']);
 
+Route::get('transaksi/invoice/{kode}', [EventController::class, 'loading'])->name('event.loading');
+
 Route::get('/transaksi/{external_id}', [PaymentEventController::class, 'show'])->name('transaksi.show');
-// Route::get('/invoice', [PaymentEventController::class, 'failed'])->name('invoice.gagal');
 
 
 
