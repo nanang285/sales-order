@@ -23,22 +23,22 @@ class XenditCallbackController extends Controller
         \Log::info('Xendit Callback Data: ', $data);
 
         // Validasi external_id dan status
-        if (!isset($data['data']['external_id']) || !isset($data['data']['status'])) {
+        if (!isset($data['external_id']) || !isset($data['status'])) {
             \Log::error('Missing external_id or status in Xendit callback data.', $data);
             return response()->json(['status' => 'failure', 'message' => 'Missing data'], 400);
         }
 
         // Cari PaymentEvent berdasarkan external_id
-        $paymentEvent = PaymentEvent::where('external_id', $data['data']['external_id'])->first();
+        $paymentEvent = PaymentEvent::where('external_id', $data['external_id'])->first();
 
         // Jika PaymentEvent tidak ditemukan
         if (!$paymentEvent) {
-            \Log::error('PaymentEvent not found for external_id: ' . $data['data']['external_id']);
+            \Log::error('PaymentEvent not found for external_id: ' . $data['external_id']);
             return response()->json(['status' => 'failure', 'message' => 'PaymentEvent not found'], 404);
         }
 
         // Simpan status pembayaran apapun yang diterima dari Xendit ke 'keterangan'
-        $status = $data['data']['status'];
+        $status = $data['status'];
         $paymentEvent->keterangan = $status;
 
         // Simpan perubahan ke database
@@ -47,7 +47,7 @@ class XenditCallbackController extends Controller
 
         // Buat tiket, jika statusnya 'PAID'
         if ($status === 'PAID') {
-            $this->CreateTicket($data['data']['external_id']);
+            $this->CreateTicket($data['external_id']);
         }
 
         // Kirim respon berhasil ke Xendit
@@ -56,16 +56,13 @@ class XenditCallbackController extends Controller
 
     public function CreateTicket($external_id)
     {
-        // Cari Payment berdasarkan external_id
         $payment = PaymentEvent::where('external_id', $external_id)->first();
 
-        // Jika Payment tidak ditemukan
         if (!$payment) {
             \Log::error('Payment not found for external_id: ' . $external_id);
             return response()->json(['status' => 'failure', 'message' => 'Payment not found'], 404);
         }
 
-        // Cek apakah status pembayaran sudah berhasil
         if ($payment->keterangan !== 'PAID') {
             \Log::error('Payment is not marked as paid for external_id: ' . $external_id);
             return response()->json(['status' => 'failure', 'message' => 'Payment not yet completed'], 400);
@@ -89,13 +86,10 @@ class XenditCallbackController extends Controller
             'type' => 'berbayar',
         ];
 
-        // Create Ticket
         Ticket::create($ticketData);
 
-        // Send a Email notification
         Mail::to($payment->email)->send(new PaymentEventMail($ticketData));
 
-        // Show a invoice pages
         return view('events.invoice', [
             'ticketData' => $ticketData,
             'kode' => $external_id,
