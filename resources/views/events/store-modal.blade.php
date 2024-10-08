@@ -21,7 +21,7 @@
                     </div>
                 
                     <div class="flex-grow">
-                        <form class="max-w-md mx-auto" method="POST" action="{{ route('payment-event.store') }}">
+                        <form class="max-w-md mx-auto" method="POST" action="{{ $event->type == 'berbayar' ? route('payment-event.store') : route('payment-event.freepayment') }}"> 
                             @csrf
                             <div class="grid md:grid-cols-2 md:gap-6 mb-3">
                                 <div class="relative z-0 w-full mb-5 group">
@@ -98,37 +98,6 @@
                                 Daftar
                             </button>
                         </form>
-                        {{-- <form action="{{ route('payment-event.store') }}" method="POST">
-                            @csrf
-                            <div>
-                                <label for="harga">Harga:</label>
-                                <input type="number" name="harga" id="harga" required>
-                            </div>
-                    
-                            <div>
-                                <label for="email">Email:</label>
-                                <input type="email" name="email" id="email" required>
-                            </div>
-                    
-                            <div>
-                                <label for="no_telp">Nomor Telepon:</label>
-                                <input type="text" name="no_telp" id="no_telp" required>
-                            </div>
-                    
-                            <div>
-                                <label for="nama_lengkap">Nama Lengkap:</label>
-                                <input type="text" name="nama_lengkap" id="nama_lengkap" required>
-                            </div>
-                    
-                            <div>
-                                <label for="nama_perusahaan">Nama Perusahaan:</label>
-                                <input type="text" name="nama_perusahaan" id="nama_perusahaan" required>
-                            </div>
-                    
-                            <div>
-                                <button type="submit">Buat Invoice</button>
-                            </div>
-                        </form> --}}
                     </div>
                 
                     <p class="text-gray-600 text-sm font-normal text-left mt-4 bottom-0 flex items-center justify-center w-full">

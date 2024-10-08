@@ -20,10 +20,7 @@
                 <h3 class="text-gray-700 text-center text-xl font-bold">Bagikan Link Acara</h3>
                 <hr>
                 <div class="flex justify-center space-x-4 mt-4">
-                    <a href="https://api.whatsapp.com/send?text=Yuk,%20cek%20ini!%20Untuk%20mengikuti%20acara%20
-                {{ urlencode($event->judul) }}%20yang%20akan%20diselenggarakan%20pada%20{{ \Carbon\Carbon::parse($event->waktu)->translatedFormat('l, d F Y') }},
-                 %20Jam%20{{ \Carbon\Carbon::parse($event->waktu)->translatedFormat('H:i') }},%20jangan%20sampai%20ketinggalan.%20Dapatkan%20tiket%20acara%20di%20link%20berikut:%20
-                 https://zenmultimedia.co.id/events/{{ $event->slug }}.%20Terima%20kasih!"
+                    <a href="https://api.whatsapp.com/send?text=Yuk,%20cek%20ini!%20Untuk%20mengikuti%20acara%20{{ urlencode($event->judul) }}%20yang%20akan%20diselenggarakan%20pada%20{{ \Carbon\Carbon::parse($event->waktu)->translatedFormat('l, d F Y') }},%20Jam%20{{ \Carbon\Carbon::parse($event->waktu)->translatedFormat('H:i') }},%20jangan%20sampai%20ketinggalan.%20Dapatkan%20tiket%20acara%20di%20link%20berikut:%20https://zenmultimedia.co.id/events/{{ $event->slug }}.%20Terima%20kasih!"
                         target="_blank"
                         class="transform transition-transform duration-300 hover:scale-110">
                         <img class="w-8 h-8 rounded-full"

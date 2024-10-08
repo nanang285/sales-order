@@ -98,7 +98,7 @@ class EventController extends Controller
     }
 
     public function detail($slug)
-    {   
+    {
         $this->deleteExpiredEvents();
         $latestProject = LatestProject::all();
         $footerSection = FooterSection::first();
@@ -250,10 +250,10 @@ class EventController extends Controller
         }
 
         $newSlug = Str::slug($request->input('judul'));
-        
+
         $event->update([
             'judul' => $request->input('judul'),
-             'slug' => $newSlug,
+            'slug' => $newSlug,
             'lokasi' => $request->input('lokasi'),
             'description' => $request->input('description'),
             'image_path' => $imageName,
@@ -289,22 +289,20 @@ class EventController extends Controller
             return redirect()->route('admin.events.index')->with('error', 'Event not found.');
         }
 
-        // Periksa apakah waktu event sudah terlewati
-        $currentTime = now(); // Waktu saat ini
-        $eventTime = $event->waktu; // Pastikan kolom waktu ada dalam model Event
+        $currentTime = now();
+        $eventTime = $event->waktu;
 
-        if ($currentTime->greaterThan($eventTime)) {
-            // Hapus gambar jika ada
-            if ($event->image_path) {
-                Storage::disk('public')->delete('uploads/event/' . $event->image_path);
-            }
-
-            // Hapus event
-            $event->delete();
-            return redirect()->route('admin.events.index')->with('success', true)->with('toast', 'Event deleted successfully.');
-        } else {
-            return redirect()->route('admin.events.index')->with('error', 'Event cannot be deleted because it has not yet passed the specified time.');
+        if ($event->image_path) {
+            Storage::disk('public')->delete('uploads/event/' . $event->image_path);
         }
+
+        $event->delete();
+
+        if ($currentTime->lessThan($eventTime)) {
+            return redirect()->route('admin.events.index')->with('success', true)->with('toast', 'delete');
+        }
+
+        return redirect()->route('admin.events.index')->with('success', true)->with('toast', 'delete');
     }
 
     private function deleteExpiredEvents()

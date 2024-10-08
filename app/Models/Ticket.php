@@ -22,7 +22,8 @@ class Ticket extends Model
         'image_path',
         'waktu',
         'type',             
-        'alamat',             
+        'alamat',   
+        'event_id',          
     ];
     
 

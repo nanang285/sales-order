@@ -68,8 +68,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     
     // EVENTS
     Route::prefix('payments')->name('payments.')->controller(PaymentEventController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        
+        // Route::get('/', 'index')->name('index');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
     Route::prefix('events')->name('events.')->controller(EventController::class)->group(function () {

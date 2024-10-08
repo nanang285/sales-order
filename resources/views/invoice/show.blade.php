@@ -1,54 +1,110 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('layouts.main')
+@section('container')
+    @include('components.preloader')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Transaksi</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+    
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+        @if ($transactionData)
+            <div class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow border my-6" id="invoice">
+                <div class="grid grid-cols-2 items-center mb-4">
+                    <div>
+                        <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" class="w-44">
+                    </div>
 
-<body class="bg-gray-50 h-screen flex items-center justify-center">
+                    <div class="text-right">
+                        <p class="text-gray-500 font-semibold text-base">Created By</p>
+                        <p class="text-gray-500 text-sm">PT. ZEN MULTIMEDIA INDONESIA</p>
+                    </div>
+                </div>
 
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-xl">
+                <hr>
+                <div class="grid items-center mt-4">
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <p class="font-bold text-gray-600 mb-4">Invoice data:</p>
+                            <div class="text-right text-gray-800 text-lg font-bold">
+                                <p>{{ $transactionData->external_id }}</p>
+                            </div>
+                        </div>
 
-        <h2 class="text-2xl font-semibold mb-6 text-center">Data Transaksi</h2>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-gray-700 font-semibold text-base">
+                                <p>Email</p>
+                                <p>Nama Lengkap </p>
+                                <p>Perusahaan </p>
+                                <p class="mb-4">Jabatan</p>
+                                <p>Proses Transaksi </p>
+                            </div>
 
-        <div class="bg-gray-100 p-4 rounded-lg mb-4">
-           
-            <div class="mb-2">
-                <strong>Nama Merchant:</strong> {{ $transactionData['data']['merchant_name'] }}
+                            <div class="text-gray-500 font-semibold text-base text-right">
+                                <p>{{ $transactionData->email }}</p>
+                                <p>{{ $transactionData->nama_lengkap }}</p>
+                                <p>{{ $transactionData->nama_perusahaan }}</p>
+                                <p class="mb-4">{{ $transactionData->jabatan }}</p>
+                                <p class="mb-4">{{ $transactionData->keterangan }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="-mx-4 mt-8 flow-root sm:mx-0">
+                    <table class="min-w-full">
+                        <colgroup>
+                            <col class="w-full sm:w-1/2">
+                            <col class="sm:w-1/6">
+                        </colgroup>
+                        <thead class="border-b pb-2 border-gray-300 text-gray-900">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-gray-900 sm:pl-0">Jenis
+                                    Produk</th>
+                                <th scope="col"
+                                    class="py-3.5 pl-3 pr-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">Harga
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-gray-200">
+                                <td class="max-w-full py-5 pl-4 pr-3 text-sm sm:pl-0">
+                                    <div class="font-semibold text-sm text-gray-900">
+                                        <p>1 x {{ $transactionData->jenis_produk }}</p>
+                                    </div>
+                                </td>
+                                <td class="py-5 pl-3 pr-4 text-right text-base font-bold text-gray-500 sm:pr-0">Rp
+                                    {{ number_format($transactionData->harga, 0, ',', '.') }}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"
+                                    class="pl-3 pr-3 pt-4 text-left text-base font-bold text-gray-900 sm:hidden">Total</th>
+                                <td class="pl-3 pr-4 pt-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">Rp
+                                    {{ number_format($transactionData->harga, 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    @if (trim($transactionData->keterangan) === 'PAID')
+                        <a href="{{ route('event.ticket', ['kode' => $external_id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
+                            Dapatkan Tiket
+                        </a>
+                    @elseif (trim($transactionData->keterangan) === 'EXPIRED' || trim($transactionData->keterangan) === 'FAILED')
+                        <p class="text-red-500 font-bold">Transaksi Expired atau Gagal</p>
+                    @else
+                        <a href="{{ session('invoice_url') }}" target="_blank"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                            Bayar
+                        </a>
+                    @endif
+                </div>
+                
+                <div class="border-t-2 pt-4 text-sm font-semibold text-red-500 text-center mt-16">
+                    Tolong untuk tidak menutup atau close halaman jika pembayaran belum update.
+                </div>
             </div>
-            <div class="mb-2">
-                <strong>Email Pembayar:</strong> {{ $transactionData['data']['payer_email'] }}
-            </div>
-            <div class="mb-2">
-                <strong>Nama Perusahaan:</strong> {{ $transactionData['data']['description'] }}
-            </div>
-            <div class="mb-2">
-                <strong>External ID:</strong> {{ $transactionData['data']['external_id'] }}
-            </div>
-            <div class="mb-2">
-                <strong>Status:</strong> {{ $transactionData['data']['status'] }}
-            </div>
-            <div class="mb-2">
-                <strong>Jumlah:</strong> Rp {{ number_format($transactionData['data']['amount'], 0, ',', '.') }}
-            </div>
-           
-            <div class="mb-2">
-                <strong>Tanggal Kedaluwarsa:</strong>
-                {{ \Carbon\Carbon::parse($transactionData['data']['expiry_date'])->format('d-m-Y H:i:s') }}
-            </div>
+            @else
+                <p>Data transaksi tidak ditemukan.</p>
+            @endif
         </div>
-
-        <div class="text-center">
-            <a href="{{ $transactionData['data']['invoice_url'] }}" target="_blank"
-                class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
-                Bayar
-            </a>
-        </div>
-    </div>
-
-</body>
-
-</html>
+@endsection

@@ -45,6 +45,7 @@ Route::get('/events', [EventController::class, 'list'])->name('events');
 Route::get('/events/{slug}', [EventController::class, 'detail'])->name('detail-event');
 
 Route::post('/payment-event/store', [PaymentEventController::class, 'store'])->name('payment-event.store');
+Route::post('/payment-event/freepayment', [PaymentEventController::class, 'freepayment'])->name('payment-event.freepayment');
 Route::get('event/invoice/{kode}', [EventController::class, 'invoice'])->name('event.invoice');
 Route::get('event/ticket/{kode}', [EventController::class, 'showTicket'])->name('event.ticket');
 Route::get('/events/filter', [EventController::class, 'filterByCategory']);

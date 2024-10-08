@@ -12,7 +12,7 @@ class PaymentEvent extends Model
     protected $table = 'payment_events';
     
     protected $fillable = [
-        'nama_lengkap','jenis_produk', 'email', 'no_telp', 'jabatan', 'nama_perusahaan', 'alamat', 'harga', 'keterangan', 'external_id'
+        'nama_lengkap','jenis_produk', 'email', 'no_telp', 'jabatan', 'nama_perusahaan', 'alamat', 'harga', 'keterangan', 'external_id', 'event_id'
     ];
 
     public function event()
