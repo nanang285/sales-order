@@ -159,11 +159,11 @@
                                 location.reload(); // Reload halaman untuk memeriksa status lagi
                             }
                         },
-                        // error: function() {
-                        //     clearInterval(interval); // Hentikan polling jika ada error
-                        //     $('#loading').addClass('hidden'); // Sembunyikan loading
-                        //     alert('Terjadi kesalahan dalam memeriksa status pembayaran.');
-                        // }
+                        error: function() {
+                            clearInterval(interval); // Hentikan polling jika ada error
+                            $('#loading').addClass('hidden'); // Sembunyikan loading
+                            alert('Terjadi kesalahan dalam memeriksa status pembayaran.');
+                        }
                     });
                 }
             });
