@@ -28,13 +28,20 @@ class EventController extends Controller
 
     public function loading($kode)
     {
-        $transactionData = PaymentEvent::where('external_id', $kode)->first();
+        // Cek apakah kode sudah terenkripsi
+        try {
+            $decryptedKode = decrypt($kode);
+            // Jika berhasil didekripsi, maka lanjutkan pemrosesan
+            $transactionData = PaymentEvent::where('external_id', $decryptedKode)->first();
 
-        if (!$transactionData) {
-            return redirect()->route('event.error');
+            return view('invoice.loading', compact('transactionData'));
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            // Jika kode tidak bisa didekripsi, berarti belum terenkripsi. Enkripsi dan redirect
+            $encryptedKode = encrypt($kode);
+
+            // Redirect ke URL dengan kode terenkripsi
+            return redirect()->route('event.loading', ['kode' => $encryptedKode]);
         }
-
-        return view('invoice.loading', compact('transactionData'));
     }
 
     public function ticket()
@@ -49,16 +56,25 @@ class EventController extends Controller
 
     public function ShowTicket($kode)
     {
-        $ticketData = Ticket::where('kode_invoice', $kode)->first();
-
-        if (!$ticketData) {
-            if (request()->route('kode') !== $kode) {
-                return redirect()
-                    ->route('event.ticket', ['kode' => $kode])
-                    ->with('error', 'Kode tiket tidak ditemukan atau berbeda.');
-            }
+        // Dekripsi kode yang diterima
+        try {
+            $decryptedKode = decrypt($kode);
+            \Log::info('Kode didekripsi: ' . $decryptedKode); // Log untuk memeriksa nilai yang didekripsi
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            \Log::error('Dekripsi gagal: ' . $e->getMessage()); // Log error jika dekripsi gagal
+            return redirect()->back()->with('error', 'Kode tiket tidak valid.');
         }
 
+        // Cari data tiket berdasarkan kode_invoice yang sudah didekripsi
+        $ticketData = Ticket::where('kode_invoice', $decryptedKode)->first();
+        \Log::info('Data tiket ditemukan: ', [$ticketData]); // Log untuk memeriksa data tiket yang ditemukan
+
+        if (!$ticketData) {
+            \Log::warning('Kode tiket tidak ditemukan: ' . $decryptedKode); // Log peringatan jika tiket tidak ditemukan
+            return redirect()->back()->with('error', 'Kode tiket tidak ditemukan.');
+        }
+
+        // Tampilkan data tiket
         return view('events.ticket', compact('ticketData'));
     }
 

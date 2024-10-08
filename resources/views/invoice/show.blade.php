@@ -30,7 +30,7 @@
                         <div class="flex justify-between items-center">
                             <p class="font-bold text-gray-600 mb-4">Invoice data:</p>
                             <div class="text-right text-gray-800 text-lg font-bold">
-                                <p>{{ $transactionData->external_id }}</p>
+                                <p></p>
                             </div>
                         </div>
 
@@ -99,10 +99,10 @@
 
                 <div class="mt-8 flex justify-center">
                     @if (trim($transactionData->keterangan) === 'PAID')
-                        <a href="{{ route('event.ticket', ['kode' => $external_id]) }}"
-                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
-                            Dapatkan Tiket
-                        </a>
+                    <a href="{{ route('event.ticket', ['kode' => $encryptedExternalId]) }}"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Dapatkan Tiket
+                    </a>
                     @elseif (trim($transactionData->keterangan) === 'EXPIRED' || trim($transactionData->keterangan) === 'FAILED')
                         <p class="text-red-500 font-bold">Transaksi Expired atau Gagal</p>
                     @else

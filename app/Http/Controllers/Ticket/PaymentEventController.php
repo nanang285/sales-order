@@ -84,25 +84,35 @@ class PaymentEventController extends Controller
                 'image_path' => $request->input('image_path'),
             ]);
 
-            // Redirect ke rute 'transaksi.show' dengan external_id
-            return redirect()->route('transaksi.show', ['external_id' => $external_id]);
+            $encryptedExternalId = encrypt($external_id);
+
+            // Redirect ke rute 'transaksi.show' dengan external_id yang sudah terenkripsi
+            return redirect()->route('transaksi.show', ['encrypted_external_id' => encrypt($external_id)]);
         }
 
         return redirect()->back()->with('error', 'Payment failed. Please try again.');
     }
 
-    public function show($external_id)
+    public function show($encrypted_external_id)
     {
+        // Dekripsi external_id dari URL
+        $external_id = decrypt($encrypted_external_id);
+
+        // Cari data transaksi berdasarkan external_id yang sudah didekripsi
         $transactionData = PaymentEvent::where('external_id', $external_id)->first();
 
         if (!$transactionData) {
             return redirect()->back()->with('error', 'Transaction not found.');
         }
 
-        $invoice_url = session('invoice_url');
-        $external_id = $transactionData->external_id;
+        // Enkripsi external_id untuk ditampilkan di URL atau keperluan lainnya
+        $encryptedExternalId = encrypt($transactionData->external_id);
 
-        return view('invoice.show', compact('transactionData', 'invoice_url', 'external_id'));
+        // Ambil invoice URL dari session
+        $invoice_url = session('invoice_url');
+
+        // Kirim external_id yang sudah terenkripsi ke view
+        return view('invoice.show', compact('transactionData', 'invoice_url', 'encryptedExternalId'));
     }
 
     // Transaksi Gratis
@@ -128,12 +138,12 @@ class PaymentEventController extends Controller
 
         // Check Event quota, for -1 quota if  status_kuota not "unlimited"
         if ($event->status_quota !== 'unlimited') {
-            if ($event->quota > 0) { 
+            if ($event->quota > 0) {
                 $event->quota -= 1;
                 $event->save();
             }
         }
-        
+
         // Create unique code for Event Link Ticket
         $kodeUnik = Str::random(20);
 
@@ -163,10 +173,13 @@ class PaymentEventController extends Controller
         // Send a Email notification
         Mail::to($paymentEvent->email)->send(new PaymentEventMail($ticketData));
 
-        // Show a invoice pages
+        // Enkripsi kode invoice untuk ditampilkan di tampilan
+        $encryptedKode = encrypt($kodeUnik);
+
+        // Show a invoice page
         return view('events.invoice', [
             'ticketData' => $ticketData,
-            'kode' => $kodeUnik,
+            'kode' => $encryptedKode, // Mengirimkan kode yang sudah dienkripsi
             'success' => 'Data berhasil disimpan, kuota diperbarui, dan email telah dikirim.',
         ]);
     }

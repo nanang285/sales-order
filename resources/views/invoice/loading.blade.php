@@ -22,7 +22,7 @@
                         <div class="flex justify-between items-center">
                             <p class="font-bold text-gray-600 mb-4">Invoice data:</p>
                             <div class="text-right text-gray-800 text-lg font-bold">
-                                <p>{{ $transactionData->external_id }}</p>
+                                <p></p>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
@@ -93,17 +93,14 @@
     <script>
         $(document).ready(function() {
             function checkPaymentStatus() {
-                // Cek keterangan dari transactionData di database
                 if ('{{ $transactionData->keterangan }}' !== 'PENDING') {
-                    // Redirect ke rute transaksi jika keterangan bukan "PENDING"
-                    window.location.href = '{{ route('transaksi.show', ['external_id' => $transactionData->external_id]) }}'; 
+                    var encryptedExternalId = '{{ encrypt($transactionData->external_id) }}';
+                    window.location.href = '{{ route('transaksi.show', ['encrypted_external_id' => '__encrypted_external_id__']) }}'.replace('__encrypted_external_id__', encryptedExternalId); 
                 } else {
-                    // Jika keterangan masih "PENDING", lakukan pemeriksaan status pembayaran melalui AJAX
                     $.ajax({
                         url: '{{ route('event.loading', ['kode' => $transactionData->external_id]) }}',
                         type: 'GET',
                         success: function(data) {
-                            // Periksa status pembayaran di sini jika diperlukan
                             console.log('Status pembayaran:', data.status);
                         },
                         error: function() {
@@ -118,8 +115,9 @@
                 setTimeout(function() {
                     window.location.reload();
                 }, 5000);
-            }, 5000);
+            }, 1000);
         });
     </script>
+    
     
 @endsection

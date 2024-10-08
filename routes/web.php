@@ -52,8 +52,7 @@ Route::get('/events/filter', [EventController::class, 'filterByCategory']);
 
 Route::get('transaksi/invoice/{kode}', [EventController::class, 'loading'])->name('event.loading');
 
-Route::get('/transaksi/{external_id}', [PaymentEventController::class, 'show'])->name('transaksi.show');
-
+Route::get('/transaksi/{encrypted_external_id}', [PaymentEventController::class, 'show'])->name('transaksi.show');
 
 
 require __DIR__ . '/auth.php';

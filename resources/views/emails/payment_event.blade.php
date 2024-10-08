@@ -119,11 +119,10 @@
                                 <tr>
                                     <td align="center"
                                         style="background-color: #1b6cd6d5; padding: 10px 20px; border-radius: 5px;">
-                                        <a href="{{ url('event/ticket/' . $data['kode_invoice']) }}"
+                                        <a href="{{ url('event/ticket/' . encrypt($data['kode_invoice'])) }}"
                                             style="color: #ffffff; text-decoration: none; font-weight: bold;">
                                             Lihat Tiket
                                         </a>
-
                                     </td>
                                 </tr>
                             </table>
