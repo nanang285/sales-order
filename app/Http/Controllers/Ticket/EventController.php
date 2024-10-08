@@ -51,6 +51,11 @@ class EventController extends Controller
         $footerSection = footerSection::first();
         $tickets = Ticket::All();
 
+        // Lakukan enkripsi untuk setiap kode_invoice
+        foreach ($tickets as $ticket) {
+            $ticket->encrypted_kode_invoice = encrypt($ticket->kode_invoice);
+        }
+
         return view('admin.events.ticket', compact('latestProject', 'footerSection', 'breadcrumbTitle', 'tickets'));
     }
 
