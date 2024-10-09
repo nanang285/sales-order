@@ -32,7 +32,7 @@
         <div class="py-8 relative overflow-hidden">
             <div class="container mx-auto px-6 lg:px-8 relative">
                 <div class="mx-auto max-w-full lg:text-left mb-12 flex justify-between items-center">
-                    <p class="mt-2 text-3xl lg:text-3xl font-bold tracking-tight text-gray-900 text-left">
+                    <p class="mt-2 text-2xl md:text-3xl font-bold tracking-tight text-gray-900 text-left">
                         <span class="text-primary">Zen Multimedia Events</span>
                     </p>
                     {{-- <div class="relative group">

@@ -14,7 +14,7 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <div class="flex flex-col md:flex-row p-4 md:p-6 space-y-4 md:space-y-0 bg-white rounded-xl">
+            <div class="flex flex-col md:flex-row p-4 md:p-6 space-y-4 md:space-y-0 mt-20 md:mt-0 bg-white rounded-xl">
                 <div class="md:w-1/2 px-2 relative flex flex-col h-full">
                     <div class="mb-6">
                         <h1 class="text-lg font-bold text-center">Pendaftaran</h1>
@@ -106,7 +106,7 @@
                     </p>
                 </div>
 
-                <div class="md:w-1/2 flex flex-col bg-gray-200 rounded-lg">
+                <div class="md:w-1/2  flex-col bg-gray-200 rounded-lg hidden md:flex">
                     <img src="{{ asset('storage/uploads/event/' . ($event->image_path ?? 'default-image.jpg')) }}"
                         alt="Deskripsi Gambar" class="mb-2 rounded-lg max-w-full h-auto f">
 
