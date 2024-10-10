@@ -1,12 +1,12 @@
 @extends('layouts.main')
 @section('container')
-    <div id="loading" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-        <div class="text-white">Loading...</div>
+    <div id="loading" class="absolute inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50">
+        <div class="absolute animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-blue-500"></div>
+        <img src="{{ asset('favicon.ico') }}" class="rounded-full h-20 w-20">
     </div>
     <div class="flex items-center justify-center min-h-screen bg-gray-100 relative">
         @if (session()->has('invoice_url'))
             <div class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow border my-6 relative" id="invoice">
-                <!-- Konten Invoice Anda di sini -->
                 <div class="grid grid-cols-2 items-center mb-4">
                     <div>
                         <img src="{{ asset('dist/images/logo/zmi-logo-1.webp') }}" class="w-44">
@@ -95,7 +95,9 @@
             function checkPaymentStatus() {
                 if ('{{ $transactionData->keterangan }}' !== 'PENDING') {
                     var encryptedExternalId = '{{ encrypt($transactionData->external_id) }}';
-                    window.location.href = '{{ route('transaksi.show', ['encrypted_external_id' => '__encrypted_external_id__']) }}'.replace('__encrypted_external_id__', encryptedExternalId); 
+                    window.location.href =
+                        '{{ route('transaksi.show', ['encrypted_external_id' => '__encrypted_external_id__']) }}'
+                        .replace('__encrypted_external_id__', encryptedExternalId);
                 } else {
                     $.ajax({
                         url: '{{ route('event.loading', ['kode' => $transactionData->external_id]) }}',
@@ -109,7 +111,7 @@
                     });
                 }
             }
-    
+
             setInterval(function() {
                 checkPaymentStatus();
                 setTimeout(function() {
@@ -118,6 +120,4 @@
             }, 1000);
         });
     </script>
-    
-    
 @endsection

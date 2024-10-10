@@ -81,7 +81,7 @@
                                             <td class="text-sm font-semibold text-gray-600">
                                                 {{ $ticket->jabatan }}
                                             </td>
-                                            <td class="text-sm font-semibold text-gray-600">
+                                            <td class="text-sm font-semibold text-gray-600 uppercase">
                                                 {{ $ticket->type }}
                                             </td>
                                             <td class="text-sm font-semibold text-gray-600">
@@ -90,7 +90,7 @@
                                             <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
                                                 <div class="relative group">
                                                     <a href="{{ route('event.ticket', $ticket->encrypted_kode_invoice) }}"
-                                                        class="text-yellow-400 border border-yellow-400 hover:bg-yellow-500 hover:text-yellow-400 font-medium rounded text-sm px-2.5 py-1.5 m-1 text-center">
+                                                        class="text-yellow-300 border border-yellow-300 hover:bg-yellow-400 hover:text-white font-medium rounded text-sm px-2.5 py-1.5 m-1 text-center">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </a>
                                                 </div>

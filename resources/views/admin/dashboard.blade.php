@@ -54,7 +54,7 @@
                     </div>
                     <hr>
                     <div class="flex space-x-6 col-span-10">
-                        {{-- <div
+                        <div
                             class="w-72 max-w-md bg-white border border-gray-200 rounded-lg shadow-sm mt-4 overflow-hidden col-span-4">
                             <ul class="flex flex-wrap text-sm justify-between font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50"
                                 id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
@@ -66,80 +66,8 @@
                             <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800">
                                 <h1 class="text-4xl font-bold text-left text-blue-700">{{ $recruitmentCount }}</h1>
                             </div>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-
-                            <!-- Line Chart -->
-                            <div class="py-6" id="pie-chart"></div>
-    
-                        </div> --}}
-    
-                        <script>
-                            const getChartOptions = () => {
-                                return {
-                                    series: [20, 35, 15, 10],
-                                    colors: ["#1C64F2", "#16BDCA", "#9061A7"],
-                                    chart: {
-                                        height: 420,
-                                        width: "100%",
-                                        type: "pie",
-                                    },
-                                    stroke: {
-                                        colors: ["white"],
-                                        lineCap: "",
-                                    },
-                                    plotOptions: {
-                                        pie: {
-                                            labels: {
-                                                show: true,
-                                            },
-                                            size: "100%",
-                                            dataLabels: {
-                                                offset: -25
-                                            }
-                                        },
-                                    },
-                                    labels: ["Frontend", "Backend", "Fullstack", "Mobile"],
-                                    dataLabels: {
-                                        enabled: true,
-                                        style: {
-                                            fontFamily: "Inter, sans-serif",
-                                        },
-                                    },
-                                    legend: {
-                                        position: "bottom",
-                                        fontFamily: "Inter, sans-serif",
-                                    },
-                                    yaxis: {
-                                        labels: {
-                                            formatter: function(value) {
-                                                return value + "%"
-                                            },
-                                        },
-                                    },
-                                    xaxis: {
-                                        labels: {
-                                            formatter: function(value) {
-                                                return value + "%"
-                                            },
-                                        },
-                                        axisTicks: {
-                                            show: false,
-                                        },
-                                        axisBorder: {
-                                            show: false,
-                                        },
-                                    },
-                                }
-                            }
-    
-                            if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-                                const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
-                                chart.render();
-                            }
-                        </script>
-                        
                     </div>
                 </div>
 

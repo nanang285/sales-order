@@ -59,8 +59,8 @@
                                         </script>
                                         
                                         <div class="mt-3">
-                                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
-                                            <textarea name="description" id="description" placeholder="Tulis deskripsi acara di sini..."
+                                            <label for="ck-deskripsi" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                                            <textarea name="description" id="ck-deskripsi" placeholder="Tulis deskripsi acara di sini..."
                                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">{!!$event->description!!}</textarea>
                                         </div>
                                     </div>

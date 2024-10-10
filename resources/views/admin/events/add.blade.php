@@ -63,10 +63,10 @@
                                         </script>
 
                                         <div class="mt-3">
-                                            <label for="description"
+                                            <label for="ck-deskripsi"
                                                 class="block mb-2 text-base font-semibold text-gray-700">Deskripsi<span
                                                     class="text-red-600">*</span></label>
-                                            <textarea name="description" id="description" placeholder="Tulis deskripsi acara di sini..." required
+                                            <textarea name="description" id="ck-deskripsi" placeholder="Tulis deskripsi acara di sini..." required
                                                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"></textarea>
                                         </div>
                                     </div>

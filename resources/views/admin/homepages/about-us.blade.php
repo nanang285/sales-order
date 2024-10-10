@@ -31,11 +31,11 @@
                         <div class="bg-white p-6 border rounded-xl col-span-10 lg:col-span-4">
                             <div class="container mx-auto">
                                 <div class="mb-6">
-                                    <label for="description"
+                                    <label for=""
                                         class="block text-gray-700 text-lg font-semibold mb-2">Deskripsi:</label>
                                     <h2 class="text-lg font-normal text-justify mb-4">{{ $aboutUs->description ?? '' }}</h2>
 
-                                    <label for="services" class="block text-gray-700 text-lg font-semibold mb-2">Layanan
+                                    <label for="" class="block text-gray-700 text-lg font-semibold mb-2">Layanan
                                         Unggulan:</label>
                                     @if ($aboutUs->list_items ?? '')
                                         <ul class="list-disc list-inside text-lg">
@@ -44,7 +44,7 @@
                                             @endforeach
                                         </ul>
                                     @else
-                                        <p class="text-gray-500">Tidak ada item yang tersedia.</p>
+                                        <p class="text-gray-500"></p>
                                     @endif
                                 </div>
                             </div>
@@ -52,9 +52,9 @@
 
                         <div class="bg-white p-6 border rounded-xl col-span-10 lg:col-span-6">
                             <div class="mb-4">
-                                <label for="description"
+                                <label for="deskrip"
                                     class="block text-gray-700 text-lg font-semibold mb-2">Deskripsi</label>
-                                <textarea name="description" id="description" rows="4"
+                                <textarea name="description" id="deskrip" rows="4"
                                     class="border border-gray-300 rounded-md h-28 max-h-32 p-2 w-full focus:ring-2 focus:ring-blue-400"
                                     required>{{ $aboutUs->description ?? '' }}</textarea>
                             </div>

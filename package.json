@@ -25,6 +25,6 @@
         "simple-datatables": "^9.1.0"
     },
     "overrides": {
-    "prosemirror-model": "1.19.3"
+        "prosemirror-model": "1.19.3"
     }
 }

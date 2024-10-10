@@ -2,10 +2,10 @@
     <div class="px-3 py-2 lg:py-4 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-between lg:justify-start w-full">
-                <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
+                {{-- <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
                     class="p-3 text-gray-600 rounded cursor-pointer lg:hidden">
                     <i class="fa-solid fa-bars"></i>
-                </button>
+                </button> --}}
 
                 <div class="flex-grow flex justify-center lg:justify-start lg:hidden">
                     <a href="{{ Route('dashboard') }}"

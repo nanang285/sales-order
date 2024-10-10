@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="google-site-verification" content="WzORTiXoo0u85pKD27uXab40Jxy6Ri8AhgRHXaDc8h8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zen Multimedia Indonesia</title>
 
@@ -10,17 +11,13 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 
-    {{-- Datatables --}}
-    <link rel="stylesheet" href="{{asset('dist/styles/datatables.css')}}">
-
     {{-- Favicon Link --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     {{-- CDN Link --}}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -32,14 +29,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            CKEDITOR.replace('description', {
-                removePlugins: 'about', // Menonaktifkan plugin "about"
-                // Tambahkan opsi lainnya sesuai kebutuhan
+            CKEDITOR.replace('ck-deskripsi', {
+                removePlugins: 'about',
             });
         });
     </script>

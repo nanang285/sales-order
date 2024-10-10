@@ -7,12 +7,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const table = document.querySelector("#pagination-table");
     const dataTable = new DataTable(table, {
         "scrollX": true,
-        paging: true, // enable or disable pagination
-        perPage: 10, // set the number of rows per page
-        perPageSelect: [10], // set the number of rows per page options
+        paging: true,
+        perPage: 10,
+        perPageSelect: [10],
         });
 });
-
 
 $(document).ready(function () {
     var animationDuration = 400;

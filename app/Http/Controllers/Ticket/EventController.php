@@ -17,11 +17,12 @@ class EventController extends Controller
 {
     public function index()
     {
-        $this->deleteExpiredEvents();
+        // $this->deleteExpiredEvents();
         $breadcrumbTitle = 'Acara';
-        $latestProject = LatestProject::All();
-        $footerSection = footerSection::first();
-        $events = Event::All();
+        $latestProject = LatestProject::all();
+        $footerSection = FooterSection::first();
+
+        $events = Event::orderBy('created_at', 'desc')->get();
 
         return view('admin.events.list', compact('latestProject', 'footerSection', 'breadcrumbTitle', 'events'));
     }
@@ -47,11 +48,12 @@ class EventController extends Controller
     public function ticket()
     {
         $breadcrumbTitle = 'Acara';
-        $latestProject = LatestProject::All();
-        $footerSection = footerSection::first();
-        $tickets = Ticket::All();
+        $latestProject = LatestProject::all();
+        $footerSection = FooterSection::first();
 
-        // Lakukan enkripsi untuk setiap kode_invoice
+        // Mengambil tiket dan mengurutkannya secara descending berdasarkan created_at
+        $tickets = Ticket::orderBy('created_at', 'desc')->get();
+
         foreach ($tickets as $ticket) {
             $ticket->encrypted_kode_invoice = encrypt($ticket->kode_invoice);
         }
@@ -131,7 +133,6 @@ class EventController extends Controller
 
     public function detail($slug)
     {
-        $this->deleteExpiredEvents();
         $latestProject = LatestProject::all();
         $footerSection = FooterSection::first();
 
@@ -142,7 +143,7 @@ class EventController extends Controller
 
     public function list()
     {
-        $this->deleteExpiredEvents();
+        // $this->deleteExpiredEvents();
         $events = Event::All();
         $latestProject = LatestProject::All();
         $footerSection = footerSection::first();
@@ -337,28 +338,28 @@ class EventController extends Controller
         return redirect()->route('admin.events.index')->with('success', true)->with('toast', 'delete');
     }
 
-    private function deleteExpiredEvents()
-    {
-        // Ambil waktu saat ini
-        $currentTime = now();
+    // private function deleteExpiredEvents()
+    // {
+    //     // Ambil waktu saat ini
+    //     $currentTime = now();
 
-        // Cari semua event yang waktunya sudah terlewati
-        $expiredEvents = Event::where('waktu', '<', $currentTime)->get();
+    //     // Cari semua event yang waktunya sudah terlewati
+    //     $expiredEvents = Event::where('waktu', '<', $currentTime)->get();
 
-        foreach ($expiredEvents as $event) {
-            // Hapus gambar jika ada
-            if ($event->image_path) {
-                Storage::disk('public')->delete('uploads/event/' . $event->image_path);
-            }
+    //     foreach ($expiredEvents as $event) {
+    //         // Hapus gambar jika ada
+    //         if ($event->image_path) {
+    //             Storage::disk('public')->delete('uploads/event/' . $event->image_path);
+    //         }
 
-            // Hapus event dari database
-            $event->delete();
-        }
+    //         // Hapus event dari database
+    //         $event->delete();
+    //     }
 
-        // Optional: Tambahkan notifikasi atau log jika perlu
-        if ($expiredEvents->isNotEmpty()) {
-            // Misalnya, bisa menambahkan flash message
-            session()->flash('success', 'Expired events deleted successfully.');
-        }
-    }
+    //     // Optional: Tambahkan notifikasi atau log jika perlu
+    //     if ($expiredEvents->isNotEmpty()) {
+    //         // Misalnya, bisa menambahkan flash message
+    //         session()->flash('success', 'Expired events deleted successfully.');
+    //     }
+    // }
 }

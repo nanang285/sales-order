@@ -39,6 +39,11 @@
                                         </th>
                                         <th>
                                             <span class="flex items-center text-sm font-bold text-blue-800">
+                                                Perusahaan
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Email
                                             </span>
                                         </th>
@@ -57,11 +62,16 @@
                                                 Keterangan
                                             </span>
                                         </th>
-                                        <th>
+                                        {{-- <th data-type="date">
+                                            <span class="flex items-center text-sm font-bold text-blue-800">
+                                                Waktu
+                                            </span>
+                                        </th> --}}
+                                        {{-- <th>
                                             <span class="flex items-center text-sm font-bold text-blue-800">
                                                 Aksi
                                             </span>
-                                        </th>
+                                        </th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,6 +86,9 @@
                                                 {{ $payment->nama_lengkap }}
                                             </td>
                                             <td class="text-sm font-semibold text-gray-600">
+                                                {{ $payment->nama_perusahaan }}
+                                            </td>
+                                            <td class="text-sm font-semibold text-gray-600">
                                                 {{ $payment->email }}
                                             </td>
                                             <td class="text-sm font-semibold text-gray-600">
@@ -85,11 +98,27 @@
                                                 Rp {{ number_format($payment->harga, 0, ',', '.') }}
                                             </td>
                                             <td class="text-base font-bold">
-                                                <span class="bg-blue-500 rounded p-2 text-white">
-                                                    {{ $payment->keterangan ?? '-' }}
-                                                </span>
+                                                @if ($payment->keterangan === 'PAID')
+                                                    <span class=" rounded p-2 text-green-500">
+                                                        {{ $payment->keterangan }}
+                                                    </span>
+                                                @elseif ($payment->keterangan === 'pending')
+                                                    <span class="ounded p-2 text-red-500">
+                                                        {{ $payment->keterangan }}
+                                                    </span>
+                                                @else
+                                                    <span class="rounded p-2 text-gray-600">
+                                                        {{ $payment->keterangan ?? '-' }}
+                                                    </span>
+                                                @endif
                                             </td>
-                                            <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
+                                            
+                                            {{-- <td class="text-base font-bold">
+                                                <span class="bg-blue-500 rounded p-2 text-white">
+                                                    {{ \Carbon\Carbon::parse($payment->waktu)->translatedFormat('l, d-m-Y H:i:s') }}
+                                                </span>
+                                            </td> --}}
+                                            {{-- <td class="text-sm font-semibold text-gray-600 flex items-center space-x-2">
                                                 <div class="relative group">
                                                     <button data-modal-target="delete_modal_{{ $payment->id }}" data-modal-toggle="delete_modal_{{ $payment->id }}"
                                                         class="text-red-500 border border-red-500 hover:bg-red-500 hover:text-white font-medium rounded text-sm px-2.5 py-1.5 m-1 text-center"
@@ -97,7 +126,7 @@
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -11,7 +11,7 @@
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul
-                class="font-semibold text-base flex flex-col md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0">
+                class="font-semibold text-base flex flex-col md:p-0 mt-4 md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0">
                 <li class="my-1">
                     <a href="{{ Request::is('/') ? '#home' : url('') }}"
                         class="{{ Request::is('/') ? 'text-white' : '' }} text-gray-300 relative hover:text-white focus:text-white text-base font-semibold"

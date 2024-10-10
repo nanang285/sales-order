@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Http;
 class PaymentEventController extends Controller
 {
     // Transaksi Berbayar
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         // Validasi input
         $validated = $request->validate([
