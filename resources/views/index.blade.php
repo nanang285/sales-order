@@ -306,16 +306,18 @@
                         class="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
                         <ul class="brands-wrapper">
                             @foreach ($clientSection as $client)
-                            <li>
-                                <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}" width="170" height="170" />
-                            </li>
+                                <li>
+                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
+                                        width="170" height="170" />
+                                </li>
                             @endforeach
                         </ul>
                         <ul class="brands-wrapper">
                             @foreach ($clientSection as $client)
-                            <li>
-                                <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}" width="170" height="170" />
-                            </li>
+                                <li>
+                                    <img src="{{ asset('storage/uploads/client-section/' . $client->image_path) }}"
+                                        width="170" height="170" />
+                                </li>
                             @endforeach
                         </ul>
                     </div>
